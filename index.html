@@ -536,5 +536,40 @@
 
 <script src="app.js"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(async function loadNews() {
+  try {
+    const response = await fetch('/news/index.json');
+    if (!response.ok) return;
+    
+    const newsList = await response.json();
+    const container = document.getElementById('latestNewsContainer');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    for (const item of newsList.slice(0, 10)) {
+      const mdResponse = await fetch('/news/' + item.file);
+      const mdText = await mdResponse.text();
+      const htmlContent = marked.parse(mdText);
+      
+      const article = document.createElement('article');
+      article.className = 'news-card';
+      article.innerHTML = `
+        <h3>${item.title}</h3>
+        <p>${item.description || ''}</p>
+        <a href="/news/${item.file.replace('.md', '.html')}">Read more →</a>
+      `;
+      container.appendChild(article);
+    }
+  } catch (e) {
+    console.error('News load error:', e);
+  }
+})();
+</script>
+
+    
 </body>
 </html>

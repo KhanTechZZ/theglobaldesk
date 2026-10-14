@@ -1,0 +1,24 @@
+backend:
+  name: github
+  repo: KhanTechZZ/theglobaldesk
+  branch: main
+  base_url: https://tgdnews.pages.dev
+  auth_endpoint: /api/auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "news"
+    label: "News"
+    folder: "news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Category", name: "category", widget: "select", options: ["World", "Politics", "Asia", "Bangladesh", "Business", "Technology", "Science", "Climate", "Environment", "Health", "Culture", "Sports"] }
+      - { label: "Source", name: "source", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }

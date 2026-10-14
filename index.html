@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="The Global Desk — Independent international news, analysis and global affairs.">
+    <meta name="theme-color" content="#071a33">
+
+    <title>The Global Desk | World News & Intelligence</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+
+    <div class="header-main">
+        <div class="header-inner">
+
+            <a href="#" class="brand">
+                <!-- CHANGE YOUR LOGO HERE -->
+                <img src="logo.png" alt="The Global Desk">
+            </a>
+
+            <div class="header-center">
+                <div class="date-line" id="currentDate">
+                    MONDAY, 17 AUGUST 2026
+                </div>
+
+                <div class="live-clock">
+                    <span class="clock-dot"></span>
+                    <span>LIVE</span>
+                    <strong id="liveClock">00:00:00 UTC</strong>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="header-btn" id="searchOpen">
+                    <span>⌕</span> Search
+                </button>
+
+                <button class="header-btn theme-btn" id="themeToggle">
+                    ◐
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+        <div class="nav-inner">
+
+            <a href="#" class="nav-link active">Home</a>
+            <a href="#world" class="nav-link">World</a>
+            <a href="#asia" class="nav-link">Asia</a>
+            <a href="#politics" class="nav-link">Politics</a>
+            <a href="#business" class="nav-link">Business</a>
+            <a href="#science" class="nav-link">Science</a>
+            <a href="#technology" class="nav-link">Technology</a>
+            <a href="#climate" class="nav-link">Climate</a>
+            <a href="#culture" class="nav-link">Culture</a>
+
+            <button class="more-btn" id="moreBtn">
+                More ▾
+            </button>
+
+        </div>
+    </nav>
+
+</header>
+
+
+<!-- ================= BREAKING NEWS ================= -->
+<section class="breaking-bar">
+
+    <div class="breaking-inner">
+
+        <div class="breaking-label">
+            <span class="breaking-pulse"></span>
+            <strong>BREAKING</strong>
+        </div>
+
+        <div class="breaking-track">
+            <div class="breaking-content" id="breakingNews">
+                The Global Desk Now live!
+            </div>
+        </div>
+
+        <button class="breaking-next" id="breakingNext">
+            ›
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SEARCH OVERLAY ================= -->
+<div class="search-overlay" id="searchOverlay">
+
+    <div class="search-panel">
+
+        <button class="search-close" id="searchClose">×</button>
+
+        <span class="search-kicker">THE GLOBAL DESK SEARCH</span>
+
+        <h2>What are you looking for?</h2>
+
+        <div class="search-box-large">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search stories, countries, topics..."
+                autocomplete="off"
+            >
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div id="searchResults" class="search-results"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+<main class="main-container">
+
+
+    <!-- TOP AD -->
+    <div class="ad-slot ad-top">
+        <span>YOUR AD IS HARE</span>
+    </div>
+
+
+    <!-- ================= HERO ================= -->
+    <section class="hero-section">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">GLOBAL NEWSROOM</span>
+                <h1>Top News</h1>
+            </div>
+
+            <span class="updated">
+                Updated <span id="updateTime">just now</span>
+            </span>
+        </div>
+
+
+        <div class="hero-grid" id="heroGrid">
+
+            <!-- JS inserts hero story -->
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= QUICK BRIEF ================= -->
+    <section class="brief-section">
+
+        <div class="section-heading compact">
+            <div>
+                <span class="section-kicker">IN 60 SECONDS</span>
+                <h2>World Briefing...</h2>
+            </div>
+        </div>
+
+        <div class="brief-grid" id="briefGrid">
+
+            <article class="brief-card">
+                <span class="brief-number">01</span>
+                <p>The Global Desk is live now!</p>
+            </article>
+
+            <article class="brief-card">
+                <span class="brief-number">02</span>
+                <p>Diplomatic activity continues across key international regions.</p>
+            </article>
+
+            <article class="brief-card">
+                <span class="brief-number">03</span>
+                <p>Technology and climate policy remain major global priorities.</p>
+            </article>
+
+            <article class="brief-card">
+                <span class="brief-number">04</span>
+                <p>Asia remains central to the changing global economic landscape.</p>
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTENT LAYOUT ================= -->
+    <div class="content-layout">
+
+        <!-- LEFT -->
+        <div class="news-column">
+
+            <section id="world">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker">LATEST</span>
+                        <h2>Latest News</h2>
+                    </div>
+
+                    <button class="view-all" id="refreshNews">
+                        Refresh ↻
+                    </button>
+                </div>
+
+                <div class="news-list" id="latestNews"></div>
+
+            </section>
+
+
+            <!-- MID AD -->
+            <div class="ad-slot ad-middle">
+                <span>ADVERTISEMENT</span>
+            </div>
+
+
+            <!-- MOST READ -->
+            <section class="most-read-section">
+
+                <div class="section-heading compact">
+
+                    <div>
+                        <span class="section-kicker">READERS' CHOICE</span>
+                        <h2>Most Read</h2>
+                    </div>
+
+                </div>
+
+                <div class="most-read-list" id="mostRead"></div>
+
+            </section>
+
+        </div>
+
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="sidebar">
+
+
+            <!-- EDITOR'S PICK -->
+            <section class="sidebar-section">
+
+                <div class="sidebar-title">
+                    <span>EDITOR'S PICK</span>
+                </div>
+
+                <div class="editors-card">
+
+                    <div class="editors-image"></div>
+
+                    <div class="editors-content">
+
+                        <span class="category-label">
+                            ANALYSIS
+                        </span>
+
+                        <h3>
+                            Understanding the forces reshaping the world around us
+                        </h3>
+
+                        <p>
+                            A deeper look at the developments shaping international affairs.
+                        </p>
+
+                        <a href="#" class="read-link">
+                            Read analysis →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- NEWSLETTER -->
+            <section class="newsletter-card">
+
+                <span class="newsletter-kicker">
+                    THE GLOBAL BRIEF
+                </span>
+
+                <h2>
+                    Start your day informed.
+                </h2>
+
+                <p>
+                    A concise selection of important global stories delivered to your inbox.
+                </p>
+
+                <form id="newsletterForm">
+
+                    <input
+                        type="email"
+                        id="newsletterEmail"
+                        placeholder="Your email address"
+                        required
+                    >
+
+                    <button type="submit">
+                        Subscribe
+                    </button>
+
+                </form>
+
+                <small>
+                    No spam. Unsubscribe anytime.
+                </small>
+
+            </section>
+
+
+            <!-- SIDEBAR AD -->
+            <div class="ad-slot ad-sidebar">
+                <span>ADVERTISEMENT</span>
+            </div>
+
+
+            <!-- TRUST CARD -->
+            <section class="trust-card">
+
+                <span class="section-kicker">
+                    WHY THE GLOBAL DESK
+                </span>
+
+                <h3>
+                    News with context.
+                </h3>
+
+                <p>
+                    We aim to make complex international developments easier
+                    to understand through clear reporting and thoughtful analysis.
+                </p>
+
+                <a href="#about">
+                    About our newsroom →
+                </a>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+
+    <!-- ================= TOPICS ================= -->
+    <section class="topics-section">
+
+        <div class="section-heading compact">
+
+            <div>
+                <span class="section-kicker">EXPLORE</span>
+                <h2>Key Topics</h2>
+            </div>
+
+        </div>
+
+        <div class="topics-grid">
+
+            <a href="#world" class="topic-card">
+                <span>🌍</span>
+                <strong>World</strong>
+                <small>Global affairs</small>
+            </a>
+
+            <a href="#asia" class="topic-card">
+                <span>🌏</span>
+                <strong>Asia</strong>
+                <small>Regional developments</small>
+            </a>
+
+            <a href="#business" class="topic-card">
+                <span>◈</span>
+                <strong>Business</strong>
+                <small>Markets & economy</small>
+            </a>
+
+            <a href="#science" class="topic-card">
+                <span>⚛</span>
+                <strong>Science</strong>
+                <small>Research & discovery</small>
+            </a>
+
+            <a href="#technology" class="topic-card">
+                <span>⌘</span>
+                <strong>Technology</strong>
+                <small>Digital world</small>
+            </a>
+
+            <a href="#climate" class="topic-card">
+                <span>♧</span>
+                <strong>Climate</strong>
+                <small>Planet & environment</small>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+    <section class="about-section" id="about">
+
+        <div class="about-content">
+
+            <span class="section-kicker">
+                ABOUT THE GLOBAL DESK
+            </span>
+
+            <h2>
+                Understanding the world,
+                one story at a time.
+            </h2>
+
+            <p>
+                The Global Desk is an independent digital news platform
+                focused on international affairs, geopolitics, economics,
+                science, technology and the forces shaping our changing world.
+            </p>
+
+        </div>
+
+        <div class="about-stat-grid">
+
+            <div>
+                <strong>24/7</strong>
+                <span>Global Monitoring</span>
+            </div>
+
+            <div>
+                <strong>100+</strong>
+                <span>Topics Covered</span>
+            </div>
+
+            <div>
+                <strong>GLOBAL</strong>
+                <span>Perspective</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+
+    <div class="footer-main">
+
+        <div class="footer-brand">
+
+            <img src="logo.png" alt="The Global Desk">
+
+            <p>
+                International news, analysis and global affairs.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Explore</h4>
+
+            <a href="#world">World</a>
+            <a href="#asia">Asia</a>
+            <a href="#business">Business</a>
+            <a href="#science">Science</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Information</h4>
+
+            <a href="#about">About Us</a>
+            <a href="#">Editorial Policy</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Follow</h4>
+
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">YouTube</a>
+            <a href="#" target="_blank">X / Twitter</a>
+            <a href="#" target="_blank">Instagram</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 The Global Desk. All Rights Reserved.
+        </span>
+
+        <span>
+            Independent International News Platform
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <span>✓</span>
+    <p id="toastMessage">Done</p>
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

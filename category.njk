@@ -1,0 +1,22 @@
+---
+pagination:
+  data: categories
+  size: 1
+  alias: categoryName
+permalink: /category/{{ categoryName | slug }}/
+layout: list-layout.njk
+eleventyComputed:
+  pageTitle: "{{ categoryName }} News"
+  activeCategory: "{{ categoryName }}"
+categories:
+  - World
+  - Asia
+  - Explainer
+  - Politics
+  - Economy
+  - Tech and AI
+  - Science
+  - Environment
+  - Research
+  - Human Rights
+---

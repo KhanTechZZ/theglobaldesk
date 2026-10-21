@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://tgdnews.pages.dev/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/news/test-news/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/news/the-global-desk-is-now-published/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/404/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/category/world/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/archive/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/alpha-desk/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/z-desk/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/about/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/contact/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/privacy/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://tgdnews.pages.dev/editorial-policy/</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        
+    
+</urlset>

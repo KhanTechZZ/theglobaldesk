@@ -1,0 +1,21 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://tgdnews.pages.dev/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    {% for page in collections.all %}
+        {% if "/admin/" not in page.url and page.url != "/404.html" and page.url != "/sitemap.xml" and page.url != "/robots.txt" %}
+        <url>
+            <loc>https://tgdnews.pages.dev{{ page.url }}</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        {% endif %}
+    {% endfor %}
+</urlset>

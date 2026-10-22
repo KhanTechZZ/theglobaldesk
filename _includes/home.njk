@@ -92,36 +92,141 @@
 </section>
 
 <main class="main-container">
-    <section class="latest-section">
-        <div class="section-heading">
-            <div><span class="section-kicker">LATEST</span><h1>Latest News</h1></div>
-            <span class="updated">Updated just now</span>
-        </div>
 
-        <div class="news-list">
-            {% set allNews = collections.news | reverse %}
-            {% for story in allNews %}
-            {% if loop.index <= 6 %}
-            <article class="news-card {% if loop.first %}news-card-featured{% else %}news-card-small{% endif %}" style="animation-delay: {{ loop.index * 0.06 }}s">
-                <a href="{{ story.url }}" class="news-card-link">
-                    {% if story.data.image %}<img src="{{ story.data.image }}" alt="{{ story.data.title }}" class="news-image" loading="lazy">{% else %}<div class="news-image news-image-placeholder"></div>{% endif %}
-                    <div class="news-info">
-                        <span class="category-label">{{ story.data.category }}</span>
-                        <h3>{{ story.data.title }}</h3>
-                        <p>{{ story.data.description }}</p>
-                        <div class="news-meta">
-                            <span class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</span>
-                            — {{ story.data.source or "The Global Desk" }}
+    <div class="home-top-bar">
+        <div>
+            <span class="section-kicker">LATEST</span>
+            <h1 class="home-title">Top News</h1>
+        </div>
+        <span class="updated">Updated just now</span>
+    </div>
+
+    {% set allNews = collections.news | reverse %}
+
+    {% if allNews.length %}
+    <div class="home-grid">
+
+        <!-- LEFT COLUMN -->
+        <aside class="home-left">
+            <div class="side-heading">
+                <span class="section-kicker">MORE NEWS</span>
+                <h3>Latest Updates</h3>
+            </div>
+            <div class="side-news-list">
+                {% for story in allNews %}
+                    {% if loop.index > 1 and loop.index <= 5 %}
+                    <article class="side-news-card">
+                        <a href="{{ story.url }}" class="side-news-link">
+                            {% if story.data.image %}
+                            <div class="side-news-img-wrap">
+                                <img src="{{ story.data.image }}" alt="{{ story.data.title }}" class="side-news-img" loading="lazy">
+                            </div>
+                            {% endif %}
+                            <span class="category-label">{{ story.data.category }}</span>
+                            <h4>{{ story.data.title }}</h4>
+                            <div class="side-news-meta">
+                                <span class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</span>
+                            </div>
+                        </a>
+                    </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </aside>
+
+        <!-- MIDDLE COLUMN -->
+        <section class="home-center">
+            {% set featured = allNews[0] %}
+            <article class="hero-news-card">
+                <a href="{{ featured.url }}" class="hero-news-link">
+                    {% if featured.data.image %}
+                    <div class="hero-news-image-wrap">
+                        <img src="{{ featured.data.image }}" alt="{{ featured.data.title }}" class="hero-news-image">
+                    </div>
+                    {% endif %}
+                    <div class="hero-news-content">
+                        <span class="category-label">{{ featured.data.category | upper }}</span>
+                        <h2 class="hero-news-title">{{ featured.data.title }}</h2>
+                        <p class="hero-news-desc">{{ featured.data.description }}</p>
+                        <div class="hero-news-meta">
+                            <i class="fa-regular fa-user"></i> By <strong>The Global Desk</strong>
+                            <span class="meta-divider">|</span>
+                            <span class="time-ago" data-published="{{ featured.data.date | isoDate }}">{{ featured.data.date | readableDate }}</span>
+                            {% if featured.data.source %}<span class="meta-divider">|</span> {{ featured.data.source }}{% endif %}
                         </div>
                     </div>
                 </a>
             </article>
+
+            {% if allNews.length > 5 %}
+            {% set secondary = allNews[5] %}
+            <article class="secondary-news-card">
+                <a href="{{ secondary.url }}" class="secondary-news-link">
+                    {% if secondary.data.image %}
+                    <div class="secondary-news-img-wrap">
+                        <img src="{{ secondary.data.image }}" alt="{{ secondary.data.title }}" class="secondary-news-img" loading="lazy">
+                    </div>
+                    {% endif %}
+                    <div class="secondary-news-content">
+                        <span class="category-label">{{ secondary.data.category }}</span>
+                        <h3>{{ secondary.data.title }}</h3>
+                        <p>{{ secondary.data.description }}</p>
+                    </div>
+                </a>
+            </article>
             {% endif %}
-            {% else %}
-            <p class="no-news">No news published yet.</p>
-            {% endfor %}
-        </div>
-    </section>
+        </section>
+
+        <!-- RIGHT COLUMN -->
+        <aside class="home-right">
+            <div class="sidebar-widget">
+                <div class="widget-heading">
+                    <i class="fa-solid fa-fire"></i>
+                    <h4>Trending Now</h4>
+                </div>
+                <ol class="trending-list">
+                    {% for story in allNews %}
+                        {% if loop.index <= 5 %}
+                        <li>
+                            <a href="{{ story.url }}">
+                                <span class="trending-rank">{{ "%02d" | format(loop.index) }}</span>
+                                <span class="trending-title">{{ story.data.title }}</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="widget-heading">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h4>Categories</h4>
+                </div>
+                <div class="categories-list">
+                    <a href="/category/world/">World</a>
+                    <a href="/category/asia/">Asia</a>
+                    <a href="/category/explainer/">Explainer</a>
+                    <a href="/category/politics/">Politics</a>
+                    <a href="/category/economy/">Economy</a>
+                    <a href="/category/tech-and-ai/">Tech and AI</a>
+                    <a href="/category/science/">Science</a>
+                    <a href="/category/environment/">Environment</a>
+                </div>
+            </div>
+
+            <div class="sidebar-widget newsletter-widget">
+                <h4>Get the Daily Brief</h4>
+                <p>Global stories delivered to your inbox every morning.</p>
+                <a href="/about/" class="widget-btn">Learn More →</a>
+            </div>
+        </aside>
+
+    </div>
+    {% else %}
+    <p class="no-news">No news published yet.</p>
+    {% endif %}
+
 </main>
 
 <footer class="site-footer">

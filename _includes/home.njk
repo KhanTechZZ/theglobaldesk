@@ -189,7 +189,7 @@
                         {% if loop.index <= 5 %}
                         <li>
                             <a href="{{ story.url }}">
-                                <span class="trending-rank">{{ "%02d" | format(loop.index) }}</span>
+                                <span class="trending-rank">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
                                 <span class="trending-title">{{ story.data.title }}</span>
                             </a>
                         </li>

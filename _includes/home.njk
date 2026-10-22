@@ -106,7 +106,6 @@
     {% if allNews.length %}
     <div class="home-grid">
 
-        <!-- LEFT COLUMN -->
         <aside class="home-left">
             <div class="side-heading">
                 <span class="section-kicker">ALSO IN THE NEWS</span>
@@ -134,7 +133,6 @@
             </div>
         </aside>
 
-        <!-- MIDDLE COLUMN -->
         <section class="home-center">
             {% set featured = allNews[0] %}
             <article class="hero-news-card">
@@ -177,7 +175,6 @@
             {% endif %}
         </section>
 
-        <!-- RIGHT COLUMN -->
         <aside class="home-right">
             <div class="sidebar-widget">
                 <div class="widget-heading">
@@ -215,10 +212,26 @@
                 </div>
             </div>
 
+            <!-- ✅ WORKING NEWSLETTER FORM -->
             <div class="sidebar-widget newsletter-widget">
                 <h4>The Morning Brief</h4>
-                <p>Global stories delivered to your inbox every morning.</p>
-                <a href="/about/" class="widget-btn">Learn More →</a>
+                <p>Get the top global stories in your inbox every morning.</p>
+                <form
+                    action="https://buttondown.com/api/emails/embed-subscribe/theglobaldesk"
+                    method="post"
+                    class="newsletter-form"
+                    target="popupwindow"
+                    onsubmit="window.open('https://buttondown.com/theglobaldesk', 'popupwindow', 'width=500,height=600,scrollbars=yes');">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Your email address"
+                        required
+                        autocomplete="email"
+                        aria-label="Email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+                <small>No spam. Unsubscribe anytime.</small>
             </div>
         </aside>
 

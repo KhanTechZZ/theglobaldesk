@@ -7,18 +7,47 @@
     <title>{{ title }} - The Global Desk</title>
     <meta name="description" content="{{ description or 'Read the latest international news on The Global Desk.' }}">
     <meta name="author" content="{{ source or 'The Global Desk' }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://tgdnews.pages.dev{{ page.url }}">
 
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://tgdnews.pages.dev{{ page.url }}">
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{{ description }}">
     {% if image %}<meta property="og:image" content="https://tgdnews.pages.dev{{ image }}">{% else %}<meta property="og:image" content="https://tgdnews.pages.dev/Logo.png">{% endif %}
 
+    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="{{ title }}">
     <meta property="twitter:description" content="{{ description }}">
+
+    <!-- Google NewsArticle Schema (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": {{ title | jsonify | safe }},
+      "image": [
+        {% if image %}"https://tgdnews.pages.dev{{ image }}"{% else %}"https://tgdnews.pages.dev/Logo.png"{% endif %}
+       ],
+      "datePublished": {{ date | isoDate | jsonify | safe }},
+      "dateModified": {{ date | isoDate | jsonify | safe }},
+      "author": {
+        "@type": "Person",
+        "name": "The Global Desk"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Global Desk",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://tgdnews.pages.dev/Logo.png"
+        }
+      },
+      "description": {{ description | jsonify | safe }}
+    }
+    </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
@@ -37,9 +66,7 @@
             </div>
             <div class="utility-right">
                 <a href="https://facebook.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://x.com/thegdeskHQ" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
+                <a href="https://x.com/thegdeskHQ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
                 <a href="https://youtube.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://instagram.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://tiktok.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>

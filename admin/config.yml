@@ -5,31 +5,43 @@ backend:
   base_url: https://tgdnews.pages.dev
   auth_endpoint: /api/auth
 
+# সাইটের অ্যাডমিন হেডারে লোগো দেখানোর জন্য
+logo_url: "/Logo.png"
+locale: 'en'
+
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   - name: "news"
-    label: "News"
+    label: "📰 News Articles"
+    label_singular: "News Article"
+    description: "Write and publish new stories here."
     folder: "news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Headline", name: "title", widget: "string", hint: "Write a clear and attractive headline" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Category", name: "category", widget: "select", options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] }
-      - { label: "Source", name: "source", widget: "string", required: false }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Image", name: "image", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { 
+          label: "Category", 
+          name: "category", 
+          widget: "select", 
+          options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] 
+        }
+      - { label: "Short Description (Excerpt)", name: "description", widget: "text", hint: "2-3 sentence summary for the homepage." }
+      - { label: "Source", name: "source", widget: "string", required: false, hint: "e.g., Reuters, AP" }
+      - { label: "Cover Image", name: "image", widget: "image", required: false }
+      - { label: "Body Content", name: "body", widget: "markdown" }
 
   - name: "breaking"
-    label: "Breaking News"
+    label: "🚨 Breaking News"
+    label_singular: "Breaking News Ticker"
     folder: "breaking"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}"
     fields:
-      - { label: "Headline", name: "title", widget: "string", hint: "Short, urgent breaking news headline" }
-      - { label: "Expiry Date & Time", name: "expires", widget: "datetime", hint: "এই সময়ের পর সাইটে আর দেখাবে না" }
+      - { label: "Headline", name: "title", widget: "string" }
+      - { label: "Expiry Date & Time", name: "expires", widget: "datetime" }
       - { label: "Priority", name: "priority", widget: "select", options: ["Normal", "High"], default: "Normal" }
-      - { label: "Active", name: "active", widget: "boolean", default: true, hint: "Uncheck করলে সাথে সাথে সাইট থেকে সরবে" }
+      - { label: "Active", name: "active", widget: "boolean", default: true }

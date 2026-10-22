@@ -6,31 +6,46 @@
   <title>The Global Desk | Admin Panel</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Custom Theme for Decap CMS -->
   <style>
-    /* লগইন স্ক্রিনের ডিজাইন */
-    body {
-      background-color: #061a33 !important;
+    /* লগইন ও মেইন ব্যাকগ্রাউন্ড */
+    body, #root {
+      background-color: #f5f7fa !important;
       font-family: 'Arial', sans-serif;
     }
+    
     /* অ্যাডমিন প্যানেলের টপবার */
     header[role="banner"] {
-      background-color: #092646 !important;
+      background-color: #061a33 !important;
       border-bottom: 3px solid #c99a3b !important;
     }
+    
     /* সাইডবারের কালার */
     aside[role="navigation"] {
-      background-color: #f5f7fa !important;
+      background-color: #ffffff !important;
+      border-right: 1px solid #dfe5eb !important;
     }
-    /* বাটনগুলো সোনালি করা */
-    .css-1hr9jj9-Button, button[type="submit"] {
+    
+    /* সাইডবারের লিংক হোভার */
+    aside[role="navigation"] a:hover {
+      background-color: #eaf3fb !important;
+      color: #0d4f91 !important;
+    }
+
+    /* মূল অ্যাকশন বাটনগুলো (Publish) সোনালি করা */
+    button[type="submit"], .css-1hr9jj9-Button {
       background-color: #c99a3b !important;
       color: #061a33 !important;
-      font-weight: bold !important;
+      font-weight: 800 !important;
+      border-radius: 6px !important;
     }
-    /* মিডিয়া লাইব্রেরি */
-    .css-1y7j4g6-Icon {
-      color: #c99a3b !important;
+    button[type="submit"]:hover {
+      background-color: #e5c06b !important;
+    }
+
+    /* লগইন স্ক্রিনের কার্ড */
+    .css-1yn2hh6-Card {
+      border-top: 4px solid #c99a3b !important;
+      box-shadow: 0 10px 30px rgba(7, 28, 50, 0.15) !important;
     }
   </style>
 </head>

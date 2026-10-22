@@ -5,232 +5,355 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Global Desk — Admin</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
     /* =========================================================
-       ADMIN PANEL — THE GLOBAL DESK BRAND
+       THE GLOBAL DESK — ADMIN PANEL (NEW DESIGN)
        ========================================================= */
 
-    /* Body */
-    body, #root, #nc-root {
-      font-family: Arial, Helvetica, sans-serif !important;
+    html, body, #root, #nc-root {
+      font-family: 'Inter', Arial, Helvetica, sans-serif !important;
+      background: #f0f4f8 !important;
     }
 
-    /* LOGIN SCREEN */
-    body:not(:has([role="banner"])) #root {
-      background: linear-gradient(135deg, #061a33 0%, #0d4f91 100%) !important;
+    /* ----- LOGIN SCREEN ----- */
+    body:not(:has(header[role="banner"])) {
+      background: linear-gradient(135deg, #061a33 0%, #0d4f91 60%, #c99a3b 100%) !important;
+      background-size: 400% 400% !important;
+      animation: gradientShift 12s ease infinite !important;
+    }
+    @keyframes gradientShift {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
-    /* Logo area at top */
+    /* ----- TOP HEADER (Brand Bar) ----- */
     header[role="banner"] {
-      background: #061a33 !important;
+      background: linear-gradient(90deg, #030f1e 0%, #061a33 100%) !important;
       border-bottom: 3px solid #c99a3b !important;
-      padding: 12px 24px !important;
+      padding: 0 24px !important;
+      min-height: 68px !important;
+      display: flex !important;
+      align-items: center !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
     }
 
-    header[role="banner"] img {
-      max-height: 42px !important;
+    /* Logo — dark pill background so white logo is visible */
+    header[role="banner"] img,
+    header[role="banner"] a img {
+      max-height: 38px !important;
       width: auto !important;
+      display: block !important;
+      background: #030f1e !important;
+      padding: 6px 10px !important;
+      border-radius: 8px !important;
+      border: 1px solid rgba(201, 154, 59, 0.4) !important;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4) !important;
     }
 
-    /* Top nav links */
+    /* Brand name after logo */
+    header[role="banner"]::after {
+      content: "NEWSROOM";
+      color: #c99a3b;
+      font-weight: 900;
+      font-size: 11px;
+      letter-spacing: 3px;
+      margin-left: 16px;
+      padding: 6px 14px;
+      border-left: 2px solid rgba(201, 154, 59, 0.3);
+    }
+
     header[role="banner"] nav a,
-    header[role="banner"] button {
-      color: #E2E8F0 !important;
+    header[role="banner"] button:not([type="submit"]) {
+      color: #cbd5e1 !important;
       font-weight: 600 !important;
+      transition: color 0.15s !important;
     }
-    header[role="banner"] nav a:hover {
-      color: #e5c06b !important;
-    }
+    header[role="banner"] nav a:hover { color: #e5c06b !important; }
 
-    /* Sidebar */
-    aside[role="navigation"] {
-      background: #f8fafc !important;
+    /* ----- SIDEBAR (Modern) ----- */
+    aside[role="navigation"],
+    [class*="Sidebar"] {
+      background: #ffffff !important;
       border-right: 1px solid #e2e8f0 !important;
       padding: 20px 12px !important;
     }
 
-    aside[role="navigation"] a {
-      border-radius: 8px !important;
+    aside[role="navigation"] a,
+    [class*="Sidebar"] a {
+      border-radius: 10px !important;
       margin: 4px 0 !important;
-      padding: 10px 14px !important;
-      color: #334155 !important;
+      padding: 12px 16px !important;
+      color: #475569 !important;
       font-weight: 600 !important;
+      font-size: 14px !important;
       transition: all 0.15s ease !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
     }
-
-    aside[role="navigation"] a:hover {
+    aside[role="navigation"] a:hover,
+    [class*="Sidebar"] a:hover {
       background: #eaf3fb !important;
       color: #0d4f91 !important;
+      transform: translateX(3px) !important;
     }
 
-    /* Publish / Submit buttons — Gold */
+    /* Active sidebar item (gold) */
+    [class*="Sidebar"] a[class*="Active"],
+    [class*="Sidebar"] a[aria-current="page"] {
+      background: linear-gradient(90deg, #c99a3b 0%, #e5c06b 100%) !important;
+      color: #061a33 !important;
+      font-weight: 800 !important;
+      box-shadow: 0 4px 12px rgba(201,154,59,0.3) !important;
+    }
+
+    /* ----- BUTTONS (Gold Primary) ----- */
     button[type="submit"],
-    .css-1hr9jj9-Button,
-    [class*="ToolbarButton"] {
-      background-color: #c99a3b !important;
+    [class*="ToolbarButton"]:not([class*="Disabled"]),
+    [class*="ButtonPrimary"],
+    [class*="SaveButton"] {
+      background: linear-gradient(135deg, #c99a3b 0%, #e5c06b 100%) !important;
       color: #061a33 !important;
       font-weight: 800 !important;
-      border-radius: 8px !important;
+      border-radius: 10px !important;
       border: none !important;
+      padding: 10px 22px !important;
+      box-shadow: 0 4px 15px rgba(201,154,59,0.3) !important;
+      transition: all 0.2s !important;
     }
-
     button[type="submit"]:hover,
-    .css-1hr9jj9-Button:hover {
-      background-color: #e5c06b !important;
+    [class*="ToolbarButton"]:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 25px rgba(201,154,59,0.4) !important;
     }
 
-    /* Primary action buttons */
-    .css-1d7e1kh-ButtonPrimary {
-      background: #c99a3b !important;
-      color: #061a33 !important;
+    /* Secondary buttons (Edit/Delete) */
+    [class*="ToolbarButton"] {
+      border: 1px solid #cbd5e1 !important;
+      color: #334155 !important;
+      background: #ffffff !important;
     }
 
-    /* Card corners */
-    .css-1yn2hh6-Card,
+    /* ----- CARDS ----- */
     [class*="Card"] {
-      border-radius: 12px !important;
+      border-radius: 16px !important;
+      border: 1px solid #e2e8f0 !important;
       border-top: 4px solid #c99a3b !important;
-      box-shadow: 0 15px 50px rgba(7, 28, 50, 0.15) !important;
+      box-shadow: 0 10px 40px rgba(7, 28, 50, 0.08) !important;
+      background: #ffffff !important;
     }
 
-    /* Login button */
-    .css-9x2mzs-ButtonLogin,
-    button[class*="Login"] {
-      background: #c99a3b !important;
-      color: #061a33 !important;
-      font-weight: 800 !important;
-    }
-    .css-9x2mzs-ButtonLogin:hover {
-      background: #e5c06b !important;
-    }
-
-    /* Field labels — bold & navy */
+    /* ----- FORM FIELDS ----- */
     label[class*="FieldLabel"] {
       color: #061a33 !important;
       font-weight: 700 !important;
-      font-size: 13px !important;
-      letter-spacing: 0.02em !important;
+      font-size: 14px !important;
+      letter-spacing: -0.01em !important;
+      margin-bottom: 8px !important;
+      display: block !important;
     }
 
-    /* Hint text */
     [class*="FieldHint"] {
       color: #64748b !important;
-      font-size: 12px !important;
+      font-size: 12.5px !important;
+      line-height: 1.5 !important;
+      background: #f8fafc !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      border-left: 3px solid #c99a3b !important;
+      margin-top: 6px !important;
     }
 
-    /* Input borders */
     input, textarea, select {
-      border-radius: 8px !important;
+      border-radius: 10px !important;
+      border: 1.5px solid #e2e8f0 !important;
+      padding: 12px 14px !important;
+      font-size: 14px !important;
+      transition: all 0.15s !important;
     }
     input:focus, textarea:focus, select:focus {
       border-color: #c99a3b !important;
-      box-shadow: 0 0 0 3px rgba(201, 154, 59, 0.15) !important;
+      box-shadow: 0 0 0 4px rgba(201, 154, 59, 0.12) !important;
+      outline: none !important;
     }
 
-    /* =========================================================
-       LIVE PREVIEW STYLES (uses classes from /style.css)
-       ========================================================= */
+    /* Image upload widget — larger drop zone */
+    [class*="ImageWidget"] {
+      border: 2px dashed #cbd5e1 !important;
+      border-radius: 12px !important;
+      padding: 20px !important;
+      transition: all 0.2s !important;
+    }
+    [class*="ImageWidget"]:hover {
+      border-color: #c99a3b !important;
+      background: #fefcf5 !important;
+    }
 
-    .preview-article {
-      max-width: 100%;
-      background: #ffffff;
-      padding: 30px;
+    /* ----- PREVIEW PANEL ----- */
+    .preview-wrap {
+      background: linear-gradient(135deg, #f0f4f8 0%, #f8fafc 100%);
+      padding: 28px;
+      min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
     }
-
+    .preview-tag {
+      display: inline-block;
+      background: #061a33;
+      color: #c99a3b;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .preview-article {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(7,28,50,0.1);
+      max-width: 780px;
+      margin: 0 auto;
+    }
     .preview-article .preview-cat {
       display: inline-block;
       color: #c99a3b;
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: 1.8px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #c99a3b;
     }
-
     .preview-article h1 {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 32px;
+      font-size: 38px;
       line-height: 1.15;
       color: #061a33;
-      margin: 0 0 18px;
+      margin: 0 0 20px;
       letter-spacing: -0.5px;
     }
-
     .preview-article .preview-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       color: #667383;
       font-size: 13px;
       padding-bottom: 20px;
-      margin-bottom: 25px;
-      border-bottom: 1px solid #dfe5eb;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #e2e8f0;
     }
-
     .preview-article .preview-image {
       width: 100%;
-      max-height: 320px;
+      max-height: 340px;
       object-fit: cover;
-      border-radius: 10px;
-      margin: 20px 0 30px;
+      border-radius: 12px;
+      margin: 0 0 28px;
       display: block;
+      background: #e2e8f0;
     }
-
+    .preview-article .preview-desc {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #4a5663;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: #f8fafc;
+      border-left: 4px solid #c99a3b;
+      border-radius: 0 8px 8px 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
     .preview-article .preview-body {
       font-family: Georgia, "Times New Roman", serif;
       font-size: 17px;
       line-height: 1.8;
       color: #273545;
     }
-
     .preview-article .preview-body h2,
     .preview-article .preview-body h3 {
       font-family: Georgia, serif;
       color: #061a33;
+      margin: 28px 0 14px;
     }
-
-    .preview-article .preview-body p {
-      margin-bottom: 16px;
-    }
-
+    .preview-article .preview-body p { margin-bottom: 18px; }
     .preview-article .preview-body blockquote {
       border-left: 4px solid #c99a3b;
-      padding-left: 20px;
+      padding: 12px 20px;
+      background: #f8fafc;
+      border-radius: 0 8px 8px 0;
       font-style: italic;
       color: #4a5663;
       margin: 20px 0;
     }
-
-    .preview-article .preview-placeholder {
+    .preview-article .preview-body img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .preview-placeholder {
       color: #94a3b8;
       font-style: italic;
       font-size: 15px;
+      padding: 20px;
+      text-align: center;
+      border: 2px dashed #e2e8f0;
+      border-radius: 8px;
     }
 
+    /* Breaking preview */
     .preview-breaking {
-      background: #061a33;
+      background: linear-gradient(135deg, #061a33 0%, #0d4f91 100%);
       color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      font-family: Arial, sans-serif;
+      padding: 36px;
+      border-radius: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(7,28,50,0.3);
     }
     .preview-breaking .badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background: #c51f2d;
       color: #fff;
-      padding: 4px 10px;
-      border-radius: 4px;
+      padding: 6px 14px;
+      border-radius: 6px;
       font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      margin-bottom: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(197,31,45,0.5); }
+      50% { box-shadow: 0 0 0 10px rgba(197,31,45,0); }
+    }
+    .preview-breaking .badge::before {
+      content: "●";
+      color: #fff;
     }
     .preview-breaking h2 {
-      font-size: 22px;
-      margin: 0 0 10px;
+      font-family: Georgia, serif;
+      font-size: 26px;
+      line-height: 1.3;
+      margin: 0 0 18px;
+      color: #ffffff;
     }
     .preview-breaking .meta {
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.7);
       font-size: 13px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .preview-breaking .meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
   </style>
 </head>
@@ -239,61 +362,135 @@
 
   <script>
   /* =========================================================
-     LIVE PREVIEW TEMPLATE — NEWS
+     LIVE PREVIEW TEMPLATES — FULLY FIXED
      ========================================================= */
+
   window.addEventListener('load', function() {
-    if (!window.CMS) return;
+    if (typeof CMS === 'undefined') return;
 
-    // News preview
-    window.CMS.registerPreviewTemplate('news', function(props) {
+    /**
+     * Robust image URL resolver
+     * Handles: uploaded assets, relative paths, absolute URLs, null
+     */
+    function getImageUrl(props, imagePath) {
+      if (!imagePath || imagePath === '') return null;
+
+      try {
+        const asset = props.getAsset(imagePath);
+        if (asset) {
+          const url = asset.toString();
+          if (url && url !== '[object Object]' && url !== 'undefined') {
+            return url;
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+
+      // Fallback: treat as already a URL
+      if (typeof imagePath === 'string') {
+        if (imagePath.startsWith('http')) return imagePath;
+        if (imagePath.startsWith('/')) return imagePath;
+        return '/' + imagePath;
+      }
+      return null;
+    }
+
+    // ============================================
+    // NEWS PREVIEW TEMPLATE
+    // ============================================
+    CMS.registerPreviewTemplate('news', function(props) {
+      const h = props.h;
       const entry = props.entry;
-      const data = entry.getIn(['data']).toJS();
-      const h = window.h;
+      const data = entry.getIn(['data']) ? entry.getIn(['data']).toJS() : {};
 
-      const image = data.image ? props.getAsset(data.image) : null;
-      const imageSrc = image ? image.toString() : null;
+      const imageUrl = getImageUrl(props, data.image);
+      const bodyWidget = props.widgetFor('body');
 
-      const bodyHTML = props.widgetFor('body');
-      const dateStr = data.date ? new Date(data.date).toLocaleString() : 'Date not set';
+      const dateStr = data.date
+        ? new Date(data.date).toLocaleString('en-US', {
+            weekday: 'short', month: 'short', day: 'numeric',
+            year: 'numeric', hour: '2-digit', minute: '2-digit'
+          })
+        : 'Date not set';
 
-      return h('article', { className: 'preview-article' },
-        data.category
-          ? h('span', { className: 'preview-cat' }, data.category.toUpperCase())
-          : null,
-        h('h1', {}, data.title || 'Your headline will appear here'),
-        h('div', { className: 'preview-meta' },
-          dateStr + ' — ' + (data.source || 'The Global Desk')
-        ),
-        imageSrc ? h('img', { className: 'preview-image', src: imageSrc }) : null,
-        data.description
-          ? h('p', {
-              className: 'preview-placeholder',
-              style: { fontStyle: 'normal', color: '#4a5663', fontSize: '16px', marginBottom: '20px' }
-            }, data.description)
-          : null,
-        h('div', { className: 'preview-body', dangerouslySetInnerHTML: { __html: bodyHTML } })
-      );
-    });
+      return h('div', { className: 'preview-wrap' },
+        h('span', { className: 'preview-tag' }, 'LIVE PREVIEW'),
+        h('article', { className: 'preview-article' },
 
-    // Breaking news preview
-    window.CMS.registerPreviewTemplate('breaking', function(props) {
-      const entry = props.entry;
-      const data = entry.getIn(['data']).toJS();
-      const h = window.h;
+          // Category label
+          data.category
+            ? h('span', { className: 'preview-cat' }, data.category.toUpperCase())
+            : null,
 
-      return h('div', { className: 'preview-breaking' },
-        h('span', { className: 'badge' }, 'BREAKING'),
-        h('h2', {}, data.title || 'Breaking news headline'),
-        h('div', { className: 'meta' },
-          data.expires ? 'Expires: ' + new Date(data.expires).toLocaleString() : 'No expiry set',
-          ' · Priority: ' + (data.priority || 'Normal'),
-          ' · ' + (data.active ? 'Active' : 'Inactive')
+          // Title
+          h('h1', {}, data.title || 'Your headline will appear here'),
+
+          // Meta row
+          h('div', { className: 'preview-meta' },
+            h('span', {}, '✍️ The Global Desk'),
+            h('span', {}, '•'),
+            h('span', {}, dateStr),
+            data.source
+              ? h('span', { style: { color: '#c99a3b', fontWeight: '700' } }, '• ' + data.source)
+              : null
+          ),
+
+          // Cover image
+          imageUrl
+            ? h('img', {
+                className: 'preview-image',
+                src: imageUrl,
+                alt: data.title || 'Cover image',
+                onError: function(e) { e.target.style.display = 'none'; }
+              })
+            : h('div', {
+                className: 'preview-placeholder',
+                style: { marginBottom: '24px' }
+              }, '🖼️ Cover image will appear here'),
+
+          // Description (highlighted)
+          data.description
+            ? h('p', { className: 'preview-desc' }, data.description)
+            : null,
+
+          // Body
+          bodyWidget
+            ? h('div', { className: 'preview-body' }, bodyWidget)
+            : h('div', { className: 'preview-placeholder' }, '✍️ Your story body will appear here...')
         )
       );
     });
 
-    // Use site's actual CSS in preview iframe
-    window.CMS.registerPreviewStyle('/style.css');
+    // ============================================
+    // BREAKING NEWS PREVIEW TEMPLATE
+    // ============================================
+    CMS.registerPreviewTemplate('breaking', function(props) {
+      const h = props.h;
+      const data = props.entry.getIn(['data']).toJS();
+
+      const expiresStr = data.expires
+        ? new Date(data.expires).toLocaleString('en-US', {
+            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+          })
+        : 'No expiry set';
+
+      return h('div', { className: 'preview-wrap' },
+        h('span', { className: 'preview-tag' }, 'BREAKING PREVIEW'),
+        h('div', { className: 'preview-breaking' },
+          h('span', { className: 'badge' }, 'BREAKING'),
+          h('h2', {}, data.title || 'Breaking news headline will appear here'),
+          h('div', { className: 'meta' },
+            h('span', {}, '⏰ ' + expiresStr),
+            h('span', {}, '⚡ ' + (data.priority || 'Normal')),
+            h('span', {}, data.active ? '✅ Active' : '❌ Inactive')
+          )
+        )
+      );
+    });
+
+    // Register site CSS for preview
+    CMS.registerPreviewStyle('/style.css');
   });
   </script>
 </body>

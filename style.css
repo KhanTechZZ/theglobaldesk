@@ -394,3 +394,15 @@ body.dark-mode .search-clear:hover { background: #14283d; color: #E2E8F0; }
     .footer-brand { grid-column: auto; }
     .footer-bottom { flex-direction: column; }
 }
+
+/* ================= VIEW COUNT ================= */
+.view-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-weight: 600;
+}
+.view-count i {
+    color: var(--gold);
+}

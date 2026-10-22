@@ -102,7 +102,7 @@
             {% set allNews = collections.news | reverse %}
             {% for story in allNews %}
             {% if loop.index <= 6 %}
-            <article class="news-card {% if loop.first %}news-card-featured{% else %}news-card-small{% endif %}" style="animation-delay: {{ loop.index * 0.06 }}s" data-slug="{{ story.fileSlug }}">
+            <article class="news-card {% if loop.first %}news-card-featured{% else %}news-card-small{% endif %}" style="animation-delay: {{ loop.index * 0.06 }}s">
                 <a href="{{ story.url }}" class="news-card-link">
                     {% if story.data.image %}<img src="{{ story.data.image }}" alt="{{ story.data.title }}" class="news-image" loading="lazy">{% else %}<div class="news-image news-image-placeholder"></div>{% endif %}
                     <div class="news-info">
@@ -112,7 +112,6 @@
                         <div class="news-meta">
                             <span class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</span>
                             — {{ story.data.source or "The Global Desk" }}
-                            <span class="view-count-inline"><i class="fa-regular fa-eye"></i> <span class="count" data-view-slug="{{ story.fileSlug }}">0</span></span>
                         </div>
                     </div>
                 </a>
@@ -137,24 +136,5 @@
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
 <script src="/app.js"></script>
-
-<!-- ✅ FIXED: Abacus /hit for homepage counters (creates counter if not exists) -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('[data-view-slug]').forEach(function(el) {
-        var slug = el.getAttribute('data-view-slug');
-        if (!slug) return;
-        // Use /hit to create counter and get value (fixes 404 from /get)
-        fetch('https://abacus.jasoncameron.dev/hit/theglobaldesk/' + slug)
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data && typeof data.value === 'number') {
-                    el.textContent = data.value.toLocaleString();
-                }
-            })
-            .catch(function() {});
-    });
-});
-</script>
 </body>
 </html>

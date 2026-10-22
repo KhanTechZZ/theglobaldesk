@@ -10,7 +10,6 @@
     html, body { font-family: 'Inter', Arial, sans-serif !important; background: #f0f4f8 !important; }
     body:not(:has(header[role="banner"])) { background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important; }
 
-    /* ========== HEADER ========== */
     header[role="banner"] {
       background: #030f1e !important;
       border-bottom: 2px solid #c99a3b !important;
@@ -39,7 +38,6 @@
       border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    /* ========== FLOATING VIEW STATS ========== */
     .view-stats-float-btn {
       position: fixed !important;
       bottom: 20px !important;
@@ -61,7 +59,6 @@
     }
     .view-stats-float-btn:hover { transform: translateY(-3px) !important; background: #e5c06b !important; }
 
-    /* ========== SIDEBAR ========== */
     aside[role="navigation"], [class*="Sidebar"] {
       background: #ffffff !important;
       border-right: 1px solid #e2e8f0 !important;
@@ -81,7 +78,6 @@
       color: #0d4f91 !important;
     }
 
-    /* ========== HINTS ========== */
     [class*="ControlHint"], .css-1j8z6y0-ControlHint, p[class*="ControlHint"] {
       font-size: 11px !important;
       line-height: 1.4 !important;
@@ -94,7 +90,6 @@
       border-left: 2px solid #c99a3b !important;
     }
 
-    /* ========== BUTTONS ========== */
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
       background: #c99a3b !important;
       color: #061a33 !important;
@@ -106,7 +101,6 @@
       box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important;
     }
 
-    /* ========== FIELDS ========== */
     label[class*="FieldLabel"] {
       color: #061a33 !important;
       font-weight: 700 !important;
@@ -125,9 +119,7 @@
       outline: none !important;
     }
 
-    /* =========================================================
-       CUSTOM SMALL PREVIEW (overrides default huge preview)
-       ========================================================= */
+    /* ===== CUSTOM SMALL PREVIEW ===== */
     .td-preview-wrap {
       background: #f8fafc !important;
       padding: 14px !important;
@@ -205,7 +197,6 @@
     }
     .td-preview-meta strong { color: #061a33 !important; }
 
-    /* Breaking preview */
     .td-preview-breaking-card {
       background: #061a33 !important;
       color: #fff !important;
@@ -243,7 +234,6 @@
       border-top: 1px solid rgba(255,255,255,0.1) !important;
     }
 
-    /* ========== ADMIN RESPONSIVE ========== */
     @media (max-width: 768px) {
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"] img { max-height: 28px !important; padding: 3px 6px !important; }
@@ -259,22 +249,27 @@
   </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.4.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
 
-    // ===== FIXED: Sync image resolver (no getAsset, no async) =====
+    // ✅ FIX: Get h from global (Decap CMS exposes it globally)
+    var h = window.h || (window.CMS && window.CMS.h);
+    if (typeof h !== 'function') {
+      console.error('Decap CMS: h function not found globally.');
+      return;
+    }
+
     function resolveImage(path) {
       if (!path || typeof path !== 'string') return null;
       if (/^https?:\/\//i.test(path)) return path;
       return path.startsWith('/') ? path : '/' + path;
     }
 
-    // ===== NEWS PREVIEW (small + responsive) =====
+    // NEWS PREVIEW
     CMS.registerPreviewTemplate('news', function(props) {
-      var h = props.h;
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
       var bodyWidget = props.widgetFor('body');
@@ -297,15 +292,14 @@
               h('span', {}, ' · ' + dateStr),
               data.source ? h('span', {}, ' · ' + data.source) : null
             ),
-            bodyWidget ? h('div', { className: 'td-preview-body-preview', style: { marginTop: '12px', fontFamily: 'Georgia, serif', fontSize: '13px', lineHeight: '1.7', color: '#273545' } }, bodyWidget) : null
+            bodyWidget ? h('div', { style: { marginTop: '12px', fontFamily: 'Georgia, serif', fontSize: '13px', lineHeight: '1.7', color: '#273545' } }, bodyWidget) : null
           )
         )
       );
     });
 
-    // ===== BREAKING PREVIEW =====
+    // BREAKING PREVIEW
     CMS.registerPreviewTemplate('breaking', function(props) {
-      var h = props.h;
       var data = props.entry.getIn(['data']).toJS();
       var expiresStr = data.expires
         ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
@@ -322,7 +316,7 @@
       );
     });
 
-    // ===== Floating View Stats button =====
+    // Floating View Stats button
     function injectFloatBtn() {
       if (document.querySelector('.view-stats-float-btn')) return;
       var btn = document.createElement('a');

@@ -1075,3 +1075,101 @@ body.dark-mode .categories-list a { background: #14283d; color: #cbd5e1; border-
     object-position: center !important;
     display: block !important;
 }
+/* =========================================================
+   UNIVERSAL 16:9 IMAGE LOCK (ALL PAGES)
+   ========================================================= */
+
+/* Home page — hero big image */
+.hero-news-image-wrap {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    background: #e2e8f0 !important;
+    position: relative !important;
+}
+.hero-news-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+/* Home — side small cards */
+.side-news-img-wrap {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    background: #e2e8f0 !important;
+    border-radius: 6px !important;
+}
+.side-news-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+/* Home — secondary card */
+.secondary-news-img-wrap {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    background: #e2e8f0 !important;
+    border-radius: 8px !important;
+}
+.secondary-news-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+/* Category/list — featured & small */
+.news-card-featured .news-image {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    max-height: 260px !important;
+}
+.news-card-small .news-image {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    max-height: 90px !important;
+}
+
+/* Article page image — always 16:9, max 400px tall */
+.article-image {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+    max-height: 400px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    border-radius: 10px !important;
+    margin: 20px auto 30px !important;
+}
+
+/* Related news cards */
+.related-card img {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    max-height: 130px !important;
+}
+
+/* Mobile overrides */
+@media (max-width: 600px) {
+    .news-card-featured .news-image { max-height: 220px !important; }
+    .article-image { max-height: 240px !important; }
+}

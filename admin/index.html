@@ -30,17 +30,10 @@
     }
     aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover { background: #eaf3fb !important; color: #0d4f91 !important; transform: translateX(2px) !important; }
 
-    /* ✅ Fix: Hint text style (smaller, better positioned) */
     [class*="ControlHint"], .css-1j8z6y0-ControlHint, p[class*="ControlHint"] {
-      font-size: 11px !important;
-      line-height: 1.4 !important;
-      color: #64748b !important;
-      margin-top: 4px !important;
-      margin-bottom: 0 !important;
-      padding: 4px 8px !important;
-      background: #f8fafc !important;
-      border-radius: 4px !important;
-      border-left: 2px solid #c99a3b !important;
+      font-size: 11px !important; line-height: 1.4 !important; color: #64748b !important;
+      margin-top: 4px !important; margin-bottom: 0 !important; padding: 4px 8px !important;
+      background: #f8fafc !important; border-radius: 4px !important; border-left: 2px solid #c99a3b !important;
     }
 
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
@@ -54,7 +47,6 @@
     input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
     input:focus, textarea:focus, select:focus { border-color: #c99a3b !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important; outline: none !important; }
 
-    /* Preview Styles */
     .preview-wrap { padding: 20px; background: #f8fafc; min-height: 100vh; }
     .preview-article { background: #fff; padding: 32px; border-radius: 12px; max-width: 780px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
     .preview-cat { color: #c99a3b; font-weight: 800; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
@@ -75,23 +67,41 @@
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
 
-    // ✅ FIXED: await getAsset + .url
-    async function getImageUrl(props, imagePath) {
+    // ✅ FIX: Synchronous image URL getter (no await)
+    function getImageUrlSync(props, imagePath) {
       if (!imagePath) return null;
       try {
-        const asset = await props.getAsset(imagePath);
-        if (!asset) return null;
-        if (typeof asset === 'object' && asset.url) return asset.url;
-        if (typeof asset === 'string') return asset;
-        if (asset.toString && asset.toString() !== '[object Object]') return asset.toString();
-        return null;
-      } catch (e) { return null; }
+        // Try getAsset (may return AssetProxy object)
+        const asset = props.getAsset(imagePath);
+        if (asset) {
+          // If it's a string, use it
+          if (typeof asset === 'string') return asset;
+          // If it has a url property, use that
+          if (asset.url) return asset.url;
+          // If it has toString that works, use it
+          if (typeof asset.toString === 'function') {
+            const str = asset.toString();
+            if (str && str !== '[object Object]' && str !== '[object Promise]') {
+              return str;
+            }
+          }
+        }
+      } catch (e) { /* ignore */ }
+      
+      // Fallback: treat as relative path
+      if (typeof imagePath === 'string') {
+        if (imagePath.startsWith('http')) return imagePath;
+        if (imagePath.startsWith('/')) return imagePath;
+        return '/' + imagePath;
+      }
+      return null;
     }
 
-    CMS.registerPreviewTemplate('news', async function(props) {
+    // ✅ FIX: Synchronous preview component (no async)
+    CMS.registerPreviewTemplate('news', function(props) {
       const h = props.h;
       const data = props.entry.getIn(['data']).toJS();
-      const imageUrl = await getImageUrl(props, data.image);
+      const imageUrl = getImageUrlSync(props, data.image);
       const bodyWidget = props.widgetFor('body');
       const dateStr = data.date ? new Date(data.date).toLocaleString() : 'Date not set';
 
@@ -100,7 +110,7 @@
           data.category ? h('span', { className: 'preview-cat' }, data.category.toUpperCase()) : null,
           h('h1', {}, data.title || 'Your headline will appear here'),
           h('div', { className: 'preview-meta' }, '✍️ The Global Desk • ' + dateStr + (data.source ? ' • ' + data.source : '')),
-          imageUrl ? h('img', { className: 'preview-image', src: imageUrl, alt: data.title }) : h('div', { className: 'preview-placeholder' }, '🖼️ Cover image will appear here'),
+          imageUrl ? h('img', { className: 'preview-image', src: imageUrl, alt: data.title || 'Cover' }) : h('div', { className: 'preview-placeholder' }, '🖼️ Cover image will appear here'),
           data.description ? h('p', { className: 'preview-desc' }, data.description) : null,
           bodyWidget ? h('div', { className: 'preview-body' }, bodyWidget) : h('div', { className: 'preview-placeholder' }, '✍️ Body content will appear here...')
         )

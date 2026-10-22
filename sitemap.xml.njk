@@ -9,13 +9,11 @@ eleventyExcludeFromCollections: true
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
-    {% for page in collections.all %}
-        {% if "/admin/" not in page.url and page.url != "/404.html" and page.url != "/sitemap.xml" and page.url != "/robots.txt" %}
-        <url>
-            <loc>https://tgdnews.pages.dev{{ page.url }}</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-        </url>
-        {% endif %}
+    {% for story in collections.news | reverse %}
+    <url>
+        <loc>https://tgdnews.pages.dev{{ story.url }}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
     {% endfor %}
 </urlset>

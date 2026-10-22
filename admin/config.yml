@@ -5,13 +5,12 @@ backend:
   base_url: https://tgdnews.pages.dev
   auth_endpoint: /api/auth
 
-# লোগো সেটিং (CSS দিয়ে ব্যাকআপ নেওয়া হবে)
 logo_url: "https://tgdnews.pages.dev/Logo.png"
 locale: 'en'
 publish_mode: simple
 
 media_folder: "images/uploads"
-public_folder: "/images/uploads"
+public_folder: "images/uploads"
 
 collections:
   - name: "news"

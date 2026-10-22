@@ -7,88 +7,42 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* ===== GLOBAL & LOGIN ===== */
     html, body { font-family: 'Inter', Arial, sans-serif !important; background: #f0f4f8 !important; }
-    body:not(:has(header[role="banner"])) {
-      background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important;
-    }
+    body:not(:has(header[role="banner"])) { background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important; }
 
-    /* ===== TOP HEADER BAR (Logo Fix) ===== */
     header[role="banner"] {
-      background: #030f1e !important;
-      border-bottom: 2px solid #c99a3b !important;
-      padding: 0 16px !important;
-      min-height: 56px !important;
-      display: flex !important;
-      align-items: center !important;
+      background: #030f1e !important; border-bottom: 2px solid #c99a3b !important;
+      padding: 0 16px !important; min-height: 56px !important; display: flex !important; align-items: center !important;
     }
-    /* Force logo image to appear */
-    header[role="banner"] img,
-    header[role="banner"] a img {
-      max-height: 32px !important;
-      width: auto !important;
-      background: #ffffff !important;
-      padding: 4px 8px !important;
-      border-radius: 6px !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+    header[role="banner"] img, header[role="banner"] a img {
+      max-height: 32px !important; width: auto !important; background: #ffffff !important;
+      padding: 4px 8px !important; border-radius: 6px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
     }
-    /* Brand text next to logo */
     header[role="banner"]::after {
-      content: "NEWSROOM";
-      color: #c99a3b;
-      font-weight: 900;
-      font-size: 10px;
-      letter-spacing: 2px;
-      margin-left: 12px;
-      padding-left: 12px;
-      border-left: 1px solid rgba(201,154,59,0.3);
+      content: "NEWSROOM"; color: #c99a3b; font-weight: 900; font-size: 10px; letter-spacing: 2px;
+      margin-left: 12px; padding-left: 12px; border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    /* ===== SIDEBAR (Compact) ===== */
-    aside[role="navigation"], [class*="Sidebar"] {
-      background: #ffffff !important;
-      border-right: 1px solid #e2e8f0 !important;
-      padding: 12px 8px !important;
-    }
+    aside[role="navigation"], [class*="Sidebar"] { background: #ffffff !important; border-right: 1px solid #e2e8f0 !important; padding: 12px 8px !important; }
     aside[role="navigation"] a, [class*="Sidebar"] a {
-      border-radius: 8px !important;
-      margin: 2px 0 !important;
-      padding: 10px 14px !important;
-      color: #475569 !important;
-      font-size: 13.5px !important;
-      font-weight: 600 !important;
-      transition: all 0.15s ease !important;
+      border-radius: 8px !important; margin: 2px 0 !important; padding: 10px 14px !important;
+      color: #475569 !important; font-size: 13.5px !important; font-weight: 600 !important; transition: all 0.15s ease !important;
     }
-    aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover {
-      background: #eaf3fb !important;
-      color: #0d4f91 !important;
-      transform: translateX(2px) !important;
-    }
+    aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover { background: #eaf3fb !important; color: #0d4f91 !important; transform: translateX(2px) !important; }
 
-    /* ===== BUTTONS (Small & Golden) ===== */
-    button[type="submit"],
-    [class*="ToolbarButton"]:not([class*="Disabled"]),
-    [class*="ButtonPrimary"],
-    [class*="SaveButton"] {
-      background: #c99a3b !important;
-      color: #061a33 !important;
-      font-weight: 800 !important;
-      border-radius: 8px !important;
-      border: none !important;
-      padding: 6px 14px !important; /* smaller padding */
-      font-size: 13px !important;
-      box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important;
-      transition: all 0.2s !important;
+    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
+      background: #c99a3b !important; color: #061a33 !important; font-weight: 800 !important;
+      border-radius: 8px !important; border: none !important; padding: 6px 14px !important; font-size: 13px !important;
+      box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important; transition: all 0.2s !important;
     }
     button[type="submit"]:hover { transform: translateY(-1px) !important; box-shadow: 0 4px 12px rgba(201,154,59,0.3) !important; }
 
-    /* ===== FORM FIELDS ===== */
     label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 4px !important; }
     [class*="FieldHint"] { color: #64748b !important; font-size: 11.5px !important; line-height: 1.4 !important; padding: 6px 10px !important; border-left: 3px solid #c99a3b !important; margin-top: 4px !important; }
     input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
     input:focus, textarea:focus, select:focus { border-color: #c99a3b !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important; outline: none !important; }
 
-    /* ===== PREVIEW STYLES ===== */
+    /* Preview Styles */
     .preview-wrap { padding: 20px; background: #f8fafc; min-height: 100vh; }
     .preview-article { background: #fff; padding: 32px; border-radius: 12px; max-width: 780px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
     .preview-cat { color: #c99a3b; font-weight: 800; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
@@ -107,42 +61,29 @@
 
   <script>
   /* =========================================================
-     LIVE PREVIEW TEMPLATES (FIXED)
+     LIVE PREVIEW — FIXED
      ========================================================= */
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
 
-    /**
-     * ✅ FIXED: getAsset now handles Promise + returns correct URL
-     */
+    // ✅ FIXED: await getAsset() + handle .url
     async function getImageUrl(props, imagePath) {
       if (!imagePath) return null;
       try {
-        const asset = await props.getAsset(imagePath); // await the promise
-        if (asset && typeof asset === 'object' && asset.url) {
-          return asset.url; // standard AssetProxy returns .url
-        }
-        if (asset && typeof asset === 'string') {
-          return asset;
-        }
-        // fallback: if it's just a path
-        if (typeof imagePath === 'string') {
-          return imagePath.startsWith('/') ? imagePath : '/' + imagePath;
-        }
-      } catch (e) {
-        // ignore
-      }
-      return null;
+        const asset = await props.getAsset(imagePath);
+        if (!asset) return null;
+        // AssetProxy has .url property
+        if (typeof asset === 'object' && asset.url) return asset.url;
+        if (typeof asset === 'string') return asset;
+        return null;
+      } catch (e) { return null; }
     }
 
-    // ============================================
-    // NEWS PREVIEW (Async render)
-    // ============================================
+    // NEWS PREVIEW
     CMS.registerPreviewTemplate('news', async function(props) {
       const h = props.h;
       const data = props.entry.getIn(['data']).toJS();
-
-      const imageUrl = await getImageUrl(props, data.image); // wait for URL
+      const imageUrl = await getImageUrl(props, data.image);
       const bodyWidget = props.widgetFor('body');
       const dateStr = data.date ? new Date(data.date).toLocaleString() : 'Date not set';
 
@@ -158,9 +99,7 @@
       );
     });
 
-    // ============================================
-    // BREAKING NEWS PREVIEW
-    // ============================================
+    // BREAKING PREVIEW
     CMS.registerPreviewTemplate('breaking', function(props) {
       const h = props.h;
       const data = props.entry.getIn(['data']).toJS();
@@ -177,7 +116,6 @@
       );
     });
 
-    // Register site CSS for accurate preview
     CMS.registerPreviewStyle('/style.css');
   });
   </script>

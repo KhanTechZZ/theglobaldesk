@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>The Global Desk | International News, Analysis & Global Affairs</title>
     <meta name="description" content="The Global Desk is an independent digital news platform focused on international affairs, geopolitics, economics, science, and technology.">
     <meta name="author" content="The Global Desk">
@@ -11,21 +10,14 @@
     <meta name="theme-color" content="#071a33">
     <link rel="canonical" href="https://tgdnews.pages.dev/">
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1E8X103FR"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-X1E8X103FR');
-    </script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-X1E8X103FR');</script>
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tgdnews.pages.dev/">
     <meta property="og:title" content="The Global Desk | International News & Analysis">
     <meta property="og:description" content="Independent international news, analysis and global affairs.">
     <meta property="og:image" content="https://tgdnews.pages.dev/Logo.png">
-
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="The Global Desk | International News & Analysis">
     <meta property="twitter:description" content="Independent international news, analysis and global affairs.">
@@ -47,13 +39,11 @@
                 <span class="live-dot"></span>
             </div>
             <div class="utility-right">
-                <a href="https://facebook.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://x.com/thegdeskHQ" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://youtube.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://instagram.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://tiktok.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://x.com/thegdeskHQ" target="_blank"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                <a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
     </div>
@@ -77,9 +67,7 @@
             <a href="/category/politics/" class="nav-link">Politics</a>
 
             <div class="dropdown" id="dropdown">
-                <button class="nav-link dropdown-btn" id="dropdownBtn">
-                    More <span class="chevron">▾</span>
-                </button>
+                <button class="nav-link dropdown-btn" id="dropdownBtn">More <span class="chevron">▾</span></button>
                 <div class="dropdown-content">
                     <a href="/category/economy/">Economy</a>
                     <a href="/category/tech-and-ai/">Tech and AI</a>
@@ -87,7 +75,6 @@
                     <a href="/category/environment/">Environment</a>
                     <a href="/category/research/">Research</a>
                     <a href="/category/human-rights/">Human Rights</a>
-                    
                     <a href="/z-desk/" class="highlight-link">Z Desk</a>
                     <a href="/alpha-desk/" class="highlight-link">Alpha Desk</a>
                 </div>
@@ -98,15 +85,8 @@
 
 <section class="breaking-bar" id="breakingBar">
     <div class="breaking-inner">
-        <div class="breaking-label">
-            <span class="breaking-pulse"></span>
-            <strong>BREAKING</strong>
-        </div>
-        <div class="breaking-track" id="breakingTrack">
-            <div class="breaking-content" id="breakingNews">
-                <a href="/" id="breakingLink">The Global Desk — Live</a>
-            </div>
-        </div>
+        <div class="breaking-label"><span class="breaking-pulse"></span><strong>BREAKING</strong></div>
+        <div class="breaking-track" id="breakingTrack"><div class="breaking-content" id="breakingNews"><a href="/" id="breakingLink">The Global Desk — Live</a></div></div>
         <button class="breaking-next" id="breakingNext">›</button>
     </div>
 </section>
@@ -114,10 +94,7 @@
 <main class="main-container">
     <section class="latest-section">
         <div class="section-heading">
-            <div>
-                <span class="section-kicker">LATEST</span>
-                <h1>Latest News</h1>
-            </div>
+            <div><span class="section-kicker">LATEST</span><h1>Latest News</h1></div>
             <span class="updated">Updated just now</span>
         </div>
 
@@ -125,21 +102,17 @@
             {% set allNews = collections.news | reverse %}
             {% for story in allNews %}
             {% if loop.index <= 6 %}
-            <article class="news-card {% if loop.first %}news-card-featured{% else %}news-card-small{% endif %}" style="animation-delay: {{ loop.index * 0.06 }}s">
+            <article class="news-card {% if loop.first %}news-card-featured{% else %}news-card-small{% endif %}" style="animation-delay: {{ loop.index * 0.06 }}s" data-slug="{{ story.fileSlug }}">
                 <a href="{{ story.url }}" class="news-card-link">
-                    {% if story.data.image %}
-                    <img src="{{ story.data.image }}" alt="{{ story.data.title }}" class="news-image" loading="lazy">
-                    {% else %}
-                    <div class="news-image news-image-placeholder"></div>
-                    {% endif %}
+                    {% if story.data.image %}<img src="{{ story.data.image }}" alt="{{ story.data.title }}" class="news-image" loading="lazy">{% else %}<div class="news-image news-image-placeholder"></div>{% endif %}
                     <div class="news-info">
                         <span class="category-label">{{ story.data.category }}</span>
                         <h3>{{ story.data.title }}</h3>
                         <p>{{ story.data.description }}</p>
                         <div class="news-meta">
-                            <span class="time-ago" data-published="{{ story.data.date | isoDate }}" title="{{ story.data.date | readableDate }} • {{ story.data.date | readableTime }}">
-                                {{ story.data.date | readableDate }} • {{ story.data.date | readableTime }}
-                            </span> — {{ story.data.source or "The Global Desk" }}
+                            <span class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</span>
+                            — {{ story.data.source or "The Global Desk" }}
+                            <span class="view-count-inline"><i class="fa-regular fa-eye"></i> <span class="count" data-view-slug="{{ story.fileSlug }}">0</span></span>
                         </div>
                     </div>
                 </a>
@@ -154,41 +127,33 @@
 
 <footer class="site-footer">
     <div class="footer-main">
-        <div class="footer-brand">
-            <img src="/Logo.png" alt="The Global Desk">
-            <p>International news, analysis and global affairs.</p>
-        </div>
-        <div class="footer-column">
-            <h4>Explore</h4>
-            <a href="/category/world/">World</a>
-            <a href="/category/asia/">Asia</a>
-            <a href="/category/economy/">Economy</a>
-            <a href="/category/science/">Science</a>
-        </div>
-        <div class="footer-column">
-            <h4>Information</h4>
-            <a href="/about/">About Us</a>
-            <a href="/editorial-policy/">Editorial Policy</a>
-            <a href="/contact/">Contact</a>
-            <a href="/privacy/">Privacy Policy</a>
-        </div>
-        <div class="footer-column">
-            <h4>Follow</h4>
-            <a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-            <a href="https://x.com/thegdeskHQ" target="_blank"><i class="fa-brands fa-x-twitter"></i> X / Twitter</a>
-            <a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
-            <a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
-            <a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
-        </div>
+        <div class="footer-brand"><img src="/Logo.png" alt="The Global Desk"><p>International news, analysis and global affairs.</p></div>
+        <div class="footer-column"><h4>Explore</h4><a href="/category/world/">World</a><a href="/category/asia/">Asia</a><a href="/category/economy/">Economy</a><a href="/category/science/">Science</a></div>
+        <div class="footer-column"><h4>Information</h4><a href="/about/">About Us</a><a href="/editorial-policy/">Editorial Policy</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a></div>
+        <div class="footer-column"><h4>Follow</h4><a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a><a href="https://x.com/thegdeskHQ" target="_blank"><i class="fa-brands fa-x-twitter"></i> X</a><a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a><a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a><a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a></div>
     </div>
-    <div class="footer-bottom">
-        <span>© 2026 The Global Desk. All Rights Reserved.</span>
-        <span>Independent International News Platform</span>
-    </div>
+    <div class="footer-bottom"><span>© 2026 The Global Desk. All Rights Reserved.</span><span>Independent International News Platform</span></div>
 </footer>
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
-
 <script src="/app.js"></script>
+
+<!-- ✅ View counts for all homepage news -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[data-view-slug]').forEach(function(el) {
+        var slug = el.getAttribute('data-view-slug');
+        if (!slug) return;
+        fetch('https://tallywire.cronpulse.workers.dev/get/theglobaldesk/' + slug)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data && typeof data.value === 'number') {
+                    el.textContent = data.value.toLocaleString();
+                }
+            })
+            .catch(function() {});
+    });
+});
+</script>
 </body>
 </html>

@@ -8,13 +8,10 @@
     <meta name="author" content="{{ source or 'The Global Desk' }}">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://tgdnews.pages.dev{{ page.url }}">
-    <meta name="keywords" content="{{ category }}, {{ title }}, global news, international news, The Global Desk">
 
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1E8X103FR"></script>
     <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-X1E8X103FR');</script>
 
-    <!-- Open Graph / Twitter (SEO) -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://tgdnews.pages.dev{{ page.url }}">
     <meta property="og:title" content="{{ title }}">
@@ -74,7 +71,7 @@
             <span class="meta-divider">|</span>
             <span id="readingTime">2 min read</span>
             <span class="meta-divider">|</span>
-            <span class="view-count" id="viewCount"><i class="fa-regular fa-eye"></i> <span class="count">—</span> views</span>
+            <span class="view-count" id="viewCount"><i class="fa-regular fa-eye"></i> <span class="count">0</span> views</span>
         </div>
 
         <div class="share-buttons">
@@ -116,14 +113,26 @@
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
 <script src="/app.js"></script>
+
+<!-- ✅ FIXED: Tallywire View Counter -->
 <script>
 (function() {
     var el = document.getElementById('viewCount');
     if (!el) return;
     var slug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
-    fetch('https://api.countapi.xyz/hit/theglobaldesk-views/' + slug).then(r => r.json()).then(data => {
-        if (data && data.value) { var c = el.querySelector('.count'); if (c) c.textContent = data.value.toLocaleString(); }
-    }).catch(() => { el.style.display = 'none'; });
+    var url = 'https://tallywire.cronpulse.workers.dev/hit/theglobaldesk/' + slug;
+    
+    fetch(url)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data && typeof data.value === 'number') {
+                var c = el.querySelector('.count');
+                if (c) c.textContent = data.value.toLocaleString();
+            }
+        })
+        .catch(function() {
+            // Silently fail — keep showing 0
+        });
 })();
 </script>
 </body>

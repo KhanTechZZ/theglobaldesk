@@ -10,7 +10,7 @@ locale: 'en'
 publish_mode: simple
 
 media_folder: "images/uploads"
-public_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
   - name: "news"
@@ -23,7 +23,7 @@ collections:
       - { label: "Title (Headline)", name: "title", widget: "string", hint: "Short, clear headline (60-80 chars)." }
       - { label: "Category", name: "category", widget: "select", options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] }
       - { label: "Short Description", name: "description", widget: "text", hint: "2-3 sentence summary for homepage & SEO meta." }
-      - { label: "Cover Image", name: "image", widget: "image", required: false, hint: "Upload from computer. 1200x800 recommended." }
+      - { label: "Cover Image", name: "image", widget: "image", required: false, hint: "Upload from computer. Any size — auto-cropped to 16:9." }
       - { label: "Source", name: "source", widget: "string", required: false, hint: "e.g., Reuters, AP, BBC, The Global Desk" }
       - { label: "Body Content", name: "body", widget: "markdown", hint: "Write the full story here." }
       - { label: "Publish Date", name: "date", widget: "datetime", default: "" }

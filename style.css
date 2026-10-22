@@ -1042,3 +1042,36 @@ body.dark-mode .categories-list a { background: #14283d; color: #cbd5e1; border-
     .footer-brand { grid-column: auto; }
     .footer-bottom { flex-direction: column; }
 }
+/* =========================================================
+   MOBILE ORDER FIX + UNIVERSAL IMAGE CROP
+   ========================================================= */
+
+/* Mobile: Hero always first, then left, then right */
+@media (max-width: 800px) {
+    .home-center { order: 1; }
+    .home-left { order: 2; }
+    .home-right { order: 3; }
+}
+
+/* Universal: All news images = 16:9 crop regardless of upload size */
+.hero-news-image-wrap,
+.side-news-img-wrap,
+.secondary-news-img-wrap,
+.news-image,
+.article-image,
+.related-card img {
+    aspect-ratio: 16 / 9 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100% !important;
+}
+
+.hero-news-image,
+.side-news-img,
+.secondary-news-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}

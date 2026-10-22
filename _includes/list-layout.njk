@@ -82,7 +82,11 @@
                     {% set count = count + 1 %}
                     <article class="news-card {% if count == 1 %}news-card-featured{% else %}news-card-small{% endif %}">
                         <a href="{{ story.url }}" class="news-card-link">
-                            {% if story.data.image %}<img src="{{ story.data.image }}" alt="{{ story.data.title }}" class="news-image" loading="lazy">{% else %}<div class="news-image news-image-placeholder"></div>{% endif %}
+                            {% if story.data.image %}
+                            <img src="{% if story.data.image[0] !== '/' and story.data.image.slice(0, 4) !== 'http' %}/{{ story.data.image }}{% else %}{{ story.data.image }}{% endif %}" alt="{{ story.data.title }}" class="news-image" loading="lazy">
+                            {% else %}
+                            <div class="news-image news-image-placeholder"></div>
+                            {% endif %}
                             <div class="news-info">
                                 <span class="category-label">{{ story.data.category }}</span>
                                 <h3>{{ story.data.title }}</h3>

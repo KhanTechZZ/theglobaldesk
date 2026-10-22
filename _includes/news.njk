@@ -114,15 +114,14 @@
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
 <script src="/app.js"></script>
 
-<!-- ✅ FIXED: Tallywire View Counter -->
+<!-- ✅ FIXED: Abacus View Counter -->
 <script>
 (function() {
     var el = document.getElementById('viewCount');
     if (!el) return;
     var slug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
-    var url = 'https://tallywire.cronpulse.workers.dev/hit/theglobaldesk/' + slug;
     
-    fetch(url)
+    fetch('https://abacus.jasoncameron.dev/hit/theglobaldesk/' + slug)
         .then(function(r) { return r.json(); })
         .then(function(data) {
             if (data && typeof data.value === 'number') {
@@ -130,9 +129,7 @@
                 if (c) c.textContent = data.value.toLocaleString();
             }
         })
-        .catch(function() {
-            // Silently fail — keep showing 0
-        });
+        .catch(function() {});
 })();
 </script>
 </body>

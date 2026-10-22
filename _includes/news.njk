@@ -114,22 +114,29 @@
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
 <script src="/app.js"></script>
 
-<!-- ✅ FIXED: Abacus hit counter (uses /hit not /get) -->
+<!-- ✅ সঠিক ভিউ কাউন্টার: Abacus /hit API -->
 <script>
 (function() {
     var el = document.getElementById('viewCount');
     if (!el) return;
     var slug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
-    
-    fetch('https://abacus.jasoncameron.dev/hit/theglobaldesk/' + slug)
-        .then(function(r) { return r.json(); })
+    var namespace = 'theglobaldesk-views';
+
+    fetch('https://abacus.jasoncameron.dev/hit/' + namespace + '/' + slug)
+        .then(function(res) {
+            if (!res.ok) throw new Error('API error');
+            return res.json();
+        })
         .then(function(data) {
             if (data && typeof data.value === 'number') {
-                var c = el.querySelector('.count');
-                if (c) c.textContent = data.value.toLocaleString();
+                var countEl = el.querySelector('.count');
+                if (countEl) countEl.textContent = data.value.toLocaleString();
             }
         })
-        .catch(function() {});
+        .catch(function(err) {
+            console.warn('View counter error:', err);
+            // কিছু না করলেও 0 দেখাবে, কোনো error throw করবে না
+        });
 })();
 </script>
 </body>

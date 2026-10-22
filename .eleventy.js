@@ -5,6 +5,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("functions");
   eleventyConfig.addPassthroughCopy("images");
+  eleventyConfig.addPassthroughCopy("robots.txt"); // নতুন লাইন
 
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     const d = new Date(dateObj);

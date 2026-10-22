@@ -4,27 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    
     <title>{{ title }} - The Global Desk</title>
-     <meta name="google-site-verification" content="ahxW2woKyRrBDZ_3aysBwqjX7zcQVO33XW6-FncsmGk" />
     <meta name="description" content="{{ description or 'Read the latest international news on The Global Desk.' }}">
     <meta name="author" content="{{ source or 'The Global Desk' }}">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://tgdnews.pages.dev{{ page.url }}">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1E8X103FR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-X1E8X103FR');
+    </script>
+
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://tgdnews.pages.dev{{ page.url }}">
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{{ description }}">
     {% if image %}<meta property="og:image" content="https://tgdnews.pages.dev{{ image }}">{% else %}<meta property="og:image" content="https://tgdnews.pages.dev/Logo.png">{% endif %}
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="{{ title }}">
     <meta property="twitter:description" content="{{ description }}">
 
-    <!-- Google NewsArticle Schema (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

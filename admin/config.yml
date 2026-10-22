@@ -5,9 +5,10 @@ backend:
   base_url: https://tgdnews.pages.dev
   auth_endpoint: /api/auth
 
-# সাইটের অ্যাডমিন হেডারে লোগো দেখানোর জন্য
+# অ্যাডমিন প্যানেলে লোগো
 logo_url: "/Logo.png"
 locale: 'en'
+publish_mode: simple
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -16,32 +17,95 @@ collections:
   - name: "news"
     label: "📰 News Articles"
     label_singular: "News Article"
-    description: "Write and publish new stories here."
+    description: "Write and publish a new story."
     folder: "news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "news/{{slug}}"
+    summary: "{{title}} — {{category}}"
     fields:
-      - { label: "Headline", name: "title", widget: "string", hint: "Write a clear and attractive headline" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { 
+          label: "Headline", 
+          name: "title", 
+          widget: "string", 
+          hint: "Keep it short & clear (60-80 characters is ideal)" 
+        }
       - { 
           label: "Category", 
           name: "category", 
           widget: "select", 
-          options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] 
+          options: [
+            "World", "Asia", "Explainer", "Politics", "Economy", 
+            "Tech and AI", "Science", "Environment", "Research", 
+            "Human Rights", "Z Desk", "Alpha Desk"
+          ] 
         }
-      - { label: "Short Description (Excerpt)", name: "description", widget: "text", hint: "2-3 sentence summary for the homepage." }
-      - { label: "Source", name: "source", widget: "string", required: false, hint: "e.g., Reuters, AP" }
-      - { label: "Cover Image", name: "image", widget: "image", required: false }
-      - { label: "Body Content", name: "body", widget: "markdown" }
+      - { 
+          label: "Short Description (Excerpt)", 
+          name: "description", 
+          widget: "text", 
+          hint: "2-3 sentences. This appears on the homepage." 
+        }
+      - { 
+          label: "Cover Image", 
+          name: "image", 
+          widget: "image", 
+          required: false, 
+          choose_url: false,
+          media_library: { config: { multiple: false } },
+          hint: "Upload from computer. Recommended: 1200×800 (16:9)" 
+        }
+      - { 
+          label: "Source", 
+          name: "source", 
+          widget: "string", 
+          required: false, 
+          hint: "e.g., Reuters, AP, The Global Desk" 
+        }
+      - { 
+          label: "Body Content", 
+          name: "body", 
+          widget: "markdown", 
+          hint: "Write the full story. Use headings, quotes, and links." 
+        }
+      - { 
+          label: "Publish Date", 
+          name: "date", 
+          widget: "datetime", 
+          default: "", 
+          hint: "Leave empty for auto (current time)" 
+        }
 
   - name: "breaking"
     label: "🚨 Breaking News"
-    label_singular: "Breaking News Ticker"
+    label_singular: "Breaking News"
+    description: "Urgent updates that disappear automatically."
     folder: "breaking"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}"
     fields:
-      - { label: "Headline", name: "title", widget: "string" }
-      - { label: "Expiry Date & Time", name: "expires", widget: "datetime" }
-      - { label: "Priority", name: "priority", widget: "select", options: ["Normal", "High"], default: "Normal" }
-      - { label: "Active", name: "active", widget: "boolean", default: true }
+      - { 
+          label: "Headline", 
+          name: "title", 
+          widget: "string", 
+          hint: "Very short, e.g., 'Markets react to new policy'" 
+        }
+      - { 
+          label: "Expiry Date & Time", 
+          name: "expires", 
+          widget: "datetime", 
+          hint: "News stops showing after this time" 
+        }
+      - { 
+          label: "Priority", 
+          name: "priority", 
+          widget: "select", 
+          options: ["Normal", "High"], 
+          default: "Normal" 
+        }
+      - { 
+          label: "Active", 
+          name: "active", 
+          widget: "boolean", 
+          default: true 
+        }

@@ -3,53 +3,298 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Global Desk | Admin Panel</title>
+  <title>The Global Desk — Admin</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    /* লগইন ও মেইন ব্যাকগ্রাউন্ড */
-    body, #root {
-      background-color: #f5f7fa !important;
-      font-family: 'Arial', sans-serif;
+    /* =========================================================
+       ADMIN PANEL — THE GLOBAL DESK BRAND
+       ========================================================= */
+
+    /* Body */
+    body, #root, #nc-root {
+      font-family: Arial, Helvetica, sans-serif !important;
     }
-    
-    /* অ্যাডমিন প্যানেলের টপবার */
+
+    /* LOGIN SCREEN */
+    body:not(:has([role="banner"])) #root {
+      background: linear-gradient(135deg, #061a33 0%, #0d4f91 100%) !important;
+    }
+
+    /* Logo area at top */
     header[role="banner"] {
-      background-color: #061a33 !important;
+      background: #061a33 !important;
       border-bottom: 3px solid #c99a3b !important;
+      padding: 12px 24px !important;
     }
-    
-    /* সাইডবারের কালার */
+
+    header[role="banner"] img {
+      max-height: 42px !important;
+      width: auto !important;
+    }
+
+    /* Top nav links */
+    header[role="banner"] nav a,
+    header[role="banner"] button {
+      color: #E2E8F0 !important;
+      font-weight: 600 !important;
+    }
+    header[role="banner"] nav a:hover {
+      color: #e5c06b !important;
+    }
+
+    /* Sidebar */
     aside[role="navigation"] {
-      background-color: #ffffff !important;
-      border-right: 1px solid #dfe5eb !important;
+      background: #f8fafc !important;
+      border-right: 1px solid #e2e8f0 !important;
+      padding: 20px 12px !important;
     }
-    
-    /* সাইডবারের লিংক হোভার */
+
+    aside[role="navigation"] a {
+      border-radius: 8px !important;
+      margin: 4px 0 !important;
+      padding: 10px 14px !important;
+      color: #334155 !important;
+      font-weight: 600 !important;
+      transition: all 0.15s ease !important;
+    }
+
     aside[role="navigation"] a:hover {
-      background-color: #eaf3fb !important;
+      background: #eaf3fb !important;
       color: #0d4f91 !important;
     }
 
-    /* মূল অ্যাকশন বাটনগুলো (Publish) সোনালি করা */
-    button[type="submit"], .css-1hr9jj9-Button {
+    /* Publish / Submit buttons — Gold */
+    button[type="submit"],
+    .css-1hr9jj9-Button,
+    [class*="ToolbarButton"] {
       background-color: #c99a3b !important;
       color: #061a33 !important;
       font-weight: 800 !important;
-      border-radius: 6px !important;
+      border-radius: 8px !important;
+      border: none !important;
     }
-    button[type="submit"]:hover {
+
+    button[type="submit"]:hover,
+    .css-1hr9jj9-Button:hover {
       background-color: #e5c06b !important;
     }
 
-    /* লগইন স্ক্রিনের কার্ড */
-    .css-1yn2hh6-Card {
+    /* Primary action buttons */
+    .css-1d7e1kh-ButtonPrimary {
+      background: #c99a3b !important;
+      color: #061a33 !important;
+    }
+
+    /* Card corners */
+    .css-1yn2hh6-Card,
+    [class*="Card"] {
+      border-radius: 12px !important;
       border-top: 4px solid #c99a3b !important;
-      box-shadow: 0 10px 30px rgba(7, 28, 50, 0.15) !important;
+      box-shadow: 0 15px 50px rgba(7, 28, 50, 0.15) !important;
+    }
+
+    /* Login button */
+    .css-9x2mzs-ButtonLogin,
+    button[class*="Login"] {
+      background: #c99a3b !important;
+      color: #061a33 !important;
+      font-weight: 800 !important;
+    }
+    .css-9x2mzs-ButtonLogin:hover {
+      background: #e5c06b !important;
+    }
+
+    /* Field labels — bold & navy */
+    label[class*="FieldLabel"] {
+      color: #061a33 !important;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      letter-spacing: 0.02em !important;
+    }
+
+    /* Hint text */
+    [class*="FieldHint"] {
+      color: #64748b !important;
+      font-size: 12px !important;
+    }
+
+    /* Input borders */
+    input, textarea, select {
+      border-radius: 8px !important;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #c99a3b !important;
+      box-shadow: 0 0 0 3px rgba(201, 154, 59, 0.15) !important;
+    }
+
+    /* =========================================================
+       LIVE PREVIEW STYLES (uses classes from /style.css)
+       ========================================================= */
+
+    .preview-article {
+      max-width: 100%;
+      background: #ffffff;
+      padding: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .preview-article .preview-cat {
+      display: inline-block;
+      color: #c99a3b;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .preview-article h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      line-height: 1.15;
+      color: #061a33;
+      margin: 0 0 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .preview-article .preview-meta {
+      color: #667383;
+      font-size: 13px;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #dfe5eb;
+    }
+
+    .preview-article .preview-image {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 20px 0 30px;
+      display: block;
+    }
+
+    .preview-article .preview-body {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #273545;
+    }
+
+    .preview-article .preview-body h2,
+    .preview-article .preview-body h3 {
+      font-family: Georgia, serif;
+      color: #061a33;
+    }
+
+    .preview-article .preview-body p {
+      margin-bottom: 16px;
+    }
+
+    .preview-article .preview-body blockquote {
+      border-left: 4px solid #c99a3b;
+      padding-left: 20px;
+      font-style: italic;
+      color: #4a5663;
+      margin: 20px 0;
+    }
+
+    .preview-article .preview-placeholder {
+      color: #94a3b8;
+      font-style: italic;
+      font-size: 15px;
+    }
+
+    .preview-breaking {
+      background: #061a33;
+      color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+    }
+    .preview-breaking .badge {
+      display: inline-block;
+      background: #c51f2d;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      margin-bottom: 12px;
+    }
+    .preview-breaking h2 {
+      font-size: 22px;
+      margin: 0 0 10px;
+    }
+    .preview-breaking .meta {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.4.0/dist/decap-cms.js"></script>
+
+  <script>
+  /* =========================================================
+     LIVE PREVIEW TEMPLATE — NEWS
+     ========================================================= */
+  window.addEventListener('load', function() {
+    if (!window.CMS) return;
+
+    // News preview
+    window.CMS.registerPreviewTemplate('news', function(props) {
+      const entry = props.entry;
+      const data = entry.getIn(['data']).toJS();
+      const h = window.h;
+
+      const image = data.image ? props.getAsset(data.image) : null;
+      const imageSrc = image ? image.toString() : null;
+
+      const bodyHTML = props.widgetFor('body');
+      const dateStr = data.date ? new Date(data.date).toLocaleString() : 'Date not set';
+
+      return h('article', { className: 'preview-article' },
+        data.category
+          ? h('span', { className: 'preview-cat' }, data.category.toUpperCase())
+          : null,
+        h('h1', {}, data.title || 'Your headline will appear here'),
+        h('div', { className: 'preview-meta' },
+          dateStr + ' — ' + (data.source || 'The Global Desk')
+        ),
+        imageSrc ? h('img', { className: 'preview-image', src: imageSrc }) : null,
+        data.description
+          ? h('p', {
+              className: 'preview-placeholder',
+              style: { fontStyle: 'normal', color: '#4a5663', fontSize: '16px', marginBottom: '20px' }
+            }, data.description)
+          : null,
+        h('div', { className: 'preview-body', dangerouslySetInnerHTML: { __html: bodyHTML } })
+      );
+    });
+
+    // Breaking news preview
+    window.CMS.registerPreviewTemplate('breaking', function(props) {
+      const entry = props.entry;
+      const data = entry.getIn(['data']).toJS();
+      const h = window.h;
+
+      return h('div', { className: 'preview-breaking' },
+        h('span', { className: 'badge' }, 'BREAKING'),
+        h('h2', {}, data.title || 'Breaking news headline'),
+        h('div', { className: 'meta' },
+          data.expires ? 'Expires: ' + new Date(data.expires).toLocaleString() : 'No expiry set',
+          ' · Priority: ' + (data.priority || 'Normal'),
+          ' · ' + (data.active ? 'Active' : 'Inactive')
+        )
+      );
+    });
+
+    // Use site's actual CSS in preview iframe
+    window.CMS.registerPreviewStyle('/style.css');
+  });
+  </script>
 </body>
 </html>

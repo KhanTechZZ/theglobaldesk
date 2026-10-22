@@ -5,7 +5,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("functions");
   eleventyConfig.addPassthroughCopy("images");
-  eleventyConfig.addPassthroughCopy("robots.txt"); // নতুন লাইন
+  eleventyConfig.addPassthroughCopy("robots.txt");
 
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     const d = new Date(dateObj);
@@ -24,6 +24,12 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("isoDate", (dateObj) => {
     return new Date(dateObj).toISOString();
+  });
+
+  // NEW FILTER: jsonify (for JSON-LD Schema in news.njk)
+  eleventyConfig.addFilter("jsonify", (value) => {
+    const safe = (value === undefined || value === null) ? "" : value;
+    return JSON.stringify(safe);
   });
 
   return {

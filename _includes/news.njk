@@ -3,56 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>{{ title }} - The Global Desk</title>
     <meta name="description" content="{{ description or 'Read the latest international news on The Global Desk.' }}">
     <meta name="author" content="{{ source or 'The Global Desk' }}">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://tgdnews.pages.dev{{ page.url }}">
-
     <meta name="keywords" content="{{ category }}, {{ title }}, global news, international news, The Global Desk">
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1E8X103FR"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-X1E8X103FR');
-    </script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-X1E8X103FR');</script>
 
+    <!-- Open Graph / Twitter (SEO) -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://tgdnews.pages.dev{{ page.url }}">
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{{ description }}">
     {% if image %}<meta property="og:image" content="https://tgdnews.pages.dev{{ image }}">{% else %}<meta property="og:image" content="https://tgdnews.pages.dev/Logo.png">{% endif %}
-
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="{{ title }}">
     <meta property="twitter:description" content="{{ description }}">
 
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": {{ title | jsonify | safe }},
-      "image": [{% if image %}"https://tgdnews.pages.dev{{ image }}"{% else %}"https://tgdnews.pages.dev/Logo.png"{% endif %}],
-      "datePublished": {{ date | isoDate | jsonify | safe }},
-      "dateModified": {{ date | isoDate | jsonify | safe }},
-      "author": { "@type": "Person", "name": "The Global Desk" },
-      "publisher": {
-        "@type": "Organization",
-        "name": "The Global Desk",
-        "logo": { "@type": "ImageObject", "url": "https://tgdnews.pages.dev/Logo.png" }
-      },
-      "description": {{ description | jsonify | safe }}
-    }
+    { "@context": "https://schema.org", "@type": "NewsArticle", "headline": {{ title | jsonify | safe }}, "image": [{% if image %}"https://tgdnews.pages.dev{{ image }}"{% else %}"https://tgdnews.pages.dev/Logo.png"{% endif %}], "datePublished": {{ date | isoDate | jsonify | safe }}, "dateModified": {{ date | isoDate | jsonify | safe }}, "author": { "@type": "Person", "name": "The Global Desk" }, "publisher": { "@type": "Organization", "name": "The Global Desk", "logo": { "@type": "ImageObject", "url": "https://tgdnews.pages.dev/Logo.png" } }, "description": {{ description | jsonify | safe }} }
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
 </head>
-
 <body>
 
 <header class="site-header" id="siteHeader">
@@ -65,15 +43,14 @@
                 <span class="live-dot"></span>
             </div>
             <div class="utility-right">
-                <a href="https://facebook.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://x.com/thegdeskHQ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                <a href="https://youtube.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://instagram.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://tiktok.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://x.com/thegdeskHQ" target="_blank"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                <a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
     </div>
-
     <div class="header-main">
         <div class="header-inner">
             <a href="/" class="brand"><img src="/Logo.png" alt="The Global Desk"></a>
@@ -87,47 +64,30 @@
 
 <main class="main-container">
     <article class="article-page" data-article-slug="{{ page.fileSlug }}">
-        <div class="breadcrumbs">
-            <a href="/">Home</a> <span>/</span> 
-            <a href="/category/{{ category | slug }}/">{{ category }}</a> <span>/</span> 
-            <span>Article</span>
-        </div>
-
-        {% if category %}
-        <span class="category-label">{{ category | upper }}</span>
-        {% endif %}
-
+        <div class="breadcrumbs"><a href="/">Home</a> <span>/</span> <a href="/category/{{ category | slug }}/">{{ category }}</a> <span>/</span> <span>Article</span></div>
+        {% if category %}<span class="category-label">{{ category | upper }}</span>{% endif %}
         <h1 class="article-title">{{ title }}</h1>
-
         <div class="article-meta">
             <span class="author-byline"><i class="fa-regular fa-user"></i> By <strong>The Global Desk</strong></span>
             <span class="meta-divider">|</span>
-            <span class="time-ago" data-published="{{ date | isoDate }}" title="{{ date | readableDate }} • {{ date | readableTime }}">
-                {{ date | readableDate }} • {{ date | readableTime }}
-            </span>
+            <span class="time-ago" data-published="{{ date | isoDate }}">{{ date | readableDate }}</span>
             <span class="meta-divider">|</span>
-            <span id="readingTime" class="reading-time">2 min read</span>
+            <span id="readingTime">2 min read</span>
             <span class="meta-divider">|</span>
             <span class="view-count" id="viewCount"><i class="fa-regular fa-eye"></i> <span class="count">—</span> views</span>
         </div>
 
         <div class="share-buttons">
             <span class="share-label">Share:</span>
-            <a href="#" id="shareX" class="share-btn" aria-label="Share on X"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-            <a href="#" id="shareFB" class="share-btn" aria-label="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" id="shareWA" class="share-btn" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-            <button id="shareCopy" class="share-btn copy-btn" aria-label="Copy Link"><i class="fa-solid fa-link"></i></button>
+            <a href="#" id="shareX" class="share-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" id="shareFB" class="share-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" id="shareWA" class="share-btn"><i class="fa-brands fa-whatsapp"></i></a>
+            <button id="shareCopy" class="share-btn copy-btn"><i class="fa-solid fa-link"></i></button>
         </div>
 
-        {% if image %}
-        <img src="{{ image }}" alt="{{ title }}" class="article-image">
-        {% endif %}
-
+        {% if image %}<img src="{{ image }}" alt="{{ title }}" class="article-image">{% endif %}
         <div class="article-body">{{ content | safe }}</div>
-
-        <div class="article-footer">
-            <a href="/" class="read-link">← Back to Homepage</a>
-        </div>
+        <div class="article-footer"><a href="/" class="read-link">← Back to Homepage</a></div>
     </article>
 
     <section class="related-news">
@@ -137,12 +97,7 @@
             {% for item in collections.news | reverse %}
                 {% if item.data.category == category and item.url != page.url and count < 3 %}
                     {% set count = count + 1 %}
-                    <article class="related-card">
-                        <a href="{{ item.url }}">
-                            {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}" loading="lazy">{% endif %}
-                            <h3>{{ item.data.title }}</h3>
-                        </a>
-                    </article>
+                    <article class="related-card"><a href="{{ item.url }}">{% if item.data.image %}<img src="{{ item.data.image }}" loading="lazy">{% endif %}<h3>{{ item.data.title }}</h3></a></article>
                 {% endif %}
             {% endfor %}
         </div>
@@ -151,67 +106,25 @@
 
 <footer class="site-footer">
     <div class="footer-main">
-        <div class="footer-brand">
-            <img src="/Logo.png" alt="The Global Desk">
-            <p>International news, analysis and global affairs.</p>
-        </div>
-        <div class="footer-column">
-            <h4>Explore</h4>
-            <a href="/category/world/">World</a>
-            <a href="/category/asia/">Asia</a>
-            <a href="/category/economy/">Economy</a>
-            <a href="/category/science/">Science</a>
-        </div>
-        <div class="footer-column">
-            <h4>Information</h4>
-            <a href="/about/">About Us</a>
-            <a href="/editorial-policy/">Editorial Policy</a>
-            <a href="/contact/">Contact</a>
-            <a href="/privacy/">Privacy Policy</a>
-        </div>
-        <div class="footer-column">
-            <h4>Follow</h4>
-            <a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-            <a href="https://x.com/thegdeskHQ" target="_blank"><i class="fa-brands fa-x-twitter"></i> X / Twitter</a>
-            <a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
-            <a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
-            <a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
-        </div>
+        <div class="footer-brand"><img src="/Logo.png"><p>International news, analysis and global affairs.</p></div>
+        <div class="footer-column"><h4>Explore</h4><a href="/category/world/">World</a><a href="/category/asia/">Asia</a><a href="/category/economy/">Economy</a><a href="/category/science/">Science</a></div>
+        <div class="footer-column"><h4>Information</h4><a href="/about/">About Us</a><a href="/editorial-policy/">Editorial Policy</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a></div>
+        <div class="footer-column"><h4>Follow</h4><a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a><a href="https://x.com/thegdeskHQ" target="_blank"><i class="fa-brands fa-x-twitter"></i> X</a><a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a><a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a><a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a></div>
     </div>
-    <div class="footer-bottom">
-        <span>© 2026 The Global Desk. All Rights Reserved.</span>
-        <span>Independent International News Platform</span>
-    </div>
+    <div class="footer-bottom"><span>© 2026 The Global Desk.</span><span>Independent International News Platform</span></div>
 </footer>
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
-
 <script src="/app.js"></script>
-
-<!-- View Counter Script -->
 <script>
 (function() {
     var el = document.getElementById('viewCount');
     if (!el) return;
-    
     var slug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
-    var namespace = 'theglobaldesk-views';
-    
-    // Increment on load
-    fetch('https://api.countapi.xyz/hit/' + namespace + '/' + slug)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            if (data && data.value) {
-                var countEl = el.querySelector('.count');
-                if (countEl) countEl.textContent = data.value.toLocaleString();
-            }
-        })
-        .catch(function() {
-            // Silently fail if API is down
-            el.style.display = 'none';
-        });
+    fetch('https://api.countapi.xyz/hit/theglobaldesk-views/' + slug).then(r => r.json()).then(data => {
+        if (data && data.value) { var c = el.querySelector('.count'); if (c) c.textContent = data.value.toLocaleString(); }
+    }).catch(() => { el.style.display = 'none'; });
 })();
 </script>
-
 </body>
 </html>

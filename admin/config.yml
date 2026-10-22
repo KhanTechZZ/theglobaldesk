@@ -5,7 +5,7 @@ backend:
   base_url: https://tgdnews.pages.dev
   auth_endpoint: /api/auth
 
-# Logo (absolute URL must work)
+# লোগো সেটিং (CSS দিয়ে ব্যাকআপ নেওয়া হবে)
 logo_url: "https://tgdnews.pages.dev/Logo.png"
 locale: 'en'
 publish_mode: simple
@@ -15,91 +15,28 @@ public_folder: "/images/uploads"
 
 collections:
   - name: "news"
-    label: "📰 News Articles"
+    label: "News Articles"
     label_singular: "News Article"
-    description: "👇 নিচের ফর্মটি পূরণ করুন। উপরের ডান দিকে 'Preview' বাটনে ক্লিক করে লাইভ দেখুন।"
     folder: "news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{title}} — {{category}}"
     fields:
-      - label: "📌 ১. হেডলাইন (Headline)"
-        name: "title"
-        widget: "string"
-        hint: "👉 এটি আপনার নিউজের সবচেয়ে বড় শিরোনাম। Google-এ সার্চে এই শিরোনামটাই দেখা যাবে। ছোট (৬০-৮০ অক্ষর) রাখুন।"
-
-      - label: "🏷️ ২. ক্যাটাগরি (Category)"
-        name: "category"
-        widget: "select"
-        hint: "👉 নিউজটি কোন বিভাগে যাবে সেটি বেছে নিন। এটি হোমপেজ ও মেনুতে দেখাবে।"
-        options:
-          - "World"
-          - "Asia"
-          - "Explainer"
-          - "Politics"
-          - "Economy"
-          - "Tech and AI"
-          - "Science"
-          - "Environment"
-          - "Research"
-          - "Human Rights"
-          - "Z Desk"
-          - "Alpha Desk"
-
-      - label: "📝 ৩. সংক্ষিপ্ত বর্ণনা (Description)"
-        name: "description"
-        widget: "text"
-        hint: "👉 ২-৩ বাক্যে নিউজের সারসংক্ষেপ লিখুন। এটি হোমপেজে দেখাবে এবং Google-এ meta description হিসেবে কাজ করবে।"
-
-      - label: "🖼️ ৪. কভার ছবি (Cover Image)"
-        name: "image"
-        widget: "image"
-        required: false
-        hint: "👉 কম্পিউটার থেকে ছবি আপলোড করুন। সাইজ: ১২০০×৮০০ (১৬:৯)। ছবি না দিলে ডিফল্ট লোগো দেখাবে।"
-
-      - label: "📰 ৫. সোর্স (Source)"
-        name: "source"
-        widget: "string"
-        required: false
-        hint: "👉 খবরের সূত্র, যেমন: Reuters, AP, BBC, The Global Desk। খালি রাখলে ডিফল্ট 'The Global Desk' হবে।"
-
-      - label: "✍️ ৬. মূল কনটেন্ট (Body)"
-        name: "body"
-        widget: "markdown"
-        hint: "👉 এখানে পুরো নিউজ লিখুন। Markdown সাপোর্টেড: **বোল্ড**, *ইটালিক*, ## হেডিং, - বুলেট, > কোট। ছবি বা লিংকও দিতে পারবেন।"
-
-      - label: "📅 ৭. প্রকাশের তারিখ (Date)"
-        name: "date"
-        widget: "datetime"
-        hint: "👉 নিউজ কখন প্রকাশ হবে। খালি রাখলে এখনকার সময় নিয়ে নেবে। ভবিষ্যতের তারিখ দিলে তখন পর্যন্ত লুকানো থাকবে।"
+      - { label: "Title (Headline)", name: "title", widget: "string", hint: "Short, clear headline (60-80 chars)." }
+      - { label: "Category", name: "category", widget: "select", options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] }
+      - { label: "Short Description", name: "description", widget: "text", hint: "2-3 sentence summary for homepage & SEO meta." }
+      - { label: "Cover Image", name: "image", widget: "image", required: false, hint: "Upload from computer. 1200x800 recommended." }
+      - { label: "Source", name: "source", widget: "string", required: false, hint: "e.g., Reuters, AP, BBC, The Global Desk" }
+      - { label: "Body Content", name: "body", widget: "markdown", hint: "Write the full story here." }
+      - { label: "Publish Date", name: "date", widget: "datetime", default: "" }
 
   - name: "breaking"
-    label: "🚨 Breaking News"
+    label: "Breaking News"
     label_singular: "Breaking News"
-    description: "👇 জরুরি ব্রেকিং নিউজ। নির্দিষ্ট সময় পর এটি অটো মুছে যাবে।"
     folder: "breaking"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}"
     fields:
-      - label: "📌 ব্রেকিং হেডলাইন"
-        name: "title"
-        widget: "string"
-        hint: "👉 অত্যন্ত ছোট রাখুন (এক লাইনে)। যেমন: 'বাংলাদেশে নতুন ভিসা নিয়ম'" 
-
-      - label: "⏰ কখন শেষ হবে (Expiry)"
-        name: "expires"
-        widget: "datetime"
-        hint: "👉 এই সময়ের পর ব্রেকিং নিউজ আর দেখাবে না। সাধারণত ৪-২৪ ঘণ্টা পর।"
-
-      - label: "⚡ প্রায়োরিটি"
-        name: "priority"
-        widget: "select"
-        options: ["Normal", "High"]
-        default: "Normal"
-        hint: "👉 'High' দিলে সবার আগে দেখাবে।"
-
-      - label: "✅ অ্যাক্টিভ"
-        name: "active"
-        widget: "boolean"
-        default: true
-        hint: "👉 চেক থাকলে সাইটে দেখাবে। আনচেক করলে সাথে সাথে মুছে যাবে।"
+      - { label: "Breaking Headline", name: "title", widget: "string", hint: "Very short, one line." }
+      - { label: "Expiry Date & Time", name: "expires", widget: "datetime", hint: "News stops showing after this time." }
+      - { label: "Priority", name: "priority", widget: "select", options: ["Normal", "High"], default: "Normal" }
+      - { label: "Active", name: "active", widget: "boolean", default: true }

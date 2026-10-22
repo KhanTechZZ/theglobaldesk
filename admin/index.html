@@ -7,354 +7,99 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* =========================================================
-       THE GLOBAL DESK — ADMIN PANEL (NEW DESIGN)
-       ========================================================= */
-
-    html, body, #root, #nc-root {
-      font-family: 'Inter', Arial, Helvetica, sans-serif !important;
-      background: #f0f4f8 !important;
-    }
-
-    /* ----- LOGIN SCREEN ----- */
+    /* ===== GLOBAL & LOGIN ===== */
+    html, body { font-family: 'Inter', Arial, sans-serif !important; background: #f0f4f8 !important; }
     body:not(:has(header[role="banner"])) {
-      background: linear-gradient(135deg, #061a33 0%, #0d4f91 60%, #c99a3b 100%) !important;
-      background-size: 400% 400% !important;
-      animation: gradientShift 12s ease infinite !important;
-    }
-    @keyframes gradientShift {
-      0%,100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+      background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important;
     }
 
-    /* ----- TOP HEADER (Brand Bar) ----- */
+    /* ===== TOP HEADER BAR (Logo Fix) ===== */
     header[role="banner"] {
-      background: linear-gradient(90deg, #030f1e 0%, #061a33 100%) !important;
-      border-bottom: 3px solid #c99a3b !important;
-      padding: 0 24px !important;
-      min-height: 68px !important;
+      background: #030f1e !important;
+      border-bottom: 2px solid #c99a3b !important;
+      padding: 0 16px !important;
+      min-height: 56px !important;
       display: flex !important;
       align-items: center !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
     }
-
-    /* Logo — dark pill background so white logo is visible */
+    /* Force logo image to appear */
     header[role="banner"] img,
     header[role="banner"] a img {
-      max-height: 38px !important;
+      max-height: 32px !important;
       width: auto !important;
-      display: block !important;
-      background: #030f1e !important;
-      padding: 6px 10px !important;
-      border-radius: 8px !important;
-      border: 1px solid rgba(201, 154, 59, 0.4) !important;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.4) !important;
+      background: #ffffff !important;
+      padding: 4px 8px !important;
+      border-radius: 6px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
     }
-
-    /* Brand name after logo */
+    /* Brand text next to logo */
     header[role="banner"]::after {
       content: "NEWSROOM";
       color: #c99a3b;
       font-weight: 900;
-      font-size: 11px;
-      letter-spacing: 3px;
-      margin-left: 16px;
-      padding: 6px 14px;
-      border-left: 2px solid rgba(201, 154, 59, 0.3);
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    header[role="banner"] nav a,
-    header[role="banner"] button:not([type="submit"]) {
-      color: #cbd5e1 !important;
-      font-weight: 600 !important;
-      transition: color 0.15s !important;
-    }
-    header[role="banner"] nav a:hover { color: #e5c06b !important; }
-
-    /* ----- SIDEBAR (Modern) ----- */
-    aside[role="navigation"],
-    [class*="Sidebar"] {
+    /* ===== SIDEBAR (Compact) ===== */
+    aside[role="navigation"], [class*="Sidebar"] {
       background: #ffffff !important;
       border-right: 1px solid #e2e8f0 !important;
-      padding: 20px 12px !important;
+      padding: 12px 8px !important;
     }
-
-    aside[role="navigation"] a,
-    [class*="Sidebar"] a {
-      border-radius: 10px !important;
-      margin: 4px 0 !important;
-      padding: 12px 16px !important;
+    aside[role="navigation"] a, [class*="Sidebar"] a {
+      border-radius: 8px !important;
+      margin: 2px 0 !important;
+      padding: 10px 14px !important;
       color: #475569 !important;
+      font-size: 13.5px !important;
       font-weight: 600 !important;
-      font-size: 14px !important;
       transition: all 0.15s ease !important;
-      display: flex !important;
-      align-items: center !important;
-      gap: 10px !important;
     }
-    aside[role="navigation"] a:hover,
-    [class*="Sidebar"] a:hover {
+    aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover {
       background: #eaf3fb !important;
       color: #0d4f91 !important;
-      transform: translateX(3px) !important;
+      transform: translateX(2px) !important;
     }
 
-    /* Active sidebar item (gold) */
-    [class*="Sidebar"] a[class*="Active"],
-    [class*="Sidebar"] a[aria-current="page"] {
-      background: linear-gradient(90deg, #c99a3b 0%, #e5c06b 100%) !important;
-      color: #061a33 !important;
-      font-weight: 800 !important;
-      box-shadow: 0 4px 12px rgba(201,154,59,0.3) !important;
-    }
-
-    /* ----- BUTTONS (Gold Primary) ----- */
+    /* ===== BUTTONS (Small & Golden) ===== */
     button[type="submit"],
     [class*="ToolbarButton"]:not([class*="Disabled"]),
     [class*="ButtonPrimary"],
     [class*="SaveButton"] {
-      background: linear-gradient(135deg, #c99a3b 0%, #e5c06b 100%) !important;
+      background: #c99a3b !important;
       color: #061a33 !important;
       font-weight: 800 !important;
-      border-radius: 10px !important;
+      border-radius: 8px !important;
       border: none !important;
-      padding: 10px 22px !important;
-      box-shadow: 0 4px 15px rgba(201,154,59,0.3) !important;
+      padding: 6px 14px !important; /* smaller padding */
+      font-size: 13px !important;
+      box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important;
       transition: all 0.2s !important;
     }
-    button[type="submit"]:hover,
-    [class*="ToolbarButton"]:hover {
-      transform: translateY(-2px) !important;
-      box-shadow: 0 8px 25px rgba(201,154,59,0.4) !important;
-    }
+    button[type="submit"]:hover { transform: translateY(-1px) !important; box-shadow: 0 4px 12px rgba(201,154,59,0.3) !important; }
 
-    /* Secondary buttons (Edit/Delete) */
-    [class*="ToolbarButton"] {
-      border: 1px solid #cbd5e1 !important;
-      color: #334155 !important;
-      background: #ffffff !important;
-    }
+    /* ===== FORM FIELDS ===== */
+    label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 4px !important; }
+    [class*="FieldHint"] { color: #64748b !important; font-size: 11.5px !important; line-height: 1.4 !important; padding: 6px 10px !important; border-left: 3px solid #c99a3b !important; margin-top: 4px !important; }
+    input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
+    input:focus, textarea:focus, select:focus { border-color: #c99a3b !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important; outline: none !important; }
 
-    /* ----- CARDS ----- */
-    [class*="Card"] {
-      border-radius: 16px !important;
-      border: 1px solid #e2e8f0 !important;
-      border-top: 4px solid #c99a3b !important;
-      box-shadow: 0 10px 40px rgba(7, 28, 50, 0.08) !important;
-      background: #ffffff !important;
-    }
-
-    /* ----- FORM FIELDS ----- */
-    label[class*="FieldLabel"] {
-      color: #061a33 !important;
-      font-weight: 700 !important;
-      font-size: 14px !important;
-      letter-spacing: -0.01em !important;
-      margin-bottom: 8px !important;
-      display: block !important;
-    }
-
-    [class*="FieldHint"] {
-      color: #64748b !important;
-      font-size: 12.5px !important;
-      line-height: 1.5 !important;
-      background: #f8fafc !important;
-      padding: 8px 12px !important;
-      border-radius: 6px !important;
-      border-left: 3px solid #c99a3b !important;
-      margin-top: 6px !important;
-    }
-
-    input, textarea, select {
-      border-radius: 10px !important;
-      border: 1.5px solid #e2e8f0 !important;
-      padding: 12px 14px !important;
-      font-size: 14px !important;
-      transition: all 0.15s !important;
-    }
-    input:focus, textarea:focus, select:focus {
-      border-color: #c99a3b !important;
-      box-shadow: 0 0 0 4px rgba(201, 154, 59, 0.12) !important;
-      outline: none !important;
-    }
-
-    /* Image upload widget — larger drop zone */
-    [class*="ImageWidget"] {
-      border: 2px dashed #cbd5e1 !important;
-      border-radius: 12px !important;
-      padding: 20px !important;
-      transition: all 0.2s !important;
-    }
-    [class*="ImageWidget"]:hover {
-      border-color: #c99a3b !important;
-      background: #fefcf5 !important;
-    }
-
-    /* ----- PREVIEW PANEL ----- */
-    .preview-wrap {
-      background: linear-gradient(135deg, #f0f4f8 0%, #f8fafc 100%);
-      padding: 28px;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .preview-tag {
-      display: inline-block;
-      background: #061a33;
-      color: #c99a3b;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-    }
-    .preview-article {
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(7,28,50,0.1);
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .preview-article .preview-cat {
-      display: inline-block;
-      color: #c99a3b;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #c99a3b;
-    }
-    .preview-article h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 38px;
-      line-height: 1.15;
-      color: #061a33;
-      margin: 0 0 20px;
-      letter-spacing: -0.5px;
-    }
-    .preview-article .preview-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #667383;
-      font-size: 13px;
-      padding-bottom: 20px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .preview-article .preview-image {
-      width: 100%;
-      max-height: 340px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin: 0 0 28px;
-      display: block;
-      background: #e2e8f0;
-    }
-    .preview-article .preview-desc {
-      font-size: 17px;
-      line-height: 1.6;
-      color: #4a5663;
-      font-weight: 600;
-      margin-bottom: 24px;
-      padding: 16px;
-      background: #f8fafc;
-      border-left: 4px solid #c99a3b;
-      border-radius: 0 8px 8px 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .preview-article .preview-body {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 17px;
-      line-height: 1.8;
-      color: #273545;
-    }
-    .preview-article .preview-body h2,
-    .preview-article .preview-body h3 {
-      font-family: Georgia, serif;
-      color: #061a33;
-      margin: 28px 0 14px;
-    }
-    .preview-article .preview-body p { margin-bottom: 18px; }
-    .preview-article .preview-body blockquote {
-      border-left: 4px solid #c99a3b;
-      padding: 12px 20px;
-      background: #f8fafc;
-      border-radius: 0 8px 8px 0;
-      font-style: italic;
-      color: #4a5663;
-      margin: 20px 0;
-    }
-    .preview-article .preview-body img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-    .preview-placeholder {
-      color: #94a3b8;
-      font-style: italic;
-      font-size: 15px;
-      padding: 20px;
-      text-align: center;
-      border: 2px dashed #e2e8f0;
-      border-radius: 8px;
-    }
-
-    /* Breaking preview */
-    .preview-breaking {
-      background: linear-gradient(135deg, #061a33 0%, #0d4f91 100%);
-      color: #fff;
-      padding: 36px;
-      border-radius: 16px;
-      max-width: 700px;
-      margin: 0 auto;
-      box-shadow: 0 20px 60px rgba(7,28,50,0.3);
-    }
-    .preview-breaking .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #c51f2d;
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      margin-bottom: 18px;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(197,31,45,0.5); }
-      50% { box-shadow: 0 0 0 10px rgba(197,31,45,0); }
-    }
-    .preview-breaking .badge::before {
-      content: "●";
-      color: #fff;
-    }
-    .preview-breaking h2 {
-      font-family: Georgia, serif;
-      font-size: 26px;
-      line-height: 1.3;
-      margin: 0 0 18px;
-      color: #ffffff;
-    }
-    .preview-breaking .meta {
-      color: rgba(255,255,255,0.7);
-      font-size: 13px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .preview-breaking .meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+    /* ===== PREVIEW STYLES ===== */
+    .preview-wrap { padding: 20px; background: #f8fafc; min-height: 100vh; }
+    .preview-article { background: #fff; padding: 32px; border-radius: 12px; max-width: 780px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .preview-cat { color: #c99a3b; font-weight: 800; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
+    .preview-article h1 { font-family: Georgia, serif; font-size: 34px; line-height: 1.2; color: #061a33; margin: 8px 0 16px; }
+    .preview-meta { color: #667383; font-size: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; margin-bottom: 20px; }
+    .preview-image { width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; }
+    .preview-desc { font-size: 16px; font-weight: 600; color: #4a5663; border-left: 4px solid #c99a3b; padding-left: 16px; margin-bottom: 20px; }
+    .preview-body { font-family: Georgia, serif; font-size: 16.5px; line-height: 1.8; color: #273545; }
+    .preview-body h2, .preview-body h3 { font-family: Georgia, serif; color: #061a33; }
+    .preview-body blockquote { border-left: 4px solid #c99a3b; padding-left: 16px; background: #f8fafc; padding: 12px; border-radius: 0 8px 8px 0; font-style: italic; }
+    .preview-placeholder { color: #94a3b8; font-style: italic; padding: 20px; text-align: center; border: 2px dashed #e2e8f0; border-radius: 8px; }
   </style>
 </head>
 <body>
@@ -362,134 +107,77 @@
 
   <script>
   /* =========================================================
-     LIVE PREVIEW TEMPLATES — FULLY FIXED
+     LIVE PREVIEW TEMPLATES (FIXED)
      ========================================================= */
-
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
 
     /**
-     * Robust image URL resolver
-     * Handles: uploaded assets, relative paths, absolute URLs, null
+     * ✅ FIXED: getAsset now handles Promise + returns correct URL
      */
-    function getImageUrl(props, imagePath) {
-      if (!imagePath || imagePath === '') return null;
-
+    async function getImageUrl(props, imagePath) {
+      if (!imagePath) return null;
       try {
-        const asset = props.getAsset(imagePath);
-        if (asset) {
-          const url = asset.toString();
-          if (url && url !== '[object Object]' && url !== 'undefined') {
-            return url;
-          }
+        const asset = await props.getAsset(imagePath); // await the promise
+        if (asset && typeof asset === 'object' && asset.url) {
+          return asset.url; // standard AssetProxy returns .url
+        }
+        if (asset && typeof asset === 'string') {
+          return asset;
+        }
+        // fallback: if it's just a path
+        if (typeof imagePath === 'string') {
+          return imagePath.startsWith('/') ? imagePath : '/' + imagePath;
         }
       } catch (e) {
         // ignore
-      }
-
-      // Fallback: treat as already a URL
-      if (typeof imagePath === 'string') {
-        if (imagePath.startsWith('http')) return imagePath;
-        if (imagePath.startsWith('/')) return imagePath;
-        return '/' + imagePath;
       }
       return null;
     }
 
     // ============================================
-    // NEWS PREVIEW TEMPLATE
+    // NEWS PREVIEW (Async render)
     // ============================================
-    CMS.registerPreviewTemplate('news', function(props) {
+    CMS.registerPreviewTemplate('news', async function(props) {
       const h = props.h;
-      const entry = props.entry;
-      const data = entry.getIn(['data']) ? entry.getIn(['data']).toJS() : {};
+      const data = props.entry.getIn(['data']).toJS();
 
-      const imageUrl = getImageUrl(props, data.image);
+      const imageUrl = await getImageUrl(props, data.image); // wait for URL
       const bodyWidget = props.widgetFor('body');
-
-      const dateStr = data.date
-        ? new Date(data.date).toLocaleString('en-US', {
-            weekday: 'short', month: 'short', day: 'numeric',
-            year: 'numeric', hour: '2-digit', minute: '2-digit'
-          })
-        : 'Date not set';
+      const dateStr = data.date ? new Date(data.date).toLocaleString() : 'Date not set';
 
       return h('div', { className: 'preview-wrap' },
-        h('span', { className: 'preview-tag' }, 'LIVE PREVIEW'),
         h('article', { className: 'preview-article' },
-
-          // Category label
-          data.category
-            ? h('span', { className: 'preview-cat' }, data.category.toUpperCase())
-            : null,
-
-          // Title
+          data.category ? h('span', { className: 'preview-cat' }, data.category.toUpperCase()) : null,
           h('h1', {}, data.title || 'Your headline will appear here'),
-
-          // Meta row
-          h('div', { className: 'preview-meta' },
-            h('span', {}, '✍️ The Global Desk'),
-            h('span', {}, '•'),
-            h('span', {}, dateStr),
-            data.source
-              ? h('span', { style: { color: '#c99a3b', fontWeight: '700' } }, '• ' + data.source)
-              : null
-          ),
-
-          // Cover image
-          imageUrl
-            ? h('img', {
-                className: 'preview-image',
-                src: imageUrl,
-                alt: data.title || 'Cover image',
-                onError: function(e) { e.target.style.display = 'none'; }
-              })
-            : h('div', {
-                className: 'preview-placeholder',
-                style: { marginBottom: '24px' }
-              }, '🖼️ Cover image will appear here'),
-
-          // Description (highlighted)
-          data.description
-            ? h('p', { className: 'preview-desc' }, data.description)
-            : null,
-
-          // Body
-          bodyWidget
-            ? h('div', { className: 'preview-body' }, bodyWidget)
-            : h('div', { className: 'preview-placeholder' }, '✍️ Your story body will appear here...')
+          h('div', { className: 'preview-meta' }, '✍️ The Global Desk • ' + dateStr + (data.source ? ' • ' + data.source : '')),
+          imageUrl ? h('img', { className: 'preview-image', src: imageUrl, alt: data.title }) : h('div', { className: 'preview-placeholder' }, '🖼️ Cover image will appear here'),
+          data.description ? h('p', { className: 'preview-desc' }, data.description) : null,
+          bodyWidget ? h('div', { className: 'preview-body' }, bodyWidget) : h('div', { className: 'preview-placeholder' }, '✍️ Body content will appear here...')
         )
       );
     });
 
     // ============================================
-    // BREAKING NEWS PREVIEW TEMPLATE
+    // BREAKING NEWS PREVIEW
     // ============================================
     CMS.registerPreviewTemplate('breaking', function(props) {
       const h = props.h;
       const data = props.entry.getIn(['data']).toJS();
-
-      const expiresStr = data.expires
-        ? new Date(data.expires).toLocaleString('en-US', {
-            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-          })
-        : 'No expiry set';
+      const expiresStr = data.expires ? new Date(data.expires).toLocaleString() : 'No expiry';
 
       return h('div', { className: 'preview-wrap' },
-        h('span', { className: 'preview-tag' }, 'BREAKING PREVIEW'),
-        h('div', { className: 'preview-breaking' },
-          h('span', { className: 'badge' }, 'BREAKING'),
-          h('h2', {}, data.title || 'Breaking news headline will appear here'),
-          h('div', { className: 'meta' },
-            h('span', {}, '⏰ ' + expiresStr),
-            h('span', {}, '⚡ ' + (data.priority || 'Normal')),
-            h('span', {}, data.active ? '✅ Active' : '❌ Inactive')
+        h('div', { style: { background: '#061a33', color: '#fff', padding: '24px', borderRadius: '12px', maxWidth: '600px', margin: '0 auto' } },
+          h('span', { style: { background: '#c51f2d', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', letterSpacing: '1.5px' } }, 'BREAKING'),
+          h('h2', { style: { fontFamily: 'Georgia, serif', marginTop: '12px', fontSize: '22px' } }, data.title || 'Headline'),
+          h('div', { style: { fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' } },
+            '⏰ ' + expiresStr + ' | ⚡ ' + (data.priority || 'Normal') + ' | ' + (data.active ? '✅ Active' : '❌ Inactive')
           )
         )
       );
     });
 
-    // Register site CSS for preview
+    // Register site CSS for accurate preview
     CMS.registerPreviewStyle('/style.css');
   });
   </script>

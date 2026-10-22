@@ -23,6 +23,32 @@
       margin-left: 12px; padding-left: 12px; border-left: 1px solid rgba(201,154,59,0.3);
     }
 
+    /* ✅ FLOATING VIEW STATS BUTTON — Always visible */
+    .view-stats-float-btn {
+      position: fixed !important;
+      bottom: 24px !important;
+      right: 24px !important;
+      z-index: 999999 !important;
+      background: #c99a3b !important;
+      color: #061a33 !important;
+      padding: 12px 22px !important;
+      border-radius: 30px !important;
+      font-weight: 800 !important;
+      font-size: 13px !important;
+      text-decoration: none !important;
+      box-shadow: 0 8px 24px rgba(201,154,59,0.5) !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      transition: all 0.2s !important;
+      border: 2px solid #061a33 !important;
+    }
+    .view-stats-float-btn:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 12px 32px rgba(201,154,59,0.7) !important;
+      background: #e5c06b !important;
+    }
+
     aside[role="navigation"], [class*="Sidebar"] { background: #ffffff !important; border-right: 1px solid #e2e8f0 !important; padding: 12px 8px !important; }
     aside[role="navigation"] a, [class*="Sidebar"] a {
       border-radius: 8px !important; margin: 2px 0 !important; padding: 10px 14px !important;
@@ -30,34 +56,43 @@
     }
     aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover { background: #eaf3fb !important; color: #0d4f91 !important; transform: translateX(2px) !important; }
 
-    /* ✅ ছোট ও পরিষ্কার হিন্ট টেক্সট */
     [class*="ControlHint"], .css-1j8z6y0-ControlHint, p[class*="ControlHint"] {
       font-size: 11px !important; line-height: 1.4 !important; color: #64748b !important;
       margin-top: 4px !important; margin-bottom: 0 !important; padding: 4px 8px !important;
       background: #f8fafc !important; border-radius: 4px !important; border-left: 2px solid #c99a3b !important;
     }
 
-    /* ✅ ছোট বাটন */
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
       background: #c99a3b !important; color: #061a33 !important; font-weight: 800 !important;
       border-radius: 8px !important; border: none !important; padding: 5px 12px !important; font-size: 12px !important;
-      box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important; transition: all 0.2s !important;
+      box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important;
     }
-    button[type="submit"]:hover { transform: translateY(-1px) !important; box-shadow: 0 4px 12px rgba(201,154,59,0.3) !important; }
 
     label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 4px !important; }
     input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
     input:focus, textarea:focus, select:focus { border-color: #c99a3b !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important; outline: none !important; }
 
-    /* ✅ ডিফল্ট প্রিভিউ স্টাইল (লোগো ও ছবি দেখাবে) */
-    .preview-wrap { padding: 16px; background: #f8fafc; }
-    .preview-article { background: #fff; padding: 24px; border-radius: 10px; max-width: 100%; }
+    /* ✅ Preview with FIXED image crop (16:9) */
+    .preview-wrap { padding: 16px; background: #f8fafc; min-height: 100vh; }
+    .preview-article { background: #fff; padding: 28px; border-radius: 10px; max-width: 780px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
     .preview-cat { color: #c99a3b; font-weight: 800; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
-    .preview-article h1 { font-family: Georgia, serif; font-size: 28px; line-height: 1.2; color: #061a33; margin: 6px 0 12px; }
+    .preview-article h1 { font-family: Georgia, serif; font-size: 30px; line-height: 1.2; color: #061a33; margin: 6px 0 12px; }
     .preview-meta { color: #667383; font-size: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px; }
-    .preview-image { width: 100%; max-height: 280px; object-fit: cover; border-radius: 8px; margin-bottom: 16px; }
+    
+    /* ✅ Image crop to 16:9 */
+    .preview-image {
+      width: 100% !important;
+      aspect-ratio: 16 / 9 !important;
+      object-fit: cover !important;
+      border-radius: 8px !important;
+      margin-bottom: 18px !important;
+      display: block !important;
+      background: #e2e8f0 !important;
+    }
+    
     .preview-desc { font-size: 15px; font-weight: 600; color: #4a5663; border-left: 4px solid #c99a3b; padding-left: 12px; margin-bottom: 16px; }
     .preview-body { font-family: Georgia, serif; font-size: 15px; line-height: 1.8; color: #273545; }
+    .preview-body h2, .preview-body h3 { font-family: Georgia, serif; color: #061a33; }
     .preview-placeholder { color: #94a3b8; font-style: italic; padding: 16px; text-align: center; border: 2px dashed #e2e8f0; border-radius: 8px; }
   </style>
 </head>
@@ -65,8 +100,90 @@
   <script src="https://unpkg.com/decap-cms@^3.4.0/dist/decap-cms.js"></script>
 
   <script>
-  // ✅ কাস্টম প্রিভিউ টেমপ্লেট রেজিস্টার করা হচ্ছে না
-  // ডিফল্ট প্রিভিউই ছবি ও কনটেন্ট দেখাবে, কোনো React এরর আসবে না
+  window.addEventListener('load', function() {
+    if (typeof CMS === 'undefined') return;
+
+    // ✅ SYNC image resolver (no async = no React error)
+    function getImageUrlSync(props, imagePath) {
+      if (!imagePath) return null;
+      try {
+        const asset = props.getAsset(imagePath);
+        if (asset) {
+          if (typeof asset === 'string') return asset;
+          if (typeof asset.toString === 'function') {
+            const str = asset.toString();
+            if (str && str !== '[object Object]' && str !== '[object Promise]') return str;
+          }
+        }
+      } catch (e) { /* ignore */ }
+
+      if (typeof imagePath === 'string') {
+        if (/^https?:\/\//.test(imagePath)) return imagePath;
+        if (imagePath.startsWith('/')) return imagePath;
+        return '/' + imagePath;
+      }
+      return null;
+    }
+
+    // ✅ SYNC preview (NOT async — this was the React error cause)
+    CMS.registerPreviewTemplate('news', function(props) {
+      const h = props.h;
+      const data = props.entry.getIn(['data']).toJS();
+      const imageUrl = getImageUrlSync(props, data.image);
+      const bodyWidget = props.widgetFor('body');
+      const dateStr = data.date ? new Date(data.date).toLocaleString() : 'Date not set';
+
+      return h('div', { className: 'preview-wrap' },
+        h('article', { className: 'preview-article' },
+          data.category ? h('span', { className: 'preview-cat' }, data.category.toUpperCase()) : null,
+          h('h1', {}, data.title || 'Your headline will appear here'),
+          h('div', { className: 'preview-meta' }, '✍️ The Global Desk • ' + dateStr + (data.source ? ' • ' + data.source : '')),
+          imageUrl
+            ? h('img', { className: 'preview-image', src: imageUrl, alt: data.title || 'Cover' })
+            : h('div', { className: 'preview-placeholder', style: { marginBottom: '18px' } }, '🖼️ Cover image will appear here'),
+          data.description ? h('p', { className: 'preview-desc' }, data.description) : null,
+          bodyWidget ? h('div', { className: 'preview-body' }, bodyWidget) : h('div', { className: 'preview-placeholder' }, '✍️ Body content will appear here...')
+        )
+      );
+    });
+
+    CMS.registerPreviewTemplate('breaking', function(props) {
+      const h = props.h;
+      const data = props.entry.getIn(['data']).toJS();
+      const expiresStr = data.expires ? new Date(data.expires).toLocaleString() : 'No expiry';
+
+      return h('div', { className: 'preview-wrap' },
+        h('div', { style: { background: '#061a33', color: '#fff', padding: '24px', borderRadius: '12px', maxWidth: '600px', margin: '0 auto' } },
+          h('span', { style: { background: '#c51f2d', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '800', letterSpacing: '1.5px' } }, 'BREAKING'),
+          h('h2', { style: { fontFamily: 'Georgia, serif', marginTop: '12px', fontSize: '22px' } }, data.title || 'Headline'),
+          h('div', { style: { fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' } },
+            '⏰ ' + expiresStr + ' | ⚡ ' + (data.priority || 'Normal') + ' | ' + (data.active ? '✅ Active' : '❌ Inactive')
+          )
+        )
+      );
+    });
+
+    CMS.registerPreviewStyle('/style.css');
+
+    // ✅ Inject FLOATING View Stats button (100% reliable)
+    function injectFloatBtn() {
+      if (document.querySelector('.view-stats-float-btn')) return;
+      var btn = document.createElement('a');
+      btn.href = '/admin/views.html';
+      btn.target = '_blank';
+      btn.className = 'view-stats-float-btn';
+      btn.innerHTML = '📊 View Stats';
+      document.body.appendChild(btn);
+    }
+
+    // Wait for body to be ready
+    if (document.body) {
+      injectFloatBtn();
+    }
+
+    // Keep re-injecting if removed by React re-render
+    setInterval(injectFloatBtn, 1000);
+  });
   </script>
 </body>
 </html>

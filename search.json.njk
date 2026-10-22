@@ -1,0 +1,16 @@
+---
+permalink: /search-index.json
+eleventyExcludeFromCollections: true
+---
+[
+{% for story in collections.news | reverse %}
+  {
+    "title": {{ story.data.title | jsonify | safe }},
+    "description": {{ story.data.description | jsonify | safe }},
+    "category": {{ story.data.category | jsonify | safe }},
+    "url": {{ story.url | jsonify | safe }},
+    "image": {{ story.data.image | default("") | jsonify | safe }},
+    "date": {{ story.data.date | isoDate | jsonify | safe }}
+  }{% if not loop.last %},{% endif %}
+{% endfor %}
+]

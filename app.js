@@ -43,55 +43,20 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 
-/* ---------- 3. DROPDOWN MENU (FAST POSITIONING) ---------- */
+/* ---------- 3. DROPDOWN MENU ---------- */
 const dropdown = document.getElementById("dropdown");
 const dropdownBtn = document.getElementById("dropdownBtn");
 
 dropdownBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
     e.stopPropagation();
-    
-    if (dropdown.classList.contains("open")) {
-        dropdown.classList.remove("open");
-        return;
-    }
-    
-    // Position calculation happens instantly before animation starts
-    if (window.innerWidth <= 800) {
-        const rect = dropdownBtn.getBoundingClientRect();
-        const content = dropdown.querySelector('.dropdown-content');
-        if (content) {
-            // Open exactly 5px below the button
-            content.style.top = (rect.bottom + 5) + 'px';
-            // Align to the right edge of the button
-            let rightPos = window.innerWidth - rect.right;
-            if (rightPos < 10) rightPos = 10; 
-            content.style.right = rightPos + 'px';
-            content.style.left = 'auto';
-        }
-    } else {
-        // Reset inline styles on desktop
-        const content = dropdown.querySelector('.dropdown-content');
-        if (content) {
-            content.style.top = '';
-            content.style.right = '';
-            content.style.left = '';
-        }
-    }
-    
-    dropdown.classList.add("open");
+    dropdown?.classList.toggle("open");
 });
-
 document.addEventListener("click", (e) => {
-    if (dropdown && !dropdown.contains(e.target)) {
-        dropdown.classList.remove("open");
-    }
+    if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove("open");
 });
-
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") dropdown?.classList.remove("open");
 });
-
 window.addEventListener("scroll", () => {
     if (window.innerWidth <= 800) dropdown?.classList.remove("open");
 }, { passive: true });
@@ -113,7 +78,6 @@ async function loadBreakingNews() {
         }
     } catch (e) { console.error("Breaking news load error:", e); }
 }
-
 function showBreakingNews() {
     const link = document.getElementById("breakingLink");
     const wrap = document.getElementById("breakingNews");
@@ -128,7 +92,6 @@ function showBreakingNews() {
     breakingIndex++;
     if (breakingIndex >= breakingStories.length) breakingIndex = 0;
 }
-
 const breakingBar = document.getElementById("breakingBar");
 let breakingTimer = setInterval(showBreakingNews, 6500);
 breakingBar?.addEventListener("mouseenter", () => clearInterval(breakingTimer));
@@ -164,7 +127,7 @@ updateAllTimes();
 setInterval(updateAllTimes, 60000);
 
 
-/* ---------- 6. ARTICLE PAGE ---------- */
+/* ---------- 6. ARTICLE PAGE (Reading Time & Share) ---------- */
 const articleBody = document.querySelector(".article-body");
 if (articleBody) {
     const text = articleBody.innerText || "";
@@ -193,7 +156,91 @@ if (articleBody) {
 }
 
 
-/* ---------- 7. DARK MODE ---------- */
+/* ---------- 7. SEARCH FUNCTIONALITY ---------- */
+const searchInput = document.getElementById("searchInput");
+if (searchInput) {
+    let searchIndex = [];
+
+    fetch("/search-index.json")
+        .then(r => r.json())
+        .then(data => { searchIndex = data; })
+        .catch(e => console.error("Search index load error:", e));
+
+    function renderSearchResults(query) {
+        const resultsEl = document.getElementById("searchResults");
+        const statsEl = document.getElementById("searchStats");
+        if (!resultsEl || !statsEl) return;
+
+        const q = query.trim().toLowerCase();
+
+        if (!q) {
+            statsEl.textContent = "";
+            resultsEl.innerHTML = `<p class="no-news">Type something to search across all stories.</p>`;
+            return;
+        }
+
+        const matches = searchIndex.filter(item =>
+            item.title.toLowerCase().includes(q) ||
+            item.description.toLowerCase().includes(q) ||
+            item.category.toLowerCase().includes(q)
+        );
+
+        if (!matches.length) {
+            statsEl.textContent = "";
+            resultsEl.innerHTML = `<p class="no-news">No stories found for "<strong>${q}</strong>".</p>`;
+            return;
+        }
+
+        statsEl.textContent = `${matches.length} ${matches.length === 1 ? "story" : "stories"} found for "${q}"`;
+
+        resultsEl.innerHTML = matches.map((item, i) => {
+            const isFeatured = i === 0 && matches.length > 1;
+            const cls = isFeatured ? "news-card-featured" : "news-card-small";
+            const imgHTML = item.image
+                ? `<img src="${item.image}" alt="${item.title}" class="news-image" loading="lazy">`
+                : `<div class="news-image news-image-placeholder"></div>`;
+            return `
+                <article class="news-card ${cls}">
+                    <a href="${item.url}" class="news-card-link">
+                        ${imgHTML}
+                        <div class="news-info">
+                            <span class="category-label">${item.category}</span>
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                            <div class="news-meta">
+                                <span class="time-ago" data-published="${item.date}">${item.date}</span> — The Global Desk
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            `;
+        }).join("");
+
+        updateAllTimes();
+    }
+
+    // Debounce search for speed
+    let debounceTimer;
+    searchInput.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => renderSearchResults(searchInput.value), 200);
+    });
+
+    document.getElementById("searchClear")?.addEventListener("click", () => {
+        searchInput.value = "";
+        renderSearchResults("");
+        searchInput.focus();
+    });
+
+    // Initial state
+    renderSearchResults("");
+
+    // Focus input on load
+    window.addEventListener("load", () => searchInput.focus());
+}
+
+
+/* ---------- 8. DARK MODE ---------- */
 const themeToggle = document.getElementById("themeToggle");
 if (localStorage.getItem("globalDeskTheme") === "dark") {
     document.body.classList.add("dark-mode");
@@ -207,7 +254,7 @@ themeToggle?.addEventListener("click", () => {
 });
 
 
-/* ---------- 8. TOAST ---------- */
+/* ---------- 9. TOAST ---------- */
 let toastTimer;
 function showToast(message) {
     const toast = document.getElementById("toast");

@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /_site/
-Disallow: /images/uploads/
-
-Sitemap: https://tgdnews.pages.dev/sitemap.xml

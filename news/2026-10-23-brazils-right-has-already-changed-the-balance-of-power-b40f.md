@@ -8,14 +8,7 @@ image: /images/uploads/eyjrzxkioijzdgf0awmvbwvkawevaw1hz2vzl3nvdxrolwfzawetz3jly
 source: Al Jazeera
 date: 2026-10-24T00:01:00.000+06:00
 ---
-> **Source:** [Al Jazeera](https://www.aljazeera.com/opinions/2026/10/23/brazils-right-has-already-changed-the-balance-of-power?traffic_source=rss)
-> This is a summary. [Read the full article →](https://www.aljazeera.com/opinions/2026/10/23/brazils-right-has-already-changed-the-balance-of-power?traffic_source=rss)
 
-Bolsonaro’s party has strengthened its position in Congress, posing a formidable challenge to another Lula presidency.
-
-- - -
-
-*Originally published by Al Jazeera. Read the full article at <https://www.aljazeera.com/opinions/2026/10/23/brazils-right-has-already-changed-the-balance-of-power?traffic_source=rss>.*
 
 ![](/images/uploads/the-global-desk.jpeg)
 

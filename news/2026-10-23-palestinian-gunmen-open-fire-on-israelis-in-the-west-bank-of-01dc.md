@@ -1,6 +1,7 @@
 ---
 title: "Palestinian Gunmen Open Fire on Israelis in the West Bank, Officials Say"
 date: 2026-10-23T16:41:01.000Z
+imported_at: 2026-10-23T17:12:19.847Z
 category: "World"
 description: "The Israeli military said two soldiers and two attackers had been killed, and Prime Minister Benjamin Netanyahu vowed to launch a major offensive in the Israeli-occupied territory."
 source: "NYT"

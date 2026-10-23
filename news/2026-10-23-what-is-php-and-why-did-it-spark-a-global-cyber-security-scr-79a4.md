@@ -1,6 +1,7 @@
 ---
 title: "What is PHP and why did it spark a global cyber-security scramble?"
 date: 2026-10-23T12:24:17.000Z
+imported_at: 2026-10-23T17:12:14.544Z
 category: "Tech and AI"
 description: "AI uncovered long-hidden programming flaws, triggering a rare global cyber-security response."
 source: "BBC"

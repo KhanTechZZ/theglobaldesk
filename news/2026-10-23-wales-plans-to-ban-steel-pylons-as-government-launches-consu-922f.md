@@ -1,6 +1,7 @@
 ---
 title: "Wales plans to ban steel pylons as government launches consultation"
 date: 2026-10-23T16:44:13.000Z
+imported_at: 2026-10-23T17:12:15.603Z
 category: "Science"
 description: "The Welsh government says it is consulting on an \"undergrounding-first approach\" to electricity lines."
 source: "BBC"

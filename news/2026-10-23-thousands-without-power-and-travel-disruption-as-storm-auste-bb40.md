@@ -1,6 +1,7 @@
 ---
 title: "Thousands without power and travel disruption as Storm Austen batters southern UK"
 date: 2026-10-23T16:39:46.000Z
+imported_at: 2026-10-23T17:12:15.607Z
 category: "Science"
 description: "On Saturday, Storm Boelo is forecast to bring more strong winds and heavy rain to Scotland and parts of northern England."
 source: "BBC"

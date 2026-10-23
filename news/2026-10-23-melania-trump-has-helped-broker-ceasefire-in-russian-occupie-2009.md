@@ -1,6 +1,7 @@
 ---
 title: "Melania Trump has helped broker ceasefire in Russian-occupied Ukrainian town, says White House – Europe live"
 date: 2026-10-23T16:56:16.000Z
+imported_at: 2026-10-23T17:12:17.638Z
 category: "World"
 description: "Residents in Oleshky have been enduring a worsening humanitarian crisis due to the lack of food, electricity and other resources The French prime minister Sébastien Lecornu has just issued a statement..."
 source: "The Guardian"

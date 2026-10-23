@@ -1,6 +1,7 @@
 ---
 title: "Duchess of Sussex ‘deeply distressed’ over child sexual abuse image claims against father"
 date: 2026-10-23T15:16:14.000Z
+imported_at: 2026-10-23T17:12:17.629Z
 category: "World"
 description: "Meghan reveals she was made aware of ‘disturbing allegations’ against him in 2018 by Met police The Duchess of Sussex has said she is “deeply distressed” over accusations involving child sexual abuse ..."
 source: "The Guardian"

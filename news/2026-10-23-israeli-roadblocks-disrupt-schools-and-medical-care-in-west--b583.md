@@ -1,6 +1,7 @@
 ---
 title: "Israeli roadblocks disrupt schools and medical care in West Bank village"
 date: 2026-10-23T16:37:59.000Z
+imported_at: 2026-10-23T17:12:16.640Z
 category: "World"
 description: "Residents of Madama describe being cut off from hospitals, schools, and olive groves as Israeli forces blockade village."
 source: "Al Jazeera"

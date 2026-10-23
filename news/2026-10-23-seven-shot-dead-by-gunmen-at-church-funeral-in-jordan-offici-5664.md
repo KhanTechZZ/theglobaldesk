@@ -1,6 +1,7 @@
 ---
 title: "Seven shot dead by gunmen at church funeral in Jordan, officials say"
 date: 2026-10-23T16:33:11.000Z
+imported_at: 2026-10-23T17:12:13.465Z
 category: "World"
 description: "Thirty-four people are also injured in the attack in southern Karak governorate, and a manhunt is now under way."
 source: "BBC"

@@ -1,6 +1,7 @@
 ---
 title: "UK government to make unprecedented intervention in setting of water bills"
 date: 2026-10-23T13:51:10.000Z
+imported_at: 2026-10-23T17:12:18.886Z
 category: "Environment"
 description: "Exclusive: Angela Eagle tells utility bosses next price review ‘must focus on value for money for customers’ UK politics live – latest updates Ministers will make an unprecedented intervention in wate..."
 source: "The Guardian"

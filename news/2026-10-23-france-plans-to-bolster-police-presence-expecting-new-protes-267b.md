@@ -1,6 +1,7 @@
 ---
 title: "France Plans to Bolster Police Presence, Expecting New Protests"
 date: 2026-10-23T14:18:29.000Z
+imported_at: 2026-10-23T17:12:19.848Z
 category: "World"
 description: "Government officials are trying to avoid a repeat of last weekend’s unrest across the country, which injured police officers and damaged stores."
 source: "NYT"

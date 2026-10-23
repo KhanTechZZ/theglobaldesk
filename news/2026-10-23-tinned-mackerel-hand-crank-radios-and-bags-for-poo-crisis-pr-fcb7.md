@@ -1,6 +1,7 @@
 ---
 title: "Tinned mackerel, hand-crank radios and bags for poo: crisis-prepping guides around the world"
 date: 2026-10-23T15:52:29.000Z
+imported_at: 2026-10-23T17:12:18.890Z
 category: "Environment"
 description: "UK allies have long urged people to stockpile supplies for a crisis. How are people from France to Australia being advised to prepare? The UK has told people to fill their pantries with food for three..."
 source: "The Guardian"

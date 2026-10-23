@@ -1,6 +1,7 @@
 ---
 title: "Ex-FBI employees charged with lying to Congress over Hunter Biden inquiries"
 date: 2026-10-23T15:51:04.000Z
+imported_at: 2026-10-23T17:12:20.823Z
 category: "World"
 description: "Republicans have long accused the FBI of mishandling the laptop and the investigations into the younger Biden."
 source: "NPR"

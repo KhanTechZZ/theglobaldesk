@@ -1,6 +1,7 @@
 ---
 title: "'It's been relentless' say IT workers on frontline of PHP cyber-security scramble"
 date: 2026-10-23T12:00:25.000Z
+imported_at: 2026-10-23T17:12:14.547Z
 category: "Tech and AI"
 description: "IT and cyber experts have told the BBC about their struggles in the last 48 hours to update their systems."
 source: "BBC"

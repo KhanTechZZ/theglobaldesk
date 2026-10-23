@@ -1,6 +1,7 @@
 ---
 title: "The Bukeleization of Latin America Has Arrived"
 date: 2026-10-23T13:05:25.000Z
+imported_at: 2026-10-23T17:12:19.844Z
 category: "World"
 description: "Nayib Bukele’s notoriously harsh and wildly popular security crackdown in El Salvador is spawning imitators and remaking the region."
 source: "NYT"

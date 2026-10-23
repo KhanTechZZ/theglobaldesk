@@ -1,6 +1,7 @@
 ---
 title: "Will a macaque eat a grape sitting on a pile of poo? A study on germophobia"
 date: 2026-10-23T14:16:10.000Z
+imported_at: 2026-10-23T17:12:20.829Z
 category: "World"
 description: "When an outbreak strikes, humans try to avoid germs. (Remember wiping off groceries at the start of the pandemic?) What about ... monkeys?"
 source: "NPR"

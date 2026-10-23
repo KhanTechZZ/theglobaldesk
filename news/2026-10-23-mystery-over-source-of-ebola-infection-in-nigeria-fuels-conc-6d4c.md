@@ -1,6 +1,7 @@
 ---
 title: "Mystery over source of Ebola infection in Nigeria fuels concern about spread of virus"
 date: 2026-10-23T13:57:11.000Z
+imported_at: 2026-10-23T17:12:17.625Z
 category: "World"
 description: "Switzerland says patient is wife of Swiss diplomat and believed to have contracted virus while travelling in Uganda Health officials across Africa are racing to determine how Nigeria’s first Ebola pat..."
 source: "The Guardian"

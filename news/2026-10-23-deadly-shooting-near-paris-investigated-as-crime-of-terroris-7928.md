@@ -1,6 +1,7 @@
 ---
 title: "Deadly shooting near Paris investigated as 'crime of terrorism', minister says"
 date: 2026-10-23T16:17:02.000Z
+imported_at: 2026-10-23T17:12:13.463Z
 category: "World"
 description: "One person is killed and five wounded in a series of attacks and the suspected gunman has been apprehended."
 source: "BBC"

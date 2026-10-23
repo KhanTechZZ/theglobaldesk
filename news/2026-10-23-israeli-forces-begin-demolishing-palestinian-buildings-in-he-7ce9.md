@@ -1,6 +1,7 @@
 ---
 title: "Israeli forces begin demolishing Palestinian buildings in Hebron after two Israeli soldiers shot dead"
 date: 2026-10-23T15:37:07.000Z
+imported_at: 2026-10-23T17:12:13.476Z
 category: "World"
 description: "The soldiers were killed in an attack by two Palestinian gunmen at a checkpoint outside the West Bank city on Friday morning."
 source: "BBC"

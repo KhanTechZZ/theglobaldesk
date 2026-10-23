@@ -1,6 +1,7 @@
 ---
 title: "European, Middle East ministers urge US-Iran diplomacy, not new attacks"
 date: 2026-10-23T16:29:51.000Z
+imported_at: 2026-10-23T17:12:16.646Z
 category: "World"
 description: "A further escalation would 'create nothing but losers', the French foreign minister warns after joint Istanbul meeting ."
 source: "Al Jazeera"

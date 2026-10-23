@@ -37,24 +37,143 @@
       border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    aside[role="navigation"], [class*="Sidebar"] {
-      background: #ffffff !important;
-      border-right: 1px solid #e2e8f0 !important;
-      padding: 12px 8px !important;
-    }
-    aside[role="navigation"] a, [class*="Sidebar"] a {
-      border-radius: 8px !important;
-      margin: 2px 0 !important;
-      padding: 10px 14px !important;
-      color: #475569 !important;
-      font-size: 13.5px !important;
-      font-weight: 600 !important;
-    }
-    aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover {
-      background: #eaf3fb !important;
-      color: #0d4f91 !important;
+    /* =========================================================
+       🎯 HIDE ENTIRE SIDEBAR
+       ========================================================= */
+    aside[role="navigation"],
+    [class*="Sidebar"] {
+      display: none !important;
+      width: 0 !important;
+      min-width: 0 !important;
+      max-width: 0 !important;
+      overflow: hidden !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
     }
 
+    /* =========================================================
+       🎯 MAIN CONTENT FULL WIDTH
+       ========================================================= */
+    main[role="main"],
+    [class*="MainContent"],
+    [class*="AppMain"],
+    [class*="AppContent"] {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    /* =========================================================
+       🎯 QUICK BAR — FIXED AT TOP
+       ========================================================= */
+    .td-quick-bar {
+      position: fixed !important;
+      top: 56px !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 2147483647 !important;
+      background: #ffffff !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+      padding: 8px 12px !important;
+      display: flex !important;
+      gap: 8px !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+      font-family: Arial, sans-serif !important;
+      box-sizing: border-box !important;
+    }
+
+    .td-quick-btn {
+      flex: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
+      padding: 11px 14px !important;
+      border-radius: 8px !important;
+      text-decoration: none !important;
+      font-weight: 800 !important;
+      font-size: 13px !important;
+      transition: all 0.2s ease !important;
+      border: none !important;
+      box-sizing: border-box !important;
+    }
+
+    .td-quick-btn.drafts {
+      background: linear-gradient(180deg, #f0f7ff, #eaf3fb) !important;
+      color: #0d4f91 !important;
+      border: 2px solid #0d4f91 !important;
+    }
+    .td-quick-btn.drafts:hover {
+      background: #0d4f91 !important;
+      color: #ffffff !important;
+      transform: translateY(-1px) !important;
+    }
+    .td-quick-btn.drafts.active {
+      background: #0d4f91 !important;
+      color: #ffffff !important;
+    }
+
+    .td-quick-btn.published {
+      background: linear-gradient(180deg, #f0fdf4, #dcfce7) !important;
+      color: #16a34a !important;
+      border: 2px solid #16a34a !important;
+    }
+    .td-quick-btn.published:hover {
+      background: #16a34a !important;
+      color: #ffffff !important;
+      transform: translateY(-1px) !important;
+    }
+    .td-quick-btn.published.active {
+      background: #16a34a !important;
+      color: #ffffff !important;
+    }
+
+    .td-quick-btn.breaking {
+      background: linear-gradient(180deg, #fef2f2, #fee2e2) !important;
+      color: #dc2626 !important;
+      border: 2px solid #dc2626 !important;
+    }
+    .td-quick-btn.breaking:hover {
+      background: #dc2626 !important;
+      color: #ffffff !important;
+      transform: translateY(-1px) !important;
+    }
+    .td-quick-btn.breaking.active {
+      background: #dc2626 !important;
+      color: #ffffff !important;
+    }
+
+    .td-search-btn {
+      flex: 0 0 auto !important;
+      width: 44px !important;
+      height: 44px !important;
+      background: #c99a3b !important;
+      color: #061a33 !important;
+      border: 2px solid #c99a3b !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      font-size: 16px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: all 0.2s !important;
+    }
+    .td-search-btn:hover {
+      background: #e5c06b !important;
+      transform: translateY(-1px) !important;
+    }
+
+    /* Push content down so quick bar doesn't overlap */
+    body.td-has-quickbar main,
+    body.td-has-quickbar [role="main"],
+    body.td-has-quickbar [class*="MainContent"],
+    body.td-has-quickbar [class*="AppMain"] {
+      padding-top: 70px !important;
+    }
+
+    /* Form fields */
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
       background: #c99a3b !important;
       color: #061a33 !important;
@@ -64,147 +183,51 @@
       padding: 5px 12px !important;
       font-size: 12px !important;
     }
-
     label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; }
     input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
-    input:focus, textarea:focus, select:focus { border-color: #c99a3b !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important; outline: none !important; }
 
-    /* =========================================================
-       🎯 TOP QUICK-ACCESS BAR (always visible)
-       ========================================================= */
-    .td-quick-bar {
-      position: fixed;
-      top: 56px;
-      left: 0;
-      right: 0;
-      z-index: 99999;
-      background: #ffffff;
-      border-bottom: 2px solid #e2e8f0;
-      padding: 8px 16px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-      font-family: Arial, sans-serif;
-    }
-
-    .td-quick-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      text-decoration: none !important;
-      font-weight: 800;
-      font-size: 14px;
-      transition: all 0.2s ease;
-      border: 2px solid transparent;
-      cursor: pointer;
-    }
-
-    .td-quick-btn i {
-      font-size: 16px;
-    }
-
-    .td-quick-btn[data-type="drafts"] {
-      background: linear-gradient(180deg, #f0f7ff, #eaf3fb);
-      color: #0d4f91;
-      border-color: #0d4f91;
-    }
-    .td-quick-btn[data-type="drafts"]:hover {
-      background: #0d4f91;
-      color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(13,79,145,0.3);
-    }
-    .td-quick-btn[data-type="drafts"].active {
-      background: #0d4f91;
-      color: #ffffff;
-      box-shadow: 0 4px 15px rgba(13,79,145,0.4);
-    }
-
-    .td-quick-btn[data-type="published"] {
-      background: linear-gradient(180deg, #f0fdf4, #dcfce7);
-      color: #16a34a;
-      border-color: #16a34a;
-    }
-    .td-quick-btn[data-type="published"]:hover {
-      background: #16a34a;
-      color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(22,163,74,0.3);
-    }
-    .td-quick-btn[data-type="published"].active {
-      background: #16a34a;
-      color: #ffffff;
-      box-shadow: 0 4px 15px rgba(22,163,74,0.4);
-    }
-
-    .td-quick-btn[data-type="breaking"] {
-      background: linear-gradient(180deg, #fef2f2, #fee2e2);
-      color: #dc2626;
-      border-color: #dc2626;
-    }
-    .td-quick-btn[data-type="breaking"]:hover {
-      background: #dc2626;
-      color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(220,38,38,0.3);
-    }
-    .td-quick-btn[data-type="breaking"].active {
-      background: #dc2626;
-      color: #ffffff;
-      box-shadow: 0 4px 15px rgba(220,38,38,0.4);
-    }
-
-    /* Push main content down to make room for quick bar */
-    main[role="main"], [class*="MainContent"], [class*="AppMain"] {
-      padding-top: 60px !important;
-    }
-
-    /* Hide the duplicate collections section on dashboard (optional) */
-    .td-quick-active [class*="DashboardCollections"],
-    .td-quick-active [class*="CollectionCards"] {
-      display: none !important;
-    }
-
-    /* Mobile responsive */
+    /* Mobile */
     @media (max-width: 768px) {
-      .td-quick-bar {
-        top: 50px;
-        padding: 6px 8px;
-        gap: 6px;
-      }
-      .td-quick-btn {
-        padding: 10px 8px;
-        font-size: 12px;
-        gap: 5px;
-      }
-      .td-quick-btn i { font-size: 14px; }
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"] img { max-height: 28px !important; }
       header[role="banner"]::after { display: none; }
-    }
 
-    @media (max-width: 500px) {
-      .td-quick-btn span { display: none; }
-      .td-quick-btn { padding: 12px 6px; }
-      .td-quick-btn i { font-size: 18px; }
+      .td-quick-bar {
+        top: 50px !important;
+        padding: 6px 8px !important;
+        gap: 5px !important;
+      }
+      .td-quick-btn {
+        padding: 9px 8px !important;
+        font-size: 11px !important;
+        gap: 4px !important;
+      }
+      .td-quick-btn i { font-size: 12px !important; }
+      .td-search-btn {
+        width: 38px !important;
+        height: 38px !important;
+      }
+
+      body.td-has-quickbar main,
+      body.td-has-quickbar [role="main"],
+      body.td-has-quickbar [class*="MainContent"],
+      body.td-has-quickbar [class*="AppMain"] {
+        padding-top: 60px !important;
+      }
     }
   </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-    <script>
+  <script>
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
 
     var h = window.h || (window.CMS && window.CMS.h);
 
     // =====================================================
-    // PREVIEW CSS
+    // PREVIEW STYLES
     // =====================================================
     var previewCSS = `
       * { box-sizing: border-box; }
@@ -274,35 +297,50 @@
     });
 
     // =====================================================
-    // 🎯 QUICK BAR — ONLY AFTER LOGIN
+    // 🎯 QUICK BAR (fixed) — only after login
     // =====================================================
     var BASE = window.location.origin + '/admin/';
 
     function isLoggedIn() {
-      // header[role="banner"] only exists after successful login
-      return !!document.querySelector('header[role="banner"]');
+      return document.querySelectorAll('a[href*="/collections/"]').length > 0;
+    }
+
+    function triggerSearch() {
+      // Find original "Search all" button (hidden inside sidebar) and click it
+      var all = document.querySelectorAll('button, a, [role="button"]');
+      for (var i = 0; i < all.length; i++) {
+        var txt = (all[i].textContent || '').trim().toLowerCase();
+        if (txt === 'search all' || txt === 'search') {
+          all[i].click();
+          return;
+        }
+      }
     }
 
     function buildQuickBar() {
-      if (!isLoggedIn()) return; // skip if not logged in
-      if (document.getElementById('td-quick-bar')) return; // already built
+      if (document.getElementById('td-quick-bar')) return;
 
       var bar = document.createElement('div');
-      bar.className = 'td-quick-bar';
       bar.id = 'td-quick-bar';
+      bar.className = 'td-quick-bar';
       bar.innerHTML =
-        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn" data-type="drafts">' +
-          '<i class="fa-solid fa-pen-to-square"></i> <span>📝 Drafts</span>' +
+        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn drafts" data-type="drafts">' +
+          '<i class="fa-solid fa-pen-to-square"></i> Drafts' +
         '</a>' +
-        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn" data-type="published">' +
-          '<i class="fa-solid fa-circle-check"></i> <span>✅ Published</span>' +
+        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn published" data-type="published">' +
+          '<i class="fa-solid fa-circle-check"></i> Published' +
         '</a>' +
-        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn" data-type="breaking">' +
-          '<i class="fa-solid fa-bolt"></i> <span>🚨 Breaking</span>' +
-        '</a>';
+        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn breaking" data-type="breaking">' +
+          '<i class="fa-solid fa-bolt"></i> Breaking' +
+        '</a>' +
+        '<button type="button" class="td-search-btn" title="Search">' +
+          '<i class="fa-solid fa-magnifying-glass"></i>' +
+        '</button>';
 
       document.body.appendChild(bar);
       document.body.classList.add('td-has-quickbar');
+
+      bar.querySelector('.td-search-btn').addEventListener('click', triggerSearch);
     }
 
     function removeQuickBar() {
@@ -311,11 +349,11 @@
       document.body.classList.remove('td-has-quickbar');
     }
 
-    function updateActiveButton() {
+    function updateActive() {
       var hash = window.location.hash || '';
-      var buttons = document.querySelectorAll('.td-quick-btn');
-      buttons.forEach(function(btn) { btn.classList.remove('active'); });
-
+      document.querySelectorAll('.td-quick-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
       if (hash.indexOf('news_drafts') !== -1) {
         var b = document.querySelector('.td-quick-btn[data-type="drafts"]');
         if (b) b.classList.add('active');
@@ -328,51 +366,29 @@
       }
     }
 
-    // Hide sidebar's duplicate collection links (quick bar replaces them)
-    function hideSidebarCollections() {
-      if (!isLoggedIn()) return;
-      var sidebarLinks = document.querySelectorAll('aside[role="navigation"] a[href*="/collections/"], [class*="Sidebar"] a[href*="/collections/"]');
-      sidebarLinks.forEach(function(link) {
-        // Only hide collection links (not entries)
-        var href = link.getAttribute('href') || '';
-        if (/\/collections\/[a-zA-Z_]+(\/)?$/.test(href) && href.indexOf('/entries') === -1) {
-          var parent = link.closest('li') || link.parentElement;
-          if (parent) parent.style.setProperty('display', 'none', 'important');
-        }
-      });
-    }
-
-    // =====================================================
-    // ORCHESTRATOR — runs periodically
-    // =====================================================
     function refresh() {
       if (isLoggedIn()) {
         buildQuickBar();
-        hideSidebarCollections();
-        updateActiveButton();
+        updateActive();
       } else {
-        // Not logged in — remove quick bar
         removeQuickBar();
       }
     }
 
-    // Initial runs
-    setTimeout(refresh, 800);
-    setTimeout(refresh, 2000);
-    setTimeout(refresh, 3500);
+    // Run multiple times
+    setTimeout(refresh, 1000);
+    setTimeout(refresh, 2500);
+    setTimeout(refresh, 4000);
 
-    // Hash change
     window.addEventListener('hashchange', function() {
       setTimeout(refresh, 300);
     });
 
-    // DOM mutations
-    var debounceTimer;
-    var observer = new MutationObserver(function() {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(refresh, 400);
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    var t;
+    new MutationObserver(function() {
+      clearTimeout(t);
+      t = setTimeout(refresh, 500);
+    }).observe(document.body, { childList: true, subtree: true });
   });
   </script>
 </body>

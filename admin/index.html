@@ -37,6 +37,27 @@
       border-left: 1px solid rgba(201,154,59,0.3);
     }
 
+    .view-stats-float-btn {
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+      z-index: 999999 !important;
+      background: #c99a3b !important;
+      color: #061a33 !important;
+      padding: 11px 20px !important;
+      border-radius: 30px !important;
+      font-weight: 800 !important;
+      font-size: 13px !important;
+      text-decoration: none !important;
+      box-shadow: 0 8px 24px rgba(201,154,59,0.5) !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      transition: all 0.2s !important;
+      border: 2px solid #061a33 !important;
+    }
+    .view-stats-float-btn:hover { transform: translateY(-3px) !important; background: #e5c06b !important; }
+
     aside[role="navigation"], [class*="Sidebar"] {
       background: #ffffff !important;
       border-right: 1px solid #e2e8f0 !important;
@@ -56,143 +77,57 @@
       color: #0d4f91 !important;
     }
 
+    [class*="ControlHint"], .css-1j8z6y0-ControlHint, p[class*="ControlHint"] {
+      font-size: 11px !important;
+      line-height: 1.4 !important;
+      color: #64748b !important;
+      margin-top: 4px !important;
+      margin-bottom: 0 !important;
+      padding: 4px 8px !important;
+      background: #f8fafc !important;
+      border-radius: 4px !important;
+      border-left: 2px solid #c99a3b !important;
+    }
+
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
       background: #c99a3b !important;
       color: #061a33 !important;
       font-weight: 800 !important;
       border-radius: 8px !important;
       border: none !important;
-      padding: 6px 14px !important;
-      font-size: 13px !important;
+      padding: 5px 12px !important;
+      font-size: 12px !important;
+      box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important;
     }
 
-    /* ===== Summary card ===== */
-    .td-stats-summary {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-left: 4px solid #c99a3b;
-      border-radius: 10px;
-      padding: 18px 22px;
-      margin: 16px 20px 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      font-family: 'Inter', Arial, sans-serif;
-    }
-    .td-stats-summary .stat-item { text-align: center; }
-    .td-stats-summary .stat-item .label {
-      font-size: 10px; text-transform: uppercase; color: #667383;
-      font-weight: 700; letter-spacing: 1px; margin-bottom: 4px;
-    }
-    .td-stats-summary .stat-item .value {
-      font-size: 24px; font-weight: 800; color: #061a33;
-      font-family: Georgia, serif; line-height: 1.1;
-    }
-    .td-stats-summary .stat-item .sub {
-      font-size: 10px; color: #929ba5; margin-top: 2px;
-      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
-
-    /* ===== Date filter bar ===== */
-    .td-date-filter {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 12px 18px;
-      margin: 0 20px 16px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-family: 'Inter', Arial, sans-serif;
-    }
-    .td-date-filter .filter-label {
-      color: #061a33;
-      font-weight: 700;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .td-date-filter .filter-label i { color: #c99a3b; }
-    .td-date-filter input[type="date"] {
-      padding: 8px 12px;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      font-size: 13px;
-      color: #061a33;
-      background: #f8fafc;
-      font-family: inherit;
-    }
-    .td-date-filter input[type="date"]:focus {
-      outline: none;
-      border-color: #c99a3b;
-      box-shadow: 0 0 0 3px rgba(201,154,59,0.15);
-    }
-    .td-date-filter .filter-sep {
-      color: #667383;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .td-date-filter .clear-btn {
-      padding: 8px 16px;
-      background: #061a33;
-      color: #ffffff;
-      border: none;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-    }
-    .td-date-filter .clear-btn:hover {
-      background: #c99a3b;
-      color: #061a33;
-    }
-    .td-date-filter .filter-count {
-      color: #667383;
-      font-size: 12px;
-      font-weight: 600;
-      margin-left: auto;
-    }
-
-    /* ===== Badge on list items ===== */
-    .td-list-item-with-stats {
-      position: relative !important;
-      padding-right: 100px !important;
-    }
-    .td-list-item-with-stats .view-badge {
-      position: absolute !important;
-      right: 10px !important;
-      top: 50% !important;
-      transform: translateY(-50%) !important;
-      background: #eaf3fb !important;
-      color: #0d4f91 !important;
-      padding: 4px 10px !important;
-      border-radius: 12px !important;
-      font-size: 11px !important;
+    label[class*="FieldLabel"] {
+      color: #061a33 !important;
       font-weight: 700 !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 4px !important;
-      white-space: nowrap !important;
+      font-size: 13px !important;
+      margin-bottom: 4px !important;
     }
-    .td-list-item-with-stats .view-badge i {
-      color: #c99a3b !important;
-      font-size: 10px !important;
+    input, textarea, select {
+      border-radius: 8px !important;
+      border: 1.5px solid #e2e8f0 !important;
+      padding: 10px 12px !important;
+      font-size: 13.5px !important;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #c99a3b !important;
+      box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important;
+      outline: none !important;
     }
 
     @media (max-width: 768px) {
-      .td-stats-summary { grid-template-columns: repeat(2, 1fr); margin: 12px 10px; }
-      .td-date-filter { margin: 0 10px 12px; padding: 10px 12px; }
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"] img { max-height: 28px !important; padding: 3px 6px !important; }
       header[role="banner"]::after { display: none; }
+      .view-stats-float-btn { bottom: 14px !important; right: 14px !important; padding: 10px 16px !important; font-size: 12px !important; }
+      [class*="Sidebar"] { padding: 8px 4px !important; }
       aside[role="navigation"] a, [class*="Sidebar"] a { padding: 8px 10px !important; font-size: 12.5px !important; }
+      [class*="ControlHint"] { font-size: 10.5px !important; padding: 3px 6px !important; }
       button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]) { padding: 5px 10px !important; font-size: 11.5px !important; }
+      input, textarea, select { padding: 8px 10px !important; font-size: 13px !important; }
     }
   </style>
 </head>
@@ -204,6 +139,10 @@
     if (typeof CMS === 'undefined') return;
 
     var h = window.h || (window.CMS && window.CMS.h);
+    if (typeof h !== 'function') {
+      console.error('Decap CMS: h not found');
+      return;
+    }
 
     function resolveImage(path) {
       if (!path || typeof path !== 'string') return null;
@@ -211,231 +150,221 @@
       return path.startsWith('/') ? path : '/' + path;
     }
 
-    CMS.registerPreviewTemplate('news', function(props) {
+    // =====================================================
+    // ✅ SMALL PREVIEW CSS — injected INSIDE iframe
+    // =====================================================
+    var previewCSS = `
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #f8fafc;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .td-preview-wrap {
+        background: #f8fafc;
+        padding: 12px;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .td-preview-card {
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100% !important;
+        max-width: 320px !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border: 1px solid #e2e8f0;
+        margin: 0 auto;
+      }
+      .td-preview-img-wrap {
+        width: 100% !important;
+        height: 180px !important;
+        max-height: 180px !important;
+        overflow: hidden;
+        background: #e2e8f0;
+        display: block;
+      }
+      .td-preview-img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 180px !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        display: block;
+        margin: 0;
+      }
+      .td-preview-img-placeholder {
+        width: 100%;
+        height: 100%;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .td-preview-content {
+        padding: 12px 14px 14px;
+      }
+      .td-preview-tag {
+        display: inline-block;
+        color: #c99a3b;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+      .td-preview-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 15px;
+        line-height: 1.3;
+        color: #061a33;
+        margin: 0 0 7px;
+        letter-spacing: -0.2px;
+        font-weight: 700;
+      }
+      .td-preview-desc {
+        font-size: 11px;
+        font-weight: 600;
+        color: #4a5663;
+        border-left: 3px solid #c99a3b;
+        padding-left: 7px;
+        margin: 0 0 8px;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .td-preview-meta {
+        font-size: 9px;
+        color: #929ba5;
+        padding-top: 7px;
+        border-top: 1px solid #edf1f4;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+      }
+      .td-preview-meta strong { color: #061a33; }
+
+      .td-preview-breaking-card {
+        background: #061a33;
+        color: #fff;
+        padding: 14px;
+        border-radius: 8px;
+        width: 100% !important;
+        max-width: 320px !important;
+        border-top: 3px solid #c51f2d;
+        margin: 0 auto;
+      }
+      .td-preview-breaking-badge {
+        display: inline-block;
+        background: #c51f2d;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 3px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+        margin-bottom: 7px;
+      }
+      .td-preview-breaking-card h2 {
+        font-family: Georgia, serif;
+        font-size: 15px;
+        line-height: 1.3;
+        margin: 0 0 7px;
+        color: #ffffff;
+        font-weight: 700;
+      }
+      .td-preview-breaking-meta {
+        font-size: 10px;
+        color: rgba(255,255,255,0.65);
+        padding-top: 7px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+    `;
+
+    CMS.registerPreviewStyle(previewCSS, { raw: true });
+
+    // =====================================================
+    // ✅ REUSABLE PREVIEW COMPONENT (for both collections)
+    // =====================================================
+    function renderNewsPreview(props) {
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
-      var dateStr = data.date ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not set';
+      var dateStr = data.date
+        ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : 'Date not set';
 
-      return h('div', { style: { padding: '12px', fontFamily: 'Arial, sans-serif' } },
-        h('div', { style: { background: '#fff', borderRadius: '8px', overflow: 'hidden', maxWidth: '320px', margin: '0 auto', border: '1px solid #e2e8f0' } },
-          h('div', { style: { width: '100%', height: '180px', background: '#e2e8f0', overflow: 'hidden' } },
-            imageUrl ? h('img', { src: imageUrl, style: { width: '100%', height: '100%', objectFit: 'cover' } }) : null
+      return h('div', { className: 'td-preview-wrap' },
+        h('div', { className: 'td-preview-card' },
+          h('div', { className: 'td-preview-img-wrap' },
+            imageUrl
+              ? h('img', { className: 'td-preview-img', src: imageUrl, alt: data.title || 'Cover' })
+              : h('div', { className: 'td-preview-img-placeholder' }, '🖼️ Cover Image')
           ),
-          h('div', { style: { padding: '12px' } },
-            data.category ? h('span', { style: { color: '#c99a3b', fontSize: '9px', fontWeight: '800', textTransform: 'uppercase' } }, data.category) : null,
-            h('h1', { style: { fontSize: '15px', margin: '5px 0', color: '#061a33' } }, data.title || 'Headline'),
-            data.description ? h('p', { style: { fontSize: '11px', color: '#4a5663', borderLeft: '3px solid #c99a3b', paddingLeft: '7px' } }, data.description) : null,
-            h('div', { style: { fontSize: '9px', color: '#929ba5', marginTop: '8px', borderTop: '1px solid #edf1f4', paddingTop: '6px' } }, '✍️ The Global Desk · ' + dateStr)
+          h('div', { className: 'td-preview-content' },
+            data.category ? h('span', { className: 'td-preview-tag' }, data.category.toUpperCase()) : null,
+            h('h1', { className: 'td-preview-title' }, data.title || 'Your headline will appear here'),
+            data.description ? h('p', { className: 'td-preview-desc' }, data.description) : null,
+            h('div', { className: 'td-preview-meta' },
+              h('span', {}, '✍️ '),
+              h('strong', {}, 'The Global Desk'),
+              h('span', {}, ' · ' + dateStr),
+              data.source ? h('span', {}, ' · ' + data.source) : null
+            )
+          )
+        )
+      );
+    }
+
+    // =====================================================
+    // ✅ REGISTER FOR ALL COLLECTION NAMES
+    // =====================================================
+    CMS.registerPreviewTemplate('news', renderNewsPreview);            // পুরনো
+    CMS.registerPreviewTemplate('news_drafts', renderNewsPreview);     // 📝 নতুন
+    CMS.registerPreviewTemplate('news_published', renderNewsPreview);  // ✅ নতুন
+
+    // =====================================================
+    // 🚨 BREAKING NEWS PREVIEW
+    // =====================================================
+    CMS.registerPreviewTemplate('breaking', function(props) {
+      var data = props.entry.getIn(['data']).toJS();
+      var expiresStr = data.expires
+        ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : 'No expiry';
+
+      return h('div', { className: 'td-preview-wrap' },
+        h('div', { className: 'td-preview-breaking-card' },
+          h('span', { className: 'td-preview-breaking-badge' }, 'BREAKING'),
+          h('h2', {}, data.title || 'Breaking headline'),
+          h('div', { className: 'td-preview-breaking-meta' },
+            '⏰ ' + expiresStr + ' · ⚡ ' + (data.priority || 'Normal') + ' · ' + (data.active ? '✅ Active' : '❌ Inactive')
           )
         )
       );
     });
 
-    // ============ VIEW STATS + DATE FILTER ============
-    const viewCache = {};
-
-    async function fetchViewCount(slug) {
-      if (!slug) return 0;
-      if (viewCache[slug] !== undefined) return viewCache[slug];
-
-      const variants = [
-        slug,
-        slug.replace(/^\d{4}-\d{2}-\d{2}-/, ''),
-      ];
-
-      for (const v of variants) {
-        if (!v) continue;
-        try {
-          const url = 'https://abacus.jasoncameron.dev/get/theglobaldesk/' + encodeURIComponent(v);
-          const res = await fetch(url);
-          if (res.ok) {
-            const data = await res.json();
-            const count = (typeof data.value === 'number') ? data.value : 0;
-            viewCache[slug] = count;
-            return count;
-          }
-        } catch (e) { /* try next */ }
-      }
-
-      viewCache[slug] = 0;
-      return 0;
+    // =====================================================
+    // 🎯 FLOATING VIEW STATS BUTTON
+    // =====================================================
+    function injectFloatBtn() {
+      if (document.querySelector('.view-stats-float-btn')) return;
+      var btn = document.createElement('a');
+      btn.href = '/admin/views.html';
+      btn.target = '_blank';
+      btn.className = 'view-stats-float-btn';
+      btn.innerHTML = '📊 View Stats';
+      document.body.appendChild(btn);
     }
-
-    function extractSlug(href) {
-      if (!href) return null;
-      const parts = href.split('/').filter(Boolean);
-      return parts.length ? decodeURIComponent(parts[parts.length - 1]) : null;
-    }
-
-    function getListItem(link) {
-      return link.closest('li, div[role="listitem"], [class*="ListItem"], [class*="listItem"]') || link.parentElement;
-    }
-
-    function getLCA(elements) {
-      if (!elements.length) return null;
-      let current = elements[0].parentElement;
-      while (current) {
-        if (elements.every(el => current.contains(el))) return current;
-        current = current.parentElement;
-      }
-      return null;
-    }
-
-    function getDateFromSlug(slug) {
-      if (!slug) return null;
-      const m = slug.match(/^(\d{4}-\d{2}-\d{2})/);
-      return m ? m[1] : null;
-    }
-
-    function applyDateFilter(links) {
-      const fromEl = document.getElementById('td-filter-from');
-      const toEl = document.getElementById('td-filter-to');
-      const countEl = document.getElementById('td-filter-count');
-      if (!fromEl || !toEl) return;
-
-      const fromDate = fromEl.value;
-      const toDate = toEl.value;
-
-      let visibleCount = 0;
-      links.forEach(link => {
-        const listItem = getListItem(link);
-        if (!listItem) return;
-
-        const slug = extractSlug(link.getAttribute('href'));
-        const dateStr = getDateFromSlug(slug);
-
-        let show = true;
-        if (fromDate || toDate) {
-          if (!dateStr) {
-            show = false;
-          } else {
-            if (fromDate && dateStr < fromDate) show = false;
-            if (toDate && dateStr > toDate) show = false;
-          }
-        }
-        listItem.style.display = show ? '' : 'none';
-        if (show) visibleCount++;
-      });
-
-      if (countEl) {
-        countEl.textContent = (fromDate || toDate)
-          ? '(' + visibleCount + ' of ' + links.length + ' shown)'
-          : '';
-      }
-    }
-
-    function ensureFilterBar(lca, links) {
-      if (document.getElementById('td-date-filter')) {
-        applyDateFilter(links);
-        return;
-      }
-
-      const bar = document.createElement('div');
-      bar.id = 'td-date-filter';
-      bar.className = 'td-date-filter';
-      bar.innerHTML =
-        '<span class="filter-label"><i class="fa-solid fa-calendar-days"></i> Filter by date:</span>' +
-        '<input type="date" id="td-filter-from" title="From date" />' +
-        '<span class="filter-sep">to</span>' +
-        '<input type="date" id="td-filter-to" title="To date" />' +
-        '<button type="button" id="td-filter-clear" class="clear-btn">Clear</button>' +
-        '<span id="td-filter-count" class="filter-count"></span>';
-
-      // Insert before list container (lca), after summary if exists
-      lca.parentElement.insertBefore(bar, lca);
-
-      document.getElementById('td-filter-from').addEventListener('change', () => applyDateFilter(links));
-      document.getElementById('td-filter-to').addEventListener('change', () => applyDateFilter(links));
-      document.getElementById('td-filter-clear').addEventListener('click', () => {
-        document.getElementById('td-filter-from').value = '';
-        document.getElementById('td-filter-to').value = '';
-        applyDateFilter(links);
-      });
-    }
-
-    let isInjecting = false;
-
-    async function injectStats() {
-      if (isInjecting) return;
-
-      const links = Array.from(document.querySelectorAll('a[href*="/collections/news/entries/"]'));
-      if (!links.length) return;
-
-      isInjecting = true;
-      try {
-        // ===== 1. Add view badges (only once per list item) =====
-        const pendingLinks = links.filter(l => {
-          const li = getListItem(l);
-          return li && !li.dataset.statsProcessed;
-        });
-
-        if (pendingLinks.length) {
-          const slugs = pendingLinks.map(l => extractSlug(l.getAttribute('href')));
-          const counts = await Promise.all(slugs.map(s => fetchViewCount(s)));
-
-          pendingLinks.forEach((link, i) => {
-            const listItem = getListItem(link);
-            if (!listItem || listItem.dataset.statsProcessed) return;
-            listItem.classList.add('td-list-item-with-stats');
-            listItem.dataset.statsProcessed = 'true';
-            const badge = document.createElement('span');
-            badge.className = 'view-badge';
-            badge.innerHTML = '<i class="fa-regular fa-eye"></i> ' + counts[i].toLocaleString();
-            listItem.appendChild(badge);
-          });
-        }
-
-        // ===== 2. Build summary =====
-        const lca = getLCA(links);
-        if (!lca || !lca.parentElement) return;
-
-        const oldSummary = document.getElementById('td-stats-summary');
-        if (oldSummary) oldSummary.remove();
-
-        const allCounts = await Promise.all(
-          links.map(l => fetchViewCount(extractSlug(l.getAttribute('href'))))
-        );
-
-        let totalViews = 0;
-        allCounts.forEach(c => totalViews += c);
-        const totalArticles = links.length;
-        const avgViews = totalArticles ? Math.round(totalViews / totalArticles) : 0;
-
-        let topArticle = { title: '—', views: 0 };
-        links.forEach((link, i) => {
-          if (allCounts[i] > topArticle.views) {
-            const txt = link.textContent.trim().split('\n')[0].trim();
-            topArticle = { title: txt, views: allCounts[i] };
-          }
-        });
-
-        const summary = document.createElement('div');
-        summary.id = 'td-stats-summary';
-        summary.className = 'td-stats-summary';
-        summary.innerHTML =
-          '<div class="stat-item"><div class="label">Total Views</div><div class="value">' + totalViews.toLocaleString() + '</div></div>' +
-          '<div class="stat-item"><div class="label">Articles</div><div class="value">' + totalArticles + '</div></div>' +
-          '<div class="stat-item"><div class="label">Avg. Views</div><div class="value">' + avgViews.toLocaleString() + '</div></div>' +
-          '<div class="stat-item"><div class="label">Top Article</div><div class="value" style="font-size:16px;line-height:1.2;">' + topArticle.views.toLocaleString() + '</div><div class="sub" title="' + topArticle.title + '">' + topArticle.title.substring(0, 25) + (topArticle.title.length > 25 ? '...' : '') + '</div></div>';
-
-        lca.parentElement.insertBefore(summary, lca);
-
-        // ===== 3. Ensure date filter bar =====
-        ensureFilterBar(lca, links);
-
-      } finally {
-        isInjecting = false;
-      }
-    }
-
-    let debounceTimer;
-    const observer = new MutationObserver(() => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(injectStats, 600);
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    setTimeout(injectStats, 2000);
+    if (document.body) injectFloatBtn();
+    setInterval(injectFloatBtn, 1500);
   });
   </script>
 </body>

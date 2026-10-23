@@ -33,16 +33,21 @@
       border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    aside[role="navigation"], [class*="Sidebar"] {
+    /* Sidebar hidden only when quick bar active (dashboard) */
+    body.td-quickbar-on aside[role="navigation"],
+    body.td-quickbar-on [class*="Sidebar"] {
       display: none !important;
       width: 0 !important; min-width: 0 !important; max-width: 0 !important;
       overflow: hidden !important; padding: 0 !important; margin: 0 !important;
     }
-    main[role="main"], [class*="MainContent"], [class*="AppMain"] {
+    body.td-quickbar-on main[role="main"],
+    body.td-quickbar-on [class*="MainContent"],
+    body.td-quickbar-on [class*="AppMain"] {
       margin-left: 0 !important; padding-left: 0 !important;
       width: 100% !important; max-width: 100% !important;
     }
 
+    /* Quick bar */
     .td-quick-bar {
       position: fixed !important; top: 56px !important;
       left: 0 !important; right: 0 !important;
@@ -63,11 +68,11 @@
       transition: all 0.2s !important; box-sizing: border-box !important;
     }
     .td-quick-btn.drafts { background: #eaf3fb !important; color: #0d4f91 !important; border: 2px solid #0d4f91 !important; }
-    .td-quick-btn.drafts.active, .td-quick-btn.drafts:hover { background: #0d4f91 !important; color: #fff !important; }
+    .td-quick-btn.drafts:hover { background: #0d4f91 !important; color: #fff !important; }
     .td-quick-btn.published { background: #dcfce7 !important; color: #16a34a !important; border: 2px solid #16a34a !important; }
-    .td-quick-btn.published.active, .td-quick-btn.published:hover { background: #16a34a !important; color: #fff !important; }
+    .td-quick-btn.published:hover { background: #16a34a !important; color: #fff !important; }
     .td-quick-btn.breaking { background: #fee2e2 !important; color: #dc2626 !important; border: 2px solid #dc2626 !important; }
-    .td-quick-btn.breaking.active, .td-quick-btn.breaking:hover { background: #dc2626 !important; color: #fff !important; }
+    .td-quick-btn.breaking:hover { background: #dc2626 !important; color: #fff !important; }
 
     .td-search-btn {
       flex: 0 0 auto !important;
@@ -77,9 +82,9 @@
       border-radius: 8px !important; cursor: pointer !important; font-size: 16px !important;
     }
 
-    body.td-has-quickbar main,
-    body.td-has-quickbar [role="main"],
-    body.td-has-quickbar [class*="MainContent"] {
+    body.td-quickbar-on main,
+    body.td-quickbar-on [role="main"],
+    body.td-quickbar-on [class*="MainContent"] {
       padding-top: 70px !important;
     }
 
@@ -91,31 +96,21 @@
     label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; }
     input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
 
-    /* =========================================================
-       🎯 TIME BADGE IN LIST VIEW
-       ========================================================= */
+    /* Time badge in list view */
     .td-time-badge {
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 4px !important;
-      margin-left: 10px !important;
-      padding: 3px 10px !important;
-      border-radius: 12px !important;
-      font-size: 10px !important;
-      font-weight: 800 !important;
-      letter-spacing: 0.3px !important;
-      vertical-align: middle !important;
-      white-space: nowrap !important;
-      font-family: Arial, sans-serif !important;
+      display: inline-flex !important; align-items: center !important;
+      gap: 4px !important; margin-left: 10px !important;
+      padding: 3px 10px !important; border-radius: 12px !important;
+      font-size: 10px !important; font-weight: 800 !important;
+      letter-spacing: 0.3px !important; vertical-align: middle !important;
+      white-space: nowrap !important; font-family: Arial, sans-serif !important;
     }
     .td-time-badge.td-new {
-      background: #16a34a !important;
-      color: #ffffff !important;
+      background: #16a34a !important; color: #ffffff !important;
       box-shadow: 0 2px 8px rgba(22,163,74,0.3) !important;
     }
     .td-time-badge.td-old {
-      background: #e2e8f0 !important;
-      color: #475569 !important;
+      background: #e2e8f0 !important; color: #475569 !important;
     }
 
     @media (max-width: 768px) {
@@ -124,8 +119,8 @@
       .td-quick-bar { top: 50px !important; padding: 6px 8px !important; gap: 5px !important; }
       .td-quick-btn { padding: 9px 8px !important; font-size: 11px !important; }
       .td-search-btn { width: 38px !important; height: 38px !important; }
-      body.td-has-quickbar main,
-      body.td-has-quickbar [role="main"] { padding-top: 60px !important; }
+      body.td-quickbar-on main,
+      body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
       .td-time-badge { font-size: 9px !important; padding: 2px 7px !important; margin-left: 6px !important; }
     }
   </style>
@@ -169,7 +164,6 @@
       return path.startsWith('/') ? path : '/' + path;
     }
 
-    // ✅ Preview — WITHOUT new badge (user doesn't want it here)
     function renderNewsPreview(props) {
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
@@ -211,11 +205,19 @@
     });
 
     // =====================================================
+    // 🎯 DASHBOARD DETECTION
+    // =====================================================
+    function isOnDashboard() {
+      var hash = window.location.hash || '';
+      return !hash || hash === '#' || hash === '#/' || hash === '';
+    }
+
+    function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
+
+    // =====================================================
     // QUICK BAR
     // =====================================================
     var BASE = window.location.origin + '/admin/';
-
-    function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
 
     function triggerSearch() {
       var all = document.querySelectorAll('button, a, [role="button"]');
@@ -231,34 +233,26 @@
       bar.id = 'td-quick-bar';
       bar.className = 'td-quick-bar';
       bar.innerHTML =
-        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn drafts" data-type="drafts"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>' +
-        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn published" data-type="published"><i class="fa-solid fa-circle-check"></i> Published</a>' +
-        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn breaking" data-type="breaking"><i class="fa-solid fa-bolt"></i> Breaking</a>' +
+        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn drafts"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>' +
+        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn published"><i class="fa-solid fa-circle-check"></i> Published</a>' +
+        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn breaking"><i class="fa-solid fa-bolt"></i> Breaking</a>' +
         '<button type="button" class="td-search-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>';
       document.body.appendChild(bar);
-      document.body.classList.add('td-has-quickbar');
+      document.body.classList.add('td-quickbar-on');
       bar.querySelector('.td-search-btn').addEventListener('click', triggerSearch);
     }
 
     function removeQuickBar() {
       var bar = document.getElementById('td-quick-bar');
       if (bar) bar.remove();
-      document.body.classList.remove('td-has-quickbar');
-    }
-
-    function updateActive() {
-      var hash = window.location.hash || '';
-      document.querySelectorAll('.td-quick-btn').forEach(function(b) { b.classList.remove('active'); });
-      if (hash.indexOf('news_drafts') !== -1) { var b = document.querySelector('[data-type="drafts"]'); if (b) b.classList.add('active'); }
-      else if (hash.indexOf('news_published') !== -1) { var b = document.querySelector('[data-type="published"]'); if (b) b.classList.add('active'); }
-      else if (hash.indexOf('breaking') !== -1) { var b = document.querySelector('[data-type="breaking"]'); if (b) b.classList.add('active'); }
+      document.body.classList.remove('td-quickbar-on');
     }
 
     // =====================================================
-    // 🎯 TIME BADGE IN DRAFTS LIST VIEW
+    // 🎯 TIME BADGE IN DRAFTS LIST
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
-    var timeCache = {};  // slug → { imported_at, timeText, isNew }
+    var timeCache = {};
 
     function calcTimeAgo(dateStr) {
       if (!dateStr) return { text: '', isNew: false };
@@ -285,16 +279,10 @@
       if (timeCache[slug]) return timeCache[slug];
       try {
         var res = await fetch(RAW_BASE + slug + '.md', { cache: 'no-store' });
-        if (!res.ok) {
-          timeCache[slug] = null;
-          return null;
-        }
+        if (!res.ok) { timeCache[slug] = null; return null; }
         var text = await res.text();
         var match = text.match(/^imported_at:\s*"?([^"\n]+)"?\s*$/m);
-        if (!match) {
-          timeCache[slug] = null;
-          return null;
-        }
+        if (!match) { timeCache[slug] = null; return null; }
         var result = calcTimeAgo(match[1].trim());
         timeCache[slug] = result;
         return result;
@@ -306,9 +294,8 @@
 
     async function injectDraftTimeBadges() {
       var hash = window.location.hash || '';
-      // Only run on drafts list view
       if (hash.indexOf('/collections/news_drafts') === -1) return;
-      if (hash.indexOf('/entries/') !== -1) return; // skip editor view
+      if (hash.indexOf('/entries/') !== -1) return;
 
       var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
       if (!links.length) return;
@@ -327,7 +314,6 @@
         var badge = document.createElement('span');
         badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
         badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
-
         link.appendChild(badge);
       }
     }
@@ -336,22 +322,28 @@
     // ORCHESTRATOR
     // =====================================================
     function refresh() {
-      if (isLoggedIn()) {
+      if (!isLoggedIn()) {
+        removeQuickBar();
+        return;
+      }
+
+      // ✅ Quick bar ONLY on dashboard
+      if (isOnDashboard()) {
         buildQuickBar();
-        updateActive();
-        // Run async — don't await
-        setTimeout(injectDraftTimeBadges, 300);
       } else {
         removeQuickBar();
       }
+
+      // Time badges work on drafts list regardless of quick bar
+      setTimeout(injectDraftTimeBadges, 400);
     }
 
-    setTimeout(refresh, 1000);
-    setTimeout(refresh, 2500);
-    setTimeout(refresh, 4000);
+    setTimeout(refresh, 800);
+    setTimeout(refresh, 2000);
+    setTimeout(refresh, 3500);
 
     window.addEventListener('hashchange', function() {
-      setTimeout(refresh, 500);
+      setTimeout(refresh, 400);
     });
 
     var t;

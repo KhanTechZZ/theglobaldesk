@@ -17,6 +17,7 @@ const parser = new Parser({
 const turndown = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
 turndown.remove(['script', 'style', 'iframe', 'form']);
 
+// ================= REGULAR NEWS FEEDS =================
 const FEEDS = [
   { url: 'https://feeds.bbci.co.uk/news/world/rss.xml', category: 'World', source: 'BBC' },
   { url: 'https://feeds.bbci.co.uk/news/technology/rss.xml', category: 'Tech and AI', source: 'BBC' },
@@ -28,12 +29,24 @@ const FEEDS = [
   { url: 'https://feeds.npr.org/1001/rss.xml', category: 'World', source: 'NPR' }
 ];
 
+// ================= BREAKING NEWS FEEDS =================
+const BREAKING_FEEDS = [
+  { url: 'https://feeds.bbci.co.uk/news/rss.xml', source: 'BBC Breaking' },
+  { url: 'https://www.aljazeera.com/xml/rss/all.xml', source: 'Al Jazeera Breaking' }
+];
+
 const NEWS_DIR = path.join(__dirname, '..', 'news');
+const BREAKING_DIR = path.join(__dirname, '..', 'breaking'); // ✅ ব্রেকিং নিউজের ফোল্ডার
 const SEEN_FILE = path.join(__dirname, '..', '.rss-seen.json');
+
 const MAX_ITEMS_PER_FEED = 3;
 const MAX_AGE_HOURS = 6;
 const MAX_BODY_CHARS = 1200;
-const DRAFT_EXPIRY_DAYS = 7;   // ✅ ৭ দিন পর অটো-delete
+const DRAFT_EXPIRY_DAYS = 7;
+
+// ফোল্ডার না থাকলে তৈরি করা
+if (!fs.existsSync(NEWS_DIR)) fs.mkdirSync(NEWS_DIR, { recursive: true });
+if (!fs.existsSync(BREAKING_DIR)) fs.mkdirSync(BREAKING_DIR, { recursive: true });
 
 let seen = {};
 if (fs.existsSync(SEEN_FILE)) {
@@ -74,7 +87,6 @@ function truncate(text, max) {
   return cut + '...';
 }
 
-// ✅ NEW: Auto-delete old drafts
 function cleanupOldDrafts() {
   console.log('\n🧹 Cleaning up old drafts (older than ' + DRAFT_EXPIRY_DAYS + ' days)...');
   if (!fs.existsSync(NEWS_DIR)) return 0;
@@ -88,11 +100,9 @@ function cleanupOldDrafts() {
     const filePath = path.join(NEWS_DIR, file);
     try {
       const content = fs.readFileSync(filePath, 'utf8');
-      // Check if it's a draft (published: false)
       const isDraft = /^published:\s*false\s*$/m.test(content);
       if (!isDraft) continue;
 
-      // Check imported_at or date
       const importedMatch = content.match(/^imported_at:\s*"?([^"\n]+)"?\s*$/m);
       const dateMatch = content.match(/^date:\s*"?([^"\n]+)"?\s*$/m);
       const dateStr = importedMatch ? importedMatch[1] : (dateMatch ? dateMatch[1] : null);
@@ -104,15 +114,13 @@ function cleanupOldDrafts() {
         deleted++;
         console.log(`   🗑️  Deleted: ${file}`);
       }
-    } catch (e) {
-      // skip files with issues
-    }
+    } catch (e) {}
   }
-
   console.log(`   ✅ Deleted ${deleted} old drafts.`);
   return deleted;
 }
 
+// ================= REGULAR NEWS PROCESSOR =================
 async function processFeed(feed) {
   console.log(`\n📡 ${feed.source} — ${feed.category}`);
   let parsed;
@@ -152,7 +160,6 @@ async function processFeed(feed) {
       bodyMd +
       `\n\n---\n\n*Originally published by ${feed.source}. Read the full article at [${link}](${link}).*`;
 
-    // ✅ NEW: imported_at field (কখন তুমি পেলে)
     const importedAt = new Date().toISOString();
 
     const frontmatter =
@@ -176,24 +183,76 @@ ${bodyFinal}
     added++;
     console.log(`   📝 DRAFT: ${fileName}`);
   }
-
   return added;
 }
 
-async function main() {
-  console.log('🚀 RSS Automation — ' + new Date().toISOString());
+// ================= BREAKING NEWS PROCESSOR =================
+async function processBreakingFeed(feed) {
+  console.log(`\n🚨 BREAKING: ${feed.source}`);
+  let parsed;
+  try {
+    parsed = await parser.parseURL(feed.url);
+  } catch (e) {
+    console.error(`   ❌ Fetch failed: ${e.message}`);
+    return 0;
+  }
 
-  // First cleanup, then fetch
+  let added = 0;
+  // ব্রেকিং নিউজের ক্ষেত্রে শুধু একদম টপকের ১টি নিউজ নিব
+  const item = parsed.items[0]; 
+  if (!item) return 0;
+
+  const link = item.link;
+  if (!link || seen[link]) return 0;
+
+  const title = cleanTitle(item.title);
+  const slug = slugify(title) + '-' + crypto.randomBytes(2).toString('hex');
+
+  // ব্রেকিং নিউজ ৪ ঘণ্টা পর অটোমেটিক এক্সপায়ার হবে
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + (4 * 60 * 60 * 1000)); 
+
+  const frontmatter =
+`---
+title: "${title.replace(/"/g, '\\"')}"
+expires: ${expiresAt.toISOString()}
+priority: "High"
+active: true
+---
+
+${title}
+`;
+
+  const fileName = `${now.toISOString().split('T')[0]}-${slug}.md`;
+  fs.writeFileSync(path.join(BREAKING_DIR, fileName), frontmatter);
+  seen[link] = true;
+  added++;
+  console.log(`   🚨 BREAKING DRAFT: ${fileName}`);
+  return added;
+}
+
+// ================= MAIN ORCHESTRATOR =================
+async function main() {
+  console.log('🚀 RSS Automation Started — ' + new Date().toISOString());
+
   cleanupOldDrafts();
 
   let totalAdded = 0;
+  
+  // ১. রেগুলার নিউজ ফেচ
   for (const feed of FEEDS) {
     totalAdded += await processFeed(feed);
     await new Promise(r => setTimeout(r, 800));
   }
 
+  // ২. ব্রেকিং নিউজ ফেচ
+  for (const feed of BREAKING_FEEDS) {
+    totalAdded += await processBreakingFeed(feed);
+    await new Promise(r => setTimeout(r, 800));
+  }
+
   fs.writeFileSync(SEEN_FILE, JSON.stringify(seen, null, 2));
-  console.log(`\n✅ Done. Added ${totalAdded} drafts.`);
+  console.log(`\n✅ Done. Added ${totalAdded} drafts in total.`);
 }
 
 main().catch(err => { console.error('Fatal:', err); process.exit(1); });

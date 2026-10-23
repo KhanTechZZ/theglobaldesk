@@ -1,0 +1,72 @@
+{% set activeBreaking = collections.breaking | reverse %}
+{% if activeBreaking.length > 0 %}
+<div class="breaking-bar" id="breaking-bar" style="display: none;">
+  <div class="breaking-inner">
+    <div class="breaking-label">
+      <span class="breaking-pulse"></span>
+      <strong>BREAKING</strong>
+    </div>
+    <div class="breaking-track">
+      <div class="breaking-content" id="breaking-content">
+        <!-- News will be injected here -->
+      </div>
+    </div>
+    <button class="breaking-next" id="breaking-next" aria-label="Next breaking news">›</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // ১. ব্রেকিং নিউজ ডাটা নেওয়া (নিজন ফাইল থেকে)
+    const breakingData = [
+      {% for item in activeBreaking %}
+        {% if item.data.active %}
+          { 
+            title: "{{ item.data.title | escape }}", 
+            expires: "{{ item.data.expires }}" 
+          },
+        {% endif %}
+      {% endfor %}
+    ];
+
+    // ২. শুধু এক্সপায়ার না হওয়া নিউজগুলো ফিল্টার করা
+    const now = new Date();
+    const validNews = breakingData.filter(n => new Date(n.expires) > now);
+
+    // ৩. যদি লাইভ ব্রেকিং নিউজ থাকে, তবে বারটি দেখানো
+    if (validNews.length > 0) {
+      const bar = document.getElementById('breaking-bar');
+      const contentEl = document.getElementById('breaking-content');
+      const nextBtn = document.getElementById('breaking-next');
+      
+      bar.style.display = 'block';
+      let currentIndex = 0;
+
+      function showNews(index) {
+        contentEl.classList.add('switching');
+        setTimeout(() => {
+          contentEl.textContent = validNews[index].title;
+          contentEl.classList.remove('switching');
+        }, 250); // CSS transition এর সাথে ম্যাচ করা
+      }
+
+      // প্রথম নিউজ দেখানো
+      showNews(0);
+
+      // Next বাটনে ক্লিক করলে পরের নিউজে যাবে
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % validNews.length;
+        showNews(currentIndex);
+      });
+
+      // অটোমেটিক ৫ সেকেন্ড পর পর নিউজ পরিবর্তন হবে
+      if (validNews.length > 1) {
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % validNews.length;
+          showNews(currentIndex);
+        }, 5000);
+      }
+    }
+  });
+</script>
+{% endif %}

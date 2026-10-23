@@ -13,26 +13,67 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "news"
-    label: "News Articles"
-    label_singular: "News Article"
+  # ============================================
+  # 📝 DRAFTS (RSS-imported, unpublished)
+  # ============================================
+  - name: "news_drafts"
+    label: "📝 Drafts (Unpublished)"
+    label_singular: "📝 Draft"
+    description: "RSS articles waiting for your review. To PUBLISH: turn ON the '🚀 Publish' toggle below and Save."
     folder: "news"
+    filter: { field: "published", value: false }
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    sortable_fields: ['date', 'title', 'published']
+    sortable_fields: ['date', 'title']
     summary: "{{title}} — {{category}}"
     fields:
-      - { label: "✅ Published (check to go live)", name: "published", widget: "boolean", default: true }
+      - { label: "🚀 Publish this article (ON = goes live)", name: "published", widget: "boolean", default: false }
       - { label: "Title (Headline)", name: "title", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] }
+      - { 
+          label: "Category", 
+          name: "category", 
+          widget: "select", 
+          options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] 
+        }
       - { label: "Short Description", name: "description", widget: "text" }
       - { label: "Cover Image", name: "image", widget: "image", required: false }
       - { label: "Source", name: "source", widget: "string", required: false }
       - { label: "Body Content", name: "body", widget: "markdown" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
 
+  # ============================================
+  # ✅ PUBLISHED (live on site)
+  # ============================================
+  - name: "news_published"
+    label: "✅ Published Articles"
+    label_singular: "✅ Article"
+    description: "Live articles on the site. To UNPUBLISH: turn OFF the 'Published' toggle below and Save."
+    folder: "news"
+    filter: { field: "published", value: true }
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: ['date', 'title']
+    summary: "{{title}} — {{category}}"
+    fields:
+      - { label: "✅ Published (OFF = back to Drafts)", name: "published", widget: "boolean", default: true }
+      - { label: "Title (Headline)", name: "title", widget: "string" }
+      - { 
+          label: "Category", 
+          name: "category", 
+          widget: "select", 
+          options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] 
+        }
+      - { label: "Short Description", name: "description", widget: "text" }
+      - { label: "Cover Image", name: "image", widget: "image", required: false }
+      - { label: "Source", name: "source", widget: "string", required: false }
+      - { label: "Body Content", name: "body", widget: "markdown" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+
+  # ============================================
+  # 🚨 Breaking News (unchanged)
+  # ============================================
   - name: "breaking"
-    label: "Breaking News"
+    label: "🚨 Breaking News"
     label_singular: "Breaking News"
     folder: "breaking"
     create: true

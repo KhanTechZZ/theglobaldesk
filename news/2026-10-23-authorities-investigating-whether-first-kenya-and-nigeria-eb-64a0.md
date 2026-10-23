@@ -1,11 +1,14 @@
 ---
-title: "Authorities investigating whether first Kenya and Nigeria Ebola cases crossed paths"
+published: true
+title: Authorities investigating whether first Kenya and Nigeria Ebola cases
+  crossed paths
+category: World
+description: Nigeria this week recorded its first case of Ebola in the current
+  outbreak, which has spread from the epicenter in Congo to several other
+  African countries.
+image: https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4200x2800+0+0/resize/4200x2800!/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F12%2Fed%2Fbaea41c84e6dbf969ba20837a5ec%2Fgettyimages-2300888082.jpg
+source: NPR
 date: 2026-10-23T12:41:39.000Z
-category: "World"
-description: "Nigeria this week recorded its first case of Ebola in the current outbreak, which has spread from the epicenter in Congo to several other African countries."
-source: "NPR"
-image: "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4200x2800+0+0/resize/4200x2800!/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F12%2Fed%2Fbaea41c84e6dbf969ba20837a5ec%2Fgettyimages-2300888082.jpg"
-published: false
 ---
 
 > **Source:** [NPR](https://www.npr.org/2026/10/23/g-s1-149515/africa-ebola-outbreak)

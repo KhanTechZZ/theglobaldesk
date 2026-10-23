@@ -20,7 +20,7 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     sortable_fields: ['date', 'title', 'published']
-    summary: "{{title}} — {{category}} {{#if published}}✅{{else}}📝 DRAFT{{/if}}"
+    summary: "{{title}} — {{category}}"
     fields:
       - { label: "✅ Published (check to go live)", name: "published", widget: "boolean", default: true }
       - { label: "Title (Headline)", name: "title", widget: "string" }

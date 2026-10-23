@@ -197,7 +197,7 @@
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-  <script>
+    <script>
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
 
@@ -274,11 +274,19 @@
     });
 
     // =====================================================
-    // 🎯 QUICK-ACCESS BAR (3 buttons, always visible)
+    // 🎯 QUICK BAR — ONLY AFTER LOGIN
     // =====================================================
     var BASE = window.location.origin + '/admin/';
 
+    function isLoggedIn() {
+      // header[role="banner"] only exists after successful login
+      return !!document.querySelector('header[role="banner"]');
+    }
+
     function buildQuickBar() {
+      if (!isLoggedIn()) return; // skip if not logged in
+      if (document.getElementById('td-quick-bar')) return; // already built
+
       var bar = document.createElement('div');
       bar.className = 'td-quick-bar';
       bar.id = 'td-quick-bar';
@@ -294,37 +302,77 @@
         '</a>';
 
       document.body.appendChild(bar);
+      document.body.classList.add('td-has-quickbar');
+    }
+
+    function removeQuickBar() {
+      var bar = document.getElementById('td-quick-bar');
+      if (bar) bar.remove();
+      document.body.classList.remove('td-has-quickbar');
     }
 
     function updateActiveButton() {
       var hash = window.location.hash || '';
       var buttons = document.querySelectorAll('.td-quick-btn');
-      buttons.forEach(function(btn) {
-        btn.classList.remove('active');
-      });
+      buttons.forEach(function(btn) { btn.classList.remove('active'); });
 
       if (hash.indexOf('news_drafts') !== -1) {
-        document.querySelector('.td-quick-btn[data-type="drafts"]')?.classList.add('active');
+        var b = document.querySelector('.td-quick-btn[data-type="drafts"]');
+        if (b) b.classList.add('active');
       } else if (hash.indexOf('news_published') !== -1) {
-        document.querySelector('.td-quick-btn[data-type="published"]')?.classList.add('active');
+        var b = document.querySelector('.td-quick-btn[data-type="published"]');
+        if (b) b.classList.add('active');
       } else if (hash.indexOf('breaking') !== -1) {
-        document.querySelector('.td-quick-btn[data-type="breaking"]')?.classList.add('active');
+        var b = document.querySelector('.td-quick-btn[data-type="breaking"]');
+        if (b) b.classList.add('active');
       }
     }
 
-    // Run on load
-    if (document.body) buildQuickBar();
-    setTimeout(updateActiveButton, 500);
+    // Hide sidebar's duplicate collection links (quick bar replaces them)
+    function hideSidebarCollections() {
+      if (!isLoggedIn()) return;
+      var sidebarLinks = document.querySelectorAll('aside[role="navigation"] a[href*="/collections/"], [class*="Sidebar"] a[href*="/collections/"]');
+      sidebarLinks.forEach(function(link) {
+        // Only hide collection links (not entries)
+        var href = link.getAttribute('href') || '';
+        if (/\/collections\/[a-zA-Z_]+(\/)?$/.test(href) && href.indexOf('/entries') === -1) {
+          var parent = link.closest('li') || link.parentElement;
+          if (parent) parent.style.setProperty('display', 'none', 'important');
+        }
+      });
+    }
 
-    // Update active state on hash change
+    // =====================================================
+    // ORCHESTRATOR — runs periodically
+    // =====================================================
+    function refresh() {
+      if (isLoggedIn()) {
+        buildQuickBar();
+        hideSidebarCollections();
+        updateActiveButton();
+      } else {
+        // Not logged in — remove quick bar
+        removeQuickBar();
+      }
+    }
+
+    // Initial runs
+    setTimeout(refresh, 800);
+    setTimeout(refresh, 2000);
+    setTimeout(refresh, 3500);
+
+    // Hash change
     window.addEventListener('hashchange', function() {
-      setTimeout(updateActiveButton, 300);
+      setTimeout(refresh, 300);
     });
 
-    // If already logged in, update state
-    setTimeout(function() {
-      updateActiveButton();
-    }, 2000);
+    // DOM mutations
+    var debounceTimer;
+    var observer = new MutationObserver(function() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(refresh, 400);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   });
   </script>
 </body>

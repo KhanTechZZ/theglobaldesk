@@ -70,82 +70,127 @@
     input:focus, textarea:focus, select:focus { border-color: #c99a3b !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important; outline: none !important; }
 
     /* =========================================================
-       🎯 3-COLUMN DASHBOARD — Multiple selector fallbacks
+       🎯 TOP QUICK-ACCESS BAR (always visible)
        ========================================================= */
-
-    /* Fallback 1: Any container that has 3 collection cards as direct children */
-    div[data-td-3col="true"] {
-      display: grid !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-      gap: 16px !important;
-      padding: 20px !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
+    .td-quick-bar {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      z-index: 99999;
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 8px 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      font-family: Arial, sans-serif;
     }
 
-    /* Fallback 2: Individual card styling via JS-set class */
-    .td-collection-card {
-      display: block !important;
-      padding: 22px 18px !important;
-      background: #ffffff !important;
-      border-radius: 12px !important;
-      border: 1px solid #e2e8f0 !important;
-      border-top: 4px solid #c99a3b !important;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
-      transition: all 0.2s ease !important;
-      min-height: 120px !important;
+    .td-quick-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 10px;
       text-decoration: none !important;
-      box-sizing: border-box !important;
-      width: 100% !important;
+      font-weight: 800;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      cursor: pointer;
     }
 
-    .td-collection-card:hover {
-      transform: translateY(-3px) !important;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+    .td-quick-btn i {
+      font-size: 16px;
     }
 
-    .td-collection-card[data-collection="drafts"] {
-      border-top-color: #0d4f91 !important;
-      background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%) !important;
+    .td-quick-btn[data-type="drafts"] {
+      background: linear-gradient(180deg, #f0f7ff, #eaf3fb);
+      color: #0d4f91;
+      border-color: #0d4f91;
     }
-    .td-collection-card[data-collection="drafts"]:hover {
-      box-shadow: 0 8px 24px rgba(13,79,145,0.25) !important;
+    .td-quick-btn[data-type="drafts"]:hover {
+      background: #0d4f91;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(13,79,145,0.3);
+    }
+    .td-quick-btn[data-type="drafts"].active {
+      background: #0d4f91;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(13,79,145,0.4);
     }
 
-    .td-collection-card[data-collection="published"] {
-      border-top-color: #16a34a !important;
-      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%) !important;
+    .td-quick-btn[data-type="published"] {
+      background: linear-gradient(180deg, #f0fdf4, #dcfce7);
+      color: #16a34a;
+      border-color: #16a34a;
     }
-    .td-collection-card[data-collection="published"]:hover {
-      box-shadow: 0 8px 24px rgba(22,163,74,0.25) !important;
+    .td-quick-btn[data-type="published"]:hover {
+      background: #16a34a;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(22,163,74,0.3);
+    }
+    .td-quick-btn[data-type="published"].active {
+      background: #16a34a;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(22,163,74,0.4);
     }
 
-    .td-collection-card[data-collection="breaking"] {
-      border-top-color: #dc2626 !important;
-      background: linear-gradient(180deg, #fef2f2 0%, #ffffff 100%) !important;
+    .td-quick-btn[data-type="breaking"] {
+      background: linear-gradient(180deg, #fef2f2, #fee2e2);
+      color: #dc2626;
+      border-color: #dc2626;
     }
-    .td-collection-card[data-collection="breaking"]:hover {
-      box-shadow: 0 8px 24px rgba(220,38,38,0.25) !important;
+    .td-quick-btn[data-type="breaking"]:hover {
+      background: #dc2626;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220,38,38,0.3);
+    }
+    .td-quick-btn[data-type="breaking"].active {
+      background: #dc2626;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(220,38,38,0.4);
+    }
+
+    /* Push main content down to make room for quick bar */
+    main[role="main"], [class*="MainContent"], [class*="AppMain"] {
+      padding-top: 60px !important;
+    }
+
+    /* Hide the duplicate collections section on dashboard (optional) */
+    .td-quick-active [class*="DashboardCollections"],
+    .td-quick-active [class*="CollectionCards"] {
+      display: none !important;
     }
 
     /* Mobile responsive */
-    @media (max-width: 1100px) {
-      div[data-td-3col="true"] {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      }
-    }
-    @media (max-width: 700px) {
-      div[data-td-3col="true"] {
-        grid-template-columns: 1fr !important;
-        padding: 12px !important;
-      }
-    }
-
-    /* Mobile header */
     @media (max-width: 768px) {
+      .td-quick-bar {
+        top: 50px;
+        padding: 6px 8px;
+        gap: 6px;
+      }
+      .td-quick-btn {
+        padding: 10px 8px;
+        font-size: 12px;
+        gap: 5px;
+      }
+      .td-quick-btn i { font-size: 14px; }
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"] img { max-height: 28px !important; }
       header[role="banner"]::after { display: none; }
+    }
+
+    @media (max-width: 500px) {
+      .td-quick-btn span { display: none; }
+      .td-quick-btn { padding: 12px 6px; }
+      .td-quick-btn i { font-size: 18px; }
     }
   </style>
 </head>
@@ -159,7 +204,7 @@
     var h = window.h || (window.CMS && window.CMS.h);
 
     // =====================================================
-    // PREVIEW STYLES (inside iframe)
+    // PREVIEW CSS
     // =====================================================
     var previewCSS = `
       * { box-sizing: border-box; }
@@ -229,137 +274,57 @@
     });
 
     // =====================================================
-    // 🎯 3-COLUMN DASHBOARD — DEBUG + APPLY
+    // 🎯 QUICK-ACCESS BAR (3 buttons, always visible)
     // =====================================================
-    function isOnDashboard() {
+    var BASE = window.location.origin + '/admin/';
+
+    function buildQuickBar() {
+      var bar = document.createElement('div');
+      bar.className = 'td-quick-bar';
+      bar.id = 'td-quick-bar';
+      bar.innerHTML =
+        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn" data-type="drafts">' +
+          '<i class="fa-solid fa-pen-to-square"></i> <span>📝 Drafts</span>' +
+        '</a>' +
+        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn" data-type="published">' +
+          '<i class="fa-solid fa-circle-check"></i> <span>✅ Published</span>' +
+        '</a>' +
+        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn" data-type="breaking">' +
+          '<i class="fa-solid fa-bolt"></i> <span>🚨 Breaking</span>' +
+        '</a>';
+
+      document.body.appendChild(bar);
+    }
+
+    function updateActiveButton() {
       var hash = window.location.hash || '';
-      // Dashboard when hash is empty, "#", or "#/"
-      return !hash || hash === '#' || hash === '#/' || hash === '';
-    }
-
-    function collectDashboardCards() {
-      // Find links that point to collections (not entries)
-      var allLinks = document.querySelectorAll('a[href*="/collections/"]');
-      var cards = [];
-      allLinks.forEach(function(link) {
-        var href = link.getAttribute('href') || '';
-        // Must end with /collections/xxx (no /entries after)
-        if (/\/collections\/[a-zA-Z_]+(\/)?$/.test(href) && href.indexOf('/entries') === -1) {
-          cards.push(link);
-        }
-      });
-      return cards;
-    }
-
-    function findLCA(elements) {
-      if (!elements.length) return null;
-      var current = elements[0].parentElement;
-      while (current) {
-        var allInside = true;
-        for (var i = 0; i < elements.length; i++) {
-          if (!current.contains(elements[i])) { allInside = false; break; }
-        }
-        if (allInside) return current;
-        current = current.parentElement;
-      }
-      return null;
-    }
-
-    function applyThreeColumns() {
-      if (!isOnDashboard()) {
-        console.log('[TD] Not on dashboard, skip');
-        return;
-      }
-
-      var cards = collectDashboardCards();
-      console.log('[TD] Found collection cards:', cards.length);
-
-      if (cards.length < 2) return;
-
-      var lca = findLCA(cards);
-      if (!lca) {
-        console.log('[TD] LCA not found');
-        return;
-      }
-
-      console.log('[TD] LCA:', lca.tagName, lca.className);
-
-      // Apply grid styles to LCA (inline with !important via setProperty)
-      lca.style.setProperty('display', 'grid', 'important');
-      lca.style.setProperty('grid-template-columns', 'repeat(3, minmax(0, 1fr))', 'important');
-      lca.style.setProperty('gap', '16px', 'important');
-      lca.style.setProperty('padding', '20px', 'important');
-      lca.style.setProperty('width', '100%', 'important');
-      lca.style.setProperty('box-sizing', 'border-box', 'important');
-      lca.setAttribute('data-td-3col', 'true');
-
-      // Ensure direct children fill grid cells
-      Array.prototype.forEach.call(lca.children, function(child) {
-        child.style.setProperty('width', '100%', 'important');
-        child.style.setProperty('min-width', '0', 'important');
-        child.style.setProperty('max-width', '100%', 'important');
-        child.style.setProperty('box-sizing', 'border-box', 'important');
+      var buttons = document.querySelectorAll('.td-quick-btn');
+      buttons.forEach(function(btn) {
+        btn.classList.remove('active');
       });
 
-      // Style each card
-      cards.forEach(function(card) {
-        var href = card.getAttribute('href') || '';
-        var coll = '';
-
-        if (href.indexOf('news_drafts') !== -1) coll = 'drafts';
-        else if (href.indexOf('news_published') !== -1) coll = 'published';
-        else if (href.indexOf('breaking') !== -1) coll = 'breaking';
-
-        if (coll) {
-          card.setAttribute('data-collection', coll);
-        }
-        card.classList.add('td-collection-card');
-
-        // Inline styles for maximum specificity
-        card.style.setProperty('display', 'block', 'important');
-        card.style.setProperty('padding', '22px 18px', 'important');
-        card.style.setProperty('background', '#ffffff', 'important');
-        card.style.setProperty('border-radius', '12px', 'important');
-        card.style.setProperty('border', '1px solid #e2e8f0', 'important');
-        card.style.setProperty('border-top', '4px solid #c99a3b', 'important');
-        card.style.setProperty('box-shadow', '0 2px 10px rgba(0,0,0,0.04)', 'important');
-        card.style.setProperty('min-height', '120px', 'important');
-        card.style.setProperty('text-decoration', 'none', 'important');
-        card.style.setProperty('box-sizing', 'border-box', 'important');
-        card.style.setProperty('width', '100%', 'important');
-
-        if (coll === 'drafts') {
-          card.style.setProperty('border-top-color', '#0d4f91', 'important');
-          card.style.setProperty('background', 'linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%)', 'important');
-        } else if (coll === 'published') {
-          card.style.setProperty('border-top-color', '#16a34a', 'important');
-          card.style.setProperty('background', 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%)', 'important');
-        } else if (coll === 'breaking') {
-          card.style.setProperty('border-top-color', '#dc2626', 'important');
-          card.style.setProperty('background', 'linear-gradient(180deg, #fef2f2 0%, #ffffff 100%)', 'important');
-        }
-      });
-
-      console.log('[TD] ✅ 3-column layout applied');
+      if (hash.indexOf('news_drafts') !== -1) {
+        document.querySelector('.td-quick-btn[data-type="drafts"]')?.classList.add('active');
+      } else if (hash.indexOf('news_published') !== -1) {
+        document.querySelector('.td-quick-btn[data-type="published"]')?.classList.add('active');
+      } else if (hash.indexOf('breaking') !== -1) {
+        document.querySelector('.td-quick-btn[data-type="breaking"]')?.classList.add('active');
+      }
     }
 
-    // Run multiple times to catch late renders
-    setTimeout(applyThreeColumns, 1000);
-    setTimeout(applyThreeColumns, 2500);
-    setTimeout(applyThreeColumns, 4000);
+    // Run on load
+    if (document.body) buildQuickBar();
+    setTimeout(updateActiveButton, 500);
 
-    // Reapply on hash change (user navigates back to dashboard)
+    // Update active state on hash change
     window.addEventListener('hashchange', function() {
-      setTimeout(applyThreeColumns, 800);
+      setTimeout(updateActiveButton, 300);
     });
 
-    // MutationObserver with debounce
-    var debounceTimer;
-    var observer = new MutationObserver(function() {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(applyThreeColumns, 400);
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    // If already logged in, update state
+    setTimeout(function() {
+      updateActiveButton();
+    }, 2000);
   });
   </script>
 </body>

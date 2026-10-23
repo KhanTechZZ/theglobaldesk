@@ -83,3 +83,4 @@ collections:
       - { label: "Expiry Date & Time", name: "expires", widget: "datetime" }
       - { label: "Priority", name: "priority", widget: "select", options: ["Normal", "High"], default: "Normal" }
       - { label: "Active", name: "active", widget: "boolean", default: true }
+            - { label: "Imported At", name: "imported_at", widget: "datetime", required: false }

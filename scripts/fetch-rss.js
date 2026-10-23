@@ -14,10 +14,7 @@ const parser = new Parser({
   }
 });
 
-const turndown = new TurndownService({
-  headingStyle: 'atx',
-  codeBlockStyle: 'fenced'
-});
+const turndown = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
 turndown.remove(['script', 'style', 'iframe', 'form']);
 
 const FEEDS = [
@@ -36,6 +33,7 @@ const SEEN_FILE = path.join(__dirname, '..', '.rss-seen.json');
 const MAX_ITEMS_PER_FEED = 3;
 const MAX_AGE_HOURS = 6;
 const MAX_BODY_CHARS = 1200;
+const DRAFT_EXPIRY_DAYS = 7;   // ✅ ৭ দিন পর অটো-delete
 
 let seen = {};
 if (fs.existsSync(SEEN_FILE)) {
@@ -43,25 +41,16 @@ if (fs.existsSync(SEEN_FILE)) {
 }
 
 function slugify(text) {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .substring(0, 60);
+  return text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim()
+    .replace(/\s+/g, '-').replace(/-+/g, '-').substring(0, 60);
 }
 
 function extractImage(item) {
   if (item.mediaContent && item.mediaContent.length) {
-    for (const m of item.mediaContent) {
-      if (m.$ && m.$.url) return m.$.url;
-    }
+    for (const m of item.mediaContent) { if (m.$ && m.$.url) return m.$.url; }
   }
   if (item.enclosure && item.enclosure.url) return item.enclosure.url;
-  if (item.mediaThumbnail && item.mediaThumbnail.$ && item.mediaThumbnail.$.url) {
-    return item.mediaThumbnail.$.url;
-  }
+  if (item.mediaThumbnail && item.mediaThumbnail.$ && item.mediaThumbnail.$.url) return item.mediaThumbnail.$.url;
   const html = item.contentEncoded || item.content || item.description || '';
   const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
   return match ? match[1] : '';
@@ -83,6 +72,45 @@ function truncate(text, max) {
   const lastDot = cut.lastIndexOf('.');
   if (lastDot > max * 0.6) return cut.substring(0, lastDot + 1);
   return cut + '...';
+}
+
+// ✅ NEW: Auto-delete old drafts
+function cleanupOldDrafts() {
+  console.log('\n🧹 Cleaning up old drafts (older than ' + DRAFT_EXPIRY_DAYS + ' days)...');
+  if (!fs.existsSync(NEWS_DIR)) return 0;
+
+  const files = fs.readdirSync(NEWS_DIR).filter(f => f.endsWith('.md'));
+  let deleted = 0;
+  const now = Date.now();
+  const maxAge = DRAFT_EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+
+  for (const file of files) {
+    const filePath = path.join(NEWS_DIR, file);
+    try {
+      const content = fs.readFileSync(filePath, 'utf8');
+      // Check if it's a draft (published: false)
+      const isDraft = /^published:\s*false\s*$/m.test(content);
+      if (!isDraft) continue;
+
+      // Check imported_at or date
+      const importedMatch = content.match(/^imported_at:\s*"?([^"\n]+)"?\s*$/m);
+      const dateMatch = content.match(/^date:\s*"?([^"\n]+)"?\s*$/m);
+      const dateStr = importedMatch ? importedMatch[1] : (dateMatch ? dateMatch[1] : null);
+      if (!dateStr) continue;
+
+      const fileAge = now - new Date(dateStr).getTime();
+      if (fileAge > maxAge) {
+        fs.unlinkSync(filePath);
+        deleted++;
+        console.log(`   🗑️  Deleted: ${file}`);
+      }
+    } catch (e) {
+      // skip files with issues
+    }
+  }
+
+  console.log(`   ✅ Deleted ${deleted} old drafts.`);
+  return deleted;
 }
 
 async function processFeed(feed) {
@@ -124,10 +152,14 @@ async function processFeed(feed) {
       bodyMd +
       `\n\n---\n\n*Originally published by ${feed.source}. Read the full article at [${link}](${link}).*`;
 
+    // ✅ NEW: imported_at field (কখন তুমি পেলে)
+    const importedAt = new Date().toISOString();
+
     const frontmatter =
 `---
 title: "${title.replace(/"/g, '\\"')}"
 date: ${date.toISOString()}
+imported_at: ${importedAt}
 category: "${feed.category}"
 description: "${description.replace(/"/g, '\\"')}"
 source: "${feed.source}"
@@ -149,7 +181,10 @@ ${bodyFinal}
 }
 
 async function main() {
-  console.log('🚀 RSS Automation (Draft mode) — ' + new Date().toISOString());
+  console.log('🚀 RSS Automation — ' + new Date().toISOString());
+
+  // First cleanup, then fetch
+  cleanupOldDrafts();
 
   let totalAdded = 0;
   for (const feed of FEEDS) {
@@ -158,7 +193,7 @@ async function main() {
   }
 
   fs.writeFileSync(SEEN_FILE, JSON.stringify(seen, null, 2));
-  console.log(`\n✅ Done. Added ${totalAdded} drafts. Review in Decap CMS: /admin/`);
+  console.log(`\n✅ Done. Added ${totalAdded} drafts.`);
 }
 
 main().catch(err => { console.error('Fatal:', err); process.exit(1); });

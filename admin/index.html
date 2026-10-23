@@ -259,7 +259,28 @@
     function renderNewsPreview(props) {
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
-      var dateStr = data.date ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not set';
+      // Calculate "time ago" from imported_at (fallback: date)
+var sourceDate = data.imported_at || data.date;
+var dateStr = 'Date not set';
+var timeAgoText = '';
+var isRecent = false;
+
+if (sourceDate) {
+  var d = new Date(sourceDate);
+  var now = new Date();
+  var diffMs = now - d;
+  var diffMin = Math.floor(diffMs / 60000);
+  var diffHour = Math.floor(diffMin / 60);
+  var diffDay = Math.floor(diffHour / 24);
+
+  if (diffMin < 1) timeAgoText = 'just now';
+  else if (diffMin < 60) timeAgoText = diffMin + 'm ago';
+  else if (diffHour < 24) timeAgoText = diffHour + 'h ago';
+  else timeAgoText = diffDay + 'd ago';
+
+  isRecent = diffHour < 2;  // 2 hours = "new" badge
+  dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
 
       return h('div', { className: 'td-preview-wrap' },
         h('div', { className: 'td-preview-card' },
@@ -267,7 +288,11 @@
             imageUrl ? h('img', { className: 'td-preview-img', src: imageUrl }) : h('div', { className: 'td-preview-img-placeholder' }, '🖼️ Cover Image')
           ),
           h('div', { className: 'td-preview-content' },
-            data.category ? h('span', { className: 'td-preview-tag' }, data.category.toUpperCase()) : null,
+            h('div', { style: { display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '5px', flexWrap: 'wrap' } },
+  data.category ? h('span', { className: 'td-preview-tag', style: { margin: 0 } }, data.category.toUpperCase()) : null,
+  isRecent ? h('span', { style: { background: '#16a34a', color: '#fff', padding: '2px 7px', borderRadius: '10px', fontSize: '8px', fontWeight: '800', letterSpacing: '0.5px' } }, '● NEW') : null,
+  timeAgoText ? h('span', { style: { fontSize: '9px', color: '#94a3b8', fontWeight: '600' } }, timeAgoText) : null
+),
             h('h1', { className: 'td-preview-title' }, data.title || 'Your headline will appear here'),
             data.description ? h('p', { className: 'td-preview-desc' }, data.description) : null,
             h('div', { className: 'td-preview-meta' },

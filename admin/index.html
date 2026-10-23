@@ -166,24 +166,32 @@
     // ============ VIEW STATS ============
     const viewCache = {};
 
-    async function fetchViewCount(slug) {
+        async function fetchViewCount(slug) {
       if (!slug) return 0;
       if (viewCache[slug] !== undefined) return viewCache[slug];
-      const url = 'https://abacus.jasoncameron.dev/get/theglobaldesk/' + encodeURIComponent(slug);
-      try {
-        const res = await fetch(url);
-        // 404 = counter doesn't exist yet → treat as 0
-        if (!res.ok) {
-          viewCache[slug] = 0;
-          return 0;
-        }
-        const data = await res.json();
-        viewCache[slug] = (typeof data.value === 'number') ? data.value : 0;
-        return viewCache[slug];
-      } catch (e) {
-        viewCache[slug] = 0;
-        return 0;
+
+      // Try all variants until one works
+      const variants = [
+        slug,                                         // as-is
+        slug.replace(/^\d{4}-\d{2}-\d{2}-/, ''),      // strip date prefix
+      ];
+
+      for (const v of variants) {
+        if (!v) continue;
+        try {
+          const url = 'https://abacus.jasoncameron.dev/get/theglobaldesk/' + encodeURIComponent(v);
+          const res = await fetch(url);
+          if (res.ok) {
+            const data = await res.json();
+            const count = (typeof data.value === 'number') ? data.value : 0;
+            viewCache[slug] = count;
+            return count;
+          }
+        } catch (e) { /* try next */ }
       }
+
+      viewCache[slug] = 0;
+      return 0;
     }
 
     function extractSlug(href) {

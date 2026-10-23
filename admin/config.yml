@@ -13,9 +13,6 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  # ============================================
-  # 📝 DRAFTS (RSS-imported, unpublished)
-  # ============================================
   - name: "news_drafts"
     label: "📝 Drafts (Unpublished)"
     label_singular: "📝 Draft"
@@ -24,26 +21,19 @@ collections:
     filter: { field: "published", value: false }
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    sortable_fields: ['date', 'title']
+    sortable_fields: ['imported_at', 'date', 'title']
     summary: "{{title}} — {{category}}"
     fields:
       - { label: "🚀 Publish this article (ON = goes live)", name: "published", widget: "boolean", default: false }
       - { label: "Title (Headline)", name: "title", widget: "string" }
-      - { 
-          label: "Category", 
-          name: "category", 
-          widget: "select", 
-          options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] 
-        }
+      - { label: "Category", name: "category", widget: "select", options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] }
       - { label: "Short Description", name: "description", widget: "text" }
       - { label: "Cover Image", name: "image", widget: "image", required: false }
       - { label: "Source", name: "source", widget: "string", required: false }
       - { label: "Body Content", name: "body", widget: "markdown" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Original Publish Date", name: "date", widget: "datetime" }
+      - { label: "Imported At", name: "imported_at", widget: "datetime", required: false }
 
-  # ============================================
-  # ✅ PUBLISHED (live on site)
-  # ============================================
   - name: "news_published"
     label: "✅ Published Articles"
     label_singular: "✅ Article"
@@ -57,21 +47,13 @@ collections:
     fields:
       - { label: "✅ Published (OFF = back to Drafts)", name: "published", widget: "boolean", default: true }
       - { label: "Title (Headline)", name: "title", widget: "string" }
-      - { 
-          label: "Category", 
-          name: "category", 
-          widget: "select", 
-          options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] 
-        }
+      - { label: "Category", name: "category", widget: "select", options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] }
       - { label: "Short Description", name: "description", widget: "text" }
       - { label: "Cover Image", name: "image", widget: "image", required: false }
       - { label: "Source", name: "source", widget: "string", required: false }
       - { label: "Body Content", name: "body", widget: "markdown" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
 
-  # ============================================
-  # 🚨 Breaking News (unchanged)
-  # ============================================
   - name: "breaking"
     label: "🚨 Breaking News"
     label_singular: "Breaking News"
@@ -83,4 +65,3 @@ collections:
       - { label: "Expiry Date & Time", name: "expires", widget: "datetime" }
       - { label: "Priority", name: "priority", widget: "select", options: ["Normal", "High"], default: "Normal" }
       - { label: "Active", name: "active", widget: "boolean", default: true }
-            - { label: "Imported At", name: "imported_at", widget: "datetime", required: false }

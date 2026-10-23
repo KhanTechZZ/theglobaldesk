@@ -19,14 +19,17 @@ collections:
     folder: "news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: ['date', 'title', 'published']
+    summary: "{{title}} — {{category}} {{#if published}}✅{{else}}📝 DRAFT{{/if}}"
     fields:
-      - { label: "Title (Headline)", name: "title", widget: "string", hint: "Short, clear headline (60-80 chars)." }
+      - { label: "✅ Published (check to go live)", name: "published", widget: "boolean", default: true }
+      - { label: "Title (Headline)", name: "title", widget: "string" }
       - { label: "Category", name: "category", widget: "select", options: ["World", "Asia", "Explainer", "Politics", "Economy", "Tech and AI", "Science", "Environment", "Research", "Human Rights", "Z Desk", "Alpha Desk"] }
-      - { label: "Short Description", name: "description", widget: "text", hint: "2-3 sentence summary for homepage & SEO meta." }
-      - { label: "Cover Image", name: "image", widget: "image", required: false, hint: "Upload from computer. Any size — auto-cropped to 16:9." }
-      - { label: "Source", name: "source", widget: "string", required: false, hint: "e.g., Reuters, AP, BBC, The Global Desk" }
-      - { label: "Body Content", name: "body", widget: "markdown", hint: "Write the full story here." }
-      - { label: "Publish Date", name: "date", widget: "datetime", default: "" }
+      - { label: "Short Description", name: "description", widget: "text" }
+      - { label: "Cover Image", name: "image", widget: "image", required: false }
+      - { label: "Source", name: "source", widget: "string", required: false }
+      - { label: "Body Content", name: "body", widget: "markdown" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
 
   - name: "breaking"
     label: "Breaking News"
@@ -35,7 +38,7 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}"
     fields:
-      - { label: "Breaking Headline", name: "title", widget: "string", hint: "Very short, one line." }
-      - { label: "Expiry Date & Time", name: "expires", widget: "datetime", hint: "News stops showing after this time." }
+      - { label: "Breaking Headline", name: "title", widget: "string" }
+      - { label: "Expiry Date & Time", name: "expires", widget: "datetime" }
       - { label: "Priority", name: "priority", widget: "select", options: ["Normal", "High"], default: "Normal" }
       - { label: "Active", name: "active", widget: "boolean", default: true }

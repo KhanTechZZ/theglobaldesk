@@ -1,5 +1,8 @@
 {
   "layout": "news.njk",
   "tags": "news",
-  "permalink": "/news/{{ page.fileSlug }}/"
+  "eleventyComputed": {
+    "permalink": "{% if published == false %}false{% else %}/news/{{ page.fileSlug }}/{% endif %}",
+    "eleventyExcludeFromCollections": "{% if published == false %}true{% else %}false{% endif %}"
+  }
 }

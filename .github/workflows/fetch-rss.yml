@@ -1,0 +1,42 @@
+name: Auto-fetch news from RSS (Drafts)
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Fetch RSS (as drafts)
+        run: node scripts/fetch-rss.js
+
+      - name: Commit & push
+        run: |
+          git config user.name "Global Desk Bot"
+          git config user.email "bot@theglobaldesk.com"
+          git add news/ .rss-seen.json
+          if ! git diff --staged --quiet; then
+            git commit -m "🤖 Auto: fetched drafts from RSS"
+            git push
+          else
+            echo "No new drafts."
+          fi

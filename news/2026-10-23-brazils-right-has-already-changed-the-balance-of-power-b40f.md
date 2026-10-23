@@ -17,6 +17,6 @@ Bolsonaro’s party has strengthened its position in Congress, posing a formidab
 
 *Originally published by Al Jazeera. Read the full article at <https://www.aljazeera.com/opinions/2026/10/23/brazils-right-has-already-changed-the-balance-of-power?traffic_source=rss>.*
 
-![]()
+![](/images/uploads/the-global-desk.jpeg)
 
-![](/images/uploads/646040435_25957162710619646_760164647431606022_n.jpg)
+![]()

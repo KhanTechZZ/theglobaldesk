@@ -26,10 +26,17 @@ module.exports = function(eleventyConfig) {
     return new Date(dateObj).toISOString();
   });
 
-  // NEW FILTER: jsonify (for JSON-LD Schema in news.njk)
   eleventyConfig.addFilter("jsonify", (value) => {
     const safe = (value === undefined || value === null) ? "" : value;
     return JSON.stringify(safe);
+  });
+
+  // ✅ NEW: Filter news from last 48 hours
+  eleventyConfig.addFilter("isRecent", (dateObj) => {
+    const d = new Date(dateObj);
+    const now = new Date();
+    const diff = now - d;
+    return diff < 48 * 60 * 60 * 1000; // 48 hours in ms
   });
 
   return {

@@ -96,21 +96,42 @@
     label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; }
     input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
 
-    /* Time badge in list view */
+    /* ===================================================== */
+    /* 🎯 NEW PRIORITY BADGES (Green, Yellow, Orange, Gray)  */
+    /* ===================================================== */
     .td-time-badge {
-      display: inline-flex !important; align-items: center !important;
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
       gap: 4px !important; margin-left: 10px !important;
-      padding: 3px 10px !important; border-radius: 12px !important;
+      padding: 4px 10px !important; border-radius: 12px !important;
       font-size: 10px !important; font-weight: 800 !important;
       letter-spacing: 0.3px !important; vertical-align: middle !important;
       white-space: nowrap !important; font-family: Arial, sans-serif !important;
     }
-    .td-time-badge.td-new {
+
+    /* 🟢 NEW (< 2 hours) - Pulsing Green */
+    .td-time-badge.td-level-new {
       background: #16a34a !important; color: #ffffff !important;
-      box-shadow: 0 2px 8px rgba(22,163,74,0.3) !important;
+      animation: pulse-green 2s infinite !important;
     }
-    .td-time-badge.td-old {
-      background: #e2e8f0 !important; color: #475569 !important;
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+    }
+
+    /* 🟡 TODAY (< 24 hours) - Yellow */
+    .td-time-badge.td-level-today {
+      background: #eab308 !important; color: #ffffff !important;
+    }
+
+    /* 🟠 YESTERDAY (< 48 hours) - Orange */
+    .td-time-badge.td-level-yesterday {
+      background: #f97316 !important; color: #ffffff !important;
+    }
+
+    /* ⚪ STALE (> 48 hours) - Gray */
+    .td-time-badge.td-level-stale {
+      background: #94a3b8 !important; color: #ffffff !important;
     }
 
     @media (max-width: 768px) {
@@ -121,7 +142,7 @@
       .td-search-btn { width: 38px !important; height: 38px !important; }
       body.td-quickbar-on main,
       body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
-      .td-time-badge { font-size: 9px !important; padding: 2px 7px !important; margin-left: 6px !important; }
+      .td-time-badge { font-size: 9px !important; padding: 3px 7px !important; margin-left: 6px !important; }
     }
   </style>
 </head>
@@ -249,15 +270,16 @@
     }
 
     // =====================================================
-    // 🎯 TIME BADGE IN DRAFTS LIST
+    // 🎯 TIME BADGE & PRIORITY LOGIC IN DRAFTS LIST
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
 
     function calcTimeAgo(dateStr) {
-      if (!dateStr) return { text: '', isNew: false };
+      if (!dateStr) return { text: '', level: 'stale' };
       var d = new Date(dateStr);
-      if (isNaN(d.getTime())) return { text: '', isNew: false };
+      if (isNaN(d.getTime())) return { text: '', level: 'stale' };
+      
       var diffMs = Date.now() - d.getTime();
       var mins = Math.floor(diffMs / 60000);
       var hours = Math.floor(mins / 60);
@@ -265,14 +287,23 @@
       var weeks = Math.floor(days / 7);
       var months = Math.floor(days / 30);
 
-      if (mins < 1) return { text: 'just now', isNew: true };
-      if (mins < 60) return { text: mins + 'm ago', isNew: true };
-      if (hours < 2) return { text: hours + 'h ago', isNew: true };
-      if (hours < 24) return { text: hours + 'h ago', isNew: false };
-      if (days < 7) return { text: days + 'd ago', isNew: false };
-      if (weeks < 4) return { text: weeks + 'w ago', isNew: false };
-      if (months < 12) return { text: months + 'mo ago', isNew: false };
-      return { text: Math.floor(days / 365) + 'y ago', isNew: false };
+      // টেক্সট ফরম্যাট
+      var text = '';
+      if (mins < 1) text = 'just now';
+      else if (mins < 60) text = mins + 'm ago';
+      else if (hours < 24) text = hours + 'h ago';
+      else if (days < 7) text = days + 'd ago';
+      else if (weeks < 4) text = weeks + 'w ago';
+      else if (months < 12) text = months + 'mo ago';
+      else text = Math.floor(days / 365) + 'y ago';
+
+      // প্রায়োরিটি লেভেল (আপনার রিকোয়ারমেন্ট অনুযায়ী)
+      var level = 'stale'; // ⚪ Default
+      if (hours < 2) level = 'new';           // 🟢 ২ ঘণ্টার কম
+      else if (hours < 24) level = 'today';     // 🟡 ২৪ ঘণ্টার কম
+      else if (hours < 48) level = 'yesterday'; // 🟠 ৪৮ ঘণ্টার কম
+
+      return { text: text, level: level };
     }
 
     async function fetchImportedAt(slug) {
@@ -312,8 +343,17 @@
         if (!timeInfo || !timeInfo.text) continue;
 
         var badge = document.createElement('span');
-        badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
-        badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
+        // ক্লাস অ্যাসাইন করা
+        badge.className = 'td-time-badge td-level-' + timeInfo.level;
+        
+        // ইমোজি এবং টেক্সট সেট করা
+        var prefix = '';
+        if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
+        else if (timeInfo.level === 'today') prefix = '🟡 ';
+        else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
+        else prefix = '⚪ ';
+
+        badge.textContent = prefix + timeInfo.text;
         link.appendChild(badge);
       }
     }
@@ -327,14 +367,12 @@
         return;
       }
 
-      // ✅ Quick bar ONLY on dashboard
       if (isOnDashboard()) {
         buildQuickBar();
       } else {
         removeQuickBar();
       }
 
-      // Time badges work on drafts list regardless of quick bar
       setTimeout(injectDraftTimeBadges, 400);
     }
 

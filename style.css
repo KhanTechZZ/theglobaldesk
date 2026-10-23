@@ -1226,3 +1226,45 @@ body.dark-mode .categories-list a { background: #14283d; color: #cbd5e1; border-
     .newsletter-form { flex-direction: column; }
     .newsletter-form button { width: 100%; }
 }
+/* ================= ARTICLE BODY IMAGES ================= */
+
+.article-body img {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 400px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 10px !important;
+    margin: 22px auto !important;
+}
+
+/* Optional: caption styling for images followed by italic text */
+.article-body p > em:only-child {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: #667383;
+    margin-top: -14px;
+    margin-bottom: 22px;
+}
+
+/* Inline images inside paragraphs (rare) */
+.article-body p img {
+    max-height: 400px !important;
+    border-radius: 8px !important;
+}
+
+/* Dark mode */
+body.dark-mode .article-body p > em:only-child {
+    color: #94a3b8;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .article-body img {
+        max-height: 250px !important;
+        margin: 16px auto !important;
+    }
+}

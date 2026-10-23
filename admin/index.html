@@ -66,7 +66,6 @@
       font-size: 13px !important;
     }
 
-    /* ========== SUMMARY CARD ========== */
     .td-stats-summary {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -80,34 +79,20 @@
       gap: 16px;
       font-family: 'Inter', Arial, sans-serif;
     }
-    .td-stats-summary .stat-item {
-      text-align: center;
-    }
+    .td-stats-summary .stat-item { text-align: center; }
     .td-stats-summary .stat-item .label {
-      font-size: 10px;
-      text-transform: uppercase;
-      color: #667383;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
+      font-size: 10px; text-transform: uppercase; color: #667383;
+      font-weight: 700; letter-spacing: 1px; margin-bottom: 4px;
     }
     .td-stats-summary .stat-item .value {
-      font-size: 24px;
-      font-weight: 800;
-      color: #061a33;
-      font-family: Georgia, serif;
-      line-height: 1.1;
+      font-size: 24px; font-weight: 800; color: #061a33;
+      font-family: Georgia, serif; line-height: 1.1;
     }
     .td-stats-summary .stat-item .sub {
-      font-size: 10px;
-      color: #929ba5;
-      margin-top: 2px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      font-size: 10px; color: #929ba5; margin-top: 2px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
 
-    /* ========== VIEW BADGE ON LIST ITEMS ========== */
     .td-list-item-with-stats {
       position: relative !important;
       padding-right: 100px !important;
@@ -132,12 +117,16 @@
       color: #c99a3b !important;
       font-size: 10px !important;
     }
+    .td-list-item-with-stats .view-badge.error {
+      background: #fee2e2 !important;
+      color: #991b1b !important;
+    }
+    .td-list-item-with-stats .view-badge.error i {
+      color: #991b1b !important;
+    }
 
     @media (max-width: 768px) {
-      .td-stats-summary {
-        grid-template-columns: repeat(2, 1fr);
-        margin: 12px 10px;
-      }
+      .td-stats-summary { grid-template-columns: repeat(2, 1fr); margin: 12px 10px; }
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"] img { max-height: 28px !important; padding: 3px 6px !important; }
       header[role="banner"]::after { display: none; }
@@ -155,7 +144,6 @@
 
     var h = window.h || (window.CMS && window.CMS.h);
 
-    // ===== ১. প্রিভিউ টেমপ্লেট (আগের মতোই) =====
     function resolveImage(path) {
       if (!path || typeof path !== 'string') return null;
       if (/^https?:\/\//i.test(path)) return path;
@@ -182,34 +170,47 @@
       );
     });
 
-    // ===== ২. ভিউ স্ট্যাটস ইনজেকশন =====
+    // ============ VIEW STATS ============
     const viewCache = {};
 
-    async function getViewCount(slug) {
+    async function fetchViewCount(slug) {
+      if (!slug) return 'err';
       if (viewCache[slug] !== undefined) return viewCache[slug];
+      const url = `https://abacus.jasoncameron.dev/get/theglobaldesk/${encodeURIComponent(slug)}`;
       try {
-        const res = await fetch(`https://abacus.jasoncameron.dev/get/theglobaldesk/${slug}`);
+        console.log('[ViewStats] Fetching:', url);
+        const res = await fetch(url);
+        console.log('[ViewStats] Response status:', res.status);
         if (res.ok) {
           const data = await res.json();
-          viewCache[slug] = data.value || 0;
+          console.log('[ViewStats] Data:', data);
+          viewCache[slug] = (typeof data.value === 'number') ? data.value : 0;
           return viewCache[slug];
+        } else {
+          viewCache[slug] = 'err';
+          return 'err';
         }
-      } catch (e) { /* ignore */ }
-      viewCache[slug] = 0;
-      return 0;
+      } catch (e) {
+        console.error('[ViewStats] Fetch failed:', e);
+        viewCache[slug] = 'err';
+        return 'err';
+      }
     }
 
-    function findTitleElement(el) {
-      if (el.nodeType === Node.TEXT_NODE && el.textContent.trim()) return el.parentElement;
-      for (let child of el.childNodes) {
-        const result = findTitleElement(child);
-        if (result) return result;
-      }
-      return null;
+    function extractSlug(href) {
+      if (!href) return null;
+      // Split and take the last non-empty segment
+      const parts = href.split('/').filter(Boolean);
+      return parts.length ? decodeURIComponent(parts[parts.length - 1]) : null;
+    }
+
+    function findTitleText(link) {
+      const text = link.textContent.trim();
+      return text.split('\n')[0].trim();
     }
 
     function getLCA(elements) {
-      if (elements.length === 0) return null;
+      if (!elements.length) return null;
       let current = elements[0].parentElement;
       while (current) {
         if (elements.every(el => current.contains(el))) return current;
@@ -222,83 +223,69 @@
 
     async function injectStats() {
       if (isInjecting) return;
-      const links = document.querySelectorAll('a[href*="/collections/news/entries/"]');
-      if (links.length === 0) return;
+
+      const links = Array.from(document.querySelectorAll('a[href*="/collections/news/entries/"]'));
+      if (!links.length) return;
+
+      // Skip if badges already exist
       if (links[0].querySelector('.view-badge')) return;
 
       isInjecting = true;
 
-      const slugs = [];
-      const promises = [];
-      links.forEach(link => {
-        const href = link.getAttribute('href');
-        const slug = href.split('/').pop();
-        slugs.push(slug);
-        promises.push(getViewCount(slug));
-      });
+      const slugs = links.map(l => extractSlug(l.getAttribute('href')));
+      console.log('[ViewStats] Slugs:', slugs);
 
-      const counts = await Promise.all(promises);
+      const counts = await Promise.all(slugs.map(s => fetchViewCount(s)));
+      console.log('[ViewStats] Counts:', counts);
 
-      // Append badges to list items
       links.forEach((link, i) => {
         if (link.querySelector('.view-badge')) return;
         const listItem = link.closest('li, div[role="listitem"], [class*="ListItem"], [class*="listItem"]') || link.parentElement;
-        if (listItem) {
-          listItem.classList.add('td-list-item-with-stats');
-          const badge = document.createElement('span');
-          badge.className = 'view-badge';
-          badge.innerHTML = `<i class="fa-regular fa-eye"></i> ${counts[i].toLocaleString()}`;
-          listItem.appendChild(badge);
+        if (!listItem) return;
+        listItem.classList.add('td-list-item-with-stats');
+        const badge = document.createElement('span');
+        badge.className = 'view-badge';
+        if (counts[i] === 'err') {
+          badge.classList.add('error');
+          badge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> ?';
+        } else {
+          badge.innerHTML = '<i class="fa-regular fa-eye"></i> ' + counts[i].toLocaleString();
         }
+        listItem.appendChild(badge);
       });
 
-      // Insert summary before list container
+      // Summary
       const lca = getLCA(links);
       if (lca && lca.parentElement) {
         const oldSummary = document.getElementById('td-stats-summary');
         if (oldSummary) oldSummary.remove();
 
-        const totalViews = counts.reduce((a, b) => a + b, 0);
-        const totalArticles = counts.length;
-        const avgViews = totalArticles ? Math.round(totalViews / totalArticles) : 0;
-        let topArticle = { title: '', views: 0 };
+        let totalViews = 0, validCounts = 0;
+        counts.forEach(c => { if (typeof c === 'number') { totalViews += c; validCounts++; } });
+        const totalArticles = links.length;
+        const avgViews = validCounts ? Math.round(totalViews / validCounts) : 0;
+
+        let topArticle = { title: '—', views: 0 };
         links.forEach((link, i) => {
-          if (counts[i] > topArticle.views) {
-            const titleEl = findTitleElement(link);
-            const title = titleEl ? titleEl.textContent.trim() : link.textContent.trim();
-            topArticle = { title: title.split('\n')[0], views: counts[i] };
+          if (typeof counts[i] === 'number' && counts[i] > topArticle.views) {
+            topArticle = { title: findTitleText(link), views: counts[i] };
           }
         });
 
         const summary = document.createElement('div');
         summary.id = 'td-stats-summary';
         summary.className = 'td-stats-summary';
-        summary.innerHTML = `
-          <div class="stat-item">
-            <div class="label">Total Views</div>
-            <div class="value">${totalViews.toLocaleString()}</div>
-          </div>
-          <div class="stat-item">
-            <div class="label">Articles</div>
-            <div class="value">${totalArticles}</div>
-          </div>
-          <div class="stat-item">
-            <div class="label">Avg. Views</div>
-            <div class="value">${avgViews.toLocaleString()}</div>
-          </div>
-          <div class="stat-item">
-            <div class="label">Top Article</div>
-            <div class="value" style="font-size: 16px; line-height: 1.2;">${topArticle.views.toLocaleString()}</div>
-            <div class="sub" title="${topArticle.title}">${topArticle.title.substring(0, 25)}${topArticle.title.length > 25 ? '...' : ''}</div>
-          </div>
-        `;
+        summary.innerHTML =
+          '<div class="stat-item"><div class="label">Total Views</div><div class="value">' + totalViews.toLocaleString() + '</div></div>' +
+          '<div class="stat-item"><div class="label">Articles</div><div class="value">' + totalArticles + '</div></div>' +
+          '<div class="stat-item"><div class="label">Avg. Views</div><div class="value">' + avgViews.toLocaleString() + '</div></div>' +
+          '<div class="stat-item"><div class="label">Top Article</div><div class="value" style="font-size:16px;line-height:1.2;">' + topArticle.views.toLocaleString() + '</div><div class="sub" title="' + topArticle.title + '">' + topArticle.title.substring(0, 25) + (topArticle.title.length > 25 ? '...' : '') + '</div></div>';
         lca.parentElement.insertBefore(summary, lca);
       }
 
       isInjecting = false;
     }
 
-    // Debounced MutationObserver
     let debounceTimer;
     const observer = new MutationObserver(() => {
       clearTimeout(debounceTimer);
@@ -306,7 +293,6 @@
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // Initial run
     setTimeout(injectStats, 2000);
   });
   </script>

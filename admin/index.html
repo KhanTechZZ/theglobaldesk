@@ -49,22 +49,10 @@
       color: #475569 !important;
       font-size: 13.5px !important;
       font-weight: 600 !important;
-      transition: all 0.15s ease !important;
     }
     aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover {
       background: #eaf3fb !important;
       color: #0d4f91 !important;
-    }
-
-    [class*="ControlHint"], .css-1j8z6y0-ControlHint, p[class*="ControlHint"] {
-      font-size: 11px !important;
-      line-height: 1.4 !important;
-      color: #64748b !important;
-      margin-top: 4px !important;
-      padding: 4px 8px !important;
-      background: #f8fafc !important;
-      border-radius: 4px !important;
-      border-left: 2px solid #c99a3b !important;
     }
 
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
@@ -82,92 +70,72 @@
     input:focus, textarea:focus, select:focus { border-color: #c99a3b !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important; outline: none !important; }
 
     /* =========================================================
-       🎯 3-COLUMN DASHBOARD
+       🎯 3-COLUMN DASHBOARD — Multiple selector fallbacks
        ========================================================= */
 
-    /* Force cards into 3-column grid */
-    [class*="CardsGrid"],
-    [class*="CardsContainer"],
-    [class*="CollectionCards"],
-    [role="grid"] {
+    /* Fallback 1: Any container that has 3 collection cards as direct children */
+    div[data-td-3col="true"] {
       display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
       gap: 16px !important;
-      width: 100% !important;
       padding: 20px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
 
-    /* Individual collection card */
-    [class*="CollectionCard"],
-    [role="gridcell"] {
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 12px !important;
-      border-top: 4px solid #c99a3b !important;
+    /* Fallback 2: Individual card styling via JS-set class */
+    .td-collection-card {
+      display: block !important;
       padding: 22px 18px !important;
       background: #ffffff !important;
+      border-radius: 12px !important;
+      border: 1px solid #e2e8f0 !important;
+      border-top: 4px solid #c99a3b !important;
       box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
       transition: all 0.2s ease !important;
       min-height: 120px !important;
-      cursor: pointer !important;
+      text-decoration: none !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
     }
 
-    [class*="CollectionCard"]:hover,
-    [role="gridcell"]:hover {
-      box-shadow: 0 8px 24px rgba(201,154,59,0.25) !important;
+    .td-collection-card:hover {
       transform: translateY(-3px) !important;
-      border-color: #c99a3b !important;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
     }
 
-    /* Card titles */
-    [class*="CollectionCard"] h2,
-    [role="gridcell"] h2 {
-      color: #061a33 !important;
-      font-size: 16px !important;
-      font-weight: 800 !important;
-      margin-bottom: 6px !important;
-    }
-
-    /* Card descriptions */
-    [class*="CollectionCard"] p,
-    [role="gridcell"] p {
-      color: #667383 !important;
-      font-size: 12px !important;
-      line-height: 1.4 !important;
-    }
-
-    /* Color-code each collection using data attributes (set by JS) */
-    [data-collection="drafts"] {
+    .td-collection-card[data-collection="drafts"] {
       border-top-color: #0d4f91 !important;
       background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%) !important;
     }
-    [data-collection="drafts"]:hover {
+    .td-collection-card[data-collection="drafts"]:hover {
       box-shadow: 0 8px 24px rgba(13,79,145,0.25) !important;
     }
 
-    [data-collection="published"] {
+    .td-collection-card[data-collection="published"] {
       border-top-color: #16a34a !important;
       background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%) !important;
     }
-    [data-collection="published"]:hover {
+    .td-collection-card[data-collection="published"]:hover {
       box-shadow: 0 8px 24px rgba(22,163,74,0.25) !important;
     }
 
-    [data-collection="breaking"] {
+    .td-collection-card[data-collection="breaking"] {
       border-top-color: #dc2626 !important;
       background: linear-gradient(180deg, #fef2f2 0%, #ffffff 100%) !important;
     }
-    [data-collection="breaking"]:hover {
+    .td-collection-card[data-collection="breaking"]:hover {
       box-shadow: 0 8px 24px rgba(220,38,38,0.25) !important;
     }
 
-    /* Responsive */
+    /* Mobile responsive */
     @media (max-width: 1100px) {
-      [class*="CardsGrid"], [class*="CardsContainer"], [class*="CollectionCards"], [role="grid"] {
-        grid-template-columns: repeat(2, 1fr) !important;
+      div[data-td-3col="true"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
       }
     }
     @media (max-width: 700px) {
-      [class*="CardsGrid"], [class*="CardsContainer"], [class*="CollectionCards"], [role="grid"] {
+      div[data-td-3col="true"] {
         grid-template-columns: 1fr !important;
         padding: 12px !important;
       }
@@ -176,10 +144,8 @@
     /* Mobile header */
     @media (max-width: 768px) {
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
-      header[role="banner"] img { max-height: 28px !important; padding: 3px 6px !important; }
+      header[role="banner"] img { max-height: 28px !important; }
       header[role="banner"]::after { display: none; }
-      aside[role="navigation"] a, [class*="Sidebar"] a { padding: 8px 10px !important; font-size: 12.5px !important; }
-      button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]) { padding: 5px 10px !important; font-size: 11.5px !important; }
     }
   </style>
 </head>
@@ -191,10 +157,30 @@
     if (typeof CMS === 'undefined') return;
 
     var h = window.h || (window.CMS && window.CMS.h);
-    if (typeof h !== 'function') {
-      console.error('Decap CMS: h not found');
-      return;
-    }
+
+    // =====================================================
+    // PREVIEW STYLES (inside iframe)
+    // =====================================================
+    var previewCSS = `
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; background: #f8fafc; font-family: Arial, sans-serif; }
+      .td-preview-wrap { padding: 12px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; }
+      .td-preview-card { background: #fff; border-radius: 8px; overflow: hidden; width: 100% !important; max-width: 320px !important; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin: 0 auto; }
+      .td-preview-img-wrap { width: 100% !important; height: 180px !important; overflow: hidden; background: #e2e8f0; }
+      .td-preview-img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
+      .td-preview-img-placeholder { width: 100%; height: 100%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 11px; font-weight: 600; }
+      .td-preview-content { padding: 12px 14px 14px; }
+      .td-preview-tag { display: inline-block; color: #c99a3b; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
+      .td-preview-title { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; color: #061a33; margin: 0 0 7px; font-weight: 700; }
+      .td-preview-desc { font-size: 11px; font-weight: 600; color: #4a5663; border-left: 3px solid #c99a3b; padding-left: 7px; margin: 0 0 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .td-preview-meta { font-size: 9px; color: #929ba5; padding-top: 7px; border-top: 1px solid #edf1f4; display: flex; flex-wrap: wrap; gap: 3px; }
+      .td-preview-meta strong { color: #061a33; }
+      .td-preview-breaking-card { background: #061a33; color: #fff; padding: 14px; border-radius: 8px; max-width: 320px !important; border-top: 3px solid #c51f2d; margin: 0 auto; }
+      .td-preview-breaking-badge { display: inline-block; background: #c51f2d; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 7px; }
+      .td-preview-breaking-card h2 { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; margin: 0 0 7px; color: #fff; font-weight: 700; }
+      .td-preview-breaking-meta { font-size: 10px; color: rgba(255,255,255,0.65); padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.1); }
+    `;
+    CMS.registerPreviewStyle(previewCSS, { raw: true });
 
     function resolveImage(path) {
       if (!path || typeof path !== 'string') return null;
@@ -202,56 +188,6 @@
       return path.startsWith('/') ? path : '/' + path;
     }
 
-    // =====================================================
-    // 🎯 TAG DASHBOARD CARDS for color-coding
-    // =====================================================
-    function tagDashboardCards() {
-      var links = document.querySelectorAll('a[href*="/collections/"]');
-      links.forEach(function(link) {
-        var href = link.getAttribute('href') || '';
-        var card = link.closest('[class*="CollectionCard"]')
-                || link.closest('[role="gridcell"]')
-                || link.closest('[class*="Card"]');
-
-        if (!card || card.dataset.collection) return;
-
-        if (href.indexOf('news_drafts') !== -1) {
-          card.setAttribute('data-collection', 'drafts');
-        } else if (href.indexOf('news_published') !== -1) {
-          card.setAttribute('data-collection', 'published');
-        } else if (href.indexOf('breaking') !== -1) {
-          card.setAttribute('data-collection', 'breaking');
-        }
-      });
-    }
-
-    // =====================================================
-    // 📝 SMALL PREVIEW CSS (inside iframe)
-    // =====================================================
-    var previewCSS = `
-      * { box-sizing: border-box; }
-      html, body { margin: 0; padding: 0; background: #f8fafc; font-family: Arial, Helvetica, sans-serif; }
-      .td-preview-wrap { background: #f8fafc; padding: 12px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; }
-      .td-preview-card { background: #fff; border-radius: 8px; overflow: hidden; width: 100% !important; max-width: 320px !important; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin: 0 auto; }
-      .td-preview-img-wrap { width: 100% !important; height: 180px !important; overflow: hidden; background: #e2e8f0; }
-      .td-preview-img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
-      .td-preview-img-placeholder { width: 100%; height: 100%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 11px; font-weight: 600; }
-      .td-preview-content { padding: 12px 14px 14px; }
-      .td-preview-tag { display: inline-block; color: #c99a3b; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
-      .td-preview-title { font-family: Georgia, "Times New Roman", serif; font-size: 15px; line-height: 1.3; color: #061a33; margin: 0 0 7px; font-weight: 700; }
-      .td-preview-desc { font-size: 11px; font-weight: 600; color: #4a5663; border-left: 3px solid #c99a3b; padding-left: 7px; margin: 0 0 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-      .td-preview-meta { font-size: 9px; color: #929ba5; padding-top: 7px; border-top: 1px solid #edf1f4; display: flex; flex-wrap: wrap; gap: 3px; }
-      .td-preview-meta strong { color: #061a33; }
-      .td-preview-breaking-card { background: #061a33; color: #fff; padding: 14px; border-radius: 8px; width: 100% !important; max-width: 320px !important; border-top: 3px solid #c51f2d; margin: 0 auto; }
-      .td-preview-breaking-badge { display: inline-block; background: #c51f2d; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 7px; }
-      .td-preview-breaking-card h2 { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; margin: 0 0 7px; color: #fff; font-weight: 700; }
-      .td-preview-breaking-meta { font-size: 10px; color: rgba(255,255,255,0.65); padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.1); }
-    `;
-    CMS.registerPreviewStyle(previewCSS, { raw: true });
-
-    // =====================================================
-    // ✅ NEWS PREVIEW (shared for 3 collections)
-    // =====================================================
     function renderNewsPreview(props) {
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
@@ -267,9 +203,7 @@
             h('h1', { className: 'td-preview-title' }, data.title || 'Your headline will appear here'),
             data.description ? h('p', { className: 'td-preview-desc' }, data.description) : null,
             h('div', { className: 'td-preview-meta' },
-              h('span', {}, '✍️ '),
-              h('strong', {}, 'The Global Desk'),
-              h('span', {}, ' · ' + dateStr),
+              h('span', {}, '✍️ '), h('strong', {}, 'The Global Desk'), h('span', {}, ' · ' + dateStr),
               data.source ? h('span', {}, ' · ' + data.source) : null
             )
           )
@@ -280,11 +214,9 @@
     CMS.registerPreviewTemplate('news_drafts', renderNewsPreview);
     CMS.registerPreviewTemplate('news_published', renderNewsPreview);
 
-    // Breaking Preview
     CMS.registerPreviewTemplate('breaking', function(props) {
       var data = props.entry.getIn(['data']).toJS();
       var expiresStr = data.expires ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'No expiry';
-
       return h('div', { className: 'td-preview-wrap' },
         h('div', { className: 'td-preview-breaking-card' },
           h('span', { className: 'td-preview-breaking-badge' }, 'BREAKING'),
@@ -297,18 +229,137 @@
     });
 
     // =====================================================
-    // 🎯 AUTO-TAG CARDS on dashboard load
+    // 🎯 3-COLUMN DASHBOARD — DEBUG + APPLY
     // =====================================================
+    function isOnDashboard() {
+      var hash = window.location.hash || '';
+      // Dashboard when hash is empty, "#", or "#/"
+      return !hash || hash === '#' || hash === '#/' || hash === '';
+    }
+
+    function collectDashboardCards() {
+      // Find links that point to collections (not entries)
+      var allLinks = document.querySelectorAll('a[href*="/collections/"]');
+      var cards = [];
+      allLinks.forEach(function(link) {
+        var href = link.getAttribute('href') || '';
+        // Must end with /collections/xxx (no /entries after)
+        if (/\/collections\/[a-zA-Z_]+(\/)?$/.test(href) && href.indexOf('/entries') === -1) {
+          cards.push(link);
+        }
+      });
+      return cards;
+    }
+
+    function findLCA(elements) {
+      if (!elements.length) return null;
+      var current = elements[0].parentElement;
+      while (current) {
+        var allInside = true;
+        for (var i = 0; i < elements.length; i++) {
+          if (!current.contains(elements[i])) { allInside = false; break; }
+        }
+        if (allInside) return current;
+        current = current.parentElement;
+      }
+      return null;
+    }
+
+    function applyThreeColumns() {
+      if (!isOnDashboard()) {
+        console.log('[TD] Not on dashboard, skip');
+        return;
+      }
+
+      var cards = collectDashboardCards();
+      console.log('[TD] Found collection cards:', cards.length);
+
+      if (cards.length < 2) return;
+
+      var lca = findLCA(cards);
+      if (!lca) {
+        console.log('[TD] LCA not found');
+        return;
+      }
+
+      console.log('[TD] LCA:', lca.tagName, lca.className);
+
+      // Apply grid styles to LCA (inline with !important via setProperty)
+      lca.style.setProperty('display', 'grid', 'important');
+      lca.style.setProperty('grid-template-columns', 'repeat(3, minmax(0, 1fr))', 'important');
+      lca.style.setProperty('gap', '16px', 'important');
+      lca.style.setProperty('padding', '20px', 'important');
+      lca.style.setProperty('width', '100%', 'important');
+      lca.style.setProperty('box-sizing', 'border-box', 'important');
+      lca.setAttribute('data-td-3col', 'true');
+
+      // Ensure direct children fill grid cells
+      Array.prototype.forEach.call(lca.children, function(child) {
+        child.style.setProperty('width', '100%', 'important');
+        child.style.setProperty('min-width', '0', 'important');
+        child.style.setProperty('max-width', '100%', 'important');
+        child.style.setProperty('box-sizing', 'border-box', 'important');
+      });
+
+      // Style each card
+      cards.forEach(function(card) {
+        var href = card.getAttribute('href') || '';
+        var coll = '';
+
+        if (href.indexOf('news_drafts') !== -1) coll = 'drafts';
+        else if (href.indexOf('news_published') !== -1) coll = 'published';
+        else if (href.indexOf('breaking') !== -1) coll = 'breaking';
+
+        if (coll) {
+          card.setAttribute('data-collection', coll);
+        }
+        card.classList.add('td-collection-card');
+
+        // Inline styles for maximum specificity
+        card.style.setProperty('display', 'block', 'important');
+        card.style.setProperty('padding', '22px 18px', 'important');
+        card.style.setProperty('background', '#ffffff', 'important');
+        card.style.setProperty('border-radius', '12px', 'important');
+        card.style.setProperty('border', '1px solid #e2e8f0', 'important');
+        card.style.setProperty('border-top', '4px solid #c99a3b', 'important');
+        card.style.setProperty('box-shadow', '0 2px 10px rgba(0,0,0,0.04)', 'important');
+        card.style.setProperty('min-height', '120px', 'important');
+        card.style.setProperty('text-decoration', 'none', 'important');
+        card.style.setProperty('box-sizing', 'border-box', 'important');
+        card.style.setProperty('width', '100%', 'important');
+
+        if (coll === 'drafts') {
+          card.style.setProperty('border-top-color', '#0d4f91', 'important');
+          card.style.setProperty('background', 'linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%)', 'important');
+        } else if (coll === 'published') {
+          card.style.setProperty('border-top-color', '#16a34a', 'important');
+          card.style.setProperty('background', 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%)', 'important');
+        } else if (coll === 'breaking') {
+          card.style.setProperty('border-top-color', '#dc2626', 'important');
+          card.style.setProperty('background', 'linear-gradient(180deg, #fef2f2 0%, #ffffff 100%)', 'important');
+        }
+      });
+
+      console.log('[TD] ✅ 3-column layout applied');
+    }
+
+    // Run multiple times to catch late renders
+    setTimeout(applyThreeColumns, 1000);
+    setTimeout(applyThreeColumns, 2500);
+    setTimeout(applyThreeColumns, 4000);
+
+    // Reapply on hash change (user navigates back to dashboard)
+    window.addEventListener('hashchange', function() {
+      setTimeout(applyThreeColumns, 800);
+    });
+
+    // MutationObserver with debounce
     var debounceTimer;
     var observer = new MutationObserver(function() {
       clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(tagDashboardCards, 300);
+      debounceTimer = setTimeout(applyThreeColumns, 400);
     });
     observer.observe(document.body, { childList: true, subtree: true });
-
-    // Initial run
-    setTimeout(tagDashboardCards, 1500);
-    setTimeout(tagDashboardCards, 3000);
   });
   </script>
 </body>

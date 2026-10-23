@@ -10,7 +10,6 @@
     html, body { font-family: 'Inter', Arial, sans-serif !important; background: #f0f4f8 !important; }
     body:not(:has(header[role="banner"])) { background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important; }
 
-    /* ========== HEADER ========== */
     header[role="banner"] {
       background: #030f1e !important;
       border-bottom: 2px solid #c99a3b !important;
@@ -38,7 +37,6 @@
       border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    /* ========== SIDEBAR & BUTTONS ========== */
     aside[role="navigation"], [class*="Sidebar"] {
       background: #ffffff !important;
       border-right: 1px solid #e2e8f0 !important;
@@ -58,7 +56,6 @@
       color: #0d4f91 !important;
     }
 
-    /* ========== FORM & BUTTONS ========== */
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
       background: #c99a3b !important;
       color: #061a33 !important;
@@ -69,37 +66,84 @@
       font-size: 13px !important;
     }
 
-    /* ========== CUSTOM VIEW STATS WIDGET ========== */
-    .custom-stats-widget {
+    /* ========== SUMMARY CARD ========== */
+    .td-stats-summary {
       background: #ffffff;
       border: 1px solid #e2e8f0;
-      border-top: 3px solid #c99a3b;
-      border-radius: 8px;
-      padding: 16px;
-      margin: 12px;
+      border-left: 4px solid #c99a3b;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 16px 20px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      font-family: Arial, sans-serif;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      font-family: 'Inter', Arial, sans-serif;
     }
-    .custom-stats-widget h4 {
-      color: #061a33;
-      font-size: 14px;
+    .td-stats-summary .stat-item {
+      text-align: center;
+    }
+    .td-stats-summary .stat-item .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #667383;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .td-stats-summary .stat-item .value {
+      font-size: 24px;
       font-weight: 800;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: #061a33;
+      font-family: Georgia, serif;
+      line-height: 1.1;
     }
-    .custom-stats-widget h4 i { color: #c99a3b; }
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      padding: 4px 0;
-      border-bottom: 1px solid #edf1f4;
-      color: #475569;
+    .td-stats-summary .stat-item .sub {
+      font-size: 10px;
+      color: #929ba5;
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-row strong { color: #061a33; }
+
+    /* ========== VIEW BADGE ON LIST ITEMS ========== */
+    .td-list-item-with-stats {
+      position: relative !important;
+      padding-right: 100px !important;
+    }
+    .td-list-item-with-stats .view-badge {
+      position: absolute !important;
+      right: 10px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      background: #eaf3fb !important;
+      color: #0d4f91 !important;
+      padding: 4px 10px !important;
+      border-radius: 12px !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      white-space: nowrap !important;
+    }
+    .td-list-item-with-stats .view-badge i {
+      color: #c99a3b !important;
+      font-size: 10px !important;
+    }
+
+    @media (max-width: 768px) {
+      .td-stats-summary {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 12px 10px;
+      }
+      header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
+      header[role="banner"] img { max-height: 28px !important; padding: 3px 6px !important; }
+      header[role="banner"]::after { display: none; }
+      aside[role="navigation"] a, [class*="Sidebar"] a { padding: 8px 10px !important; font-size: 12.5px !important; }
+      button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]) { padding: 5px 10px !important; font-size: 11.5px !important; }
+    }
   </style>
 </head>
 <body>
@@ -138,69 +182,132 @@
       );
     });
 
-    // ===== ২. অ্যাডমিন প্যানেলে View Stats বক্স যোগ করা =====
-    async function injectViewStats() {
-      // যদি আগে থেকে বক্স থাকে, তবে আবার যোগ করবে না
-      if (document.getElementById('custom-stats-widget')) return;
+    // ===== ২. ভিউ স্ট্যাটস ইনজেকশন =====
+    const viewCache = {};
 
-      // সাইডবার খুঁজে বের করা
-      const sidebar = document.querySelector('aside[role="navigation"]') || document.querySelector('[class*="Sidebar"]');
-      if (!sidebar) return; // সাইডবার না পাওয়া গেলে অপেক্ষা করবে
-
-      // বক্স তৈরি
-      const widget = document.createElement('div');
-      widget.id = 'custom-stats-widget';
-      widget.className = 'custom-stats-widget';
-      widget.innerHTML = '<h4><i class="fa-solid fa-chart-line"></i> View Stats</h4><div id="stats-content">Loading...</div>';
-      
-      // সাইডবারের একদম উপরে বসানো
-      sidebar.insertBefore(widget, sidebar.firstChild);
-
-      // ডেটা লোড করা
+    async function getViewCount(slug) {
+      if (viewCache[slug] !== undefined) return viewCache[slug];
       try {
-        const res = await fetch('/search-index.json');
-        const news = await res.json();
-        let totalViews = 0;
-        let topStory = { title: 'N/A', views: 0 };
-
-        for (const item of news) {
-          const slug = item.url.split('/').filter(Boolean).pop();
-          try {
-            const viewRes = await fetch(`https://abacus.jasoncameron.dev/get/theglobaldesk/${slug}`);
-            if (viewRes.ok) {
-              const viewData = await viewRes.json();
-              const views = viewData.value || 0;
-              totalViews += views;
-              if (views > topStory.views) {
-                topStory = { title: item.title, views: views };
-              }
-            }
-          } catch (e) { /* ignore */ }
+        const res = await fetch(`https://abacus.jasoncameron.dev/get/theglobaldesk/${slug}`);
+        if (res.ok) {
+          const data = await res.json();
+          viewCache[slug] = data.value || 0;
+          return viewCache[slug];
         }
-
-        document.getElementById('stats-content').innerHTML = `
-          <div class="stat-row"><span>Total Views</span> <strong>${totalViews.toLocaleString()}</strong></div>
-          <div class="stat-row"><span>Top Story</span> <strong>${topStory.views.toLocaleString()}</strong></div>
-          <div class="stat-row" style="font-size: 11px; color: #667383; display: block; padding-top: 8px;">
-            ${topStory.title}
-          </div>
-        `;
-      } catch (err) {
-        document.getElementById('stats-content').innerHTML = '<span style="color: red; font-size: 11px;">Could not load stats.</span>';
-      }
+      } catch (e) { /* ignore */ }
+      viewCache[slug] = 0;
+      return 0;
     }
 
-    // লগইনের পর সাইডবার লোড হওয়া পর্যন্ত অপেক্ষা করা
-    const observer = new MutationObserver(() => {
-      if (document.querySelector('aside[role="navigation"]') || document.querySelector('[class*="Sidebar"]')) {
-        injectViewStats();
-        observer.disconnect(); // একবার সফল হলে অবজারভার বন্ধ
+    function findTitleElement(el) {
+      if (el.nodeType === Node.TEXT_NODE && el.textContent.trim()) return el.parentElement;
+      for (let child of el.childNodes) {
+        const result = findTitleElement(child);
+        if (result) return result;
       }
+      return null;
+    }
+
+    function getLCA(elements) {
+      if (elements.length === 0) return null;
+      let current = elements[0].parentElement;
+      while (current) {
+        if (elements.every(el => current.contains(el))) return current;
+        current = current.parentElement;
+      }
+      return null;
+    }
+
+    let isInjecting = false;
+
+    async function injectStats() {
+      if (isInjecting) return;
+      const links = document.querySelectorAll('a[href*="/collections/news/entries/"]');
+      if (links.length === 0) return;
+      if (links[0].querySelector('.view-badge')) return;
+
+      isInjecting = true;
+
+      const slugs = [];
+      const promises = [];
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        const slug = href.split('/').pop();
+        slugs.push(slug);
+        promises.push(getViewCount(slug));
+      });
+
+      const counts = await Promise.all(promises);
+
+      // Append badges to list items
+      links.forEach((link, i) => {
+        if (link.querySelector('.view-badge')) return;
+        const listItem = link.closest('li, div[role="listitem"], [class*="ListItem"], [class*="listItem"]') || link.parentElement;
+        if (listItem) {
+          listItem.classList.add('td-list-item-with-stats');
+          const badge = document.createElement('span');
+          badge.className = 'view-badge';
+          badge.innerHTML = `<i class="fa-regular fa-eye"></i> ${counts[i].toLocaleString()}`;
+          listItem.appendChild(badge);
+        }
+      });
+
+      // Insert summary before list container
+      const lca = getLCA(links);
+      if (lca && lca.parentElement) {
+        const oldSummary = document.getElementById('td-stats-summary');
+        if (oldSummary) oldSummary.remove();
+
+        const totalViews = counts.reduce((a, b) => a + b, 0);
+        const totalArticles = counts.length;
+        const avgViews = totalArticles ? Math.round(totalViews / totalArticles) : 0;
+        let topArticle = { title: '', views: 0 };
+        links.forEach((link, i) => {
+          if (counts[i] > topArticle.views) {
+            const titleEl = findTitleElement(link);
+            const title = titleEl ? titleEl.textContent.trim() : link.textContent.trim();
+            topArticle = { title: title.split('\n')[0], views: counts[i] };
+          }
+        });
+
+        const summary = document.createElement('div');
+        summary.id = 'td-stats-summary';
+        summary.className = 'td-stats-summary';
+        summary.innerHTML = `
+          <div class="stat-item">
+            <div class="label">Total Views</div>
+            <div class="value">${totalViews.toLocaleString()}</div>
+          </div>
+          <div class="stat-item">
+            <div class="label">Articles</div>
+            <div class="value">${totalArticles}</div>
+          </div>
+          <div class="stat-item">
+            <div class="label">Avg. Views</div>
+            <div class="value">${avgViews.toLocaleString()}</div>
+          </div>
+          <div class="stat-item">
+            <div class="label">Top Article</div>
+            <div class="value" style="font-size: 16px; line-height: 1.2;">${topArticle.views.toLocaleString()}</div>
+            <div class="sub" title="${topArticle.title}">${topArticle.title.substring(0, 25)}${topArticle.title.length > 25 ? '...' : ''}</div>
+          </div>
+        `;
+        lca.parentElement.insertBefore(summary, lca);
+      }
+
+      isInjecting = false;
+    }
+
+    // Debounced MutationObserver
+    let debounceTimer;
+    const observer = new MutationObserver(() => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(injectStats, 500);
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // ফলব্যাক (যদি মিউটেশন অবজারভার কাজ না করে)
-    setTimeout(injectViewStats, 3000);
+    // Initial run
+    setTimeout(injectStats, 2000);
   });
   </script>
 </body>

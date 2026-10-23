@@ -66,13 +66,14 @@
       font-size: 13px !important;
     }
 
+    /* ===== Summary card ===== */
     .td-stats-summary {
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-left: 4px solid #c99a3b;
       border-radius: 10px;
       padding: 18px 22px;
-      margin: 16px 20px;
+      margin: 16px 20px 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -93,6 +94,72 @@
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
 
+    /* ===== Date filter bar ===== */
+    .td-date-filter {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin: 0 20px 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .td-date-filter .filter-label {
+      color: #061a33;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .td-date-filter .filter-label i { color: #c99a3b; }
+    .td-date-filter input[type="date"] {
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #061a33;
+      background: #f8fafc;
+      font-family: inherit;
+    }
+    .td-date-filter input[type="date"]:focus {
+      outline: none;
+      border-color: #c99a3b;
+      box-shadow: 0 0 0 3px rgba(201,154,59,0.15);
+    }
+    .td-date-filter .filter-sep {
+      color: #667383;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .td-date-filter .clear-btn {
+      padding: 8px 16px;
+      background: #061a33;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .td-date-filter .clear-btn:hover {
+      background: #c99a3b;
+      color: #061a33;
+    }
+    .td-date-filter .filter-count {
+      color: #667383;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    /* ===== Badge on list items ===== */
     .td-list-item-with-stats {
       position: relative !important;
       padding-right: 100px !important;
@@ -120,6 +187,7 @@
 
     @media (max-width: 768px) {
       .td-stats-summary { grid-template-columns: repeat(2, 1fr); margin: 12px 10px; }
+      .td-date-filter { margin: 0 10px 12px; padding: 10px 12px; }
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"] img { max-height: 28px !important; padding: 3px 6px !important; }
       header[role="banner"]::after { display: none; }
@@ -163,17 +231,16 @@
       );
     });
 
-    // ============ VIEW STATS ============
+    // ============ VIEW STATS + DATE FILTER ============
     const viewCache = {};
 
-        async function fetchViewCount(slug) {
+    async function fetchViewCount(slug) {
       if (!slug) return 0;
       if (viewCache[slug] !== undefined) return viewCache[slug];
 
-      // Try all variants until one works
       const variants = [
-        slug,                                         // as-is
-        slug.replace(/^\d{4}-\d{2}-\d{2}-/, ''),      // strip date prefix
+        slug,
+        slug.replace(/^\d{4}-\d{2}-\d{2}-/, ''),
       ];
 
       for (const v of variants) {
@@ -214,6 +281,78 @@
       return null;
     }
 
+    function getDateFromSlug(slug) {
+      if (!slug) return null;
+      const m = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+      return m ? m[1] : null;
+    }
+
+    function applyDateFilter(links) {
+      const fromEl = document.getElementById('td-filter-from');
+      const toEl = document.getElementById('td-filter-to');
+      const countEl = document.getElementById('td-filter-count');
+      if (!fromEl || !toEl) return;
+
+      const fromDate = fromEl.value;
+      const toDate = toEl.value;
+
+      let visibleCount = 0;
+      links.forEach(link => {
+        const listItem = getListItem(link);
+        if (!listItem) return;
+
+        const slug = extractSlug(link.getAttribute('href'));
+        const dateStr = getDateFromSlug(slug);
+
+        let show = true;
+        if (fromDate || toDate) {
+          if (!dateStr) {
+            show = false;
+          } else {
+            if (fromDate && dateStr < fromDate) show = false;
+            if (toDate && dateStr > toDate) show = false;
+          }
+        }
+        listItem.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      if (countEl) {
+        countEl.textContent = (fromDate || toDate)
+          ? '(' + visibleCount + ' of ' + links.length + ' shown)'
+          : '';
+      }
+    }
+
+    function ensureFilterBar(lca, links) {
+      if (document.getElementById('td-date-filter')) {
+        applyDateFilter(links);
+        return;
+      }
+
+      const bar = document.createElement('div');
+      bar.id = 'td-date-filter';
+      bar.className = 'td-date-filter';
+      bar.innerHTML =
+        '<span class="filter-label"><i class="fa-solid fa-calendar-days"></i> Filter by date:</span>' +
+        '<input type="date" id="td-filter-from" title="From date" />' +
+        '<span class="filter-sep">to</span>' +
+        '<input type="date" id="td-filter-to" title="To date" />' +
+        '<button type="button" id="td-filter-clear" class="clear-btn">Clear</button>' +
+        '<span id="td-filter-count" class="filter-count"></span>';
+
+      // Insert before list container (lca), after summary if exists
+      lca.parentElement.insertBefore(bar, lca);
+
+      document.getElementById('td-filter-from').addEventListener('change', () => applyDateFilter(links));
+      document.getElementById('td-filter-to').addEventListener('change', () => applyDateFilter(links));
+      document.getElementById('td-filter-clear').addEventListener('click', () => {
+        document.getElementById('td-filter-from').value = '';
+        document.getElementById('td-filter-to').value = '';
+        applyDateFilter(links);
+      });
+    }
+
     let isInjecting = false;
 
     async function injectStats() {
@@ -222,66 +361,68 @@
       const links = Array.from(document.querySelectorAll('a[href*="/collections/news/entries/"]'));
       if (!links.length) return;
 
-      // Only process links whose listItem hasn't been marked yet
-      const pendingLinks = links.filter(l => {
-        const li = getListItem(l);
-        return li && !li.dataset.statsProcessed;
-      });
-
-      if (!pendingLinks.length) return; // all done
-
       isInjecting = true;
-
       try {
-        // Fetch counts for pending only
-        const slugs = pendingLinks.map(l => extractSlug(l.getAttribute('href')));
-        const counts = await Promise.all(slugs.map(s => fetchViewCount(s)));
-
-        pendingLinks.forEach((link, i) => {
-          const listItem = getListItem(link);
-          if (!listItem || listItem.dataset.statsProcessed) return;
-
-          listItem.classList.add('td-list-item-with-stats');
-          listItem.dataset.statsProcessed = 'true';
-
-          const badge = document.createElement('span');
-          badge.className = 'view-badge';
-          badge.innerHTML = '<i class="fa-regular fa-eye"></i> ' + counts[i].toLocaleString();
-          listItem.appendChild(badge);
+        // ===== 1. Add view badges (only once per list item) =====
+        const pendingLinks = links.filter(l => {
+          const li = getListItem(l);
+          return li && !li.dataset.statsProcessed;
         });
 
-        // Rebuild summary using ALL links
-        const allSlugs = links.map(l => extractSlug(l.getAttribute('href')));
-        const allCounts = await Promise.all(allSlugs.map(s => fetchViewCount(s)));
+        if (pendingLinks.length) {
+          const slugs = pendingLinks.map(l => extractSlug(l.getAttribute('href')));
+          const counts = await Promise.all(slugs.map(s => fetchViewCount(s)));
 
-        const lca = getLCA(links);
-        if (lca && lca.parentElement) {
-          const oldSummary = document.getElementById('td-stats-summary');
-          if (oldSummary) oldSummary.remove();
-
-          let totalViews = 0;
-          allCounts.forEach(c => totalViews += c);
-          const totalArticles = links.length;
-          const avgViews = totalArticles ? Math.round(totalViews / totalArticles) : 0;
-
-          let topArticle = { title: '—', views: 0 };
-          links.forEach((link, i) => {
-            if (allCounts[i] > topArticle.views) {
-              const txt = link.textContent.trim().split('\n')[0].trim();
-              topArticle = { title: txt, views: allCounts[i] };
-            }
+          pendingLinks.forEach((link, i) => {
+            const listItem = getListItem(link);
+            if (!listItem || listItem.dataset.statsProcessed) return;
+            listItem.classList.add('td-list-item-with-stats');
+            listItem.dataset.statsProcessed = 'true';
+            const badge = document.createElement('span');
+            badge.className = 'view-badge';
+            badge.innerHTML = '<i class="fa-regular fa-eye"></i> ' + counts[i].toLocaleString();
+            listItem.appendChild(badge);
           });
-
-          const summary = document.createElement('div');
-          summary.id = 'td-stats-summary';
-          summary.className = 'td-stats-summary';
-          summary.innerHTML =
-            '<div class="stat-item"><div class="label">Total Views</div><div class="value">' + totalViews.toLocaleString() + '</div></div>' +
-            '<div class="stat-item"><div class="label">Articles</div><div class="value">' + totalArticles + '</div></div>' +
-            '<div class="stat-item"><div class="label">Avg. Views</div><div class="value">' + avgViews.toLocaleString() + '</div></div>' +
-            '<div class="stat-item"><div class="label">Top Article</div><div class="value" style="font-size:16px;line-height:1.2;">' + topArticle.views.toLocaleString() + '</div><div class="sub" title="' + topArticle.title + '">' + topArticle.title.substring(0, 25) + (topArticle.title.length > 25 ? '...' : '') + '</div></div>';
-          lca.parentElement.insertBefore(summary, lca);
         }
+
+        // ===== 2. Build summary =====
+        const lca = getLCA(links);
+        if (!lca || !lca.parentElement) return;
+
+        const oldSummary = document.getElementById('td-stats-summary');
+        if (oldSummary) oldSummary.remove();
+
+        const allCounts = await Promise.all(
+          links.map(l => fetchViewCount(extractSlug(l.getAttribute('href'))))
+        );
+
+        let totalViews = 0;
+        allCounts.forEach(c => totalViews += c);
+        const totalArticles = links.length;
+        const avgViews = totalArticles ? Math.round(totalViews / totalArticles) : 0;
+
+        let topArticle = { title: '—', views: 0 };
+        links.forEach((link, i) => {
+          if (allCounts[i] > topArticle.views) {
+            const txt = link.textContent.trim().split('\n')[0].trim();
+            topArticle = { title: txt, views: allCounts[i] };
+          }
+        });
+
+        const summary = document.createElement('div');
+        summary.id = 'td-stats-summary';
+        summary.className = 'td-stats-summary';
+        summary.innerHTML =
+          '<div class="stat-item"><div class="label">Total Views</div><div class="value">' + totalViews.toLocaleString() + '</div></div>' +
+          '<div class="stat-item"><div class="label">Articles</div><div class="value">' + totalArticles + '</div></div>' +
+          '<div class="stat-item"><div class="label">Avg. Views</div><div class="value">' + avgViews.toLocaleString() + '</div></div>' +
+          '<div class="stat-item"><div class="label">Top Article</div><div class="value" style="font-size:16px;line-height:1.2;">' + topArticle.views.toLocaleString() + '</div><div class="sub" title="' + topArticle.title + '">' + topArticle.title.substring(0, 25) + (topArticle.title.length > 25 ? '...' : '') + '</div></div>';
+
+        lca.parentElement.insertBefore(summary, lca);
+
+        // ===== 3. Ensure date filter bar =====
+        ensureFilterBar(lca, links);
+
       } finally {
         isInjecting = false;
       }

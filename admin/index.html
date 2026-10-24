@@ -249,10 +249,11 @@
     }
 
     // =====================================================
-    // 🎯 TIME BADGE IN DRAFTS LIST
+    // 🎯 TIME BADGE IN DRAFTS LIST (FIXED DUPLICATE BUG)
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
+    var isInjecting = false; // ✅ ডুপ্লিকেট আটকানোর তালা (Lock)
 
     function calcTimeAgo(dateStr) {
       if (!dateStr) return { text: '', isNew: false };
@@ -296,25 +297,37 @@
       var hash = window.location.hash || '';
       if (hash.indexOf('/collections/news_drafts') === -1) return;
       if (hash.indexOf('/entries/') !== -1) return;
+      
+      // ✅ যদি আগের প্রসেস চলতে থাকে, তবে নতুন করে শুরু হবে না
+      if (isInjecting) return;
+      isInjecting = true;
 
-      var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
-      if (!links.length) return;
+      try {
+        var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+        if (!links.length) return;
 
-      for (var i = 0; i < links.length; i++) {
-        var link = links[i];
-        if (link.querySelector('.td-time-badge')) continue;
+        for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          if (link.querySelector('.td-time-badge')) continue;
 
-        var href = link.getAttribute('href') || '';
-        var slug = href.split('/').pop();
-        if (!slug) continue;
+          var href = link.getAttribute('href') || '';
+          var slug = href.split('/').pop();
+          if (!slug) continue;
 
-        var timeInfo = await fetchImportedAt(slug);
-        if (!timeInfo || !timeInfo.text) continue;
+          var timeInfo = await fetchImportedAt(slug);
+          if (!timeInfo || !timeInfo.text) continue;
 
-        var badge = document.createElement('span');
-        badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
-        badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
-        link.appendChild(badge);
+          // ✅ ফেচ শেষ হওয়ার পর আবার চেক করা, যাতে ডুপ্লিকেট না হয়
+          if (link.querySelector('.td-time-badge')) continue;
+
+          var badge = document.createElement('span');
+          badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
+          badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
+          link.appendChild(badge);
+        }
+      } finally {
+        // ✅ কাজ শেষ, তালা খুলে দেওয়া হলো
+        isInjecting = false;
       }
     }
 

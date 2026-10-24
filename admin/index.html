@@ -30,9 +30,8 @@
       color: var(--text) !important;
     }
 
-    /* ডিফল্ট সাইডবার ও টপ হেডার হাইড */
-    aside[role="navigation"], [class*="Sidebar"], nav[class*="Navigation"] { display: none !important; }
-    header[role="banner"] { display: none !important; }
+    /* ডিফল্ট সাইডবার ও হেডার হাইড */
+    aside[role="navigation"], [class*="Sidebar"], [class*="SidebarContainer"], nav[class*="Navigation"], header[role="banner"] { display: none !important; }
     main, [role="main"], [class*="MainContent"] { margin-left: 0 !important; padding: 0 !important; width: 100% !important; }
 
     /* ================= 🎨 CUSTOM TOP HEADER ================= */
@@ -43,14 +42,7 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
     .td-brand { display: flex; align-items: center; gap: 12px; }
-    /* ✅ লোগো ব্যাকগ্রাউন্ড ডার্ক এবং সাদা লোগো ফুটে ওঠার জন্য */
-    .td-brand img { 
-      max-height: 32px; 
-      background: transparent; 
-      padding: 0; 
-      border-radius: 0; 
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    }
+    .td-brand img { max-height: 32px; background: transparent; padding: 0; border-radius: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
     .td-brand span { color: var(--gold); font-weight: 800; font-size: 11px; letter-spacing: 2px; border-left: 1px solid rgba(201,154,59,0.3); padding-left: 12px; }
     
     .td-nav-links { display: flex; gap: 6px; }
@@ -61,13 +53,12 @@
     .td-nav-btn:hover, .td-nav-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
     .td-nav-btn.active { color: var(--gold); background: rgba(201,154,59,0.1); }
 
-    /* ================= 📊 COMPACT DASHBOARD & FILTERS ================= */
-    /* ✅ ড্যাশবোর্ড এবং ফিল্টার এখন অনেক ছোট এবং এক লাইনে */
+    /* ================= 📊 COMPACT CENTERED DASHBOARD ================= */
     .td-dashboard-wrapper {
-      max-width: 1100px; margin: 12px auto 0; padding: 0 16px;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      max-width: 800px; margin: 16px auto; padding: 0 16px;
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px;
     }
-    .td-stats-group { display: flex; gap: 12px; }
+    .td-stats-group { display: flex; gap: 8px; }
     .td-stat-box {
       background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
       padding: 6px 12px; display: flex; align-items: center; gap: 8px;
@@ -142,7 +133,7 @@
     @media (max-width: 768px) {
       .td-nav-links { display: none; }
       .td-custom-header { padding: 0 12px; min-height: 50px; }
-      .td-dashboard-wrapper { flex-direction: column; align-items: flex-start; }
+      .td-dashboard-wrapper { flex-direction: column; align-items: center; }
       ul[class*="Collection"] { padding: 12px !important; }
       li > a { flex-direction: column; align-items: flex-start !important; gap: 6px; }
     }
@@ -261,7 +252,6 @@
       wrapper.id = 'td-dashboard-wrapper';
       wrapper.className = 'td-dashboard-wrapper';
       
-      // ✅ কমপ্যাক্ট ড্যাশবোর্ড এবং ফিল্টার
       wrapper.innerHTML = `
         <div class="td-stats-group">
           <div class="td-stat-box">
@@ -269,8 +259,8 @@
             <span class="td-stat-label">Articles</span>
           </div>
           <div class="td-stat-box">
-            <span class="td-stat-value" id="td-total-views">-</span>
-            <span class="td-stat-label">Views (Not Connected)</span>
+            <span class="td-stat-value" id="td-total-views">0</span>
+            <span class="td-stat-label">Total Views</span>
           </div>
         </div>
         <div class="td-filter-bar">
@@ -374,6 +364,18 @@
       }
     }
 
+    // ✅ আসল ভিউ কাউন্ট আনার ফাংশন (CounterAPI)
+    async function fetchViews(slug) {
+      try {
+        var res = await fetch('https://api.counterapi.dev/v1/theglobaldesk/' + slug);
+        if (!res.ok) return 0;
+        var data = await res.json();
+        return data.count || 0;
+      } catch (e) {
+        return 0;
+      }
+    }
+
     async function injectBadges() {
       if (!isListPage() || isInjecting) return;
       isInjecting = true;
@@ -381,9 +383,10 @@
       try {
         var links = document.querySelectorAll('a[href*="/entries/"]');
         
-        // স্ট্যাটস আপডেট
         var totalItemsEl = document.getElementById('td-total-items');
         if (totalItemsEl) totalItemsEl.textContent = links.length;
+
+        var totalViewsCount = 0;
 
         for (var i = 0; i < links.length; i++) {
           var link = links[i];
@@ -394,7 +397,7 @@
           var isDraftsList = window.location.hash.includes('news_drafts');
           var isPublishedList = window.location.hash.includes('news_published');
 
-          // ড্রাফট লিস্টের জন্য টাইম ব্যাজ
+          // ড্রাফটের জন্য টাইম ব্যাজ
           if (isDraftsList) {
             if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) continue;
             var timeInfo = await fetchImportedAt(slug);
@@ -408,17 +411,24 @@
             link.appendChild(badge);
           }
 
-          // প্রকাশিত লিস্টের জন্য ভিউ ব্যাজ (এখন কাজ করবে না, শুধু ড্যাশ দেখাবে)
+          // ✅ পাবলিশডের জন্য আসল ভিউ কাউন্ট
           if (isPublishedList) {
             if (!link.querySelector('.td-badge.views')) {
               var viewSpan = document.createElement('span');
               viewSpan.className = 'td-badge views';
-              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> -'; 
-              viewSpan.title = "Requires Cloudflare Worker setup to track real views";
+              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
               link.appendChild(viewSpan);
+              
+              var views = await fetchViews(slug);
+              totalViewsCount += views;
+              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
             }
           }
         }
+
+        // টোটাল ভিউ আপডেট
+        var totalViewsEl = document.getElementById('td-total-views');
+        if (totalViewsEl) totalViewsEl.textContent = totalViewsCount;
 
         // ড্রাফটে নতুন নিউজ উপরে আনার সর্টিং লজিক
         if (window.location.hash.includes('news_drafts')) {

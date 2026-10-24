@@ -124,7 +124,17 @@
 (function() {
     var slug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
     fetch('https://abacus.jasoncameron.dev/hit/theglobaldesk/' + slug).catch(function() {});
-})();
+})(); 
+// ভিউ বাড়ানোর স্ক্রিপ্ট
+  document.addEventListener("DOMContentLoaded", function() {
+    var pathParts = window.location.pathname.split('/');
+    var slug = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+    
+    if (slug) {
+      fetch('https://api.counterapi.dev/v1/theglobaldesk/' + slug + '/up')
+        .catch(function(err) { console.log('View counter error:', err); });
+    }
+  });
 </script>
 </body>
 </html>

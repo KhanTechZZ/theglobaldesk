@@ -36,7 +36,7 @@ const BREAKING_FEEDS = [
 ];
 
 const NEWS_DIR = path.join(__dirname, '..', 'news');
-const BREAKING_DIR = path.join(__dirname, '..', 'breaking'); // ✅ ব্রেকিং নিউজের ফোল্ডার
+const BREAKING_DIR = path.join(__dirname, '..', 'breaking'); // ব্রেকিং নিউজের ফোল্ডার
 const SEEN_FILE = path.join(__dirname, '..', '.rss-seen.json');
 
 const MAX_ITEMS_PER_FEED = 3;
@@ -217,7 +217,7 @@ async function processBreakingFeed(feed) {
 title: "${title.replace(/"/g, '\\"')}"
 expires: ${expiresAt.toISOString()}
 priority: "High"
-active: true
+active: false
 ---
 
 ${title}
@@ -227,7 +227,7 @@ ${title}
   fs.writeFileSync(path.join(BREAKING_DIR, fileName), frontmatter);
   seen[link] = true;
   added++;
-  console.log(`   🚨 BREAKING DRAFT: ${fileName}`);
+  console.log(`   🚨 BREAKING DRAFT (Pending Approval): ${fileName}`);
   return added;
 }
 
@@ -245,7 +245,7 @@ async function main() {
     await new Promise(r => setTimeout(r, 800));
   }
 
-  // ২. ব্রেকিং নিউজ ফেচ
+  // ২. ব্রেকিং নিউজ ফেচ (অ্যাক্টিভ: false হয়ে জমা হবে)
   for (const feed of BREAKING_FEEDS) {
     totalAdded += await processBreakingFeed(feed);
     await new Promise(r => setTimeout(r, 800));

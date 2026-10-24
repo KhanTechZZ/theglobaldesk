@@ -97,7 +97,7 @@
     input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
 
     /* ===================================================== */
-    /* 🎯 NEW PRIORITY BADGES (Green, Yellow, Orange, Gray)  */
+    /* 🎯 PRIORITY BADGES (Green, Yellow, Orange, Gray)      */
     /* ===================================================== */
     .td-time-badge {
       display: inline-flex !important; align-items: center !important; justify-content: center !important;
@@ -107,8 +107,6 @@
       letter-spacing: 0.3px !important; vertical-align: middle !important;
       white-space: nowrap !important; font-family: Arial, sans-serif !important;
     }
-
-    /* 🟢 NEW (< 2 hours) - Pulsing Green */
     .td-time-badge.td-level-new {
       background: #16a34a !important; color: #ffffff !important;
       animation: pulse-green 2s infinite !important;
@@ -118,21 +116,9 @@
       70% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
       100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
     }
-
-    /* 🟡 TODAY (< 24 hours) - Yellow */
-    .td-time-badge.td-level-today {
-      background: #eab308 !important; color: #ffffff !important;
-    }
-
-    /* 🟠 YESTERDAY (< 48 hours) - Orange */
-    .td-time-badge.td-level-yesterday {
-      background: #f97316 !important; color: #ffffff !important;
-    }
-
-    /* ⚪ STALE (> 48 hours) - Gray */
-    .td-time-badge.td-level-stale {
-      background: #94a3b8 !important; color: #ffffff !important;
-    }
+    .td-time-badge.td-level-today { background: #eab308 !important; color: #ffffff !important; }
+    .td-time-badge.td-level-yesterday { background: #f97316 !important; color: #ffffff !important; }
+    .td-time-badge.td-level-stale { background: #94a3b8 !important; color: #ffffff !important; }
 
     @media (max-width: 768px) {
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
@@ -276,9 +262,9 @@
     var timeCache = {};
 
     function calcTimeAgo(dateStr) {
-      if (!dateStr) return { text: '', level: 'stale' };
+      if (!dateStr) return { text: '', level: 'stale', rawDate: 0 };
       var d = new Date(dateStr);
-      if (isNaN(d.getTime())) return { text: '', level: 'stale' };
+      if (isNaN(d.getTime())) return { text: '', level: 'stale', rawDate: 0 };
       
       var diffMs = Date.now() - d.getTime();
       var mins = Math.floor(diffMs / 60000);
@@ -287,7 +273,6 @@
       var weeks = Math.floor(days / 7);
       var months = Math.floor(days / 30);
 
-      // টেক্সট ফরম্যাট
       var text = '';
       if (mins < 1) text = 'just now';
       else if (mins < 60) text = mins + 'm ago';
@@ -297,13 +282,13 @@
       else if (months < 12) text = months + 'mo ago';
       else text = Math.floor(days / 365) + 'y ago';
 
-      // প্রায়োরিটি লেভেল (আপনার রিকোয়ারমেন্ট অনুযায়ী)
-      var level = 'stale'; // ⚪ Default
-      if (hours < 2) level = 'new';           // 🟢 ২ ঘণ্টার কম
-      else if (hours < 24) level = 'today';     // 🟡 ২৪ ঘণ্টার কম
-      else if (hours < 48) level = 'yesterday'; // 🟠 ৪৮ ঘণ্টার কম
+      var level = 'stale';
+      if (hours < 2) level = 'new';           
+      else if (hours < 24) level = 'today';     
+      else if (hours < 48) level = 'yesterday'; 
 
-      return { text: text, level: level };
+      // রিটার্ন অবজেক্টে rawDate (timestamp) যোগ করা হলো, যা দিয়ে আমরা সর্ট করব
+      return { text: text, level: level, rawDate: d.getTime() };
     }
 
     async function fetchImportedAt(slug) {
@@ -333,28 +318,71 @@
 
       for (var i = 0; i < links.length; i++) {
         var link = links[i];
-        if (link.querySelector('.td-time-badge')) continue;
-
-        var href = link.getAttribute('href') || '';
-        var slug = href.split('/').pop();
-        if (!slug) continue;
-
-        var timeInfo = await fetchImportedAt(slug);
-        if (!timeInfo || !timeInfo.text) continue;
-
-        var badge = document.createElement('span');
-        // ক্লাস অ্যাসাইন করা
-        badge.className = 'td-time-badge td-level-' + timeInfo.level;
         
-        // ইমোজি এবং টেক্সট সেট করা
-        var prefix = '';
-        if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
-        else if (timeInfo.level === 'today') prefix = '🟡 ';
-        else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
-        else prefix = '⚪ ';
+        // আগে থেকেই ব্যাজ থাকলে স্কিপ করবে (তবে টাইম ডাটা আপডেট হবে সর্টিং এর জন্য)
+        if (!link.querySelector('.td-time-badge')) {
+            var href = link.getAttribute('href') || '';
+            var slug = href.split('/').pop();
+            if (!slug) continue;
 
-        badge.textContent = prefix + timeInfo.text;
-        link.appendChild(badge);
+            var timeInfo = await fetchImportedAt(slug);
+            if (!timeInfo || !timeInfo.text) continue;
+
+            var badge = document.createElement('span');
+            badge.className = 'td-time-badge td-level-' + timeInfo.level;
+            
+            var prefix = '';
+            if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
+            else if (timeInfo.level === 'today') prefix = '🟡 ';
+            else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
+            else prefix = '⚪ ';
+
+            badge.textContent = prefix + timeInfo.text;
+            link.appendChild(badge);
+        }
+        
+        // সর্টিং এর জন্য লিংকে ডাটা-অ্যাট্রিবিউট সেট করা
+        var href2 = link.getAttribute('href') || '';
+        var slug2 = href2.split('/').pop();
+        if (slug2 && timeCache[slug2] && timeCache[slug2].rawDate) {
+            link.setAttribute('data-imported-time', timeCache[slug2].rawDate);
+        }
+      }
+
+      // ✅ জাদুকরি সর্টিং লজিক: নতুন নিউজগুলো উপরে নিয়ে আসা
+      var allLinks = Array.from(links);
+      var listContainer = null;
+
+      // কন্টেইনার খুঁজে বের করা
+      if (allLinks.length > 0) {
+          // Decap CMS এর সাধারণত লিস্ট রো'র প্যারেন্ট কন্টেইনার থাকে
+          listContainer = allLinks[0].closest('ul, [role="list"], .css-0'); 
+          if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
+      }
+
+      if (listContainer) {
+          // কন্টেইনারের সব চাইল্ড (রো) নেওয়া
+          var rows = Array.from(listContainer.children);
+          // শুধু সেই রো-গুলো ফিল্টার করা যেগুলোতে আমাদের লিংক আছে
+          rows = rows.filter(row => row.querySelector('a[href*="/collections/news_drafts/entries/"]'));
+
+          if (rows.length > 1) {
+              rows.sort(function(a, b) {
+                  var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                  var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                  if (!aLink || !bLink) return 0;
+                  
+                  var timeA = parseInt(aLink.getAttribute('data-imported-time')) || 0;
+                  var timeB = parseInt(bLink.getAttribute('data-imported-time')) || 0;
+                  
+                  return timeB - timeA; // Descending Order (সর্বোচ্চ টাইম আগে, অর্থাৎ নতুন আগে)
+              });
+
+              // DOM-এ নতুন করে সাজিয়ে বসানো
+              rows.forEach(function(row) {
+                  listContainer.appendChild(row);
+              });
+          }
       }
     }
 

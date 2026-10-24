@@ -76,7 +76,6 @@
     body.td-quickbar-on main, body.td-quickbar-on [role="main"] { padding-top: 88px !important; }
 
     /* ================= GLOBAL OVERRIDES (List & Editor) ================= */
-    /* এই অংশটি Decap CMS-এর ডিফল্ট লিস্ট ও এডিটর ডিজাইন বদলে দেবে */
     [class*="AppMain"], [class*="MainContent"] {
       background: var(--bg) !important;
       padding: 24px !important;
@@ -111,7 +110,6 @@
     }
 
     /* ================= EDITOR PANEL STYLING ================= */
-    /* এডিটর প্যানেলের ব্যাকগ্রাউন্ড ও প্যাডিং */
     [class*="EditorPane"], [class*="Editor"] {
       background: var(--panel-bg) !important;
       padding: 24px !important;
@@ -333,12 +331,13 @@
     }
 
     // =====================================================
-    // CUSTOM DASHBOARD (STATS + FILTER)
+    // CUSTOM DASHBOARD (STATS + FILTER) - Only on List Views
     // =====================================================
     function buildCustomDashboard() {
       if (document.getElementById('td-custom-dashboard')) return;
       var hash = window.location.hash || '';
-      if (hash.indexOf('/collections/') === -1 || hash.indexOf('/entries/') !== -1) return;
+      // Only show on collection list views, not on entry editor/new pages
+      if (hash.indexOf('/collections/') === -1 || hash.indexOf('/entries/') !== -1 || hash.indexOf('/new') !== -1) return;
 
       var container = document.createElement('div');
       container.id = 'td-custom-dashboard';
@@ -413,7 +412,7 @@
     }
 
     // =====================================================
-    // TIME BADGE & SORTING
+    // TIME BADGE & SORTING - Only on List Views
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
@@ -468,8 +467,9 @@
       var hash = window.location.hash || '';
       var isDraftsList = hash.indexOf('/collections/news_drafts') !== -1;
       var isPublishedList = hash.indexOf('/collections/news_published') !== -1;
+      // Only run on list views, not on entry editor/new pages
       if (!isDraftsList && !isPublishedList) return;
-      if (hash.indexOf('/entries/') !== -1) return;
+      if (hash.indexOf('/entries/') !== -1 || hash.indexOf('/new') !== -1) return;
       if (isInjecting) return;
       isInjecting = true;
 

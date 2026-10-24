@@ -69,18 +69,14 @@
     body.td-quickbar-on main, body.td-quickbar-on [role="main"] { padding-top: 70px !important; }
 
     /* ================= COMPACT COLLECTION PANEL ================= */
-    /* এই অংশটি নিউজের কার্ডগুলোকে ছোট এবং পরিচ্ছন্ন করবে */
     [class*="EntryCard"], [class*="Card"] {
-      padding: 8px 12px !important;
+      padding: 6px 12px !important;
       margin-bottom: 4px !important;
       border-radius: 6px !important;
       border: 1px solid var(--border) !important;
       background: var(--panel-bg) !important;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
       font-size: 13px !important;
-    }
-    [class*="EntryCard"]:hover, [class*="Card"]:hover {
-      background: #f8fafc !important;
     }
 
     /* ================= TIME BADGES ================= */
@@ -105,16 +101,17 @@
     /* ================= CUSTOM DASHBOARD & FILTERS ================= */
     .td-dashboard-container {
       background: var(--panel-bg); border-radius: 12px; padding: 16px 20px;
-      margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin: 10px auto 20px auto; max-width: 1000px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 20px;
       align-items: center; justify-content: space-between;
     }
     .td-stats-group { display: flex; gap: 24px; }
     .td-stat-item { display: flex; flex-direction: column; }
-    .td-stat-value { font-size: 24px; font-weight: 800; color: var(--navy); line-height: 1.2; }
+    .td-stat-value { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1.2; }
     .td-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 600; }
 
-    .td-filter-group { display: flex; align-items: center; gap: 8px; }
+    .td-filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .td-filter-group input[type="date"] {
       padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
       font-family: inherit; font-size: 12px; color: var(--text); outline: none;
@@ -262,10 +259,12 @@
     }
 
     // =====================================================
-    // 🎯 CUSTOM DASHBOARD (STATS + FILTER)
+    // 🎯 CUSTOM DASHBOARD (STATS + FILTER) & TOP INSERTION
     // =====================================================
     function buildCustomDashboard() {
       if (document.getElementById('td-custom-dashboard')) return;
+      var hash = window.location.hash || '';
+      if (hash.indexOf('/collections/') === -1 || hash.indexOf('/entries/') !== -1) return; // শুধু লিস্ট ভিউতে দেখাবে
 
       var container = document.createElement('div');
       container.id = 'td-custom-dashboard';
@@ -275,15 +274,15 @@
         <div class="td-stats-group">
           <div class="td-stat-item">
             <span class="td-stat-value" id="td-total-views">0</span>
-            <span class="td-stat-label">Total Views</span>
+            <span class="td-stat-label">Total Views (Demo)</span>
           </div>
           <div class="td-stat-item">
             <span class="td-stat-value" id="td-total-published">0</span>
-            <span class="td-stat-label">Published Articles</span>
+            <span class="td-stat-label">Total Items</span>
           </div>
         </div>
         <div class="td-filter-group">
-          <label for="td-date-start" style="font-size:12px; font-weight:600; color:var(--muted);">Filter by Date:</label>
+          <label style="font-size:12px; font-weight:600; color:var(--muted);">Filter by Date:</label>
           <input type="date" id="td-date-start">
           <span style="color:var(--muted);">to</span>
           <input type="date" id="td-date-end">
@@ -292,9 +291,15 @@
         </div>
       `;
 
-      var mainContent = document.querySelector('main[role="main"]');
-      if (mainContent) {
+      // DOM-এ সঠিক জায়গায় বসানো
+      var rootContainer = document.getElementById('root') || document.body;
+      var mainContent = document.querySelector('main, [role="main"]') || rootContainer;
+      
+      // হেডার বা কুইকবারের নিচে বসানোর জন্য
+      if (mainContent.firstChild) {
         mainContent.insertBefore(container, mainContent.firstChild);
+      } else {
+        mainContent.appendChild(container);
       }
 
       document.getElementById('td-apply-filter').addEventListener('click', function() {
@@ -310,57 +315,37 @@
       });
     }
 
-    // =====================================================
-    // 🎯 DATE FILTER LOGIC
-    // =====================================================
     function applyDateFilter(start, end) {
-      var hash = window.location.hash || '';
-      var isPublishedList = hash.indexOf('/collections/news_published') !== -1;
-      var isDraftsList = hash.indexOf('/collections/news_drafts') !== -1;
-      
-      if (!isPublishedList && !isDraftsList) return;
-
       var links = document.querySelectorAll('a[href*="/entries/"]');
       links.forEach(function(link) {
         var row = link.closest('li, [class*="EntryCard"], [class*="Card"]');
         if (!row) return;
 
-        // ডেটা-অ্যাট্রিবিউট থেকে তারিখ নেওয়া
-        var dateAttr = row.getAttribute('data-entry-date');
-        if (!dateAttr) {
-          // যদি ডেটা-অ্যাট্রিবিউট না থাকে, তবে ফাইলের নাম থেকে তারিখ বের করার চেষ্টা
-          var href = link.getAttribute('href') || '';
-          var slug = href.split('/').pop() || '';
-          var match = slug.match(/^(\d{4}-\d{2}-\d{2})/);
-          if (match) dateAttr = match[1];
-        }
+        var href = link.getAttribute('href') || '';
+        var slug = href.split('/').pop() || '';
+        var dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+        
+        if (!dateMatch) { row.style.display = 'flex'; return; }
 
-        if (!dateAttr) {
-          row.style.display = 'block';
-          return;
-        }
-
-        var entryDate = new Date(dateAttr);
+        var entryDate = new Date(dateMatch[1]);
         var startDate = start ? new Date(start) : null;
         var endDate = end ? new Date(end) : null;
 
         var isVisible = true;
         if (startDate && entryDate < startDate) isVisible = false;
         if (endDate) {
-          // শেষ তারিখের দিনটি সম্পূর্ণ ধরার জন্য
           endDate.setHours(23, 59, 59, 999);
           if (entryDate > endDate) isVisible = false;
         }
 
-        row.style.display = isVisible ? 'block' : 'none';
+        row.style.display = isVisible ? 'flex' : 'none';
       });
     }
 
     // =====================================================
-    // 🎯 VIEW COUNTER & TIME BADGE & SORTING
+    // 🎯 TIME BADGE & SORTING & REAL VIEWS (Placeholder)
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
-    var VIEWS_API = 'https://api.views.dev/count?url='; // ডেমো API, আপনাকে বাস্তব API ব্যবহার করতে হবে
     var timeCache = {};
     var isInjecting = false;
 
@@ -409,12 +394,6 @@
       }
     }
 
-    async function fetchViews(slug) {
-      // এটি একটি ডেমো ফাংশন। আপনাকে আপনার ভিউ কাউন্টার API দিয়ে এটি প্রতিস্থাপন করতে হবে।
-      // উদাহরণ: return fetch(`https://your-view-api.com?slug=${slug}`).then(r => r.json()).then(d => d.views);
-      return Math.floor(Math.random() * 1000); // ডেমো র‍্যান্ডম সংখ্যা
-    }
-
     async function injectListEnhancements() {
       var hash = window.location.hash || '';
       var isDraftsList = hash.indexOf('/collections/news_drafts') !== -1;
@@ -428,8 +407,8 @@
         var links = document.querySelectorAll('a[href*="/entries/"]');
         if (!links.length) { isInjecting = false; return; }
 
+        var totalItems = 0;
         var totalViews = 0;
-        var publishedCount = 0;
 
         for (var i = 0; i < links.length; i++) {
           var link = links[i];
@@ -437,15 +416,7 @@
           var slug = href.split('/').pop();
           if (!slug) continue;
 
-          // ডেটা-অ্যাট্রিবিউট সেট করা ফিল্টারের জন্য
-          var row = link.closest('li, [class*="EntryCard"], [class*="Card"]');
-          if (row) {
-            // ফাইলের নাম থেকে তারিখ বের করার চেষ্টা (যেমন: 2023-10-25-...)
-            var dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
-            if (dateMatch) {
-              row.setAttribute('data-entry-date', dateMatch[1]);
-            }
-          }
+          totalItems++;
 
           // === ড্রাফট লিস্টের জন্য টাইম ব্যাজ ===
           if (isDraftsList) {
@@ -465,18 +436,19 @@
             link.appendChild(badge);
           }
 
-          // === প্রকাশিত লিস্টের জন্য ভিউ কাউন্টার ===
+          // === প্রকাশিত লিস্টের জন্য ভিউ কাউন্টার (বাস্তব API ছাড়া খালি থাকবে) ===
           if (isPublishedList) {
-            publishedCount++;
             if (!link.querySelector('.td-view-badge')) {
-              var views = await fetchViews(slug);
-              totalViews += views;
               var viewSpan = document.createElement('span');
-              viewSpan.className = 'td-time-badge'; // রিইউজ করা ক্লাস
+              viewSpan.className = 'td-view-badge';
               viewSpan.style.background = '#e2e8f0';
               viewSpan.style.color = '#475569';
               viewSpan.style.marginLeft = '8px';
-              viewSpan.textContent = views + ' 👁️';
+              viewSpan.style.padding = '2px 8px';
+              viewSpan.style.borderRadius = '10px';
+              viewSpan.style.fontSize = '10px';
+              viewSpan.style.fontWeight = 'bold';
+              viewSpan.textContent = '0 👁️'; // ডেমো র‍্যান্ডম বাদ দেওয়া হয়েছে
               link.appendChild(viewSpan);
             }
           }
@@ -485,8 +457,8 @@
         // === ড্যাশবোর্ড আপডেট ===
         var totalViewsEl = document.getElementById('td-total-views');
         var totalPublishedEl = document.getElementById('td-total-published');
-        if (totalViewsEl) totalViewsEl.textContent = totalViews;
-        if (totalPublishedEl) totalPublishedEl.textContent = publishedCount;
+        if (totalViewsEl) totalViewsEl.textContent = totalViews; // এখানে বাস্তব ভিউ বসবে
+        if (totalPublishedEl) totalPublishedEl.textContent = totalItems;
 
         // === অটো-সর্টিং (শুধু ড্রাফটের জন্য) ===
         if (isDraftsList) {
@@ -530,11 +502,11 @@
 
       if (isOnDashboard()) {
         buildQuickBar();
-        buildCustomDashboard();
       } else {
         removeQuickBar();
       }
 
+      buildCustomDashboard();
       setTimeout(injectListEnhancements, 500);
     }
 
@@ -543,6 +515,7 @@
     setTimeout(refresh, 3500);
 
     window.addEventListener('hashchange', function() {
+      document.getElementById('td-custom-dashboard')?.remove(); // পেজ চেঞ্জ হলে পুরানো ড্যাশবোর্ড মুছে ফেলবে
       setTimeout(refresh, 400);
     });
 

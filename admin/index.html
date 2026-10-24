@@ -113,7 +113,7 @@
       background: #e2e8f0 !important; color: #475569 !important;
     }
 
-    /* 🎯 NEW: Views Badge */
+    /* Views Badge */
     .td-view-badge {
       display: inline-flex !important; align-items: center !important; justify-content: center !important;
       gap: 4px !important; margin-left: 10px !important;
@@ -217,7 +217,7 @@
     });
 
     // =====================================================
-    // 🎯 DASHBOARD DETECTION
+    // 🎯 DASHBOARD DETECTION & QUICK BAR
     // =====================================================
     function isOnDashboard() {
       var hash = window.location.hash || '';
@@ -226,9 +226,6 @@
 
     function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
 
-    // =====================================================
-    // QUICK BAR
-    // =====================================================
     var BASE = window.location.origin + '/admin/';
 
     function triggerSearch() {
@@ -261,11 +258,11 @@
     }
 
     // =====================================================
-    // 🎯 TIME BADGE IN DRAFTS LIST
+    // 🎯 CORE LOGIC: TIME BADGE, SORTING & VIEWS
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
-    var isInjectingDrafts = false;
+    var viewsCache = {};
 
     function calcTimeAgo(dateStr) {
       if (!dateStr) return { text: '', isNew: false, rawDate: 0 };
@@ -307,96 +304,13 @@
       }
     }
 
-    async function injectDraftTimeBadges() {
-      var hash = window.location.hash || '';
-      if (hash.indexOf('/collections/news_drafts') === -1) return;
-      if (hash.indexOf('/entries/') !== -1) return;
-      
-      if (isInjectingDrafts) return;
-      isInjectingDrafts = true;
-
-      try {
-        var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
-        if (!links.length) return;
-
-        for (var i = 0; i < links.length; i++) {
-          var link = links[i];
-          if (link.querySelector('.td-time-badge')) continue;
-
-          var href = link.getAttribute('href') || '';
-          var slug = href.split('/').pop();
-          if (!slug) continue;
-
-          var timeInfo = await fetchImportedAt(slug);
-          if (!timeInfo || !timeInfo.text) continue;
-
-          if (link.querySelector('.td-time-badge')) continue;
-
-          var badge = document.createElement('span');
-          badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
-          badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
-          link.appendChild(badge);
-        }
-
-        // Auto sorting
-        var allLinks = Array.from(links);
-        var listContainer = null;
-        if (allLinks.length > 0) {
-            listContainer = allLinks[0].closest('ul, [role="list"]'); 
-            if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
-        }
-
-        if (listContainer) {
-            var rows = Array.from(listContainer.children);
-            rows = rows.filter(function(row) { return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); });
-            
-            if (rows.length > 1) {
-                var needsSort = false;
-                for (var j = 0; j < rows.length - 1; j++) {
-                    var aLink = rows[j].querySelector('a[href*="/collections/news_drafts/entries/"]');
-                    var bLink = rows[j+1].querySelector('a[href*="/collections/news_drafts/entries/"]');
-                    if (!aLink || !bLink) continue;
-                    var aSlug = aLink.getAttribute('href').split('/').pop();
-                    var bSlug = bLink.getAttribute('href').split('/').pop();
-                    var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
-                    var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                    if (timeA < timeB) { needsSort = true; break; }
-                }
-                
-                if (needsSort) {
-                    rows.sort(function(a, b) {
-                        var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                        var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                        if (!aLink || !bLink) return 0;
-                        var aSlug = aLink.getAttribute('href').split('/').pop();
-                        var bSlug = bLink.getAttribute('href').split('/').pop();
-                        var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
-                        var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                        return timeB - timeA;
-                    });
-                    rows.forEach(function(row) { listContainer.appendChild(row); });
-                }
-            }
-        }
-      } finally {
-        isInjectingDrafts = false;
-      }
-    }
-
-    // =====================================================
-    // 🎯 VIEWS COUNTER IN PUBLISHED LIST
-    // =====================================================
-    var viewsCache = {};
-    var isInjectingViews = false;
-
     async function fetchViews(slug) {
       if (viewsCache[slug] !== undefined) return viewsCache[slug];
       try {
         var controller = new AbortController();
-        var timeoutId = setTimeout(() => controller.abort(), 3000);
+        var timeoutId = setTimeout(() => controller.abort(), 2500);
         var res = await fetch('https://abacus.jamesm.dev/get/theglobaldesk/' + slug, { signal: controller.signal });
         clearTimeout(timeoutId);
-        
         if (!res.ok) { viewsCache[slug] = 0; return 0; }
         var data = await res.json();
         var count = data.value || 0;
@@ -408,45 +322,107 @@
       }
     }
 
-    async function injectPublishedViews() {
-      var hash = window.location.hash || '';
-      if (hash.indexOf('/collections/news_published') === -1) return;
-      if (hash.indexOf('/entries/') !== -1) return;
+    // Main processor
+    async function processList() {
+      if (!isLoggedIn()) return;
       
-      if (isInjectingViews) return;
-      isInjectingViews = true;
+      var hash = window.location.hash || '';
+      
+      // 1. Process Drafts
+      if (hash.indexOf('/collections/news_drafts') !== -1 && hash.indexOf('/entries/') === -1) {
+        var draftLinks = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+        if (!draftLinks.length) return;
 
-      try {
-        var links = document.querySelectorAll('a[href*="/collections/news_published/entries/"]');
-        if (!links.length) return;
+        for (var i = 0; i < draftLinks.length; i++) {
+          var link = draftLinks[i];
+          
+          // ✅ ডুপ্লিকেট লক: যদি অলরেডি প্রসেস করা হয় বা ব্যাজ থাকে, তবে স্কিপ করবে
+          if (link.getAttribute('data-td-processing') || link.querySelector('.td-time-badge')) continue;
+          link.setAttribute('data-td-processing', 'true');
 
-        var promises = [];
-        for (var i = 0; i < links.length; i++) {
-          (function(link) {
-            if (link.querySelector('.td-view-badge')) return;
-            
-            var href = link.getAttribute('href') || '';
-            var slug = href.split('/').pop();
-            if (!slug) return;
+          var href = link.getAttribute('href') || '';
+          var slug = href.split('/').pop();
+          if (!slug) continue;
 
-            var viewSpan = document.createElement('span');
-            viewSpan.className = 'td-view-badge';
-            viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
-            link.appendChild(viewSpan);
+          var timeInfo = await fetchImportedAt(slug);
+          if (!timeInfo || !timeInfo.text) {
+            link.removeAttribute('data-td-processing');
+            continue;
+          }
 
-            promises.push(fetchViews(slug).then(function(views) {
-              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
-            }));
-          })(links[i]);
+          var badge = document.createElement('span');
+          badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
+          badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
+          link.appendChild(badge);
+          
+          link.removeAttribute('data-td-processing');
         }
-        await Promise.all(promises);
-      } finally {
-        isInjectingViews = false;
+
+        // Sorting (Newest First)
+        var allLinks = Array.from(draftLinks);
+        var listContainer = allLinks[0] ? allLinks[0].closest('ul, [role="list"]') : null;
+        if (!listContainer) listContainer = allLinks[0] ? allLinks[0].parentElement.parentElement : null;
+
+        if (listContainer) {
+          var rows = Array.from(listContainer.children).filter(function(row) { 
+            return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); 
+          });
+          
+          if (rows.length > 1) {
+            var needsSort = false;
+            for (var j = 0; j < rows.length - 1; j++) {
+              var aSlug = rows[j].querySelector('a').getAttribute('href').split('/').pop();
+              var bSlug = rows[j+1].querySelector('a').getAttribute('href').split('/').pop();
+              var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+              var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+              if (timeA < timeB) { needsSort = true; break; }
+            }
+            if (needsSort) {
+              rows.sort(function(a, b) {
+                var aSlug = a.querySelector('a').getAttribute('href').split('/').pop();
+                var bSlug = b.querySelector('a').getAttribute('href').split('/').pop();
+                var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+                var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+                return timeB - timeA;
+              });
+              rows.forEach(function(row) { listContainer.appendChild(row); });
+            }
+          }
+        }
+      }
+
+      // 2. Process Published (Views)
+      if (hash.indexOf('/collections/news_published') !== -1 && hash.indexOf('/entries/') === -1) {
+        var pubLinks = document.querySelectorAll('a[href*="/collections/news_published/entries/"]');
+        if (!pubLinks.length) return;
+
+        for (var k = 0; k < pubLinks.length; k++) {
+          var pLink = pubLinks[k];
+          
+          // ✅ ডুপ্লিকেট লক
+          if (pLink.getAttribute('data-td-v-processing') || pLink.querySelector('.td-view-badge')) continue;
+          pLink.setAttribute('data-td-v-processing', 'true');
+
+          var pHref = pLink.getAttribute('href') || '';
+          var pSlug = pHref.split('/').pop();
+          if (!pSlug) continue;
+
+          var viewSpan = document.createElement('span');
+          viewSpan.className = 'td-view-badge';
+          viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
+          pLink.appendChild(viewSpan);
+
+          fetchViews(pSlug).then(function(span, slug) {
+            return function(views) {
+              span.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
+            };
+          }(viewSpan, pSlug));
+        }
       }
     }
 
     // =====================================================
-    // ORCHESTRATOR
+    // ORCHESTRATOR (Interval based to avoid React DOM conflicts)
     // =====================================================
     function refresh() {
       if (!isLoggedIn()) {
@@ -460,26 +436,18 @@
         removeQuickBar();
       }
 
-      var hash = window.location.hash || '';
-      if (hash.indexOf('/entries/') === -1 && hash.indexOf('/new') === -1) {
-        setTimeout(injectDraftTimeBadges, 300);
-        setTimeout(injectPublishedViews, 300);
-      }
+      // Call the list processor
+      processList();
     }
 
+    // Run immediately and then every 1.5 seconds
     setTimeout(refresh, 800);
-    setTimeout(refresh, 2000);
-    setTimeout(refresh, 3500);
-
+    setInterval(refresh, 1500); 
+    
+    // Also run on hashchange
     window.addEventListener('hashchange', function() {
       setTimeout(refresh, 400);
     });
-
-    var t;
-    new MutationObserver(function() {
-      clearTimeout(t);
-      t = setTimeout(refresh, 600);
-    }).observe(document.body, { childList: true, subtree: true });
   });
   </script>
 </body>

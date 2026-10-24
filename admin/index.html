@@ -53,11 +53,13 @@
     .td-nav-btn:hover, .td-nav-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
     .td-nav-btn.active { color: var(--gold); background: rgba(201,154,59,0.1); }
 
-    /* ================= 📊 COMPACT DASHBOARD & POPOVER FILTER ================= */
+    /* ================= 📊 COMPACT DASHBOARD & FILTERS ================= */
     .td-dashboard-wrapper {
       max-width: 800px; margin: 12px auto; padding: 0 16px;
       display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px;
       position: relative; z-index: 50;
+      /* ✅ জাম্পিং ফিক্স: প্যানেলকে ফিক্সড হাইট দেওয়া হয়েছে */
+      min-height: 40px; 
     }
     .td-stats-group { display: flex; gap: 8px; }
     .td-stat-box {
@@ -68,14 +70,14 @@
     .td-stat-value { font-size: 15px; font-weight: 800; color: var(--navy); }
     .td-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 700; }
 
-    /* 🎯 ফিল্টার পপওভার বাটন */
-    .td-filter-btn {
+    /* 🎯 ফিল্টার ও সর্ট বাটন */
+    .td-filter-btn, .td-sort-btn {
       background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
       padding: 0 12px; height: 34px; display: flex; align-items: center; gap: 6px;
       font-size: 12px; font-weight: 600; color: var(--navy); cursor: pointer;
       box-shadow: 0 1px 4px rgba(0,0,0,0.02); transition: all 0.2s;
     }
-    .td-filter-btn:hover { border-color: var(--gold); }
+    .td-filter-btn:hover, .td-sort-btn:hover { border-color: var(--gold); }
     
     .td-filter-popover {
       display: none; position: absolute; top: 44px; right: 16px;
@@ -262,23 +264,44 @@
       wrapper.id = 'td-dashboard-wrapper';
       wrapper.className = 'td-dashboard-wrapper';
       
-      // কমপ্যাক্ট ড্যাশবোর্ড এবং পপওভার ফিল্টার
-      wrapper.innerHTML = `
-        <div class="td-stats-group">
-          <div class="td-stat-box">
-            <span class="td-stat-value" id="td-total-items">0</span>
-            <span class="td-stat-label">Articles</span>
-          </div>
+      // ✅ ড্রাফট এবং পাবলিশডের জন্য আলাদা প্যানেল তৈরি
+      var isDrafts = window.location.hash.includes('news_drafts');
+      
+      var statsHTML = `
+        <div class="td-stat-box">
+          <span class="td-stat-value" id="td-total-items">0</span>
+          <span class="td-stat-label">Articles</span>
+        </div>
+      `;
+      
+      if (!isDrafts) {
+        // শুধু পাবলিশডে Views দেখাবে
+        statsHTML += `
           <div class="td-stat-box">
             <span class="td-stat-value" id="td-total-views">-</span>
             <span class="td-stat-label">Views</span>
           </div>
+        `;
+      }
+
+      // ✅ ড্রাফটে Sort বাটন যোগ করা হয়েছে
+      var sortHTML = '';
+      if (isDrafts) {
+        sortHTML = `
+          <button class="td-sort-btn" id="td-sort-drafts">
+            <i class="fa-solid fa-arrow-down-wide-short"></i> Sort: Newest
+          </button>
+        `;
+      }
+
+      wrapper.innerHTML = `
+        <div class="td-stats-group">
+          ${statsHTML}
         </div>
-        
+        ${sortHTML}
         <button class="td-filter-btn" id="td-toggle-filter">
           <i class="fa-solid fa-calendar-days"></i> Filter
         </button>
-        
         <div class="td-filter-popover" id="td-filter-popover">
           <div style="font-size:12px; font-weight:700; color:var(--navy); margin-bottom:4px;">Select Date Range</div>
           <input type="date" id="td-date-start" title="Start Date">
@@ -293,14 +316,13 @@
       var mainContent = document.querySelector('main, [role="main"]') || document.body;
       mainContent.prepend(wrapper);
 
-      // পপওভার টগল লজিক
+      // পপওভার টগল
       document.getElementById('td-toggle-filter').addEventListener('click', function(e) {
         e.stopPropagation();
-        var pop = document.getElementById('td-filter-popover');
-        pop.classList.toggle('show');
+        document.getElementById('td-filter-popover').classList.toggle('show');
       });
 
-      // বাইরে ক্লিক করলে পপওভার বন্ধ হবে
+      // বাইরে ক্লিক করলে পপওভার বন্ধ
       document.addEventListener('click', function(e) {
         var pop = document.getElementById('td-filter-popover');
         if (pop && pop.classList.contains('show') && !pop.contains(e.target) && e.target.id !== 'td-toggle-filter') {
@@ -321,6 +343,33 @@
         applyDateFilter('', '');
         document.getElementById('td-filter-popover').classList.remove('show');
       });
+
+      // ✅ Sort বাটনের লজিক (ড্রাফটের জন্য)
+      if (isDrafts) {
+        document.getElementById('td-sort-drafts').addEventListener('click', function() {
+          var btn = this;
+          var isNewest = btn.textContent.includes('Newest');
+          btn.innerHTML = isNewest ? '<i class="fa-solid fa-arrow-up-wide-short"></i> Sort: Oldest' : '<i class="fa-solid fa-arrow-down-wide-short"></i> Sort: Newest';
+          
+          var links = document.querySelectorAll('a[href*="/entries/"]');
+          var listContainer = links[0] ? links[0].closest('ul, [role="list"]') : null;
+          if (listContainer) {
+            var rows = Array.from(listContainer.children).filter(function(row) { 
+              return row.querySelector('a[href*="/entries/"]'); 
+            });
+            if (rows.length > 1) {
+              rows.sort(function(a, b) {
+                var aSlug = a.querySelector('a').getAttribute('href').split('/').pop();
+                var bSlug = b.querySelector('a').getAttribute('href').split('/').pop();
+                var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+                var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+                return isNewest ? (timeA - timeB) : (timeB - timeA); // টগল লজিক
+              });
+              rows.forEach(function(row) { listContainer.appendChild(row); });
+            }
+          }
+        });
+      }
     }
 
     function applyDateFilter(start, end) {
@@ -399,17 +448,13 @@
       }
     }
 
-    // ✅ নতুন ফাস্ট ভিউ কাউন্টার API (Abacus)
     async function fetchViews(slug) {
       if (viewsCache[slug] !== undefined) return viewsCache[slug];
       try {
-        // Timeout logic
         var controller = new AbortController();
         var timeoutId = setTimeout(() => controller.abort(), 3000);
-        
         var res = await fetch('https://abacus.jamesm.dev/get/theglobaldesk/' + slug, { signal: controller.signal });
         clearTimeout(timeoutId);
-        
         if (!res.ok) { viewsCache[slug] = 0; return 0; }
         var data = await res.json();
         var count = data.value || 0;
@@ -427,7 +472,6 @@
 
       try {
         var links = document.querySelectorAll('a[href*="/entries/"]');
-        
         var totalItemsEl = document.getElementById('td-total-items');
         if (totalItemsEl) totalItemsEl.textContent = links.length;
 
@@ -435,7 +479,6 @@
         var isDraftsList = window.location.hash.includes('news_drafts');
         var isPublishedList = window.location.hash.includes('news_published');
 
-        // Promise.all ব্যবহার করে параллельно ভিউ আনা হবে (ফাস্ট লোড)
         var promises = [];
 
         for (var i = 0; i < links.length; i++) {
@@ -444,14 +487,11 @@
             var slug = href.split('/').pop();
             if (!slug) return;
 
-            // ড্রাফটের জন্য টাইম ব্যাজ
             if (isDraftsList) {
               if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) return;
-              
               promises.push(fetchImportedAt(slug).then(function(timeInfo) {
                 if (!timeInfo || !timeInfo.text) return;
                 if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) return;
-
                 var badge = document.createElement('span');
                 badge.className = 'td-badge ' + timeInfo.level;
                 var prefix = timeInfo.level === 'new' ? '🟢 NEW · ' : (timeInfo.level === 'today' ? '🟡 ' : (timeInfo.level === 'yesterday' ? '🟠 ' : '⚪ '));
@@ -460,15 +500,12 @@
               }));
             }
 
-            // পাবলিশডের জন্য আসল ভিউ কাউন্ট
             if (isPublishedList) {
               if (link.querySelector('.td-badge.views')) return;
-              
               var viewSpan = document.createElement('span');
               viewSpan.className = 'td-badge views';
               viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
               link.appendChild(viewSpan);
-
               promises.push(fetchViews(slug).then(function(views) {
                 viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
                 totalViewsCount += views;
@@ -479,11 +516,12 @@
 
         await Promise.all(promises);
 
-        // টোটাল ভিউ আপডেট
-        var totalViewsEl = document.getElementById('td-total-views');
-        if (totalViewsEl) totalViewsEl.textContent = totalViewsCount;
+        if (isPublishedList) {
+          var totalViewsEl = document.getElementById('td-total-views');
+          if (totalViewsEl) totalViewsEl.textContent = totalViewsCount;
+        }
 
-        // ড্রাফটে নতুন নিউজ উপরে আনার সর্টিং লজিক
+        // ড্রাফটে ডিফল্ট সর্টিং (নতুন আগে)
         if (isDraftsList) {
           var listContainer = links[0] ? links[0].closest('ul, [role="list"]') : null;
           if (listContainer) {
@@ -515,7 +553,7 @@
       
       if (isListPage()) {
         buildDashboard();
-        setTimeout(injectBadges, 300); // স্লো লোড ফিক্সের জন্য ৩০০ms
+        setTimeout(injectBadges, 300);
       } else {
         var dash = document.getElementById('td-dashboard-wrapper');
         if (dash) dash.remove();
@@ -530,7 +568,7 @@
       setTimeout(init, 400);
     });
 
-    // মিউটেশন অবজারভার অপ্টিমাইজ করা হয়েছে যাতে পেজ স্লো না হয়
+    // ✅ জাম্পিং ফিক্স: মিউটেশন অবজারভার অপ্টিমাইজ করা হয়েছে
     var t;
     var observer = new MutationObserver(function(mutations) {
       // যদি অলরেডি ড্যাশবোর্ড থাকে, তবে আর রান করবে না

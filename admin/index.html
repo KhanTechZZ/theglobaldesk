@@ -7,128 +7,143 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    html, body { font-family: 'Inter', Arial, sans-serif !important; background: #f0f4f8 !important; }
+    /* ================= BASE & THEME ================= */
+    :root {
+      --navy: #061a33;
+      --gold: #c99a3b;
+      --gold-light: #e5c06b;
+      --bg: #f0f4f8;
+      --panel-bg: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --green: #16a34a;
+      --yellow: #eab308;
+      --orange: #f97316;
+      --gray: #94a3b8;
+    }
+
+    html, body { font-family: 'Inter', Arial, sans-serif !important; background: var(--bg) !important; color: var(--text); }
     body:not(:has(header[role="banner"])) { background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important; }
 
+    /* ================= DECAP CMS HEADER OVERRIDE ================= */
     header[role="banner"] {
-      background: #030f1e !important;
-      border-bottom: 2px solid #c99a3b !important;
+      background: var(--navy) !important;
+      border-bottom: 2px solid var(--gold) !important;
       padding: 0 16px !important;
       min-height: 56px !important;
       display: flex !important;
       align-items: center !important;
     }
-    header[role="banner"] img, header[role="banner"] a img {
-      max-height: 32px !important;
-      width: auto !important;
-      background: #ffffff !important;
-      padding: 4px 8px !important;
-      border-radius: 6px !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
-    }
+    header[role="banner"] img { max-height: 32px !important; width: auto !important; background: #fff !important; padding: 4px 8px !important; border-radius: 6px !important; }
     header[role="banner"]::after {
       content: "NEWSROOM";
-      color: #c99a3b; font-weight: 900; font-size: 10px; letter-spacing: 2px;
-      margin-left: 12px; padding-left: 12px;
-      border-left: 1px solid rgba(201,154,59,0.3);
+      color: var(--gold); font-weight: 900; font-size: 10px; letter-spacing: 2px;
+      margin-left: 12px; padding-left: 12px; border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    /* Sidebar hidden only when quick bar active (dashboard) */
-    body.td-quickbar-on aside[role="navigation"],
-    body.td-quickbar-on [class*="Sidebar"] {
-      display: none !important;
-      width: 0 !important; min-width: 0 !important; max-width: 0 !important;
-      overflow: hidden !important; padding: 0 !important; margin: 0 !important;
-    }
-    body.td-quickbar-on main[role="main"],
-    body.td-quickbar-on [class*="MainContent"],
-    body.td-quickbar-on [class*="AppMain"] {
-      margin-left: 0 !important; padding-left: 0 !important;
-      width: 100% !important; max-width: 100% !important;
-    }
-
-    /* Quick bar */
+    /* ================= QUICK BAR ================= */
     .td-quick-bar {
-      position: fixed !important; top: 56px !important;
-      left: 0 !important; right: 0 !important;
-      z-index: 2147483647 !important;
-      background: #ffffff !important;
-      border-bottom: 2px solid #e2e8f0 !important;
-      padding: 8px 12px !important;
-      display: flex !important; gap: 8px !important;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+      position: fixed !important; top: 56px !important; left: 0 !important; right: 0 !important;
+      z-index: 2147483647 !important; background: #fff !important;
+      border-bottom: 2px solid var(--border) !important; padding: 8px 12px !important;
+      display: flex !important; gap: 8px !important; box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
       box-sizing: border-box !important;
     }
     .td-quick-btn {
-      flex: 1 !important;
-      display: flex !important; align-items: center !important; justify-content: center !important;
-      gap: 6px !important; padding: 11px 14px !important;
-      border-radius: 8px !important; text-decoration: none !important;
-      font-weight: 800 !important; font-size: 13px !important;
-      transition: all 0.2s !important; box-sizing: border-box !important;
+      flex: 1 !important; display: flex !important; align-items: center !important; justify-content: center !important;
+      gap: 6px !important; padding: 10px 12px !important; border-radius: 8px !important; text-decoration: none !important;
+      font-weight: 700 !important; font-size: 13px !important; transition: all 0.2s !important; box-sizing: border-box !important;
     }
     .td-quick-btn.drafts { background: #eaf3fb !important; color: #0d4f91 !important; border: 2px solid #0d4f91 !important; }
     .td-quick-btn.drafts:hover { background: #0d4f91 !important; color: #fff !important; }
-    .td-quick-btn.published { background: #dcfce7 !important; color: #16a34a !important; border: 2px solid #16a34a !important; }
-    .td-quick-btn.published:hover { background: #16a34a !important; color: #fff !important; }
+    .td-quick-btn.published { background: #dcfce7 !important; color: var(--green) !important; border: 2px solid var(--green) !important; }
+    .td-quick-btn.published:hover { background: var(--green) !important; color: #fff !important; }
     .td-quick-btn.breaking { background: #fee2e2 !important; color: #dc2626 !important; border: 2px solid #dc2626 !important; }
     .td-quick-btn.breaking:hover { background: #dc2626 !important; color: #fff !important; }
-
     .td-search-btn {
-      flex: 0 0 auto !important;
-      width: 44px !important; height: 44px !important;
-      background: #c99a3b !important; color: #061a33 !important;
-      border: 2px solid #c99a3b !important;
+      flex: 0 0 auto !important; width: 40px !important; height: 40px !important;
+      background: var(--gold) !important; color: var(--navy) !important; border: 2px solid var(--gold) !important;
       border-radius: 8px !important; cursor: pointer !important; font-size: 16px !important;
     }
+    body.td-quickbar-on main, body.td-quickbar-on [role="main"] { padding-top: 70px !important; }
 
-    body.td-quickbar-on main,
-    body.td-quickbar-on [role="main"],
-    body.td-quickbar-on [class*="MainContent"] {
-      padding-top: 70px !important;
+    /* ================= COMPACT COLLECTION PANEL ================= */
+    /* এই অংশটি নিউজের কার্ডগুলোকে ছোট এবং পরিচ্ছন্ন করবে */
+    [class*="EntryCard"], [class*="Card"] {
+      padding: 8px 12px !important;
+      margin-bottom: 4px !important;
+      border-radius: 6px !important;
+      border: 1px solid var(--border) !important;
+      background: var(--panel-bg) !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+      font-size: 13px !important;
+    }
+    [class*="EntryCard"]:hover, [class*="Card"]:hover {
+      background: #f8fafc !important;
     }
 
-    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
-      background: #c99a3b !important; color: #061a33 !important;
-      font-weight: 800 !important; border-radius: 8px !important; border: none !important;
-      padding: 5px 12px !important; font-size: 12px !important;
-    }
-    label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; }
-    input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
-
-    /* ===================================================== */
-    /* 🎯 PRIORITY BADGES (Green, Yellow, Orange, Gray)      */
-    /* ===================================================== */
+    /* ================= TIME BADGES ================= */
     .td-time-badge {
       display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      gap: 4px !important; margin-left: 10px !important;
-      padding: 4px 10px !important; border-radius: 12px !important;
-      font-size: 10px !important; font-weight: 800 !important;
+      gap: 4px !important; margin-left: 8px !important;
+      padding: 2px 8px !important; border-radius: 10px !important;
+      font-size: 9px !important; font-weight: 800 !important;
       letter-spacing: 0.3px !important; vertical-align: middle !important;
       white-space: nowrap !important; font-family: Arial, sans-serif !important;
     }
-    .td-time-badge.td-level-new {
-      background: #16a34a !important; color: #ffffff !important;
-      animation: pulse-green 2s infinite !important;
-    }
+    .td-time-badge.td-level-new { background: var(--green) !important; color: #fff !important; animation: pulse-green 2s infinite !important; }
     @keyframes pulse-green {
       0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
       70% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
       100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
     }
-    .td-time-badge.td-level-today { background: #eab308 !important; color: #ffffff !important; }
-    .td-time-badge.td-level-yesterday { background: #f97316 !important; color: #ffffff !important; }
-    .td-time-badge.td-level-stale { background: #94a3b8 !important; color: #ffffff !important; }
+    .td-time-badge.td-level-today { background: var(--yellow) !important; color: #fff !important; }
+    .td-time-badge.td-level-yesterday { background: var(--orange) !important; color: #fff !important; }
+    .td-time-badge.td-level-stale { background: var(--gray) !important; color: #fff !important; }
+
+    /* ================= CUSTOM DASHBOARD & FILTERS ================= */
+    .td-dashboard-container {
+      background: var(--panel-bg); border-radius: 12px; padding: 16px 20px;
+      margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 20px;
+      align-items: center; justify-content: space-between;
+    }
+    .td-stats-group { display: flex; gap: 24px; }
+    .td-stat-item { display: flex; flex-direction: column; }
+    .td-stat-value { font-size: 24px; font-weight: 800; color: var(--navy); line-height: 1.2; }
+    .td-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 600; }
+
+    .td-filter-group { display: flex; align-items: center; gap: 8px; }
+    .td-filter-group input[type="date"] {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
+      font-family: inherit; font-size: 12px; color: var(--text); outline: none;
+    }
+    .td-filter-group button {
+      background: var(--gold); color: var(--navy); border: none; padding: 6px 12px;
+      border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .td-filter-group button:hover { background: var(--gold-light); }
+
+    /* ================= FORM STYLING ================= */
+    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
+      background: var(--gold) !important; color: var(--navy) !important;
+      font-weight: 800 !important; border-radius: 8px !important; border: none !important;
+      padding: 6px 14px !important; font-size: 12px !important;
+    }
+    label[class*="FieldLabel"] { color: var(--navy) !important; font-weight: 700 !important; font-size: 13px !important; }
+    input, textarea, select { border-radius: 8px !important; border: 1.5px solid var(--border) !important; padding: 10px 12px !important; font-size: 13.5px !important; }
 
     @media (max-width: 768px) {
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"]::after { display: none; }
       .td-quick-bar { top: 50px !important; padding: 6px 8px !important; gap: 5px !important; }
-      .td-quick-btn { padding: 9px 8px !important; font-size: 11px !important; }
-      .td-search-btn { width: 38px !important; height: 38px !important; }
-      body.td-quickbar-on main,
-      body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
-      .td-time-badge { font-size: 9px !important; padding: 3px 7px !important; margin-left: 6px !important; }
+      .td-quick-btn { padding: 8px 8px !important; font-size: 11px !important; }
+      .td-search-btn { width: 36px !important; height: 36px !important; }
+      body.td-quickbar-on main, body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
+      .td-time-badge { font-size: 9px !important; padding: 2px 6px !important; margin-left: 4px !important; }
+      .td-dashboard-container { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -138,11 +153,10 @@
   <script>
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
-
     var h = window.h || (window.CMS && window.CMS.h);
 
     // =====================================================
-    // PREVIEW CSS
+    // PREVIEW TEMPLATES
     // =====================================================
     var previewCSS = `
       * { box-sizing: border-box; }
@@ -175,7 +189,6 @@
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
       var dateStr = data.date ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not set';
-
       return h('div', { className: 'td-preview-wrap' },
         h('div', { className: 'td-preview-card' },
           h('div', { className: 'td-preview-img-wrap' },
@@ -212,20 +225,15 @@
     });
 
     // =====================================================
-    // 🎯 DASHBOARD DETECTION
+    // 🎯 DASHBOARD DETECTION & QUICK BAR
     // =====================================================
     function isOnDashboard() {
       var hash = window.location.hash || '';
-      return !hash || hash === '#' || hash === '#/' || hash === '';
+      return !hash || hash === '#' || hash === '/' || hash === '';
     }
-
     function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
 
-    // =====================================================
-    // QUICK BAR
-    // =====================================================
     var BASE = window.location.origin + '/admin/';
-
     function triggerSearch() {
       var all = document.querySelectorAll('button, a, [role="button"]');
       for (var i = 0; i < all.length; i++) {
@@ -233,7 +241,6 @@
         if (txt === 'search all' || txt === 'search') { all[i].click(); return; }
       }
     }
-
     function buildQuickBar() {
       if (document.getElementById('td-quick-bar')) return;
       var bar = document.createElement('div');
@@ -248,7 +255,6 @@
       document.body.classList.add('td-quickbar-on');
       bar.querySelector('.td-search-btn').addEventListener('click', triggerSearch);
     }
-
     function removeQuickBar() {
       var bar = document.getElementById('td-quick-bar');
       if (bar) bar.remove();
@@ -256,17 +262,112 @@
     }
 
     // =====================================================
-    // 🎯 TIME BADGE & PRIORITY LOGIC IN DRAFTS LIST
+    // 🎯 CUSTOM DASHBOARD (STATS + FILTER)
+    // =====================================================
+    function buildCustomDashboard() {
+      if (document.getElementById('td-custom-dashboard')) return;
+
+      var container = document.createElement('div');
+      container.id = 'td-custom-dashboard';
+      container.className = 'td-dashboard-container';
+
+      container.innerHTML = `
+        <div class="td-stats-group">
+          <div class="td-stat-item">
+            <span class="td-stat-value" id="td-total-views">0</span>
+            <span class="td-stat-label">Total Views</span>
+          </div>
+          <div class="td-stat-item">
+            <span class="td-stat-value" id="td-total-published">0</span>
+            <span class="td-stat-label">Published Articles</span>
+          </div>
+        </div>
+        <div class="td-filter-group">
+          <label for="td-date-start" style="font-size:12px; font-weight:600; color:var(--muted);">Filter by Date:</label>
+          <input type="date" id="td-date-start">
+          <span style="color:var(--muted);">to</span>
+          <input type="date" id="td-date-end">
+          <button type="button" id="td-apply-filter">Apply</button>
+          <button type="button" id="td-clear-filter" style="background:#e2e8f0; color:#475569;">Clear</button>
+        </div>
+      `;
+
+      var mainContent = document.querySelector('main[role="main"]');
+      if (mainContent) {
+        mainContent.insertBefore(container, mainContent.firstChild);
+      }
+
+      document.getElementById('td-apply-filter').addEventListener('click', function() {
+        var start = document.getElementById('td-date-start').value;
+        var end = document.getElementById('td-date-end').value;
+        applyDateFilter(start, end);
+      });
+
+      document.getElementById('td-clear-filter').addEventListener('click', function() {
+        document.getElementById('td-date-start').value = '';
+        document.getElementById('td-date-end').value = '';
+        applyDateFilter('', '');
+      });
+    }
+
+    // =====================================================
+    // 🎯 DATE FILTER LOGIC
+    // =====================================================
+    function applyDateFilter(start, end) {
+      var hash = window.location.hash || '';
+      var isPublishedList = hash.indexOf('/collections/news_published') !== -1;
+      var isDraftsList = hash.indexOf('/collections/news_drafts') !== -1;
+      
+      if (!isPublishedList && !isDraftsList) return;
+
+      var links = document.querySelectorAll('a[href*="/entries/"]');
+      links.forEach(function(link) {
+        var row = link.closest('li, [class*="EntryCard"], [class*="Card"]');
+        if (!row) return;
+
+        // ডেটা-অ্যাট্রিবিউট থেকে তারিখ নেওয়া
+        var dateAttr = row.getAttribute('data-entry-date');
+        if (!dateAttr) {
+          // যদি ডেটা-অ্যাট্রিবিউট না থাকে, তবে ফাইলের নাম থেকে তারিখ বের করার চেষ্টা
+          var href = link.getAttribute('href') || '';
+          var slug = href.split('/').pop() || '';
+          var match = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+          if (match) dateAttr = match[1];
+        }
+
+        if (!dateAttr) {
+          row.style.display = 'block';
+          return;
+        }
+
+        var entryDate = new Date(dateAttr);
+        var startDate = start ? new Date(start) : null;
+        var endDate = end ? new Date(end) : null;
+
+        var isVisible = true;
+        if (startDate && entryDate < startDate) isVisible = false;
+        if (endDate) {
+          // শেষ তারিখের দিনটি সম্পূর্ণ ধরার জন্য
+          endDate.setHours(23, 59, 59, 999);
+          if (entryDate > endDate) isVisible = false;
+        }
+
+        row.style.display = isVisible ? 'block' : 'none';
+      });
+    }
+
+    // =====================================================
+    // 🎯 VIEW COUNTER & TIME BADGE & SORTING
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
+    var VIEWS_API = 'https://api.views.dev/count?url='; // ডেমো API, আপনাকে বাস্তব API ব্যবহার করতে হবে
     var timeCache = {};
-    var isInjecting = false; // ✅ ডুপ্লিকেট আটকানোর তালা (Lock)
+    var isInjecting = false;
 
     function calcTimeAgo(dateStr) {
       if (!dateStr) return { text: '', level: 'stale', rawDate: 0 };
       var d = new Date(dateStr);
       if (isNaN(d.getTime())) return { text: '', level: 'stale', rawDate: 0 };
-      
       var diffMs = Date.now() - d.getTime();
       var mins = Math.floor(diffMs / 60000);
       var hours = Math.floor(mins / 60);
@@ -284,9 +385,9 @@
       else text = Math.floor(days / 365) + 'y ago';
 
       var level = 'stale';
-      if (hours < 2) level = 'new';           
-      else if (hours < 24) level = 'today';     
-      else if (hours < 48) level = 'yesterday'; 
+      if (hours < 2) level = 'new';
+      else if (hours < 24) level = 'today';
+      else if (hours < 48) level = 'yesterday';
 
       return { text: text, level: level, rawDate: d.getTime() };
     }
@@ -308,87 +409,113 @@
       }
     }
 
-    async function injectDraftTimeBadges() {
-      var hash = window.location.hash || '';
-      if (hash.indexOf('/collections/news_drafts') === -1) return;
-      if (hash.indexOf('/entries/') !== -1) return;
+    async function fetchViews(slug) {
+      // এটি একটি ডেমো ফাংশন। আপনাকে আপনার ভিউ কাউন্টার API দিয়ে এটি প্রতিস্থাপন করতে হবে।
+      // উদাহরণ: return fetch(`https://your-view-api.com?slug=${slug}`).then(r => r.json()).then(d => d.views);
+      return Math.floor(Math.random() * 1000); // ডেমো র‍্যান্ডম সংখ্যা
+    }
 
-      // ✅ যদি আগে থেকেই একটা প্রসেস চলতে থাকে, তবে নতুন করে আর শুরু হবে না
+    async function injectListEnhancements() {
+      var hash = window.location.hash || '';
+      var isDraftsList = hash.indexOf('/collections/news_drafts') !== -1;
+      var isPublishedList = hash.indexOf('/collections/news_published') !== -1;
+      if (!isDraftsList && !isPublishedList) return;
+      if (hash.indexOf('/entries/') !== -1) return;
       if (isInjecting) return;
       isInjecting = true;
 
       try {
-        var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+        var links = document.querySelectorAll('a[href*="/entries/"]');
         if (!links.length) { isInjecting = false; return; }
+
+        var totalViews = 0;
+        var publishedCount = 0;
 
         for (var i = 0; i < links.length; i++) {
           var link = links[i];
-          
-          // ✅ চেক করা: এই লিংকে আগেই ব্যাজ বসানো হয়েছে কিনা
-          if (link.querySelector('.td-time-badge')) continue;
-
           var href = link.getAttribute('href') || '';
           var slug = href.split('/').pop();
           if (!slug) continue;
 
-          var timeInfo = await fetchImportedAt(slug);
-          if (!timeInfo || !timeInfo.text) continue;
-
-          // ✅ ফেচ শেষ হওয়ার পর আবারো চেক করা (যাতে ডুপ্লিকেট না হয়)
-          if (link.querySelector('.td-time-badge')) continue;
-
-          var badge = document.createElement('span');
-          badge.className = 'td-time-badge td-level-' + timeInfo.level;
-          
-          var prefix = '';
-          if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
-          else if (timeInfo.level === 'today') prefix = '🟡 ';
-          else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
-          else prefix = '⚪ ';
-
-          badge.textContent = prefix + timeInfo.text;
-          link.appendChild(badge);
-        }
-
-        // ==========================================
-        // ✅ অটো-সর্টিং লজিক (নতুন নিউজ উপরে থাকবে)
-        // ==========================================
-        var allLinks = Array.from(links);
-        var listContainer = null;
-
-        if (allLinks.length > 0) {
-            listContainer = allLinks[0].closest('ul, [role="list"], .css-0'); 
-            if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
-        }
-
-        if (listContainer) {
-            var rows = Array.from(listContainer.children);
-            rows = rows.filter(row => row.querySelector('a[href*="/collections/news_drafts/entries/"]'));
-
-            if (rows.length > 1) {
-                rows.sort(function(a, b) {
-                    var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                    var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                    if (!aLink || !bLink) return 0;
-                    
-                    var aSlug = aLink.getAttribute('href').split('/').pop();
-                    var bSlug = bLink.getAttribute('href').split('/').pop();
-                    
-                    var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
-                    var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                    
-                    return timeB - timeA; // Descending Order (নতুন আগে)
-                });
-
-                rows.forEach(function(row) {
-                    listContainer.appendChild(row);
-                });
+          // ডেটা-অ্যাট্রিবিউট সেট করা ফিল্টারের জন্য
+          var row = link.closest('li, [class*="EntryCard"], [class*="Card"]');
+          if (row) {
+            // ফাইলের নাম থেকে তারিখ বের করার চেষ্টা (যেমন: 2023-10-25-...)
+            var dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
+            if (dateMatch) {
+              row.setAttribute('data-entry-date', dateMatch[1]);
             }
+          }
+
+          // === ড্রাফট লিস্টের জন্য টাইম ব্যাজ ===
+          if (isDraftsList) {
+            if (link.querySelector('.td-time-badge')) continue;
+            var timeInfo = await fetchImportedAt(slug);
+            if (!timeInfo || !timeInfo.text) continue;
+            if (link.querySelector('.td-time-badge')) continue;
+
+            var badge = document.createElement('span');
+            badge.className = 'td-time-badge td-level-' + timeInfo.level;
+            var prefix = '';
+            if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
+            else if (timeInfo.level === 'today') prefix = '🟡 ';
+            else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
+            else prefix = '⚪ ';
+            badge.textContent = prefix + timeInfo.text;
+            link.appendChild(badge);
+          }
+
+          // === প্রকাশিত লিস্টের জন্য ভিউ কাউন্টার ===
+          if (isPublishedList) {
+            publishedCount++;
+            if (!link.querySelector('.td-view-badge')) {
+              var views = await fetchViews(slug);
+              totalViews += views;
+              var viewSpan = document.createElement('span');
+              viewSpan.className = 'td-time-badge'; // রিইউজ করা ক্লাস
+              viewSpan.style.background = '#e2e8f0';
+              viewSpan.style.color = '#475569';
+              viewSpan.style.marginLeft = '8px';
+              viewSpan.textContent = views + ' 👁️';
+              link.appendChild(viewSpan);
+            }
+          }
         }
 
+        // === ড্যাশবোর্ড আপডেট ===
+        var totalViewsEl = document.getElementById('td-total-views');
+        var totalPublishedEl = document.getElementById('td-total-published');
+        if (totalViewsEl) totalViewsEl.textContent = totalViews;
+        if (totalPublishedEl) totalPublishedEl.textContent = publishedCount;
+
+        // === অটো-সর্টিং (শুধু ড্রাফটের জন্য) ===
+        if (isDraftsList) {
+          var allLinks = Array.from(links);
+          var listContainer = null;
+          if (allLinks.length > 0) {
+            listContainer = allLinks[0].closest('ul, [role="list"], .css-0');
+            if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
+          }
+          if (listContainer) {
+            var rows = Array.from(listContainer.children);
+            rows = rows.filter(function(row) { return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); });
+            if (rows.length > 1) {
+              rows.sort(function(a, b) {
+                var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                if (!aLink || !bLink) return 0;
+                var aSlug = aLink.getAttribute('href').split('/').pop();
+                var bSlug = bLink.getAttribute('href').split('/').pop();
+                var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+                var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+                return timeB - timeA;
+              });
+              rows.forEach(function(row) { listContainer.appendChild(row); });
+            }
+          }
+        }
       } finally {
-        // ✅ কাজ শেষ, তালা খুলে দেওয়া হলো
-        isInjecting = false; 
+        isInjecting = false;
       }
     }
 
@@ -403,11 +530,12 @@
 
       if (isOnDashboard()) {
         buildQuickBar();
+        buildCustomDashboard();
       } else {
         removeQuickBar();
       }
 
-      setTimeout(injectDraftTimeBadges, 400);
+      setTimeout(injectListEnhancements, 500);
     }
 
     setTimeout(refresh, 800);

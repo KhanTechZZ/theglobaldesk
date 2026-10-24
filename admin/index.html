@@ -113,6 +113,26 @@
       background: #e2e8f0 !important; color: #475569 !important;
     }
 
+    /* Views Badge */
+    .td-view-badge {
+      display: inline-flex !important; align-items: center !important;
+      gap: 4px !important; margin-left: 10px !important;
+      padding: 3px 10px !important; border-radius: 12px !important;
+      font-size: 10px !important; font-weight: 800 !important;
+      background: #f1f5f9 !important; color: #061a33 !important; border: 1px solid #e2e8f0 !important;
+    }
+
+    /* Sort Button */
+    .td-sort-btn {
+      display: inline-flex !important; align-items: center !important; gap: 6px !important;
+      background: #ffffff !important; border: 1px solid #cbd5e1 !important;
+      padding: 6px 12px !important; border-radius: 6px !important; cursor: pointer !important;
+      font-size: 12px !important; font-weight: 700 !important; color: #0f172a !important;
+      margin: 12px 20px !important; box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+      transition: all 0.2s !important;
+    }
+    .td-sort-btn:hover { background: #f8fafc !important; border-color: #c99a3b !important; }
+
     @media (max-width: 768px) {
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"]::after { display: none; }
@@ -122,6 +142,7 @@
       body.td-quickbar-on main,
       body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
       .td-time-badge { font-size: 9px !important; padding: 2px 7px !important; margin-left: 6px !important; }
+      .td-sort-btn { margin: 8px 10px !important; }
     }
   </style>
 </head>
@@ -249,15 +270,16 @@
     }
 
     // =====================================================
-    // 🎯 TIME BADGE IN DRAFTS LIST
+    // 🎯 TIME BADGE & SORTING IN DRAFTS LIST
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
+    var isInjecting = false;
 
     function calcTimeAgo(dateStr) {
-      if (!dateStr) return { text: '', isNew: false };
+      if (!dateStr) return { text: '', isNew: false, rawDate: 0 };
       var d = new Date(dateStr);
-      if (isNaN(d.getTime())) return { text: '', isNew: false };
+      if (isNaN(d.getTime())) return { text: '', isNew: false, rawDate: 0 };
       var diffMs = Date.now() - d.getTime();
       var mins = Math.floor(diffMs / 60000);
       var hours = Math.floor(mins / 60);
@@ -265,14 +287,16 @@
       var weeks = Math.floor(days / 7);
       var months = Math.floor(days / 30);
 
-      if (mins < 1) return { text: 'just now', isNew: true };
-      if (mins < 60) return { text: mins + 'm ago', isNew: true };
-      if (hours < 2) return { text: hours + 'h ago', isNew: true };
-      if (hours < 24) return { text: hours + 'h ago', isNew: false };
-      if (days < 7) return { text: days + 'd ago', isNew: false };
-      if (weeks < 4) return { text: weeks + 'w ago', isNew: false };
-      if (months < 12) return { text: months + 'mo ago', isNew: false };
-      return { text: Math.floor(days / 365) + 'y ago', isNew: false };
+      var text = '';
+      if (mins < 1) text = 'just now';
+      else if (mins < 60) text = mins + 'm ago';
+      else if (hours < 24) text = hours + 'h ago';
+      else if (days < 7) text = days + 'd ago';
+      else if (weeks < 4) text = weeks + 'w ago';
+      else if (months < 12) text = months + 'mo ago';
+      else text = Math.floor(days / 365) + 'y ago';
+
+      return { text: text, isNew: (hours < 2), rawDate: d.getTime() };
     }
 
     async function fetchImportedAt(slug) {
@@ -292,30 +316,126 @@
       }
     }
 
+    function addSortButton() {
+      if (document.getElementById('td-sort-btn')) return;
+      var lists = document.querySelectorAll('ul, [role="list"]');
+      if (!lists.length) return;
+      
+      var btn = document.createElement('button');
+      btn.id = 'td-sort-btn';
+      btn.className = 'td-sort-btn';
+      btn.innerHTML = '<i class="fa-solid fa-arrow-down-wide-short"></i> Sort: Newest';
+      
+      lists[0].parentElement.insertBefore(btn, lists[0]);
+
+      btn.addEventListener('click', function() {
+        var isNewest = btn.textContent.includes('Newest');
+        btn.innerHTML = isNewest ? '<i class="fa-solid fa-arrow-up-wide-short"></i> Sort: Oldest' : '<i class="fa-solid fa-arrow-down-wide-short"></i> Sort: Newest';
+        
+        var listContainer = lists[0];
+        var rows = Array.from(listContainer.children).filter(function(row) { 
+          return row.querySelector('a[href*="/entries/"]'); 
+        });
+        
+        if (rows.length > 1) {
+          rows.sort(function(a, b) {
+            var aSlug = a.querySelector('a').getAttribute('href').split('/').pop();
+            var bSlug = b.querySelector('a').getAttribute('href').split('/').pop();
+            var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+            var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+            return isNewest ? (timeA - timeB) : (timeB - timeA);
+          });
+          rows.forEach(function(row) { listContainer.appendChild(row); });
+        }
+      });
+    }
+
     async function injectDraftTimeBadges() {
       var hash = window.location.hash || '';
       if (hash.indexOf('/collections/news_drafts') === -1) return;
       if (hash.indexOf('/entries/') !== -1) return;
+      if (isInjecting) return;
+      isInjecting = true;
 
-      var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+      try {
+        var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+        if (!links.length) return;
+
+        // Sort button add kora
+        addSortButton();
+
+        for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          if (link.querySelector('.td-time-badge')) continue;
+
+          var href = link.getAttribute('href') || '';
+          var slug = href.split('/').pop();
+          if (!slug) continue;
+
+          var timeInfo = await fetchImportedAt(slug);
+          if (!timeInfo || !timeInfo.text) continue;
+
+          var badge = document.createElement('span');
+          badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
+          badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
+          link.appendChild(badge);
+        }
+      } finally {
+        isInjecting = false;
+      }
+    }
+
+    // =====================================================
+    // 🎯 VIEWS COUNTER IN PUBLISHED LIST
+    // =====================================================
+    var viewsCache = {};
+    async function fetchViews(slug) {
+      if (viewsCache[slug] !== undefined) return viewsCache[slug];
+      try {
+        var controller = new AbortController();
+        var timeoutId = setTimeout(() => controller.abort(), 3000);
+        var res = await fetch('https://abacus.jamesm.dev/get/theglobaldesk/' + slug, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (!res.ok) { viewsCache[slug] = 0; return 0; }
+        var data = await res.json();
+        var count = data.value || 0;
+        viewsCache[slug] = count;
+        return count;
+      } catch (e) {
+        viewsCache[slug] = 0;
+        return 0;
+      }
+    }
+
+    async function injectPublishedViews() {
+      var hash = window.location.hash || '';
+      if (hash.indexOf('/collections/news_published') === -1) return;
+      if (hash.indexOf('/entries/') !== -1) return;
+
+      var links = document.querySelectorAll('a[href*="/collections/news_published/entries/"]');
       if (!links.length) return;
 
+      var promises = [];
       for (var i = 0; i < links.length; i++) {
-        var link = links[i];
-        if (link.querySelector('.td-time-badge')) continue;
+        (function(link) {
+          if (link.querySelector('.td-view-badge')) return;
+          
+          var href = link.getAttribute('href') || '';
+          var slug = href.split('/').pop();
+          if (!slug) return;
 
-        var href = link.getAttribute('href') || '';
-        var slug = href.split('/').pop();
-        if (!slug) continue;
+          var viewSpan = document.createElement('span');
+          viewSpan.className = 'td-view-badge';
+          viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
+          link.appendChild(viewSpan);
 
-        var timeInfo = await fetchImportedAt(slug);
-        if (!timeInfo || !timeInfo.text) continue;
-
-        var badge = document.createElement('span');
-        badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
-        badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
-        link.appendChild(badge);
+          promises.push(fetchViews(slug).then(function(views) {
+            viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
+          }));
+        })(links[i]);
       }
+      await Promise.all(promises);
     }
 
     // =====================================================
@@ -327,29 +447,39 @@
         return;
       }
 
-      // ✅ Quick bar ONLY on dashboard
+      var hash = window.location.hash || '';
+      
+      // Dashboard quick bar
       if (isOnDashboard()) {
         buildQuickBar();
       } else {
         removeQuickBar();
       }
 
-      // Time badges work on drafts list regardless of quick bar
-      setTimeout(injectDraftTimeBadges, 400);
+      // Fast rendering without blocking the editor
+      if (hash.indexOf('/entries/') === -1 && hash.indexOf('/new') === -1) {
+        setTimeout(injectDraftTimeBadges, 200);
+        setTimeout(injectPublishedViews, 200);
+      }
     }
 
+    // Initial runs
     setTimeout(refresh, 800);
-    setTimeout(refresh, 2000);
-    setTimeout(refresh, 3500);
+    setTimeout(refresh, 1500);
 
     window.addEventListener('hashchange', function() {
+      // Remove existing sort buttons to prevent duplicates on page switch
+      var sortBtn = document.getElementById('td-sort-btn');
+      if (sortBtn) sortBtn.remove();
+      
       setTimeout(refresh, 400);
     });
 
+    // Optimized MutationObserver (Debounced heavily to prevent jitter)
     var t;
     new MutationObserver(function() {
       clearTimeout(t);
-      t = setTimeout(refresh, 600);
+      t = setTimeout(refresh, 1000); 
     }).observe(document.body, { childList: true, subtree: true });
   });
   </script>

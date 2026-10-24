@@ -13,7 +13,6 @@
       --navy: #061a33;
       --navy-light: #0d2a4a;
       --gold: #c99a3b;
-      --gold-hover: #b5852c;
       --bg: #f1f5f9;
       --surface: #ffffff;
       --text: #1e293b;
@@ -25,95 +24,100 @@
       --gray: #94a3b8;
     }
 
-    /* গ্লোবাল ফন্ট ও ব্যাকগ্রাউন্ড */
     html, body, [class*="App"], [class*="Main"] {
       font-family: 'Inter', Arial, sans-serif !important;
       background-color: var(--bg) !important;
       color: var(--text) !important;
     }
 
-    /* ডিফল্ট সাইডবার ও টপ হেডার হাইড করা (আমাদের নিজস্ব ডিজাইন থাকবে) */
+    /* ডিফল্ট সাইডবার ও টপ হেডার হাইড */
     aside[role="navigation"], [class*="Sidebar"], nav[class*="Navigation"] { display: none !important; }
     header[role="banner"] { display: none !important; }
     main, [role="main"], [class*="MainContent"] { margin-left: 0 !important; padding: 0 !important; width: 100% !important; }
 
     /* ================= 🎨 CUSTOM TOP HEADER ================= */
     .td-custom-header {
-      background: var(--navy); padding: 0 24px; min-height: 64px;
+      background: var(--navy); padding: 0 24px; min-height: 56px;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
     .td-brand { display: flex; align-items: center; gap: 12px; }
-    .td-brand img { max-height: 36px; background: #fff; padding: 4px 8px; border-radius: 6px; }
-    .td-brand span { color: var(--gold); font-weight: 800; font-size: 12px; letter-spacing: 2px; border-left: 1px solid rgba(201,154,59,0.3); padding-left: 12px; }
+    /* ✅ লোগো ব্যাকগ্রাউন্ড ডার্ক এবং সাদা লোগো ফুটে ওঠার জন্য */
+    .td-brand img { 
+      max-height: 32px; 
+      background: transparent; 
+      padding: 0; 
+      border-radius: 0; 
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    .td-brand span { color: var(--gold); font-weight: 800; font-size: 11px; letter-spacing: 2px; border-left: 1px solid rgba(201,154,59,0.3); padding-left: 12px; }
     
-    .td-nav-links { display: flex; gap: 8px; }
+    .td-nav-links { display: flex; gap: 6px; }
     .td-nav-btn {
-      color: #94a3b8; text-decoration: none; padding: 8px 16px; border-radius: 8px;
-      font-size: 13px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+      color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px;
+      font-size: 12px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 5px;
     }
     .td-nav-btn:hover, .td-nav-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
     .td-nav-btn.active { color: var(--gold); background: rgba(201,154,59,0.1); }
 
-    /* ================= 📊 DASHBOARD & FILTERS ================= */
+    /* ================= 📊 COMPACT DASHBOARD & FILTERS ================= */
+    /* ✅ ড্যাশবোর্ড এবং ফিল্টার এখন অনেক ছোট এবং এক লাইনে */
     .td-dashboard-wrapper {
-      max-width: 1100px; margin: 24px auto 0; padding: 0 24px;
-      display: flex; flex-direction: column; gap: 16px;
+      max-width: 1100px; margin: 12px auto 0; padding: 0 16px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
-    .td-stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .td-stat-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 20px; display: flex; flex-direction: column; gap: 4px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03); position: relative; overflow: hidden;
+    .td-stats-group { display: flex; gap: 12px; }
+    .td-stat-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 6px 12px; display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
     }
-    .td-stat-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); }
-    .td-stat-value { font-size: 28px; font-weight: 800; color: var(--navy); line-height: 1; }
-    .td-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
+    .td-stat-value { font-size: 16px; font-weight: 800; color: var(--navy); }
+    .td-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 700; }
 
     .td-filter-bar {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 16px 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 6px 12px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
     }
-    .td-filter-bar label { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .td-filter-bar label { font-size: 12px; font-weight: 600; color: var(--navy); }
     .td-filter-bar input[type="date"] {
-      padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
-      font-size: 13px; font-family: inherit; outline: none; background: var(--bg);
+      padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 12px; font-family: inherit; outline: none; background: var(--bg);
     }
     .td-filter-bar button {
-      background: var(--navy); color: #fff; border: none; padding: 8px 16px;
-      border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s;
+      background: var(--navy); color: #fff; border: none; padding: 4px 12px;
+      border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; transition: 0.2s;
     }
     .td-filter-bar button:hover { background: var(--navy-light); }
     .td-filter-bar button.clear { background: #e2e8f0; color: #475569; }
     .td-filter-bar button.clear:hover { background: #cbd5e1; }
 
-    /* ================= 📝 LIST CARDS (NEWS ITEMS) ================= */
-    /* ডিক্যাপ সিএমএস-এর লিস্ট আইটেমগুলোকে সুন্দর কার্ডে রূপান্তর */
-    ul[class*="Collection"], div[class*="Entries"] { padding: 24px !important; max-width: 1100px !important; margin: 0 auto !important; }
+    /* ================= 📝 LIST CARDS ================= */
+    ul[class*="Collection"], div[class*="Entries"] { padding: 16px !important; max-width: 1100px !important; margin: 0 auto !important; }
     
     li, [class*="ListItem"], [class*="EntryCard"] {
       background: var(--surface) !important; border: 1px solid var(--border) !important;
-      border-radius: 12px !important; margin-bottom: 12px !important; padding: 0 !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important; transition: all 0.2s !important;
+      border-radius: 8px !important; margin-bottom: 8px !important; padding: 0 !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important; transition: all 0.2s !important;
     }
     li:hover, [class*="ListItem"]:hover, [class*="EntryCard"]:hover {
-      border-color: var(--gold) !important; box-shadow: 0 6px 16px rgba(201,154,59,0.15) !important;
-      transform: translateY(-2px) !important;
+      border-color: var(--gold) !important; box-shadow: 0 4px 12px rgba(201,154,59,0.15) !important;
+      transform: translateY(-1px) !important;
     }
     li > a, [class*="ListItem"] > a, [class*="EntryCard"] > a {
-      padding: 16px 20px !important; display: flex !important; align-items: center !important;
+      padding: 12px 16px !important; display: flex !important; align-items: center !important;
       justify-content: space-between !important; text-decoration: none !important; color: var(--text) !important;
     }
-    h2, h3, [class*="Card"] h2 { font-family: 'Merriweather', serif !important; font-weight: 700 !important; color: var(--navy) !important; margin: 0 !important; font-size: 16px !important; }
-    p, [class*="Card"] p { color: var(--muted) !important; font-size: 13px !important; margin: 4px 0 0 0 !important; }
+    h2, h3, [class*="Card"] h2 { font-family: 'Merriweather', serif !important; font-weight: 700 !important; color: var(--navy) !important; margin: 0 !important; font-size: 14px !important; }
+    p, [class*="Card"] p { color: var(--muted) !important; font-size: 12px !important; margin: 2px 0 0 0 !important; }
 
     /* ================= ⏱️ TIME & VIEW BADGES ================= */
     .td-badge {
       display: inline-flex; align-items: center; justify-content: center; gap: 4px;
-      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
-      margin-left: 12px; white-space: nowrap; font-family: 'Inter', sans-serif;
+      padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700;
+      margin-left: 10px; white-space: nowrap; font-family: 'Inter', sans-serif;
     }
     .td-badge.new { background: var(--green); color: #fff; animation: pulse-green 2s infinite; }
     .td-badge.today { background: var(--yellow); color: #fff; }
@@ -123,25 +127,24 @@
     
     @keyframes pulse-green {
       0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 
     /* ================= ✏️ EDITOR PAGE STYLING ================= */
-    [class*="EditorPane"], [class*="ControlPane"] { background: var(--surface) !important; border-radius: 12px !important; margin: 20px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important; border: 1px solid var(--border) !important; }
-    label[class*="FieldLabel"] { color: var(--navy) !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 8px !important; }
-    input, textarea, select { border-radius: 8px !important; border: 1.5px solid var(--border) !important; padding: 12px 16px !important; font-size: 14px !important; transition: all 0.2s !important; width: 100% !important; }
+    [class*="EditorPane"], [class*="ControlPane"] { background: var(--surface) !important; border-radius: 8px !important; margin: 16px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important; border: 1px solid var(--border) !important; }
+    label[class*="FieldLabel"] { color: var(--navy) !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 6px !important; }
+    input, textarea, select { border-radius: 6px !important; border: 1.5px solid var(--border) !important; padding: 10px 12px !important; font-size: 13px !important; transition: all 0.2s !important; width: 100% !important; }
     input:focus, textarea:focus, select:focus { border-color: var(--gold) !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.15) !important; outline: none !important; }
-    button[type="submit"], [class*="ToolbarButton"] { background: var(--navy) !important; color: #fff !important; font-weight: 700 !important; border-radius: 8px !important; padding: 10px 20px !important; border: none !important; transition: 0.2s !important; }
+    button[type="submit"], [class*="ToolbarButton"] { background: var(--navy) !important; color: #fff !important; font-weight: 700 !important; border-radius: 6px !important; padding: 8px 16px !important; border: none !important; transition: 0.2s !important; }
     button[type="submit"]:hover, [class*="ToolbarButton"]:hover { background: var(--gold) !important; color: var(--navy) !important; }
 
     @media (max-width: 768px) {
       .td-nav-links { display: none; }
-      .td-custom-header { padding: 0 16px; }
-      .td-dashboard-wrapper { padding: 0 12px; margin-top: 12px; }
-      .td-stats-row { grid-template-columns: 1fr; }
+      .td-custom-header { padding: 0 12px; min-height: 50px; }
+      .td-dashboard-wrapper { flex-direction: column; align-items: flex-start; }
       ul[class*="Collection"] { padding: 12px !important; }
-      li > a { flex-direction: column; align-items: flex-start !important; gap: 8px; }
+      li > a { flex-direction: column; align-items: flex-start !important; gap: 6px; }
     }
   </style>
 </head>
@@ -154,12 +157,12 @@
     var h = window.h || (window.CMS && window.CMS.h);
 
     // =====================================================
-    // 1. CUSTOM PREVIEW TEMPLATES (Article Card Preview)
+    // 1. PREVIEW TEMPLATES
     // =====================================================
     var previewCSS = `
       * { box-sizing: border-box; }
       body { margin: 0; padding: 20px; background: #f1f5f9; font-family: 'Inter', sans-serif; display: flex; justify-content: center; }
-      .card { background: #fff; border-radius: 16px; overflow: hidden; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+      .card { background: #fff; border-radius: 12px; overflow: hidden; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
       .img-wrap { width: 100%; height: 220px; background: #e2e8f0; position: relative; }
       .img { width: 100%; height: 100%; object-fit: cover; }
       .img-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8; font-weight: 600; }
@@ -208,7 +211,7 @@
       var data = props.entry.getIn(['data']).toJS();
       var expiresStr = data.expires ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'No expiry';
       return h('div', { style: { padding: '20px', display: 'flex', justifyContent: 'center', background: '#f1f5f9', height: '100%' } },
-        h('div', { style: { background: '#061a33', color: '#fff', padding: '24px', borderRadius: '16px', width: '100%', maxWidth: '400px', borderTop: '4px solid #c51f2d', boxShadow: '0 10px 30px rgba(0,0,0,0.2)' } },
+        h('div', { style: { background: '#061a33', color: '#fff', padding: '24px', borderRadius: '12px', width: '100%', maxWidth: '400px', borderTop: '4px solid #c51f2d', boxShadow: '0 10px 30px rgba(0,0,0,0.2)' } },
           h('span', { style: { background: '#c51f2d', padding: '4px 10px', borderRadius: '4px', fontSize: '10px', fontWeight: '800', letterSpacing: '1px' } }, 'BREAKING'),
           h('h2', { style: { fontFamily: 'Merriweather, serif', fontSize: '20px', margin: '16px 0' } }, data.title || 'Breaking headline'),
           h('div', { style: { fontSize: '12px', color: 'rgba(255,255,255,0.6)', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' } },
@@ -219,19 +222,13 @@
     });
 
     // =====================================================
-    // 2. NEW UI INJECTION (HEADER + DASHBOARD + BADGES)
+    // 2. NEW UI INJECTION
     // =====================================================
     function isListPage() {
       var hash = window.location.hash || '';
       return (hash.includes('/collections/') && !hash.includes('/entries/') && !hash.endsWith('/new'));
     }
 
-    function isDashboard() {
-      var hash = window.location.hash || '';
-      return !hash || hash === '#' || hash === '/' || hash === '';
-    }
-
-    // কাস্টম হেডার তৈরি
     function buildHeader() {
       if (document.getElementById('td-custom-header')) return;
       var header = document.createElement('div');
@@ -257,7 +254,6 @@
       document.body.prepend(header);
     }
 
-    // ড্যাশবোর্ড (স্ট্যাটস + ফিল্টার) তৈরি
     function buildDashboard() {
       if (document.getElementById('td-dashboard-wrapper') || !isListPage()) return;
 
@@ -265,28 +261,28 @@
       wrapper.id = 'td-dashboard-wrapper';
       wrapper.className = 'td-dashboard-wrapper';
       
+      // ✅ কমপ্যাক্ট ড্যাশবোর্ড এবং ফিল্টার
       wrapper.innerHTML = `
-        <div class="td-stats-row">
-          <div class="td-stat-card">
-            <span class="td-stat-value" id="td-total-views">0</span>
-            <span class="td-stat-label">Total Views</span>
-          </div>
-          <div class="td-stat-card">
+        <div class="td-stats-group">
+          <div class="td-stat-box">
             <span class="td-stat-value" id="td-total-items">0</span>
-            <span class="td-stat-label">Total Articles</span>
+            <span class="td-stat-label">Articles</span>
+          </div>
+          <div class="td-stat-box">
+            <span class="td-stat-value" id="td-total-views">-</span>
+            <span class="td-stat-label">Views (Not Connected)</span>
           </div>
         </div>
         <div class="td-filter-bar">
-          <label>Filter by Date:</label>
+          <label>Filter:</label>
           <input type="date" id="td-date-start">
-          <span style="color:var(--muted);">to</span>
+          <span style="color:var(--muted); font-size:12px;">to</span>
           <input type="date" id="td-date-end">
-          <button type="button" id="td-apply-filter">Apply Filter</button>
+          <button type="button" id="td-apply-filter">Apply</button>
           <button type="button" id="td-clear-filter" class="clear">Clear</button>
         </div>
       `;
 
-      // মেইন কন্টেইনারের ঠিক আগে ড্যাশবোর্ড বসানো
       var mainContent = document.querySelector('main, [role="main"]') || document.body;
       mainContent.prepend(wrapper);
 
@@ -303,7 +299,6 @@
       });
     }
 
-    // ডেট ফিল্টার লজিক
     function applyDateFilter(start, end) {
       var links = document.querySelectorAll('a[href*="/entries/"]');
       links.forEach(function(link) {
@@ -330,7 +325,6 @@
       });
     }
 
-    // টাইম ব্যাজ এবং ভিউ কাউন্ট
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
     var isInjecting = false;
@@ -386,11 +380,10 @@
 
       try {
         var links = document.querySelectorAll('a[href*="/entries/"]');
-        var totalItems = links.length;
         
         // স্ট্যাটস আপডেট
         var totalItemsEl = document.getElementById('td-total-items');
-        if (totalItemsEl) totalItemsEl.textContent = totalItems;
+        if (totalItemsEl) totalItemsEl.textContent = links.length;
 
         for (var i = 0; i < links.length; i++) {
           var link = links[i];
@@ -415,12 +408,13 @@
             link.appendChild(badge);
           }
 
-          // প্রকাশিত লিস্টের জন্য ভিউ ব্যাজ (প্লেসহোল্ডার)
+          // প্রকাশিত লিস্টের জন্য ভিউ ব্যাজ (এখন কাজ করবে না, শুধু ড্যাশ দেখাবে)
           if (isPublishedList) {
             if (!link.querySelector('.td-badge.views')) {
               var viewSpan = document.createElement('span');
               viewSpan.className = 'td-badge views';
-              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> 0'; 
+              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> -'; 
+              viewSpan.title = "Requires Cloudflare Worker setup to track real views";
               link.appendChild(viewSpan);
             }
           }
@@ -456,7 +450,6 @@
     function init() {
       buildHeader();
       
-      // এডিটর বা নতুন পেজে ড্যাশবোর্ড/ব্যাজ রান হবে না
       if (isListPage()) {
         buildDashboard();
         setTimeout(injectBadges, 500);
@@ -466,7 +459,6 @@
       }
     }
 
-    // রিয়েল-টাইম আপডেট ট্র্যাকার
     setTimeout(init, 800);
     setTimeout(init, 2000);
     window.addEventListener('hashchange', function() {

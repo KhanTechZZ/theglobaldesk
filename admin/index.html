@@ -249,16 +249,16 @@
     }
 
     // =====================================================
-    // 🎯 TIME BADGE IN DRAFTS LIST (FIXED DUPLICATE BUG)
+    // 🎯 TIME BADGE + NEWEST SORTING (FIXED DUPLICATE & SORTED)
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
     var isInjecting = false; // ✅ ডুপ্লিকেট আটকানোর তালা (Lock)
 
     function calcTimeAgo(dateStr) {
-      if (!dateStr) return { text: '', isNew: false };
+      if (!dateStr) return { text: '', isNew: false, rawDate: 0 };
       var d = new Date(dateStr);
-      if (isNaN(d.getTime())) return { text: '', isNew: false };
+      if (isNaN(d.getTime())) return { text: '', isNew: false, rawDate: 0 };
       var diffMs = Date.now() - d.getTime();
       var mins = Math.floor(diffMs / 60000);
       var hours = Math.floor(mins / 60);
@@ -266,14 +266,17 @@
       var weeks = Math.floor(days / 7);
       var months = Math.floor(days / 30);
 
-      if (mins < 1) return { text: 'just now', isNew: true };
-      if (mins < 60) return { text: mins + 'm ago', isNew: true };
-      if (hours < 2) return { text: hours + 'h ago', isNew: true };
-      if (hours < 24) return { text: hours + 'h ago', isNew: false };
-      if (days < 7) return { text: days + 'd ago', isNew: false };
-      if (weeks < 4) return { text: weeks + 'w ago', isNew: false };
-      if (months < 12) return { text: months + 'mo ago', isNew: false };
-      return { text: Math.floor(days / 365) + 'y ago', isNew: false };
+      var text = '';
+      if (mins < 1) text = 'just now';
+      else if (mins < 60) text = mins + 'm ago';
+      else if (hours < 24) text = hours + 'h ago';
+      else if (days < 7) text = days + 'd ago';
+      else if (weeks < 4) text = weeks + 'w ago';
+      else if (months < 12) text = months + 'mo ago';
+      else text = Math.floor(days / 365) + 'y ago';
+
+      // ✅ rawDate যুক্ত করা হলো, যা দিয়ে আমরা সর্ট করব
+      return { text: text, isNew: (hours < 2), rawDate: d.getTime() };
     }
 
     async function fetchImportedAt(slug) {
@@ -324,6 +327,60 @@
           badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
           badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
           link.appendChild(badge);
+        }
+
+        // ==========================================
+        // ✅ অটো-সর্টিং লজিক (নতুন নিউজ উপরে থাকবে)
+        // ==========================================
+        var allLinks = Array.from(links);
+        var listContainer = null;
+
+        if (allLinks.length > 0) {
+            listContainer = allLinks[0].closest('ul, [role="list"]'); 
+            if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
+        }
+
+        if (listContainer) {
+            var rows = Array.from(listContainer.children);
+            rows = rows.filter(function(row) { 
+              return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); 
+            });
+            
+            if (rows.length > 1) {
+                // ✅ চেক করা হচ্ছে লিস্ট আগে থেকেই সর্ট করা আছে কিনা (ইনফিনিট লুপ আটকাতে)
+                var needsSort = false;
+                for (var j = 0; j < rows.length - 1; j++) {
+                    var aLink = rows[j].querySelector('a[href*="/collections/news_drafts/entries/"]');
+                    var bLink = rows[j+1].querySelector('a[href*="/collections/news_drafts/entries/"]');
+                    if (!aLink || !bLink) continue;
+                    var aSlug = aLink.getAttribute('href').split('/').pop();
+                    var bSlug = bLink.getAttribute('href').split('/').pop();
+                    var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+                    var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+                    
+                    if (timeA < timeB) { // যদি আগেরটা নতুনের চেয়ে পুরোনো হয়
+                        needsSort = true;
+                        break;
+                    }
+                }
+                
+                if (needsSort) {
+                    rows.sort(function(a, b) {
+                        var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                        var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                        if (!aLink || !bLink) return 0;
+                        var aSlug = aLink.getAttribute('href').split('/').pop();
+                        var bSlug = bLink.getAttribute('href').split('/').pop();
+                        var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+                        var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+                        
+                        return timeB - timeA; // Descending (সর্বোচ্চ টাইম আগে = নতুন আগে)
+                    });
+                    
+                    // DOM-এ নতুন করে সাজিয়ে বসানো
+                    rows.forEach(function(row) { listContainer.appendChild(row); });
+                }
+            }
         }
       } finally {
         // ✅ কাজ শেষ, তালা খুলে দেওয়া হলো

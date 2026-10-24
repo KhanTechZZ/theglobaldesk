@@ -260,6 +260,7 @@
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
+    var isInjecting = false; // ✅ ডুপ্লিকেট আটকানোর তালা (Lock)
 
     function calcTimeAgo(dateStr) {
       if (!dateStr) return { text: '', level: 'stale', rawDate: 0 };
@@ -287,7 +288,6 @@
       else if (hours < 24) level = 'today';     
       else if (hours < 48) level = 'yesterday'; 
 
-      // রিটার্ন অবজেক্টে rawDate (timestamp) যোগ করা হলো, যা দিয়ে আমরা সর্ট করব
       return { text: text, level: level, rawDate: d.getTime() };
     }
 
@@ -313,76 +313,82 @@
       if (hash.indexOf('/collections/news_drafts') === -1) return;
       if (hash.indexOf('/entries/') !== -1) return;
 
-      var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
-      if (!links.length) return;
+      // ✅ যদি আগে থেকেই একটা প্রসেস চলতে থাকে, তবে নতুন করে আর শুরু হবে না
+      if (isInjecting) return;
+      isInjecting = true;
 
-      for (var i = 0; i < links.length; i++) {
-        var link = links[i];
-        
-        // আগে থেকেই ব্যাজ থাকলে স্কিপ করবে (তবে টাইম ডাটা আপডেট হবে সর্টিং এর জন্য)
-        if (!link.querySelector('.td-time-badge')) {
-            var href = link.getAttribute('href') || '';
-            var slug = href.split('/').pop();
-            if (!slug) continue;
+      try {
+        var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+        if (!links.length) { isInjecting = false; return; }
 
-            var timeInfo = await fetchImportedAt(slug);
-            if (!timeInfo || !timeInfo.text) continue;
+        for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          
+          // ✅ চেক করা: এই লিংকে আগেই ব্যাজ বসানো হয়েছে কিনা
+          if (link.querySelector('.td-time-badge')) continue;
 
-            var badge = document.createElement('span');
-            badge.className = 'td-time-badge td-level-' + timeInfo.level;
-            
-            var prefix = '';
-            if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
-            else if (timeInfo.level === 'today') prefix = '🟡 ';
-            else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
-            else prefix = '⚪ ';
+          var href = link.getAttribute('href') || '';
+          var slug = href.split('/').pop();
+          if (!slug) continue;
 
-            badge.textContent = prefix + timeInfo.text;
-            link.appendChild(badge);
+          var timeInfo = await fetchImportedAt(slug);
+          if (!timeInfo || !timeInfo.text) continue;
+
+          // ✅ ফেচ শেষ হওয়ার পর আবারো চেক করা (যাতে ডুপ্লিকেট না হয়)
+          if (link.querySelector('.td-time-badge')) continue;
+
+          var badge = document.createElement('span');
+          badge.className = 'td-time-badge td-level-' + timeInfo.level;
+          
+          var prefix = '';
+          if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
+          else if (timeInfo.level === 'today') prefix = '🟡 ';
+          else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
+          else prefix = '⚪ ';
+
+          badge.textContent = prefix + timeInfo.text;
+          link.appendChild(badge);
         }
-        
-        // সর্টিং এর জন্য লিংকে ডাটা-অ্যাট্রিবিউট সেট করা
-        var href2 = link.getAttribute('href') || '';
-        var slug2 = href2.split('/').pop();
-        if (slug2 && timeCache[slug2] && timeCache[slug2].rawDate) {
-            link.setAttribute('data-imported-time', timeCache[slug2].rawDate);
+
+        // ==========================================
+        // ✅ অটো-সর্টিং লজিক (নতুন নিউজ উপরে থাকবে)
+        // ==========================================
+        var allLinks = Array.from(links);
+        var listContainer = null;
+
+        if (allLinks.length > 0) {
+            listContainer = allLinks[0].closest('ul, [role="list"], .css-0'); 
+            if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
         }
-      }
 
-      // ✅ জাদুকরি সর্টিং লজিক: নতুন নিউজগুলো উপরে নিয়ে আসা
-      var allLinks = Array.from(links);
-      var listContainer = null;
+        if (listContainer) {
+            var rows = Array.from(listContainer.children);
+            rows = rows.filter(row => row.querySelector('a[href*="/collections/news_drafts/entries/"]'));
 
-      // কন্টেইনার খুঁজে বের করা
-      if (allLinks.length > 0) {
-          // Decap CMS এর সাধারণত লিস্ট রো'র প্যারেন্ট কন্টেইনার থাকে
-          listContainer = allLinks[0].closest('ul, [role="list"], .css-0'); 
-          if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
-      }
+            if (rows.length > 1) {
+                rows.sort(function(a, b) {
+                    var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                    var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
+                    if (!aLink || !bLink) return 0;
+                    
+                    var aSlug = aLink.getAttribute('href').split('/').pop();
+                    var bSlug = bLink.getAttribute('href').split('/').pop();
+                    
+                    var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
+                    var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
+                    
+                    return timeB - timeA; // Descending Order (নতুন আগে)
+                });
 
-      if (listContainer) {
-          // কন্টেইনারের সব চাইল্ড (রো) নেওয়া
-          var rows = Array.from(listContainer.children);
-          // শুধু সেই রো-গুলো ফিল্টার করা যেগুলোতে আমাদের লিংক আছে
-          rows = rows.filter(row => row.querySelector('a[href*="/collections/news_drafts/entries/"]'));
+                rows.forEach(function(row) {
+                    listContainer.appendChild(row);
+                });
+            }
+        }
 
-          if (rows.length > 1) {
-              rows.sort(function(a, b) {
-                  var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                  var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                  if (!aLink || !bLink) return 0;
-                  
-                  var timeA = parseInt(aLink.getAttribute('data-imported-time')) || 0;
-                  var timeB = parseInt(bLink.getAttribute('data-imported-time')) || 0;
-                  
-                  return timeB - timeA; // Descending Order (সর্বোচ্চ টাইম আগে, অর্থাৎ নতুন আগে)
-              });
-
-              // DOM-এ নতুন করে সাজিয়ে বসানো
-              rows.forEach(function(row) {
-                  listContainer.appendChild(row);
-              });
-          }
+      } finally {
+        // ✅ কাজ শেষ, তালা খুলে দেওয়া হলো
+        isInjecting = false; 
       }
     }
 

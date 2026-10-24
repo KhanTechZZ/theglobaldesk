@@ -113,6 +113,17 @@
       background: #e2e8f0 !important; color: #475569 !important;
     }
 
+    /* 🎯 NEW: Views Badge */
+    .td-view-badge {
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
+      gap: 4px !important; margin-left: 10px !important;
+      padding: 3px 10px !important; border-radius: 12px !important;
+      font-size: 11px !important; font-weight: 800 !important;
+      background: #e2e8f0 !important; color: #061a33 !important;
+      vertical-align: middle !important; white-space: nowrap !important;
+      font-family: Arial, sans-serif !important;
+    }
+
     @media (max-width: 768px) {
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
       header[role="banner"]::after { display: none; }
@@ -122,6 +133,7 @@
       body.td-quickbar-on main,
       body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
       .td-time-badge { font-size: 9px !important; padding: 2px 7px !important; margin-left: 6px !important; }
+      .td-view-badge { font-size: 10px !important; padding: 2px 7px !important; margin-left: 6px !important; }
     }
   </style>
 </head>
@@ -249,11 +261,11 @@
     }
 
     // =====================================================
-    // 🎯 TIME BADGE + NEWEST SORTING (FIXED DUPLICATE & SORTED)
+    // 🎯 TIME BADGE IN DRAFTS LIST
     // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
-    var isInjecting = false; // ✅ ডুপ্লিকেট আটকানোর তালা (Lock)
+    var isInjectingDrafts = false;
 
     function calcTimeAgo(dateStr) {
       if (!dateStr) return { text: '', isNew: false, rawDate: 0 };
@@ -275,7 +287,6 @@
       else if (months < 12) text = months + 'mo ago';
       else text = Math.floor(days / 365) + 'y ago';
 
-      // ✅ rawDate যুক্ত করা হলো, যা দিয়ে আমরা সর্ট করব
       return { text: text, isNew: (hours < 2), rawDate: d.getTime() };
     }
 
@@ -301,9 +312,8 @@
       if (hash.indexOf('/collections/news_drafts') === -1) return;
       if (hash.indexOf('/entries/') !== -1) return;
       
-      // ✅ যদি আগের প্রসেস চলতে থাকে, তবে নতুন করে শুরু হবে না
-      if (isInjecting) return;
-      isInjecting = true;
+      if (isInjectingDrafts) return;
+      isInjectingDrafts = true;
 
       try {
         var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
@@ -320,7 +330,6 @@
           var timeInfo = await fetchImportedAt(slug);
           if (!timeInfo || !timeInfo.text) continue;
 
-          // ✅ ফেচ শেষ হওয়ার পর আবার চেক করা, যাতে ডুপ্লিকেট না হয়
           if (link.querySelector('.td-time-badge')) continue;
 
           var badge = document.createElement('span');
@@ -329,12 +338,9 @@
           link.appendChild(badge);
         }
 
-        // ==========================================
-        // ✅ অটো-সর্টিং লজিক (নতুন নিউজ উপরে থাকবে)
-        // ==========================================
+        // Auto sorting
         var allLinks = Array.from(links);
         var listContainer = null;
-
         if (allLinks.length > 0) {
             listContainer = allLinks[0].closest('ul, [role="list"]'); 
             if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
@@ -342,12 +348,9 @@
 
         if (listContainer) {
             var rows = Array.from(listContainer.children);
-            rows = rows.filter(function(row) { 
-              return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); 
-            });
+            rows = rows.filter(function(row) { return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); });
             
             if (rows.length > 1) {
-                // ✅ চেক করা হচ্ছে লিস্ট আগে থেকেই সর্ট করা আছে কিনা (ইনফিনিট লুপ আটকাতে)
                 var needsSort = false;
                 for (var j = 0; j < rows.length - 1; j++) {
                     var aLink = rows[j].querySelector('a[href*="/collections/news_drafts/entries/"]');
@@ -357,11 +360,7 @@
                     var bSlug = bLink.getAttribute('href').split('/').pop();
                     var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
                     var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                    
-                    if (timeA < timeB) { // যদি আগেরটা নতুনের চেয়ে পুরোনো হয়
-                        needsSort = true;
-                        break;
-                    }
+                    if (timeA < timeB) { needsSort = true; break; }
                 }
                 
                 if (needsSort) {
@@ -373,18 +372,76 @@
                         var bSlug = bLink.getAttribute('href').split('/').pop();
                         var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
                         var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                        
-                        return timeB - timeA; // Descending (সর্বোচ্চ টাইম আগে = নতুন আগে)
+                        return timeB - timeA;
                     });
-                    
-                    // DOM-এ নতুন করে সাজিয়ে বসানো
                     rows.forEach(function(row) { listContainer.appendChild(row); });
                 }
             }
         }
       } finally {
-        // ✅ কাজ শেষ, তালা খুলে দেওয়া হলো
-        isInjecting = false;
+        isInjectingDrafts = false;
+      }
+    }
+
+    // =====================================================
+    // 🎯 VIEWS COUNTER IN PUBLISHED LIST
+    // =====================================================
+    var viewsCache = {};
+    var isInjectingViews = false;
+
+    async function fetchViews(slug) {
+      if (viewsCache[slug] !== undefined) return viewsCache[slug];
+      try {
+        var controller = new AbortController();
+        var timeoutId = setTimeout(() => controller.abort(), 3000);
+        var res = await fetch('https://abacus.jamesm.dev/get/theglobaldesk/' + slug, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (!res.ok) { viewsCache[slug] = 0; return 0; }
+        var data = await res.json();
+        var count = data.value || 0;
+        viewsCache[slug] = count;
+        return count;
+      } catch (e) {
+        viewsCache[slug] = 0;
+        return 0;
+      }
+    }
+
+    async function injectPublishedViews() {
+      var hash = window.location.hash || '';
+      if (hash.indexOf('/collections/news_published') === -1) return;
+      if (hash.indexOf('/entries/') !== -1) return;
+      
+      if (isInjectingViews) return;
+      isInjectingViews = true;
+
+      try {
+        var links = document.querySelectorAll('a[href*="/collections/news_published/entries/"]');
+        if (!links.length) return;
+
+        var promises = [];
+        for (var i = 0; i < links.length; i++) {
+          (function(link) {
+            if (link.querySelector('.td-view-badge')) return;
+            
+            var href = link.getAttribute('href') || '';
+            var slug = href.split('/').pop();
+            if (!slug) return;
+
+            var viewSpan = document.createElement('span');
+            viewSpan.className = 'td-view-badge';
+            viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
+            link.appendChild(viewSpan);
+
+            promises.push(fetchViews(slug).then(function(views) {
+              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
+            }));
+          })(links[i]);
+        }
+        await Promise.all(promises);
+      } finally {
+        isInjectingViews = false;
       }
     }
 
@@ -397,15 +454,17 @@
         return;
       }
 
-      // ✅ Quick bar ONLY on dashboard
       if (isOnDashboard()) {
         buildQuickBar();
       } else {
         removeQuickBar();
       }
 
-      // Time badges work on drafts list regardless of quick bar
-      setTimeout(injectDraftTimeBadges, 400);
+      var hash = window.location.hash || '';
+      if (hash.indexOf('/entries/') === -1 && hash.indexOf('/new') === -1) {
+        setTimeout(injectDraftTimeBadges, 300);
+        setTimeout(injectPublishedViews, 300);
+      }
     }
 
     setTimeout(refresh, 800);

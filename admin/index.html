@@ -5,149 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Global Desk — Admin</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ================= 🌟 PREMIUM UI ================= */
-    :root {
-      --navy: #061a33;
-      --navy-light: #0d2a4a;
-      --gold: #c99a3b;
-      --bg: #f1f5f9;
-      --surface: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --green: #10b981;
-      --yellow: #f59e0b;
-      --orange: #f97316;
-      --gray: #94a3b8;
+    html, body { font-family: 'Inter', Arial, sans-serif !important; background: #f0f4f8 !important; }
+    body:not(:has(header[role="banner"])) { background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important; }
+
+    header[role="banner"] {
+      background: #030f1e !important;
+      border-bottom: 2px solid #c99a3b !important;
+      padding: 0 16px !important;
+      min-height: 56px !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    header[role="banner"] img, header[role="banner"] a img {
+      max-height: 32px !important;
+      width: auto !important;
+      background: #ffffff !important;
+      padding: 4px 8px !important;
+      border-radius: 6px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+    }
+    header[role="banner"]::after {
+      content: "NEWSROOM";
+      color: #c99a3b; font-weight: 900; font-size: 10px; letter-spacing: 2px;
+      margin-left: 12px; padding-left: 12px;
+      border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    html, body, [class*="App"], [class*="Main"] {
-      font-family: 'Inter', Arial, sans-serif !important;
-      background-color: var(--bg) !important;
-      color: var(--text) !important;
+    /* Sidebar hidden only when quick bar active (dashboard) */
+    body.td-quickbar-on aside[role="navigation"],
+    body.td-quickbar-on [class*="Sidebar"] {
+      display: none !important;
+      width: 0 !important; min-width: 0 !important; max-width: 0 !important;
+      overflow: hidden !important; padding: 0 !important; margin: 0 !important;
+    }
+    body.td-quickbar-on main[role="main"],
+    body.td-quickbar-on [class*="MainContent"],
+    body.td-quickbar-on [class*="AppMain"] {
+      margin-left: 0 !important; padding-left: 0 !important;
+      width: 100% !important; max-width: 100% !important;
     }
 
-    /* ডিফল্ট সাইডবার ও হেডার হাইড */
-    aside[role="navigation"], [class*="Sidebar"], [class*="SidebarContainer"], nav[class*="Navigation"], header[role="banner"] { display: none !important; }
-    main, [role="main"], [class*="MainContent"] { margin-left: 0 !important; padding: 0 !important; width: 100% !important; }
+    /* Quick bar */
+    .td-quick-bar {
+      position: fixed !important; top: 56px !important;
+      left: 0 !important; right: 0 !important;
+      z-index: 2147483647 !important;
+      background: #ffffff !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+      padding: 8px 12px !important;
+      display: flex !important; gap: 8px !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+      box-sizing: border-box !important;
+    }
+    .td-quick-btn {
+      flex: 1 !important;
+      display: flex !important; align-items: center !important; justify-content: center !important;
+      gap: 6px !important; padding: 11px 14px !important;
+      border-radius: 8px !important; text-decoration: none !important;
+      font-weight: 800 !important; font-size: 13px !important;
+      transition: all 0.2s !important; box-sizing: border-box !important;
+    }
+    .td-quick-btn.drafts { background: #eaf3fb !important; color: #0d4f91 !important; border: 2px solid #0d4f91 !important; }
+    .td-quick-btn.drafts:hover { background: #0d4f91 !important; color: #fff !important; }
+    .td-quick-btn.published { background: #dcfce7 !important; color: #16a34a !important; border: 2px solid #16a34a !important; }
+    .td-quick-btn.published:hover { background: #16a34a !important; color: #fff !important; }
+    .td-quick-btn.breaking { background: #fee2e2 !important; color: #dc2626 !important; border: 2px solid #dc2626 !important; }
+    .td-quick-btn.breaking:hover { background: #dc2626 !important; color: #fff !important; }
 
-    /* ================= 🎨 CUSTOM HEADER ================= */
-    .td-custom-header {
-      background: var(--navy); padding: 0 24px; min-height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    }
-    .td-brand { display: flex; align-items: center; gap: 12px; }
-    .td-brand img { max-height: 32px; background: transparent; padding: 0; border-radius: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
-    .td-brand span { color: var(--gold); font-weight: 800; font-size: 11px; letter-spacing: 2px; border-left: 1px solid rgba(201,154,59,0.3); padding-left: 12px; }
-    
-    .td-nav-links { display: flex; gap: 6px; }
-    .td-nav-btn {
-      color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px;
-      font-size: 12px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 5px;
-    }
-    .td-nav-btn:hover, .td-nav-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
-    .td-nav-btn.active { color: var(--gold); background: rgba(201,154,59,0.1); }
-
-    /* ================= 📊 COMPACT DASHBOARD & FILTERS ================= */
-    .td-dashboard-wrapper {
-      max-width: 800px; margin: 12px auto; padding: 0 16px;
-      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px;
-      position: relative; z-index: 50;
-      /* ✅ জাম্পিং ফিক্স: প্যানেলকে ফিক্সড হাইট দেওয়া হয়েছে */
-      min-height: 40px; 
-    }
-    .td-stats-group { display: flex; gap: 8px; }
-    .td-stat-box {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      padding: 6px 12px; display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.02); height: 34px;
-    }
-    .td-stat-value { font-size: 15px; font-weight: 800; color: var(--navy); }
-    .td-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 700; }
-
-    /* 🎯 ফিল্টার ও সর্ট বাটন */
-    .td-filter-btn, .td-sort-btn {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      padding: 0 12px; height: 34px; display: flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 600; color: var(--navy); cursor: pointer;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.02); transition: all 0.2s;
-    }
-    .td-filter-btn:hover, .td-sort-btn:hover { border-color: var(--gold); }
-    
-    .td-filter-popover {
-      display: none; position: absolute; top: 44px; right: 16px;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      padding: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 100;
-      flex-direction: column; gap: 10px; width: 260px;
-    }
-    .td-filter-popover.show { display: flex; }
-    .td-filter-popover input[type="date"] {
-      width: 100%; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
-      font-size: 12px; font-family: inherit; outline: none;
-    }
-    .td-filter-popover .td-btn-group { display: flex; gap: 6px; }
-    .td-filter-popover button {
-      flex: 1; padding: 6px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: none;
-    }
-    .td-filter-popover button.apply { background: var(--navy); color: #fff; }
-    .td-filter-popover button.clear { background: #e2e8f0; color: #475569; }
-
-    /* ================= 📝 LIST CARDS ================= */
-    ul[class*="Collection"], div[class*="Entries"] { padding: 16px !important; max-width: 1100px !important; margin: 0 auto !important; }
-    
-    li, [class*="ListItem"], [class*="EntryCard"] {
-      background: var(--surface) !important; border: 1px solid var(--border) !important;
-      border-radius: 8px !important; margin-bottom: 8px !important; padding: 0 !important;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important; transition: all 0.2s !important;
-    }
-    li:hover, [class*="ListItem"]:hover, [class*="EntryCard"]:hover {
-      border-color: var(--gold) !important; box-shadow: 0 4px 12px rgba(201,154,59,0.15) !important;
-      transform: translateY(-1px) !important;
-    }
-    li > a, [class*="ListItem"] > a, [class*="EntryCard"] > a {
-      padding: 12px 16px !important; display: flex !important; align-items: center !important;
-      justify-content: space-between !important; text-decoration: none !important; color: var(--text) !important;
-    }
-    h2, h3, [class*="Card"] h2 { font-family: 'Merriweather', serif !important; font-weight: 700 !important; color: var(--navy) !important; margin: 0 !important; font-size: 14px !important; }
-    p, [class*="Card"] p { color: var(--muted) !important; font-size: 12px !important; margin: 2px 0 0 0 !important; }
-
-    /* ================= ⏱️ BADGES ================= */
-    .td-badge {
-      display: inline-flex; align-items: center; justify-content: center; gap: 4px;
-      padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700;
-      margin-left: 10px; white-space: nowrap; font-family: 'Inter', sans-serif;
-    }
-    .td-badge.new { background: var(--green); color: #fff; animation: pulse-green 2s infinite; }
-    .td-badge.today { background: var(--yellow); color: #fff; }
-    .td-badge.yesterday { background: var(--orange); color: #fff; }
-    .td-badge.stale { background: var(--gray); color: #fff; }
-    .td-badge.views { background: #f1f5f9; color: var(--navy); border: 1px solid #e2e8f0; }
-    
-    @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    .td-search-btn {
+      flex: 0 0 auto !important;
+      width: 44px !important; height: 44px !important;
+      background: #c99a3b !important; color: #061a33 !important;
+      border: 2px solid #c99a3b !important;
+      border-radius: 8px !important; cursor: pointer !important; font-size: 16px !important;
     }
 
-    /* ================= ✏️ EDITOR ================= */
-    [class*="EditorPane"], [class*="ControlPane"] { background: var(--surface) !important; border-radius: 8px !important; margin: 16px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important; border: 1px solid var(--border) !important; }
-    label[class*="FieldLabel"] { color: var(--navy) !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 6px !important; }
-    input, textarea, select { border-radius: 6px !important; border: 1.5px solid var(--border) !important; padding: 10px 12px !important; font-size: 13px !important; transition: all 0.2s !important; width: 100% !important; }
-    input:focus, textarea:focus, select:focus { border-color: var(--gold) !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.15) !important; outline: none !important; }
-    button[type="submit"], [class*="ToolbarButton"] { background: var(--navy) !important; color: #fff !important; font-weight: 700 !important; border-radius: 6px !important; padding: 8px 16px !important; border: none !important; transition: 0.2s !important; }
-    button[type="submit"]:hover, [class*="ToolbarButton"]:hover { background: var(--gold) !important; color: var(--navy) !important; }
+    body.td-quickbar-on main,
+    body.td-quickbar-on [role="main"],
+    body.td-quickbar-on [class*="MainContent"] {
+      padding-top: 70px !important;
+    }
+
+    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
+      background: #c99a3b !important; color: #061a33 !important;
+      font-weight: 800 !important; border-radius: 8px !important; border: none !important;
+      padding: 5px 12px !important; font-size: 12px !important;
+    }
+    label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; }
+    input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
+
+    /* Time badge in list view */
+    .td-time-badge {
+      display: inline-flex !important; align-items: center !important;
+      gap: 4px !important; margin-left: 10px !important;
+      padding: 3px 10px !important; border-radius: 12px !important;
+      font-size: 10px !important; font-weight: 800 !important;
+      letter-spacing: 0.3px !important; vertical-align: middle !important;
+      white-space: nowrap !important; font-family: Arial, sans-serif !important;
+    }
+    .td-time-badge.td-new {
+      background: #16a34a !important; color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(22,163,74,0.3) !important;
+    }
+    .td-time-badge.td-old {
+      background: #e2e8f0 !important; color: #475569 !important;
+    }
 
     @media (max-width: 768px) {
-      .td-nav-links { display: none; }
-      .td-custom-header { padding: 0 12px; min-height: 50px; }
-      .td-dashboard-wrapper { flex-direction: column; align-items: center; }
-      ul[class*="Collection"] { padding: 12px !important; }
-      li > a { flex-direction: column; align-items: flex-start !important; gap: 6px; }
+      header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
+      header[role="banner"]::after { display: none; }
+      .td-quick-bar { top: 50px !important; padding: 6px 8px !important; gap: 5px !important; }
+      .td-quick-btn { padding: 9px 8px !important; font-size: 11px !important; }
+      .td-search-btn { width: 38px !important; height: 38px !important; }
+      body.td-quickbar-on main,
+      body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
+      .td-time-badge { font-size: 9px !important; padding: 2px 7px !important; margin-left: 6px !important; }
     }
   </style>
 </head>
@@ -157,24 +131,30 @@
   <script>
   window.addEventListener('load', function() {
     if (typeof CMS === 'undefined') return;
+
     var h = window.h || (window.CMS && window.CMS.h);
 
     // =====================================================
-    // PREVIEW TEMPLATES
+    // PREVIEW CSS
     // =====================================================
     var previewCSS = `
       * { box-sizing: border-box; }
-      body { margin: 0; padding: 20px; background: #f1f5f9; font-family: 'Inter', sans-serif; display: flex; justify-content: center; }
-      .card { background: #fff; border-radius: 12px; overflow: hidden; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
-      .img-wrap { width: 100%; height: 220px; background: #e2e8f0; position: relative; }
-      .img { width: 100%; height: 100%; object-fit: cover; }
-      .img-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8; font-weight: 600; }
-      .content { padding: 20px 24px 24px; }
-      .tag { display: inline-block; color: #c99a3b; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
-      .title { font-family: 'Merriweather', serif; font-size: 20px; line-height: 1.4; color: #061a33; margin: 0 0 12px; font-weight: 700; }
-      .desc { font-size: 14px; color: #475569; border-left: 3px solid #c99a3b; padding-left: 12px; margin: 0 0 16px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-      .meta { font-size: 12px; color: #94a3b8; padding-top: 12px; border-top: 1px solid #f1f5f9; display: flex; gap: 6px; flex-wrap: wrap; }
-      .meta strong { color: #061a33; }
+      html, body { margin: 0; padding: 0; background: #f8fafc; font-family: Arial, sans-serif; }
+      .td-preview-wrap { padding: 12px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; }
+      .td-preview-card { background: #fff; border-radius: 8px; overflow: hidden; width: 100% !important; max-width: 320px !important; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin: 0 auto; }
+      .td-preview-img-wrap { width: 100% !important; height: 180px !important; overflow: hidden; background: #e2e8f0; }
+      .td-preview-img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
+      .td-preview-img-placeholder { width: 100%; height: 100%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 11px; font-weight: 600; }
+      .td-preview-content { padding: 12px 14px 14px; }
+      .td-preview-tag { display: inline-block; color: #c99a3b; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
+      .td-preview-title { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; color: #061a33; margin: 0 0 7px; font-weight: 700; }
+      .td-preview-desc { font-size: 11px; font-weight: 600; color: #4a5663; border-left: 3px solid #c99a3b; padding-left: 7px; margin: 0 0 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .td-preview-meta { font-size: 9px; color: #929ba5; padding-top: 7px; border-top: 1px solid #edf1f4; display: flex; flex-wrap: wrap; gap: 3px; }
+      .td-preview-meta strong { color: #061a33; }
+      .td-preview-breaking-card { background: #061a33; color: #fff; padding: 14px; border-radius: 8px; max-width: 320px !important; border-top: 3px solid #c51f2d; margin: 0 auto; }
+      .td-preview-breaking-badge { display: inline-block; background: #c51f2d; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 7px; }
+      .td-preview-breaking-card h2 { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; margin: 0 0 7px; color: #fff; font-weight: 700; }
+      .td-preview-breaking-meta { font-size: 10px; color: rgba(255,255,255,0.65); padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.1); }
     `;
     CMS.registerPreviewStyle(previewCSS, { raw: true });
 
@@ -188,17 +168,17 @@
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
       var dateStr = data.date ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not set';
-      
-      return h('div', {},
-        h('div', { className: 'card' },
-          h('div', { className: 'img-wrap' },
-            imageUrl ? h('img', { className: 'img', src: imageUrl }) : h('div', { className: 'img-placeholder' }, '🖼️ Cover Image')
+
+      return h('div', { className: 'td-preview-wrap' },
+        h('div', { className: 'td-preview-card' },
+          h('div', { className: 'td-preview-img-wrap' },
+            imageUrl ? h('img', { className: 'td-preview-img', src: imageUrl }) : h('div', { className: 'td-preview-img-placeholder' }, '🖼️ Cover Image')
           ),
-          h('div', { className: 'content' },
-            data.category ? h('span', { className: 'tag' }, data.category.toUpperCase()) : null,
-            h('h1', { className: 'title' }, data.title || 'Your headline will appear here'),
-            data.description ? h('p', { className: 'desc' }, data.description) : null,
-            h('div', { className: 'meta' },
+          h('div', { className: 'td-preview-content' },
+            data.category ? h('span', { className: 'td-preview-tag' }, data.category.toUpperCase()) : null,
+            h('h1', { className: 'td-preview-title' }, data.title || 'Your headline will appear here'),
+            data.description ? h('p', { className: 'td-preview-desc' }, data.description) : null,
+            h('div', { className: 'td-preview-meta' },
               h('span', {}, '✍️ '), h('strong', {}, 'The Global Desk'), h('span', {}, ' · ' + dateStr),
               data.source ? h('span', {}, ' · ' + data.source) : null
             )
@@ -213,11 +193,11 @@
     CMS.registerPreviewTemplate('breaking', function(props) {
       var data = props.entry.getIn(['data']).toJS();
       var expiresStr = data.expires ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'No expiry';
-      return h('div', { style: { padding: '20px', display: 'flex', justifyContent: 'center', background: '#f1f5f9', height: '100%' } },
-        h('div', { style: { background: '#061a33', color: '#fff', padding: '24px', borderRadius: '12px', width: '100%', maxWidth: '400px', borderTop: '4px solid #c51f2d', boxShadow: '0 10px 30px rgba(0,0,0,0.2)' } },
-          h('span', { style: { background: '#c51f2d', padding: '4px 10px', borderRadius: '4px', fontSize: '10px', fontWeight: '800', letterSpacing: '1px' } }, 'BREAKING'),
-          h('h2', { style: { fontFamily: 'Merriweather, serif', fontSize: '20px', margin: '16px 0' } }, data.title || 'Breaking headline'),
-          h('div', { style: { fontSize: '12px', color: 'rgba(255,255,255,0.6)', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' } },
+      return h('div', { className: 'td-preview-wrap' },
+        h('div', { className: 'td-preview-breaking-card' },
+          h('span', { className: 'td-preview-breaking-badge' }, 'BREAKING'),
+          h('h2', {}, data.title || 'Breaking headline'),
+          h('div', { className: 'td-preview-breaking-meta' },
             '⏰ ' + expiresStr + ' · ⚡ ' + (data.priority || 'Normal') + ' · ' + (data.active ? '✅ Active' : '❌ Inactive')
           )
         )
@@ -225,188 +205,59 @@
     });
 
     // =====================================================
-    // NEW UI INJECTION
+    // 🎯 DASHBOARD DETECTION
     // =====================================================
-    function isListPage() {
+    function isOnDashboard() {
       var hash = window.location.hash || '';
-      return (hash.includes('/collections/') && !hash.includes('/entries/') && !hash.endsWith('/new'));
+      return !hash || hash === '#' || hash === '#/' || hash === '';
     }
 
-    function buildHeader() {
-      if (document.getElementById('td-custom-header')) return;
-      var header = document.createElement('div');
-      header.id = 'td-custom-header';
-      header.className = 'td-custom-header';
-      
-      var currentHash = window.location.hash;
-      var isDrafts = currentHash.includes('news_drafts');
-      var isPublished = currentHash.includes('news_published');
-      var isBreaking = currentHash.includes('breaking');
+    function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
 
-      header.innerHTML = `
-        <div class="td-brand">
-          <img src="https://tgdnews.pages.dev/Logo.png" alt="Logo">
-          <span>NEWSROOM</span>
-        </div>
-        <div class="td-nav-links">
-          <a href="#/collections/news_drafts" class="td-nav-btn ${isDrafts ? 'active' : ''}"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>
-          <a href="#/collections/news_published" class="td-nav-btn ${isPublished ? 'active' : ''}"><i class="fa-solid fa-circle-check"></i> Published</a>
-          <a href="#/collections/breaking" class="td-nav-btn ${isBreaking ? 'active' : ''}"><i class="fa-solid fa-bolt"></i> Breaking</a>
-        </div>
-      `;
-      document.body.prepend(header);
-    }
+    // =====================================================
+    // QUICK BAR
+    // =====================================================
+    var BASE = window.location.origin + '/admin/';
 
-    function buildDashboard() {
-      if (document.getElementById('td-dashboard-wrapper') || !isListPage()) return;
-
-      var wrapper = document.createElement('div');
-      wrapper.id = 'td-dashboard-wrapper';
-      wrapper.className = 'td-dashboard-wrapper';
-      
-      // ✅ ড্রাফট এবং পাবলিশডের জন্য আলাদা প্যানেল তৈরি
-      var isDrafts = window.location.hash.includes('news_drafts');
-      
-      var statsHTML = `
-        <div class="td-stat-box">
-          <span class="td-stat-value" id="td-total-items">0</span>
-          <span class="td-stat-label">Articles</span>
-        </div>
-      `;
-      
-      if (!isDrafts) {
-        // শুধু পাবলিশডে Views দেখাবে
-        statsHTML += `
-          <div class="td-stat-box">
-            <span class="td-stat-value" id="td-total-views">-</span>
-            <span class="td-stat-label">Views</span>
-          </div>
-        `;
-      }
-
-      // ✅ ড্রাফটে Sort বাটন যোগ করা হয়েছে
-      var sortHTML = '';
-      if (isDrafts) {
-        sortHTML = `
-          <button class="td-sort-btn" id="td-sort-drafts">
-            <i class="fa-solid fa-arrow-down-wide-short"></i> Sort: Newest
-          </button>
-        `;
-      }
-
-      wrapper.innerHTML = `
-        <div class="td-stats-group">
-          ${statsHTML}
-        </div>
-        ${sortHTML}
-        <button class="td-filter-btn" id="td-toggle-filter">
-          <i class="fa-solid fa-calendar-days"></i> Filter
-        </button>
-        <div class="td-filter-popover" id="td-filter-popover">
-          <div style="font-size:12px; font-weight:700; color:var(--navy); margin-bottom:4px;">Select Date Range</div>
-          <input type="date" id="td-date-start" title="Start Date">
-          <input type="date" id="td-date-end" title="End Date">
-          <div class="td-btn-group">
-            <button type="button" id="td-apply-filter" class="apply">Apply</button>
-            <button type="button" id="td-clear-filter" class="clear">Clear</button>
-          </div>
-        </div>
-      `;
-
-      var mainContent = document.querySelector('main, [role="main"]') || document.body;
-      mainContent.prepend(wrapper);
-
-      // পপওভার টগল
-      document.getElementById('td-toggle-filter').addEventListener('click', function(e) {
-        e.stopPropagation();
-        document.getElementById('td-filter-popover').classList.toggle('show');
-      });
-
-      // বাইরে ক্লিক করলে পপওভার বন্ধ
-      document.addEventListener('click', function(e) {
-        var pop = document.getElementById('td-filter-popover');
-        if (pop && pop.classList.contains('show') && !pop.contains(e.target) && e.target.id !== 'td-toggle-filter') {
-          pop.classList.remove('show');
-        }
-      });
-
-      document.getElementById('td-apply-filter').addEventListener('click', function() {
-        var start = document.getElementById('td-date-start').value;
-        var end = document.getElementById('td-date-end').value;
-        applyDateFilter(start, end);
-        document.getElementById('td-filter-popover').classList.remove('show');
-      });
-
-      document.getElementById('td-clear-filter').addEventListener('click', function() {
-        document.getElementById('td-date-start').value = '';
-        document.getElementById('td-date-end').value = '';
-        applyDateFilter('', '');
-        document.getElementById('td-filter-popover').classList.remove('show');
-      });
-
-      // ✅ Sort বাটনের লজিক (ড্রাফটের জন্য)
-      if (isDrafts) {
-        document.getElementById('td-sort-drafts').addEventListener('click', function() {
-          var btn = this;
-          var isNewest = btn.textContent.includes('Newest');
-          btn.innerHTML = isNewest ? '<i class="fa-solid fa-arrow-up-wide-short"></i> Sort: Oldest' : '<i class="fa-solid fa-arrow-down-wide-short"></i> Sort: Newest';
-          
-          var links = document.querySelectorAll('a[href*="/entries/"]');
-          var listContainer = links[0] ? links[0].closest('ul, [role="list"]') : null;
-          if (listContainer) {
-            var rows = Array.from(listContainer.children).filter(function(row) { 
-              return row.querySelector('a[href*="/entries/"]'); 
-            });
-            if (rows.length > 1) {
-              rows.sort(function(a, b) {
-                var aSlug = a.querySelector('a').getAttribute('href').split('/').pop();
-                var bSlug = b.querySelector('a').getAttribute('href').split('/').pop();
-                var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
-                var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                return isNewest ? (timeA - timeB) : (timeB - timeA); // টগল লজিক
-              });
-              rows.forEach(function(row) { listContainer.appendChild(row); });
-            }
-          }
-        });
+    function triggerSearch() {
+      var all = document.querySelectorAll('button, a, [role="button"]');
+      for (var i = 0; i < all.length; i++) {
+        var txt = (all[i].textContent || '').trim().toLowerCase();
+        if (txt === 'search all' || txt === 'search') { all[i].click(); return; }
       }
     }
 
-    function applyDateFilter(start, end) {
-      var links = document.querySelectorAll('a[href*="/entries/"]');
-      links.forEach(function(link) {
-        var row = link.closest('li, [class*="ListItem"], [class*="EntryCard"]');
-        if (!row) return;
-
-        var href = link.getAttribute('href') || '';
-        var slug = href.split('/').pop() || '';
-        var dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
-        
-        if (!dateMatch) { row.style.display = 'block'; return; }
-
-        var entryDate = new Date(dateMatch[1]);
-        var startDate = start ? new Date(start) : null;
-        var endDate = end ? new Date(end) : null;
-
-        var isVisible = true;
-        if (startDate && entryDate < startDate) isVisible = false;
-        if (endDate) {
-          endDate.setHours(23, 59, 59, 999);
-          if (entryDate > endDate) isVisible = false;
-        }
-        row.style.display = isVisible ? 'block' : 'none';
-      });
+    function buildQuickBar() {
+      if (document.getElementById('td-quick-bar')) return;
+      var bar = document.createElement('div');
+      bar.id = 'td-quick-bar';
+      bar.className = 'td-quick-bar';
+      bar.innerHTML =
+        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn drafts"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>' +
+        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn published"><i class="fa-solid fa-circle-check"></i> Published</a>' +
+        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn breaking"><i class="fa-solid fa-bolt"></i> Breaking</a>' +
+        '<button type="button" class="td-search-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>';
+      document.body.appendChild(bar);
+      document.body.classList.add('td-quickbar-on');
+      bar.querySelector('.td-search-btn').addEventListener('click', triggerSearch);
     }
 
+    function removeQuickBar() {
+      var bar = document.getElementById('td-quick-bar');
+      if (bar) bar.remove();
+      document.body.classList.remove('td-quickbar-on');
+    }
+
+    // =====================================================
+    // 🎯 TIME BADGE IN DRAFTS LIST
+    // =====================================================
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
-    var viewsCache = {};
-    var isInjecting = false;
 
     function calcTimeAgo(dateStr) {
-      if (!dateStr) return { text: '', level: 'stale', rawDate: 0 };
+      if (!dateStr) return { text: '', isNew: false };
       var d = new Date(dateStr);
-      if (isNaN(d.getTime())) return { text: '', level: 'stale', rawDate: 0 };
+      if (isNaN(d.getTime())) return { text: '', isNew: false };
       var diffMs = Date.now() - d.getTime();
       var mins = Math.floor(diffMs / 60000);
       var hours = Math.floor(mins / 60);
@@ -414,21 +265,14 @@
       var weeks = Math.floor(days / 7);
       var months = Math.floor(days / 30);
 
-      var text = '';
-      if (mins < 1) text = 'just now';
-      else if (mins < 60) text = mins + 'm ago';
-      else if (hours < 24) text = hours + 'h ago';
-      else if (days < 7) text = days + 'd ago';
-      else if (weeks < 4) text = weeks + 'w ago';
-      else if (months < 12) text = months + 'mo ago';
-      else text = Math.floor(days / 365) + 'y ago';
-
-      var level = 'stale';
-      if (hours < 2) level = 'new';
-      else if (hours < 24) level = 'today';
-      else if (hours < 48) level = 'yesterday';
-
-      return { text: text, level: level, rawDate: d.getTime() };
+      if (mins < 1) return { text: 'just now', isNew: true };
+      if (mins < 60) return { text: mins + 'm ago', isNew: true };
+      if (hours < 2) return { text: hours + 'h ago', isNew: true };
+      if (hours < 24) return { text: hours + 'h ago', isNew: false };
+      if (days < 7) return { text: days + 'd ago', isNew: false };
+      if (weeks < 4) return { text: weeks + 'w ago', isNew: false };
+      if (months < 12) return { text: months + 'mo ago', isNew: false };
+      return { text: Math.floor(days / 365) + 'y ago', isNew: false };
     }
 
     async function fetchImportedAt(slug) {
@@ -448,136 +292,65 @@
       }
     }
 
-    async function fetchViews(slug) {
-      if (viewsCache[slug] !== undefined) return viewsCache[slug];
-      try {
-        var controller = new AbortController();
-        var timeoutId = setTimeout(() => controller.abort(), 3000);
-        var res = await fetch('https://abacus.jamesm.dev/get/theglobaldesk/' + slug, { signal: controller.signal });
-        clearTimeout(timeoutId);
-        if (!res.ok) { viewsCache[slug] = 0; return 0; }
-        var data = await res.json();
-        var count = data.value || 0;
-        viewsCache[slug] = count;
-        return count;
-      } catch (e) {
-        viewsCache[slug] = 0;
-        return 0;
-      }
-    }
+    async function injectDraftTimeBadges() {
+      var hash = window.location.hash || '';
+      if (hash.indexOf('/collections/news_drafts') === -1) return;
+      if (hash.indexOf('/entries/') !== -1) return;
 
-    async function injectBadges() {
-      if (!isListPage() || isInjecting) return;
-      isInjecting = true;
+      var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+      if (!links.length) return;
 
-      try {
-        var links = document.querySelectorAll('a[href*="/entries/"]');
-        var totalItemsEl = document.getElementById('td-total-items');
-        if (totalItemsEl) totalItemsEl.textContent = links.length;
+      for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        if (link.querySelector('.td-time-badge')) continue;
 
-        var totalViewsCount = 0;
-        var isDraftsList = window.location.hash.includes('news_drafts');
-        var isPublishedList = window.location.hash.includes('news_published');
+        var href = link.getAttribute('href') || '';
+        var slug = href.split('/').pop();
+        if (!slug) continue;
 
-        var promises = [];
+        var timeInfo = await fetchImportedAt(slug);
+        if (!timeInfo || !timeInfo.text) continue;
 
-        for (var i = 0; i < links.length; i++) {
-          (function(link, index) {
-            var href = link.getAttribute('href') || '';
-            var slug = href.split('/').pop();
-            if (!slug) return;
-
-            if (isDraftsList) {
-              if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) return;
-              promises.push(fetchImportedAt(slug).then(function(timeInfo) {
-                if (!timeInfo || !timeInfo.text) return;
-                if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) return;
-                var badge = document.createElement('span');
-                badge.className = 'td-badge ' + timeInfo.level;
-                var prefix = timeInfo.level === 'new' ? '🟢 NEW · ' : (timeInfo.level === 'today' ? '🟡 ' : (timeInfo.level === 'yesterday' ? '🟠 ' : '⚪ '));
-                badge.textContent = prefix + timeInfo.text;
-                link.appendChild(badge);
-              }));
-            }
-
-            if (isPublishedList) {
-              if (link.querySelector('.td-badge.views')) return;
-              var viewSpan = document.createElement('span');
-              viewSpan.className = 'td-badge views';
-              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
-              link.appendChild(viewSpan);
-              promises.push(fetchViews(slug).then(function(views) {
-                viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
-                totalViewsCount += views;
-              }));
-            }
-          })(links[i], i);
-        }
-
-        await Promise.all(promises);
-
-        if (isPublishedList) {
-          var totalViewsEl = document.getElementById('td-total-views');
-          if (totalViewsEl) totalViewsEl.textContent = totalViewsCount;
-        }
-
-        // ড্রাফটে ডিফল্ট সর্টিং (নতুন আগে)
-        if (isDraftsList) {
-          var listContainer = links[0] ? links[0].closest('ul, [role="list"]') : null;
-          if (listContainer) {
-            var rows = Array.from(listContainer.children).filter(function(row) { 
-              return row.querySelector('a[href*="/entries/"]'); 
-            });
-            if (rows.length > 1) {
-              rows.sort(function(a, b) {
-                var aSlug = a.querySelector('a').getAttribute('href').split('/').pop();
-                var bSlug = b.querySelector('a').getAttribute('href').split('/').pop();
-                var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
-                var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                return timeB - timeA;
-              });
-              rows.forEach(function(row) { listContainer.appendChild(row); });
-            }
-          }
-        }
-      } finally {
-        isInjecting = false;
+        var badge = document.createElement('span');
+        badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
+        badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
+        link.appendChild(badge);
       }
     }
 
     // =====================================================
     // ORCHESTRATOR
     // =====================================================
-    function init() {
-      buildHeader();
-      
-      if (isListPage()) {
-        buildDashboard();
-        setTimeout(injectBadges, 300);
-      } else {
-        var dash = document.getElementById('td-dashboard-wrapper');
-        if (dash) dash.remove();
+    function refresh() {
+      if (!isLoggedIn()) {
+        removeQuickBar();
+        return;
       }
+
+      // ✅ Quick bar ONLY on dashboard
+      if (isOnDashboard()) {
+        buildQuickBar();
+      } else {
+        removeQuickBar();
+      }
+
+      // Time badges work on drafts list regardless of quick bar
+      setTimeout(injectDraftTimeBadges, 400);
     }
 
-    setTimeout(init, 800);
-    
+    setTimeout(refresh, 800);
+    setTimeout(refresh, 2000);
+    setTimeout(refresh, 3500);
+
     window.addEventListener('hashchange', function() {
-      var dash = document.getElementById('td-dashboard-wrapper');
-      if (dash) dash.remove();
-      setTimeout(init, 400);
+      setTimeout(refresh, 400);
     });
 
-    // ✅ জাম্পিং ফিক্স: মিউটেশন অবজারভার অপ্টিমাইজ করা হয়েছে
     var t;
-    var observer = new MutationObserver(function(mutations) {
-      // যদি অলরেডি ড্যাশবোর্ড থাকে, তবে আর রান করবে না
-      if (document.getElementById('td-dashboard-wrapper') && isListPage()) return;
-      
+    new MutationObserver(function() {
       clearTimeout(t);
-      t = setTimeout(init, 800);
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+      t = setTimeout(refresh, 600);
+    }).observe(document.body, { childList: true, subtree: true });
   });
   </script>
 </body>

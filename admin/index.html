@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ================= 🌟 PREMIUM UI OVERRIDES ================= */
+    /* ================= 🌟 PREMIUM UI ================= */
     :root {
       --navy: #061a33;
       --navy-light: #0d2a4a;
@@ -34,7 +34,7 @@
     aside[role="navigation"], [class*="Sidebar"], [class*="SidebarContainer"], nav[class*="Navigation"], header[role="banner"] { display: none !important; }
     main, [role="main"], [class*="MainContent"] { margin-left: 0 !important; padding: 0 !important; width: 100% !important; }
 
-    /* ================= 🎨 CUSTOM TOP HEADER ================= */
+    /* ================= 🎨 CUSTOM HEADER ================= */
     .td-custom-header {
       background: var(--navy); padding: 0 24px; min-height: 56px;
       display: flex; align-items: center; justify-content: space-between;
@@ -53,37 +53,47 @@
     .td-nav-btn:hover, .td-nav-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
     .td-nav-btn.active { color: var(--gold); background: rgba(201,154,59,0.1); }
 
-    /* ================= 📊 COMPACT CENTERED DASHBOARD ================= */
+    /* ================= 📊 COMPACT DASHBOARD & POPOVER FILTER ================= */
     .td-dashboard-wrapper {
-      max-width: 800px; margin: 16px auto; padding: 0 16px;
+      max-width: 800px; margin: 12px auto; padding: 0 16px;
       display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px;
+      position: relative; z-index: 50;
     }
     .td-stats-group { display: flex; gap: 8px; }
     .td-stat-box {
       background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
       padding: 6px 12px; display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02); height: 34px;
     }
-    .td-stat-value { font-size: 16px; font-weight: 800; color: var(--navy); }
+    .td-stat-value { font-size: 15px; font-weight: 800; color: var(--navy); }
     .td-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 700; }
 
-    .td-filter-bar {
+    /* 🎯 ফিল্টার পপওভার বাটন */
+    .td-filter-btn {
       background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      padding: 6px 12px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+      padding: 0 12px; height: 34px; display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--navy); cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02); transition: all 0.2s;
     }
-    .td-filter-bar label { font-size: 12px; font-weight: 600; color: var(--navy); }
-    .td-filter-bar input[type="date"] {
-      padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px;
-      font-size: 12px; font-family: inherit; outline: none; background: var(--bg);
+    .td-filter-btn:hover { border-color: var(--gold); }
+    
+    .td-filter-popover {
+      display: none; position: absolute; top: 44px; right: 16px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 100;
+      flex-direction: column; gap: 10px; width: 260px;
     }
-    .td-filter-bar button {
-      background: var(--navy); color: #fff; border: none; padding: 4px 12px;
-      border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; transition: 0.2s;
+    .td-filter-popover.show { display: flex; }
+    .td-filter-popover input[type="date"] {
+      width: 100%; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 12px; font-family: inherit; outline: none;
     }
-    .td-filter-bar button:hover { background: var(--navy-light); }
-    .td-filter-bar button.clear { background: #e2e8f0; color: #475569; }
-    .td-filter-bar button.clear:hover { background: #cbd5e1; }
+    .td-filter-popover .td-btn-group { display: flex; gap: 6px; }
+    .td-filter-popover button {
+      flex: 1; padding: 6px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: none;
+    }
+    .td-filter-popover button.apply { background: var(--navy); color: #fff; }
+    .td-filter-popover button.clear { background: #e2e8f0; color: #475569; }
 
     /* ================= 📝 LIST CARDS ================= */
     ul[class*="Collection"], div[class*="Entries"] { padding: 16px !important; max-width: 1100px !important; margin: 0 auto !important; }
@@ -104,7 +114,7 @@
     h2, h3, [class*="Card"] h2 { font-family: 'Merriweather', serif !important; font-weight: 700 !important; color: var(--navy) !important; margin: 0 !important; font-size: 14px !important; }
     p, [class*="Card"] p { color: var(--muted) !important; font-size: 12px !important; margin: 2px 0 0 0 !important; }
 
-    /* ================= ⏱️ TIME & VIEW BADGES ================= */
+    /* ================= ⏱️ BADGES ================= */
     .td-badge {
       display: inline-flex; align-items: center; justify-content: center; gap: 4px;
       padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700;
@@ -122,7 +132,7 @@
       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 
-    /* ================= ✏️ EDITOR PAGE STYLING ================= */
+    /* ================= ✏️ EDITOR ================= */
     [class*="EditorPane"], [class*="ControlPane"] { background: var(--surface) !important; border-radius: 8px !important; margin: 16px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important; border: 1px solid var(--border) !important; }
     label[class*="FieldLabel"] { color: var(--navy) !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 6px !important; }
     input, textarea, select { border-radius: 6px !important; border: 1.5px solid var(--border) !important; padding: 10px 12px !important; font-size: 13px !important; transition: all 0.2s !important; width: 100% !important; }
@@ -148,7 +158,7 @@
     var h = window.h || (window.CMS && window.CMS.h);
 
     // =====================================================
-    // 1. PREVIEW TEMPLATES
+    // PREVIEW TEMPLATES
     // =====================================================
     var previewCSS = `
       * { box-sizing: border-box; }
@@ -213,7 +223,7 @@
     });
 
     // =====================================================
-    // 2. NEW UI INJECTION
+    // NEW UI INJECTION
     // =====================================================
     function isListPage() {
       var hash = window.location.hash || '';
@@ -252,6 +262,7 @@
       wrapper.id = 'td-dashboard-wrapper';
       wrapper.className = 'td-dashboard-wrapper';
       
+      // কমপ্যাক্ট ড্যাশবোর্ড এবং পপওভার ফিল্টার
       wrapper.innerHTML = `
         <div class="td-stats-group">
           <div class="td-stat-box">
@@ -259,33 +270,56 @@
             <span class="td-stat-label">Articles</span>
           </div>
           <div class="td-stat-box">
-            <span class="td-stat-value" id="td-total-views">0</span>
-            <span class="td-stat-label">Total Views</span>
+            <span class="td-stat-value" id="td-total-views">-</span>
+            <span class="td-stat-label">Views</span>
           </div>
         </div>
-        <div class="td-filter-bar">
-          <label>Filter:</label>
-          <input type="date" id="td-date-start">
-          <span style="color:var(--muted); font-size:12px;">to</span>
-          <input type="date" id="td-date-end">
-          <button type="button" id="td-apply-filter">Apply</button>
-          <button type="button" id="td-clear-filter" class="clear">Clear</button>
+        
+        <button class="td-filter-btn" id="td-toggle-filter">
+          <i class="fa-solid fa-calendar-days"></i> Filter
+        </button>
+        
+        <div class="td-filter-popover" id="td-filter-popover">
+          <div style="font-size:12px; font-weight:700; color:var(--navy); margin-bottom:4px;">Select Date Range</div>
+          <input type="date" id="td-date-start" title="Start Date">
+          <input type="date" id="td-date-end" title="End Date">
+          <div class="td-btn-group">
+            <button type="button" id="td-apply-filter" class="apply">Apply</button>
+            <button type="button" id="td-clear-filter" class="clear">Clear</button>
+          </div>
         </div>
       `;
 
       var mainContent = document.querySelector('main, [role="main"]') || document.body;
       mainContent.prepend(wrapper);
 
+      // পপওভার টগল লজিক
+      document.getElementById('td-toggle-filter').addEventListener('click', function(e) {
+        e.stopPropagation();
+        var pop = document.getElementById('td-filter-popover');
+        pop.classList.toggle('show');
+      });
+
+      // বাইরে ক্লিক করলে পপওভার বন্ধ হবে
+      document.addEventListener('click', function(e) {
+        var pop = document.getElementById('td-filter-popover');
+        if (pop && pop.classList.contains('show') && !pop.contains(e.target) && e.target.id !== 'td-toggle-filter') {
+          pop.classList.remove('show');
+        }
+      });
+
       document.getElementById('td-apply-filter').addEventListener('click', function() {
         var start = document.getElementById('td-date-start').value;
         var end = document.getElementById('td-date-end').value;
         applyDateFilter(start, end);
+        document.getElementById('td-filter-popover').classList.remove('show');
       });
 
       document.getElementById('td-clear-filter').addEventListener('click', function() {
         document.getElementById('td-date-start').value = '';
         document.getElementById('td-date-end').value = '';
         applyDateFilter('', '');
+        document.getElementById('td-filter-popover').classList.remove('show');
       });
     }
 
@@ -317,6 +351,7 @@
 
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
+    var viewsCache = {};
     var isInjecting = false;
 
     function calcTimeAgo(dateStr) {
@@ -364,14 +399,24 @@
       }
     }
 
-    // ✅ আসল ভিউ কাউন্ট আনার ফাংশন (CounterAPI)
+    // ✅ নতুন ফাস্ট ভিউ কাউন্টার API (Abacus)
     async function fetchViews(slug) {
+      if (viewsCache[slug] !== undefined) return viewsCache[slug];
       try {
-        var res = await fetch('https://api.counterapi.dev/v1/theglobaldesk/' + slug);
-        if (!res.ok) return 0;
+        // Timeout logic
+        var controller = new AbortController();
+        var timeoutId = setTimeout(() => controller.abort(), 3000);
+        
+        var res = await fetch('https://abacus.jamesm.dev/get/theglobaldesk/' + slug, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (!res.ok) { viewsCache[slug] = 0; return 0; }
         var data = await res.json();
-        return data.count || 0;
+        var count = data.value || 0;
+        viewsCache[slug] = count;
+        return count;
       } catch (e) {
+        viewsCache[slug] = 0;
         return 0;
       }
     }
@@ -387,51 +432,59 @@
         if (totalItemsEl) totalItemsEl.textContent = links.length;
 
         var totalViewsCount = 0;
+        var isDraftsList = window.location.hash.includes('news_drafts');
+        var isPublishedList = window.location.hash.includes('news_published');
+
+        // Promise.all ব্যবহার করে параллельно ভিউ আনা হবে (ফাস্ট লোড)
+        var promises = [];
 
         for (var i = 0; i < links.length; i++) {
-          var link = links[i];
-          var href = link.getAttribute('href') || '';
-          var slug = href.split('/').pop();
-          if (!slug) continue;
+          (function(link, index) {
+            var href = link.getAttribute('href') || '';
+            var slug = href.split('/').pop();
+            if (!slug) return;
 
-          var isDraftsList = window.location.hash.includes('news_drafts');
-          var isPublishedList = window.location.hash.includes('news_published');
+            // ড্রাফটের জন্য টাইম ব্যাজ
+            if (isDraftsList) {
+              if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) return;
+              
+              promises.push(fetchImportedAt(slug).then(function(timeInfo) {
+                if (!timeInfo || !timeInfo.text) return;
+                if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) return;
 
-          // ড্রাফটের জন্য টাইম ব্যাজ
-          if (isDraftsList) {
-            if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) continue;
-            var timeInfo = await fetchImportedAt(slug);
-            if (!timeInfo || !timeInfo.text) continue;
-            if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) continue;
+                var badge = document.createElement('span');
+                badge.className = 'td-badge ' + timeInfo.level;
+                var prefix = timeInfo.level === 'new' ? '🟢 NEW · ' : (timeInfo.level === 'today' ? '🟡 ' : (timeInfo.level === 'yesterday' ? '🟠 ' : '⚪ '));
+                badge.textContent = prefix + timeInfo.text;
+                link.appendChild(badge);
+              }));
+            }
 
-            var badge = document.createElement('span');
-            badge.className = 'td-badge ' + timeInfo.level;
-            var prefix = timeInfo.level === 'new' ? '🟢 NEW · ' : (timeInfo.level === 'today' ? '🟡 ' : (timeInfo.level === 'yesterday' ? '🟠 ' : '⚪ '));
-            badge.textContent = prefix + timeInfo.text;
-            link.appendChild(badge);
-          }
-
-          // ✅ পাবলিশডের জন্য আসল ভিউ কাউন্ট
-          if (isPublishedList) {
-            if (!link.querySelector('.td-badge.views')) {
+            // পাবলিশডের জন্য আসল ভিউ কাউন্ট
+            if (isPublishedList) {
+              if (link.querySelector('.td-badge.views')) return;
+              
               var viewSpan = document.createElement('span');
               viewSpan.className = 'td-badge views';
               viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
               link.appendChild(viewSpan);
-              
-              var views = await fetchViews(slug);
-              totalViewsCount += views;
-              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
+
+              promises.push(fetchViews(slug).then(function(views) {
+                viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
+                totalViewsCount += views;
+              }));
             }
-          }
+          })(links[i], i);
         }
+
+        await Promise.all(promises);
 
         // টোটাল ভিউ আপডেট
         var totalViewsEl = document.getElementById('td-total-views');
         if (totalViewsEl) totalViewsEl.textContent = totalViewsCount;
 
         // ড্রাফটে নতুন নিউজ উপরে আনার সর্টিং লজিক
-        if (window.location.hash.includes('news_drafts')) {
+        if (isDraftsList) {
           var listContainer = links[0] ? links[0].closest('ul, [role="list"]') : null;
           if (listContainer) {
             var rows = Array.from(listContainer.children).filter(function(row) { 
@@ -462,7 +515,7 @@
       
       if (isListPage()) {
         buildDashboard();
-        setTimeout(injectBadges, 500);
+        setTimeout(injectBadges, 300); // স্লো লোড ফিক্সের জন্য ৩০০ms
       } else {
         var dash = document.getElementById('td-dashboard-wrapper');
         if (dash) dash.remove();
@@ -470,18 +523,23 @@
     }
 
     setTimeout(init, 800);
-    setTimeout(init, 2000);
+    
     window.addEventListener('hashchange', function() {
       var dash = document.getElementById('td-dashboard-wrapper');
       if (dash) dash.remove();
       setTimeout(init, 400);
     });
 
+    // মিউটেশন অবজারভার অপ্টিমাইজ করা হয়েছে যাতে পেজ স্লো না হয়
     var t;
-    new MutationObserver(function() {
+    var observer = new MutationObserver(function(mutations) {
+      // যদি অলরেডি ড্যাশবোর্ড থাকে, তবে আর রান করবে না
+      if (document.getElementById('td-dashboard-wrapper') && isListPage()) return;
+      
       clearTimeout(t);
       t = setTimeout(init, 800);
-    }).observe(document.body, { childList: true, subtree: true });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   });
   </script>
 </body>

@@ -8,211 +8,140 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ================= ROOT & BRANDING ================= */
+    /* ================= 🌟 PREMIUM UI OVERRIDES ================= */
     :root {
       --navy: #061a33;
-      --navy-dark: #030f1e;
       --navy-light: #0d2a4a;
       --gold: #c99a3b;
-      --gold-light: #e5c06b;
-      --bg: #f0f4f8;
-      --panel-bg: #ffffff;
+      --gold-hover: #b5852c;
+      --bg: #f1f5f9;
+      --surface: #ffffff;
       --text: #1e293b;
       --muted: #64748b;
       --border: #e2e8f0;
-      --green: #16a34a;
-      --yellow: #eab308;
+      --green: #10b981;
+      --yellow: #f59e0b;
       --orange: #f97316;
       --gray: #94a3b8;
-      --radius: 12px;
     }
 
-    html, body { font-family: 'Inter', Arial, sans-serif !important; background: var(--bg) !important; color: var(--text); }
-    body:not(:has(header[role="banner"])) { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%) !important; }
-
-    /* ================= HEADER (NEWSROOM STYLE) ================= */
-    header[role="banner"] {
-      background: var(--navy) !important;
-      border-bottom: 3px solid var(--gold) !important;
-      padding: 0 24px !important;
-      min-height: 64px !important;
-      display: flex !important;
-      align-items: center !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
-    }
-    header[role="banner"] img { max-height: 36px !important; width: auto !important; background: #fff !important; padding: 6px 12px !important; border-radius: 6px !important; }
-    header[role="banner"]::after {
-      content: "NEWSROOM";
-      color: var(--gold); font-weight: 800; font-size: 11px; letter-spacing: 3px;
-      margin-left: 16px; padding-left: 16px; border-left: 1px solid rgba(201,154,59,0.4);
-    }
-
-    /* ================= QUICK BAR ================= */
-    .td-quick-bar {
-      position: fixed !important; top: 64px !important; left: 0 !important; right: 0 !important;
-      z-index: 2147483647 !important; background: var(--panel-bg) !important;
-      border-bottom: 2px solid var(--border) !important; padding: 10px 24px !important;
-      display: flex !important; gap: 10px !important; box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
-      box-sizing: border-box !important;
-    }
-    .td-quick-btn {
-      flex: 1 !important; display: flex !important; align-items: center !important; justify-content: center !important;
-      gap: 8px !important; padding: 12px 16px !important; border-radius: 10px !important; text-decoration: none !important;
-      font-weight: 700 !important; font-size: 14px !important; transition: all 0.2s !important; box-sizing: border-box !important;
-    }
-    .td-quick-btn.drafts { background: #eaf3fb !important; color: var(--navy) !important; border: 2px solid var(--navy) !important; }
-    .td-quick-btn.drafts:hover { background: var(--navy) !important; color: #fff !important; }
-    .td-quick-btn.published { background: #dcfce7 !important; color: var(--green) !important; border: 2px solid var(--green) !important; }
-    .td-quick-btn.published:hover { background: var(--green) !important; color: #fff !important; }
-    .td-quick-btn.breaking { background: #fee2e2 !important; color: #dc2626 !important; border: 2px solid #dc2626 !important; }
-    .td-quick-btn.breaking:hover { background: #dc2626 !important; color: #fff !important; }
-    .td-search-btn {
-      flex: 0 0 auto !important; width: 48px !important; height: 48px !important;
-      background: var(--gold) !important; color: var(--navy) !important; border: none !important;
-      border-radius: 10px !important; cursor: pointer !important; font-size: 18px !important;
-      transition: background 0.2s !important;
-    }
-    .td-search-btn:hover { background: var(--gold-light) !important; }
-    body.td-quickbar-on main, body.td-quickbar-on [role="main"] { padding-top: 88px !important; }
-
-    /* ================= GLOBAL OVERRIDES (List & Editor) ================= */
-    [class*="AppMain"], [class*="MainContent"] {
-      background: var(--bg) !important;
-      padding: 24px !important;
-    }
-
-    /* লিস্ট ভিউ কার্ডগুলোকে ছোট ও পরিচ্ছন্ন করা */
-    [class*="EntryCard"], [class*="Card"], [class*="ListItem"] {
-      padding: 12px 20px !important;
-      margin-bottom: 8px !important;
-      border-radius: 10px !important;
-      border: 1px solid var(--border) !important;
-      background: var(--panel-bg) !important;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
-      transition: all 0.2s ease !important;
-      display: flex !important;
-      align-items: center !important;
-    }
-    [class*="EntryCard"]:hover, [class*="Card"]:hover, [class*="ListItem"]:hover {
-      background: #f8fafc !important;
-      border-color: var(--gold) !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
-      transform: translateY(-1px) !important;
-    }
-
-    /* টাইটেল ফন্ট */
-    [class*="EntryCard"] h2, [class*="EntryCard"] h3,
-    [class*="Card"] h2, [class*="Card"] h3 {
-      font-family: 'Merriweather', Georgia, serif !important;
-      font-weight: 700 !important;
-      color: var(--navy) !important;
-      font-size: 15px !important;
-    }
-
-    /* ================= EDITOR PANEL STYLING ================= */
-    [class*="EditorPane"], [class*="Editor"] {
-      background: var(--panel-bg) !important;
-      padding: 24px !important;
-    }
-    [class*="ControlPane"] {
-      background: var(--panel-bg) !important;
-      border-left: 1px solid var(--border) !important;
-      padding: 24px !important;
-    }
-
-    /* ফর্ম ফিল্ডগুলোকে আরও পরিচ্ছন্ন করা */
-    label[class*="FieldLabel"] {
-      color: var(--navy) !important;
-      font-weight: 700 !important;
-      font-size: 13px !important;
-      letter-spacing: 0.3px !important;
-      margin-bottom: 6px !important;
-    }
-    input, textarea, select {
-      border-radius: 8px !important;
-      border: 1.5px solid var(--border) !important;
-      padding: 12px 14px !important;
-      font-size: 14px !important;
-      transition: border-color 0.2s, box-shadow 0.2s !important;
-      background: #fff !important;
+    /* গ্লোবাল ফন্ট ও ব্যাকগ্রাউন্ড */
+    html, body, [class*="App"], [class*="Main"] {
+      font-family: 'Inter', Arial, sans-serif !important;
+      background-color: var(--bg) !important;
       color: var(--text) !important;
     }
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--gold) !important;
-      box-shadow: 0 0 0 3px rgba(201,154,59,0.15) !important;
-      outline: none !important;
-    }
 
-    /* বাটন স্টাইল */
-    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
-      background: var(--navy) !important;
-      color: #fff !important;
-      font-weight: 700 !important;
-      border-radius: 8px !important;
-      border: none !important;
-      padding: 8px 20px !important;
-      font-size: 13px !important;
-      transition: background 0.2s !important;
-    }
-    button[type="submit"]:hover, [class*="ToolbarButton"]:hover, [class*="ButtonPrimary"]:hover {
-      background: var(--navy-light) !important;
-    }
+    /* ডিফল্ট সাইডবার ও টপ হেডার হাইড করা (আমাদের নিজস্ব ডিজাইন থাকবে) */
+    aside[role="navigation"], [class*="Sidebar"], nav[class*="Navigation"] { display: none !important; }
+    header[role="banner"] { display: none !important; }
+    main, [role="main"], [class*="MainContent"] { margin-left: 0 !important; padding: 0 !important; width: 100% !important; }
 
-    /* ================= CUSTOM DASHBOARD & FILTERS ================= */
-    .td-dashboard-container {
-      background: var(--panel-bg); border-radius: var(--radius); padding: 20px 24px;
-      margin: 24px auto; max-width: 1000px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-      border: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 20px;
-      align-items: center; justify-content: space-between;
-      position: relative; z-index: 10;
+    /* ================= 🎨 CUSTOM TOP HEADER ================= */
+    .td-custom-header {
+      background: var(--navy); padding: 0 24px; min-height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
-    .td-stats-group { display: flex; gap: 32px; }
-    .td-stat-item { display: flex; flex-direction: column; }
-    .td-stat-value { font-size: 26px; font-weight: 800; color: var(--navy); line-height: 1.2; }
-    .td-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); font-weight: 600; }
+    .td-brand { display: flex; align-items: center; gap: 12px; }
+    .td-brand img { max-height: 36px; background: #fff; padding: 4px 8px; border-radius: 6px; }
+    .td-brand span { color: var(--gold); font-weight: 800; font-size: 12px; letter-spacing: 2px; border-left: 1px solid rgba(201,154,59,0.3); padding-left: 12px; }
+    
+    .td-nav-links { display: flex; gap: 8px; }
+    .td-nav-btn {
+      color: #94a3b8; text-decoration: none; padding: 8px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+    }
+    .td-nav-btn:hover, .td-nav-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
+    .td-nav-btn.active { color: var(--gold); background: rgba(201,154,59,0.1); }
 
-    .td-filter-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .td-filter-group input[type="date"] {
-      padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
-      font-family: inherit; font-size: 13px; color: var(--text); outline: none;
+    /* ================= 📊 DASHBOARD & FILTERS ================= */
+    .td-dashboard-wrapper {
+      max-width: 1100px; margin: 24px auto 0; padding: 0 24px;
+      display: flex; flex-direction: column; gap: 16px;
     }
-    .td-filter-group button {
-      background: var(--gold); color: var(--navy); border: none; padding: 8px 16px;
-      border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;
-      transition: background 0.2s;
+    .td-stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .td-stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; display: flex; flex-direction: column; gap: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03); position: relative; overflow: hidden;
     }
-    .td-filter-group button:hover { background: var(--gold-light); }
+    .td-stat-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); }
+    .td-stat-value { font-size: 28px; font-weight: 800; color: var(--navy); line-height: 1; }
+    .td-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
 
-    /* ================= TIME BADGES ================= */
-    .td-time-badge {
-      display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      gap: 4px !important; margin-left: 10px !important;
-      padding: 3px 10px !important; border-radius: 12px !important;
-      font-size: 10px !important; font-weight: 800 !important;
-      letter-spacing: 0.3px !important; vertical-align: middle !important;
-      white-space: nowrap !important; font-family: 'Inter', sans-serif !important;
+    .td-filter-bar {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
-    .td-time-badge.td-level-new { background: var(--green) !important; color: #fff !important; animation: pulse-green 2s infinite !important; }
+    .td-filter-bar label { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .td-filter-bar input[type="date"] {
+      padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 13px; font-family: inherit; outline: none; background: var(--bg);
+    }
+    .td-filter-bar button {
+      background: var(--navy); color: #fff; border: none; padding: 8px 16px;
+      border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s;
+    }
+    .td-filter-bar button:hover { background: var(--navy-light); }
+    .td-filter-bar button.clear { background: #e2e8f0; color: #475569; }
+    .td-filter-bar button.clear:hover { background: #cbd5e1; }
+
+    /* ================= 📝 LIST CARDS (NEWS ITEMS) ================= */
+    /* ডিক্যাপ সিএমএস-এর লিস্ট আইটেমগুলোকে সুন্দর কার্ডে রূপান্তর */
+    ul[class*="Collection"], div[class*="Entries"] { padding: 24px !important; max-width: 1100px !important; margin: 0 auto !important; }
+    
+    li, [class*="ListItem"], [class*="EntryCard"] {
+      background: var(--surface) !important; border: 1px solid var(--border) !important;
+      border-radius: 12px !important; margin-bottom: 12px !important; padding: 0 !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important; transition: all 0.2s !important;
+    }
+    li:hover, [class*="ListItem"]:hover, [class*="EntryCard"]:hover {
+      border-color: var(--gold) !important; box-shadow: 0 6px 16px rgba(201,154,59,0.15) !important;
+      transform: translateY(-2px) !important;
+    }
+    li > a, [class*="ListItem"] > a, [class*="EntryCard"] > a {
+      padding: 16px 20px !important; display: flex !important; align-items: center !important;
+      justify-content: space-between !important; text-decoration: none !important; color: var(--text) !important;
+    }
+    h2, h3, [class*="Card"] h2 { font-family: 'Merriweather', serif !important; font-weight: 700 !important; color: var(--navy) !important; margin: 0 !important; font-size: 16px !important; }
+    p, [class*="Card"] p { color: var(--muted) !important; font-size: 13px !important; margin: 4px 0 0 0 !important; }
+
+    /* ================= ⏱️ TIME & VIEW BADGES ================= */
+    .td-badge {
+      display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+      margin-left: 12px; white-space: nowrap; font-family: 'Inter', sans-serif;
+    }
+    .td-badge.new { background: var(--green); color: #fff; animation: pulse-green 2s infinite; }
+    .td-badge.today { background: var(--yellow); color: #fff; }
+    .td-badge.yesterday { background: var(--orange); color: #fff; }
+    .td-badge.stale { background: var(--gray); color: #fff; }
+    .td-badge.views { background: #f1f5f9; color: var(--navy); border: 1px solid #e2e8f0; }
+    
     @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
-    .td-time-badge.td-level-today { background: var(--yellow) !important; color: #fff !important; }
-    .td-time-badge.td-level-yesterday { background: var(--orange) !important; color: #fff !important; }
-    .td-time-badge.td-level-stale { background: var(--gray) !important; color: #fff !important; }
 
-    /* ================= RESPONSIVE ================= */
+    /* ================= ✏️ EDITOR PAGE STYLING ================= */
+    [class*="EditorPane"], [class*="ControlPane"] { background: var(--surface) !important; border-radius: 12px !important; margin: 20px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important; border: 1px solid var(--border) !important; }
+    label[class*="FieldLabel"] { color: var(--navy) !important; font-weight: 700 !important; font-size: 13px !important; margin-bottom: 8px !important; }
+    input, textarea, select { border-radius: 8px !important; border: 1.5px solid var(--border) !important; padding: 12px 16px !important; font-size: 14px !important; transition: all 0.2s !important; width: 100% !important; }
+    input:focus, textarea:focus, select:focus { border-color: var(--gold) !important; box-shadow: 0 0 0 3px rgba(201,154,59,0.15) !important; outline: none !important; }
+    button[type="submit"], [class*="ToolbarButton"] { background: var(--navy) !important; color: #fff !important; font-weight: 700 !important; border-radius: 8px !important; padding: 10px 20px !important; border: none !important; transition: 0.2s !important; }
+    button[type="submit"]:hover, [class*="ToolbarButton"]:hover { background: var(--gold) !important; color: var(--navy) !important; }
+
     @media (max-width: 768px) {
-      header[role="banner"] { padding: 0 12px !important; min-height: 56px !important; }
-      header[role="banner"]::after { display: none; }
-      .td-quick-bar { top: 56px !important; padding: 8px 12px !important; gap: 6px !important; }
-      .td-quick-btn { padding: 10px 10px !important; font-size: 12px !important; }
-      .td-search-btn { width: 40px !important; height: 40px !important; }
-      body.td-quickbar-on main, body.td-quickbar-on [role="main"] { padding-top: 72px !important; }
-      .td-dashboard-container { flex-direction: column; align-items: flex-start; }
-      [class*="AppMain"], [class*="MainContent"] { padding: 12px !important; }
+      .td-nav-links { display: none; }
+      .td-custom-header { padding: 0 16px; }
+      .td-dashboard-wrapper { padding: 0 12px; margin-top: 12px; }
+      .td-stats-row { grid-template-columns: 1fr; }
+      ul[class*="Collection"] { padding: 12px !important; }
+      li > a { flex-direction: column; align-items: flex-start !important; gap: 8px; }
     }
   </style>
 </head>
@@ -225,26 +154,21 @@
     var h = window.h || (window.CMS && window.CMS.h);
 
     // =====================================================
-    // CUSTOM PREVIEW TEMPLATES (LIVE PREVIEW)
+    // 1. CUSTOM PREVIEW TEMPLATES (Article Card Preview)
     // =====================================================
     var previewCSS = `
       * { box-sizing: border-box; }
-      html, body { margin: 0; padding: 0; background: #f8fafc; font-family: 'Inter', Arial, sans-serif; }
-      .td-preview-wrap { padding: 16px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; }
-      .td-preview-card { background: #fff; border-radius: 12px; overflow: hidden; width: 100% !important; max-width: 360px !important; box-shadow: 0 8px 24px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin: 0 auto; }
-      .td-preview-img-wrap { width: 100% !important; height: 200px !important; overflow: hidden; background: #e2e8f0; }
-      .td-preview-img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
-      .td-preview-img-placeholder { width: 100%; height: 100%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 12px; font-weight: 600; }
-      .td-preview-content { padding: 16px 20px 20px; }
-      .td-preview-tag { display: inline-block; color: #c99a3b; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
-      .td-preview-title { font-family: 'Merriweather', Georgia, serif; font-size: 18px; line-height: 1.3; color: #061a33; margin: 0 0 10px; font-weight: 700; }
-      .td-preview-desc { font-size: 13px; font-weight: 500; color: #4a5663; border-left: 3px solid #c99a3b; padding-left: 10px; margin: 0 0 12px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-      .td-preview-meta { font-size: 10px; color: #929ba5; padding-top: 10px; border-top: 1px solid #edf1f4; display: flex; flex-wrap: wrap; gap: 4px; }
-      .td-preview-meta strong { color: #061a33; }
-      .td-preview-breaking-card { background: #061a33; color: #fff; padding: 20px; border-radius: 12px; max-width: 360px !important; border-top: 4px solid #c51f2d; margin: 0 auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-      .td-preview-breaking-badge { display: inline-block; background: #c51f2d; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 10px; }
-      .td-preview-breaking-card h2 { font-family: 'Merriweather', Georgia, serif; font-size: 18px; line-height: 1.3; margin: 0 0 10px; color: #fff; font-weight: 700; }
-      .td-preview-breaking-meta { font-size: 11px; color: rgba(255,255,255,0.65); padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+      body { margin: 0; padding: 20px; background: #f1f5f9; font-family: 'Inter', sans-serif; display: flex; justify-content: center; }
+      .card { background: #fff; border-radius: 16px; overflow: hidden; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+      .img-wrap { width: 100%; height: 220px; background: #e2e8f0; position: relative; }
+      .img { width: 100%; height: 100%; object-fit: cover; }
+      .img-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8; font-weight: 600; }
+      .content { padding: 20px 24px 24px; }
+      .tag { display: inline-block; color: #c99a3b; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+      .title { font-family: 'Merriweather', serif; font-size: 20px; line-height: 1.4; color: #061a33; margin: 0 0 12px; font-weight: 700; }
+      .desc { font-size: 14px; color: #475569; border-left: 3px solid #c99a3b; padding-left: 12px; margin: 0 0 16px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .meta { font-size: 12px; color: #94a3b8; padding-top: 12px; border-top: 1px solid #f1f5f9; display: flex; gap: 6px; flex-wrap: wrap; }
+      .meta strong { color: #061a33; }
     `;
     CMS.registerPreviewStyle(previewCSS, { raw: true });
 
@@ -258,16 +182,17 @@
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
       var dateStr = data.date ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not set';
-      return h('div', { className: 'td-preview-wrap' },
-        h('div', { className: 'td-preview-card' },
-          h('div', { className: 'td-preview-img-wrap' },
-            imageUrl ? h('img', { className: 'td-preview-img', src: imageUrl }) : h('div', { className: 'td-preview-img-placeholder' }, '🖼️ Cover Image')
+      
+      return h('div', {},
+        h('div', { className: 'card' },
+          h('div', { className: 'img-wrap' },
+            imageUrl ? h('img', { className: 'img', src: imageUrl }) : h('div', { className: 'img-placeholder' }, '🖼️ Cover Image')
           ),
-          h('div', { className: 'td-preview-content' },
-            data.category ? h('span', { className: 'td-preview-tag' }, data.category.toUpperCase()) : null,
-            h('h1', { className: 'td-preview-title' }, data.title || 'Your headline will appear here'),
-            data.description ? h('p', { className: 'td-preview-desc' }, data.description) : null,
-            h('div', { className: 'td-preview-meta' },
+          h('div', { className: 'content' },
+            data.category ? h('span', { className: 'tag' }, data.category.toUpperCase()) : null,
+            h('h1', { className: 'title' }, data.title || 'Your headline will appear here'),
+            data.description ? h('p', { className: 'desc' }, data.description) : null,
+            h('div', { className: 'meta' },
               h('span', {}, '✍️ '), h('strong', {}, 'The Global Desk'), h('span', {}, ' · ' + dateStr),
               data.source ? h('span', {}, ' · ' + data.source) : null
             )
@@ -282,11 +207,11 @@
     CMS.registerPreviewTemplate('breaking', function(props) {
       var data = props.entry.getIn(['data']).toJS();
       var expiresStr = data.expires ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'No expiry';
-      return h('div', { className: 'td-preview-wrap' },
-        h('div', { className: 'td-preview-breaking-card' },
-          h('span', { className: 'td-preview-breaking-badge' }, 'BREAKING'),
-          h('h2', {}, data.title || 'Breaking headline'),
-          h('div', { className: 'td-preview-breaking-meta' },
+      return h('div', { style: { padding: '20px', display: 'flex', justifyContent: 'center', background: '#f1f5f9', height: '100%' } },
+        h('div', { style: { background: '#061a33', color: '#fff', padding: '24px', borderRadius: '16px', width: '100%', maxWidth: '400px', borderTop: '4px solid #c51f2d', boxShadow: '0 10px 30px rgba(0,0,0,0.2)' } },
+          h('span', { style: { background: '#c51f2d', padding: '4px 10px', borderRadius: '4px', fontSize: '10px', fontWeight: '800', letterSpacing: '1px' } }, 'BREAKING'),
+          h('h2', { style: { fontFamily: 'Merriweather, serif', fontSize: '20px', margin: '16px 0' } }, data.title || 'Breaking headline'),
+          h('div', { style: { fontSize: '12px', color: 'rgba(255,255,255,0.6)', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px' } },
             '⏰ ' + expiresStr + ' · ⚡ ' + (data.priority || 'Normal') + ' · ' + (data.active ? '✅ Active' : '❌ Inactive')
           )
         )
@@ -294,82 +219,76 @@
     });
 
     // =====================================================
-    // DASHBOARD & QUICK BAR LOGIC
+    // 2. NEW UI INJECTION (HEADER + DASHBOARD + BADGES)
     // =====================================================
-    function isOnDashboard() {
+    function isListPage() {
+      var hash = window.location.hash || '';
+      return (hash.includes('/collections/') && !hash.includes('/entries/') && !hash.endsWith('/new'));
+    }
+
+    function isDashboard() {
       var hash = window.location.hash || '';
       return !hash || hash === '#' || hash === '/' || hash === '';
     }
-    function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
 
-    var BASE = window.location.origin + '/admin/';
-    function triggerSearch() {
-      var all = document.querySelectorAll('button, a, [role="button"]');
-      for (var i = 0; i < all.length; i++) {
-        var txt = (all[i].textContent || '').trim().toLowerCase();
-        if (txt === 'search all' || txt === 'search') { all[i].click(); return; }
-      }
-    }
-    function buildQuickBar() {
-      if (document.getElementById('td-quick-bar')) return;
-      var bar = document.createElement('div');
-      bar.id = 'td-quick-bar';
-      bar.className = 'td-quick-bar';
-      bar.innerHTML =
-        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn drafts"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>' +
-        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn published"><i class="fa-solid fa-circle-check"></i> Published</a>' +
-        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn breaking"><i class="fa-solid fa-bolt"></i> Breaking</a>' +
-        '<button type="button" class="td-search-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>';
-      document.body.appendChild(bar);
-      document.body.classList.add('td-quickbar-on');
-      bar.querySelector('.td-search-btn').addEventListener('click', triggerSearch);
-    }
-    function removeQuickBar() {
-      var bar = document.getElementById('td-quick-bar');
-      if (bar) bar.remove();
-      document.body.classList.remove('td-quickbar-on');
+    // কাস্টম হেডার তৈরি
+    function buildHeader() {
+      if (document.getElementById('td-custom-header')) return;
+      var header = document.createElement('div');
+      header.id = 'td-custom-header';
+      header.className = 'td-custom-header';
+      
+      var currentHash = window.location.hash;
+      var isDrafts = currentHash.includes('news_drafts');
+      var isPublished = currentHash.includes('news_published');
+      var isBreaking = currentHash.includes('breaking');
+
+      header.innerHTML = `
+        <div class="td-brand">
+          <img src="https://tgdnews.pages.dev/Logo.png" alt="Logo">
+          <span>NEWSROOM</span>
+        </div>
+        <div class="td-nav-links">
+          <a href="#/collections/news_drafts" class="td-nav-btn ${isDrafts ? 'active' : ''}"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>
+          <a href="#/collections/news_published" class="td-nav-btn ${isPublished ? 'active' : ''}"><i class="fa-solid fa-circle-check"></i> Published</a>
+          <a href="#/collections/breaking" class="td-nav-btn ${isBreaking ? 'active' : ''}"><i class="fa-solid fa-bolt"></i> Breaking</a>
+        </div>
+      `;
+      document.body.prepend(header);
     }
 
-    // =====================================================
-    // CUSTOM DASHBOARD (STATS + FILTER) - Only on List Views
-    // =====================================================
-    function buildCustomDashboard() {
-      if (document.getElementById('td-custom-dashboard')) return;
-      var hash = window.location.hash || '';
-      // Only show on collection list views, not on entry editor/new pages
-      if (hash.indexOf('/collections/') === -1 || hash.indexOf('/entries/') !== -1 || hash.indexOf('/new') !== -1) return;
+    // ড্যাশবোর্ড (স্ট্যাটস + ফিল্টার) তৈরি
+    function buildDashboard() {
+      if (document.getElementById('td-dashboard-wrapper') || !isListPage()) return;
 
-      var container = document.createElement('div');
-      container.id = 'td-custom-dashboard';
-      container.className = 'td-dashboard-container';
-
-      container.innerHTML = `
-        <div class="td-stats-group">
-          <div class="td-stat-item">
+      var wrapper = document.createElement('div');
+      wrapper.id = 'td-dashboard-wrapper';
+      wrapper.className = 'td-dashboard-wrapper';
+      
+      wrapper.innerHTML = `
+        <div class="td-stats-row">
+          <div class="td-stat-card">
             <span class="td-stat-value" id="td-total-views">0</span>
-            <span class="td-stat-label">Total Views (Demo)</span>
+            <span class="td-stat-label">Total Views</span>
           </div>
-          <div class="td-stat-item">
-            <span class="td-stat-value" id="td-total-published">0</span>
-            <span class="td-stat-label">Total Items</span>
+          <div class="td-stat-card">
+            <span class="td-stat-value" id="td-total-items">0</span>
+            <span class="td-stat-label">Total Articles</span>
           </div>
         </div>
-        <div class="td-filter-group">
-          <label style="font-size:13px; font-weight:600; color:var(--muted);">Filter by Date:</label>
+        <div class="td-filter-bar">
+          <label>Filter by Date:</label>
           <input type="date" id="td-date-start">
           <span style="color:var(--muted);">to</span>
           <input type="date" id="td-date-end">
-          <button type="button" id="td-apply-filter">Apply</button>
-          <button type="button" id="td-clear-filter" style="background:#e2e8f0; color:#475569;">Clear</button>
+          <button type="button" id="td-apply-filter">Apply Filter</button>
+          <button type="button" id="td-clear-filter" class="clear">Clear</button>
         </div>
       `;
 
-      var mainContent = document.querySelector('main, [role="main"]') || document.getElementById('root') || document.body;
-      if (mainContent.firstChild) {
-        mainContent.insertBefore(container, mainContent.firstChild);
-      } else {
-        mainContent.appendChild(container);
-      }
+      // মেইন কন্টেইনারের ঠিক আগে ড্যাশবোর্ড বসানো
+      var mainContent = document.querySelector('main, [role="main"]') || document.body;
+      mainContent.prepend(wrapper);
 
       document.getElementById('td-apply-filter').addEventListener('click', function() {
         var start = document.getElementById('td-date-start').value;
@@ -384,17 +303,18 @@
       });
     }
 
+    // ডেট ফিল্টার লজিক
     function applyDateFilter(start, end) {
       var links = document.querySelectorAll('a[href*="/entries/"]');
       links.forEach(function(link) {
-        var row = link.closest('li, [class*="EntryCard"], [class*="Card"], [class*="ListItem"]');
+        var row = link.closest('li, [class*="ListItem"], [class*="EntryCard"]');
         if (!row) return;
 
         var href = link.getAttribute('href') || '';
         var slug = href.split('/').pop() || '';
         var dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/);
         
-        if (!dateMatch) { row.style.display = 'flex'; return; }
+        if (!dateMatch) { row.style.display = 'block'; return; }
 
         var entryDate = new Date(dateMatch[1]);
         var startDate = start ? new Date(start) : null;
@@ -406,14 +326,11 @@
           endDate.setHours(23, 59, 59, 999);
           if (entryDate > endDate) isVisible = false;
         }
-
-        row.style.display = isVisible ? 'flex' : 'none';
+        row.style.display = isVisible ? 'block' : 'none';
       });
     }
 
-    // =====================================================
-    // TIME BADGE & SORTING - Only on List Views
-    // =====================================================
+    // টাইম ব্যাজ এবং ভিউ কাউন্ট
     var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
     var timeCache = {};
     var isInjecting = false;
@@ -463,21 +380,17 @@
       }
     }
 
-    async function injectListEnhancements() {
-      var hash = window.location.hash || '';
-      var isDraftsList = hash.indexOf('/collections/news_drafts') !== -1;
-      var isPublishedList = hash.indexOf('/collections/news_published') !== -1;
-      // Only run on list views, not on entry editor/new pages
-      if (!isDraftsList && !isPublishedList) return;
-      if (hash.indexOf('/entries/') !== -1 || hash.indexOf('/new') !== -1) return;
-      if (isInjecting) return;
+    async function injectBadges() {
+      if (!isListPage() || isInjecting) return;
       isInjecting = true;
 
       try {
         var links = document.querySelectorAll('a[href*="/entries/"]');
-        if (!links.length) { isInjecting = false; return; }
-
-        var totalItems = 0;
+        var totalItems = links.length;
+        
+        // স্ট্যাটস আপডেট
+        var totalItemsEl = document.getElementById('td-total-items');
+        if (totalItemsEl) totalItemsEl.textContent = totalItems;
 
         for (var i = 0; i < links.length; i++) {
           var link = links[i];
@@ -485,68 +398,45 @@
           var slug = href.split('/').pop();
           if (!slug) continue;
 
-          totalItems++;
+          var isDraftsList = window.location.hash.includes('news_drafts');
+          var isPublishedList = window.location.hash.includes('news_published');
 
           // ড্রাফট লিস্টের জন্য টাইম ব্যাজ
           if (isDraftsList) {
-            if (link.querySelector('.td-time-badge')) continue;
+            if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) continue;
             var timeInfo = await fetchImportedAt(slug);
             if (!timeInfo || !timeInfo.text) continue;
-            if (link.querySelector('.td-time-badge')) continue;
+            if (link.querySelector('.td-badge.new, .td-badge.today, .td-badge.yesterday, .td-badge.stale')) continue;
 
             var badge = document.createElement('span');
-            badge.className = 'td-time-badge td-level-' + timeInfo.level;
-            var prefix = '';
-            if (timeInfo.level === 'new') prefix = '🟢 NEW · ';
-            else if (timeInfo.level === 'today') prefix = '🟡 ';
-            else if (timeInfo.level === 'yesterday') prefix = '🟠 ';
-            else prefix = '⚪ ';
+            badge.className = 'td-badge ' + timeInfo.level;
+            var prefix = timeInfo.level === 'new' ? '🟢 NEW · ' : (timeInfo.level === 'today' ? '🟡 ' : (timeInfo.level === 'yesterday' ? '🟠 ' : '⚪ '));
             badge.textContent = prefix + timeInfo.text;
             link.appendChild(badge);
           }
 
-          // প্রকাশিত লিস্টের জন্য ভিউ কাউন্টার (প্লেসহোল্ডার)
+          // প্রকাশিত লিস্টের জন্য ভিউ ব্যাজ (প্লেসহোল্ডার)
           if (isPublishedList) {
-            if (!link.querySelector('.td-view-badge')) {
+            if (!link.querySelector('.td-badge.views')) {
               var viewSpan = document.createElement('span');
-              viewSpan.className = 'td-view-badge';
-              viewSpan.style.background = '#e2e8f0';
-              viewSpan.style.color = '#475569';
-              viewSpan.style.marginLeft = '10px';
-              viewSpan.style.padding = '3px 10px';
-              viewSpan.style.borderRadius = '12px';
-              viewSpan.style.fontSize = '11px';
-              viewSpan.style.fontWeight = 'bold';
-              viewSpan.textContent = '0 👁️'; 
+              viewSpan.className = 'td-badge views';
+              viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> 0'; 
               link.appendChild(viewSpan);
             }
           }
         }
 
-        // ড্যাশবোর্ড আপডেট
-        var totalViewsEl = document.getElementById('td-total-views');
-        var totalPublishedEl = document.getElementById('td-total-published');
-        if (totalViewsEl) totalViewsEl.textContent = '0';
-        if (totalPublishedEl) totalPublishedEl.textContent = totalItems;
-
-        // অটো-সর্টিং (শুধু ড্রাফটের জন্য)
-        if (isDraftsList) {
-          var allLinks = Array.from(links);
-          var listContainer = null;
-          if (allLinks.length > 0) {
-            listContainer = allLinks[0].closest('ul, [role="list"]');
-            if (!listContainer) listContainer = allLinks[0].parentElement.parentElement;
-          }
+        // ড্রাফটে নতুন নিউজ উপরে আনার সর্টিং লজিক
+        if (window.location.hash.includes('news_drafts')) {
+          var listContainer = links[0] ? links[0].closest('ul, [role="list"]') : null;
           if (listContainer) {
-            var rows = Array.from(listContainer.children);
-            rows = rows.filter(function(row) { return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); });
+            var rows = Array.from(listContainer.children).filter(function(row) { 
+              return row.querySelector('a[href*="/entries/"]'); 
+            });
             if (rows.length > 1) {
               rows.sort(function(a, b) {
-                var aLink = a.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                var bLink = b.querySelector('a[href*="/collections/news_drafts/entries/"]');
-                if (!aLink || !bLink) return 0;
-                var aSlug = aLink.getAttribute('href').split('/').pop();
-                var bSlug = bLink.getAttribute('href').split('/').pop();
+                var aSlug = a.querySelector('a').getAttribute('href').split('/').pop();
+                var bSlug = b.querySelector('a').getAttribute('href').split('/').pop();
                 var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
                 var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
                 return timeB - timeA;
@@ -563,36 +453,32 @@
     // =====================================================
     // ORCHESTRATOR
     // =====================================================
-    function refresh() {
-      if (!isLoggedIn()) {
-        removeQuickBar();
-        return;
-      }
-
-      if (isOnDashboard()) {
-        buildQuickBar();
+    function init() {
+      buildHeader();
+      
+      // এডিটর বা নতুন পেজে ড্যাশবোর্ড/ব্যাজ রান হবে না
+      if (isListPage()) {
+        buildDashboard();
+        setTimeout(injectBadges, 500);
       } else {
-        removeQuickBar();
+        var dash = document.getElementById('td-dashboard-wrapper');
+        if (dash) dash.remove();
       }
-
-      buildCustomDashboard();
-      setTimeout(injectListEnhancements, 500);
     }
 
-    setTimeout(refresh, 800);
-    setTimeout(refresh, 2000);
-    setTimeout(refresh, 3500);
-
+    // রিয়েল-টাইম আপডেট ট্র্যাকার
+    setTimeout(init, 800);
+    setTimeout(init, 2000);
     window.addEventListener('hashchange', function() {
-      var dash = document.getElementById('td-custom-dashboard');
-      if (dash) dash.remove(); 
-      setTimeout(refresh, 400);
+      var dash = document.getElementById('td-dashboard-wrapper');
+      if (dash) dash.remove();
+      setTimeout(init, 400);
     });
 
     var t;
     new MutationObserver(function() {
       clearTimeout(t);
-      t = setTimeout(refresh, 600);
+      t = setTimeout(init, 800);
     }).observe(document.body, { childList: true, subtree: true });
   });
   </script>

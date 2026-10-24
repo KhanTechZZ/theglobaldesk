@@ -28,106 +28,100 @@
     }
     header[role="banner"]::after {
       content: "NEWSROOM";
-      color: #c99a3b;
-      font-weight: 900;
-      font-size: 10px;
-      letter-spacing: 2px;
-      margin-left: 12px;
-      padding-left: 12px;
+      color: #c99a3b; font-weight: 900; font-size: 10px; letter-spacing: 2px;
+      margin-left: 12px; padding-left: 12px;
       border-left: 1px solid rgba(201,154,59,0.3);
     }
 
-    .view-stats-float-btn {
-      position: fixed !important;
-      bottom: 20px !important;
-      right: 20px !important;
-      z-index: 999999 !important;
-      background: #c99a3b !important;
-      color: #061a33 !important;
-      padding: 11px 20px !important;
-      border-radius: 30px !important;
-      font-weight: 800 !important;
-      font-size: 13px !important;
-      text-decoration: none !important;
-      box-shadow: 0 8px 24px rgba(201,154,59,0.5) !important;
-      display: flex !important;
-      align-items: center !important;
-      gap: 8px !important;
-      transition: all 0.2s !important;
-      border: 2px solid #061a33 !important;
+    /* Sidebar hidden only when quick bar active (dashboard) */
+    body.td-quickbar-on aside[role="navigation"],
+    body.td-quickbar-on [class*="Sidebar"] {
+      display: none !important;
+      width: 0 !important; min-width: 0 !important; max-width: 0 !important;
+      overflow: hidden !important; padding: 0 !important; margin: 0 !important;
     }
-    .view-stats-float-btn:hover { transform: translateY(-3px) !important; background: #e5c06b !important; }
+    body.td-quickbar-on main[role="main"],
+    body.td-quickbar-on [class*="MainContent"],
+    body.td-quickbar-on [class*="AppMain"] {
+      margin-left: 0 !important; padding-left: 0 !important;
+      width: 100% !important; max-width: 100% !important;
+    }
 
-    aside[role="navigation"], [class*="Sidebar"] {
+    /* Quick bar */
+    .td-quick-bar {
+      position: fixed !important; top: 56px !important;
+      left: 0 !important; right: 0 !important;
+      z-index: 2147483647 !important;
       background: #ffffff !important;
-      border-right: 1px solid #e2e8f0 !important;
-      padding: 12px 8px !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+      padding: 8px 12px !important;
+      display: flex !important; gap: 8px !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+      box-sizing: border-box !important;
     }
-    aside[role="navigation"] a, [class*="Sidebar"] a {
-      border-radius: 8px !important;
-      margin: 2px 0 !important;
-      padding: 10px 14px !important;
-      color: #475569 !important;
-      font-size: 13.5px !important;
-      font-weight: 600 !important;
-      transition: all 0.15s ease !important;
+    .td-quick-btn {
+      flex: 1 !important;
+      display: flex !important; align-items: center !important; justify-content: center !important;
+      gap: 6px !important; padding: 11px 14px !important;
+      border-radius: 8px !important; text-decoration: none !important;
+      font-weight: 800 !important; font-size: 13px !important;
+      transition: all 0.2s !important; box-sizing: border-box !important;
     }
-    aside[role="navigation"] a:hover, [class*="Sidebar"] a:hover {
-      background: #eaf3fb !important;
-      color: #0d4f91 !important;
+    .td-quick-btn.drafts { background: #eaf3fb !important; color: #0d4f91 !important; border: 2px solid #0d4f91 !important; }
+    .td-quick-btn.drafts:hover { background: #0d4f91 !important; color: #fff !important; }
+    .td-quick-btn.published { background: #dcfce7 !important; color: #16a34a !important; border: 2px solid #16a34a !important; }
+    .td-quick-btn.published:hover { background: #16a34a !important; color: #fff !important; }
+    .td-quick-btn.breaking { background: #fee2e2 !important; color: #dc2626 !important; border: 2px solid #dc2626 !important; }
+    .td-quick-btn.breaking:hover { background: #dc2626 !important; color: #fff !important; }
+
+    .td-search-btn {
+      flex: 0 0 auto !important;
+      width: 44px !important; height: 44px !important;
+      background: #c99a3b !important; color: #061a33 !important;
+      border: 2px solid #c99a3b !important;
+      border-radius: 8px !important; cursor: pointer !important; font-size: 16px !important;
     }
 
-    [class*="ControlHint"], .css-1j8z6y0-ControlHint, p[class*="ControlHint"] {
-      font-size: 11px !important;
-      line-height: 1.4 !important;
-      color: #64748b !important;
-      margin-top: 4px !important;
-      margin-bottom: 0 !important;
-      padding: 4px 8px !important;
-      background: #f8fafc !important;
-      border-radius: 4px !important;
-      border-left: 2px solid #c99a3b !important;
+    body.td-quickbar-on main,
+    body.td-quickbar-on [role="main"],
+    body.td-quickbar-on [class*="MainContent"] {
+      padding-top: 70px !important;
     }
 
-    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"], [class*="SaveButton"] {
-      background: #c99a3b !important;
-      color: #061a33 !important;
-      font-weight: 800 !important;
-      border-radius: 8px !important;
-      border: none !important;
-      padding: 5px 12px !important;
-      font-size: 12px !important;
-      box-shadow: 0 2px 8px rgba(201,154,59,0.2) !important;
+    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
+      background: #c99a3b !important; color: #061a33 !important;
+      font-weight: 800 !important; border-radius: 8px !important; border: none !important;
+      padding: 5px 12px !important; font-size: 12px !important;
     }
+    label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; }
+    input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
 
-    label[class*="FieldLabel"] {
-      color: #061a33 !important;
-      font-weight: 700 !important;
-      font-size: 13px !important;
-      margin-bottom: 4px !important;
+    /* Time badge in list view */
+    .td-time-badge {
+      display: inline-flex !important; align-items: center !important;
+      gap: 4px !important; margin-left: 10px !important;
+      padding: 3px 10px !important; border-radius: 12px !important;
+      font-size: 10px !important; font-weight: 800 !important;
+      letter-spacing: 0.3px !important; vertical-align: middle !important;
+      white-space: nowrap !important; font-family: Arial, sans-serif !important;
     }
-    input, textarea, select {
-      border-radius: 8px !important;
-      border: 1.5px solid #e2e8f0 !important;
-      padding: 10px 12px !important;
-      font-size: 13.5px !important;
+    .td-time-badge.td-new {
+      background: #16a34a !important; color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(22,163,74,0.3) !important;
     }
-    input:focus, textarea:focus, select:focus {
-      border-color: #c99a3b !important;
-      box-shadow: 0 0 0 3px rgba(201,154,59,0.1) !important;
-      outline: none !important;
+    .td-time-badge.td-old {
+      background: #e2e8f0 !important; color: #475569 !important;
     }
 
     @media (max-width: 768px) {
       header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
-      header[role="banner"] img { max-height: 28px !important; padding: 3px 6px !important; }
       header[role="banner"]::after { display: none; }
-      .view-stats-float-btn { bottom: 14px !important; right: 14px !important; padding: 10px 16px !important; font-size: 12px !important; }
-      [class*="Sidebar"] { padding: 8px 4px !important; }
-      aside[role="navigation"] a, [class*="Sidebar"] a { padding: 8px 10px !important; font-size: 12.5px !important; }
-      [class*="ControlHint"] { font-size: 10.5px !important; padding: 3px 6px !important; }
-      button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]) { padding: 5px 10px !important; font-size: 11.5px !important; }
-      input, textarea, select { padding: 8px 10px !important; font-size: 13px !important; }
+      .td-quick-bar { top: 50px !important; padding: 6px 8px !important; gap: 5px !important; }
+      .td-quick-btn { padding: 9px 8px !important; font-size: 11px !important; }
+      .td-search-btn { width: 38px !important; height: 38px !important; }
+      body.td-quickbar-on main,
+      body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
+      .td-time-badge { font-size: 9px !important; padding: 2px 7px !important; margin-left: 6px !important; }
     }
   </style>
 </head>
@@ -139,10 +133,30 @@
     if (typeof CMS === 'undefined') return;
 
     var h = window.h || (window.CMS && window.CMS.h);
-    if (typeof h !== 'function') {
-      console.error('Decap CMS: h not found');
-      return;
-    }
+
+    // =====================================================
+    // PREVIEW CSS
+    // =====================================================
+    var previewCSS = `
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; background: #f8fafc; font-family: Arial, sans-serif; }
+      .td-preview-wrap { padding: 12px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; }
+      .td-preview-card { background: #fff; border-radius: 8px; overflow: hidden; width: 100% !important; max-width: 320px !important; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin: 0 auto; }
+      .td-preview-img-wrap { width: 100% !important; height: 180px !important; overflow: hidden; background: #e2e8f0; }
+      .td-preview-img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
+      .td-preview-img-placeholder { width: 100%; height: 100%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 11px; font-weight: 600; }
+      .td-preview-content { padding: 12px 14px 14px; }
+      .td-preview-tag { display: inline-block; color: #c99a3b; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
+      .td-preview-title { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; color: #061a33; margin: 0 0 7px; font-weight: 700; }
+      .td-preview-desc { font-size: 11px; font-weight: 600; color: #4a5663; border-left: 3px solid #c99a3b; padding-left: 7px; margin: 0 0 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .td-preview-meta { font-size: 9px; color: #929ba5; padding-top: 7px; border-top: 1px solid #edf1f4; display: flex; flex-wrap: wrap; gap: 3px; }
+      .td-preview-meta strong { color: #061a33; }
+      .td-preview-breaking-card { background: #061a33; color: #fff; padding: 14px; border-radius: 8px; max-width: 320px !important; border-top: 3px solid #c51f2d; margin: 0 auto; }
+      .td-preview-breaking-badge { display: inline-block; background: #c51f2d; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 7px; }
+      .td-preview-breaking-card h2 { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; margin: 0 0 7px; color: #fff; font-weight: 700; }
+      .td-preview-breaking-meta { font-size: 10px; color: rgba(255,255,255,0.65); padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.1); }
+    `;
+    CMS.registerPreviewStyle(previewCSS, { raw: true });
 
     function resolveImage(path) {
       if (!path || typeof path !== 'string') return null;
@@ -150,196 +164,35 @@
       return path.startsWith('/') ? path : '/' + path;
     }
 
-    // =====================================================
-    // ✅ SMALL PREVIEW CSS — injected INSIDE iframe
-    // =====================================================
-    var previewCSS = `
-      * { box-sizing: border-box; }
-      html, body {
-        margin: 0;
-        padding: 0;
-        background: #f8fafc;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-      .td-preview-wrap {
-        background: #f8fafc;
-        padding: 12px;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-      }
-      .td-preview-card {
-        background: #ffffff;
-        border-radius: 8px;
-        overflow: hidden;
-        width: 100% !important;
-        max-width: 320px !important;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        border: 1px solid #e2e8f0;
-        margin: 0 auto;
-      }
-      .td-preview-img-wrap {
-        width: 100% !important;
-        height: 180px !important;
-        max-height: 180px !important;
-        overflow: hidden;
-        background: #e2e8f0;
-        display: block;
-      }
-      .td-preview-img {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100% !important;
-        max-height: 180px !important;
-        object-fit: cover !important;
-        object-position: center !important;
-        display: block;
-        margin: 0;
-      }
-      .td-preview-img-placeholder {
-        width: 100%;
-        height: 100%;
-        background: #f1f5f9;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #94a3b8;
-        font-size: 11px;
-        font-weight: 600;
-      }
-      .td-preview-content {
-        padding: 12px 14px 14px;
-      }
-      .td-preview-tag {
-        display: inline-block;
-        color: #c99a3b;
-        font-size: 9px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin-bottom: 5px;
-      }
-      .td-preview-title {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 15px;
-        line-height: 1.3;
-        color: #061a33;
-        margin: 0 0 7px;
-        letter-spacing: -0.2px;
-        font-weight: 700;
-      }
-      .td-preview-desc {
-        font-size: 11px;
-        font-weight: 600;
-        color: #4a5663;
-        border-left: 3px solid #c99a3b;
-        padding-left: 7px;
-        margin: 0 0 8px;
-        line-height: 1.5;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .td-preview-meta {
-        font-size: 9px;
-        color: #929ba5;
-        padding-top: 7px;
-        border-top: 1px solid #edf1f4;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 3px;
-      }
-      .td-preview-meta strong { color: #061a33; }
-
-      .td-preview-breaking-card {
-        background: #061a33;
-        color: #fff;
-        padding: 14px;
-        border-radius: 8px;
-        width: 100% !important;
-        max-width: 320px !important;
-        border-top: 3px solid #c51f2d;
-        margin: 0 auto;
-      }
-      .td-preview-breaking-badge {
-        display: inline-block;
-        background: #c51f2d;
-        color: #fff;
-        padding: 3px 8px;
-        border-radius: 3px;
-        font-size: 9px;
-        font-weight: 800;
-        letter-spacing: 1.2px;
-        margin-bottom: 7px;
-      }
-      .td-preview-breaking-card h2 {
-        font-family: Georgia, serif;
-        font-size: 15px;
-        line-height: 1.3;
-        margin: 0 0 7px;
-        color: #ffffff;
-        font-weight: 700;
-      }
-      .td-preview-breaking-meta {
-        font-size: 10px;
-        color: rgba(255,255,255,0.65);
-        padding-top: 7px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-      }
-    `;
-
-    CMS.registerPreviewStyle(previewCSS, { raw: true });
-
-    // =====================================================
-    // ✅ REUSABLE PREVIEW COMPONENT (for both collections)
-    // =====================================================
     function renderNewsPreview(props) {
       var data = props.entry.getIn(['data']).toJS();
       var imageUrl = resolveImage(data.image);
-      var dateStr = data.date
-        ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-        : 'Date not set';
+      var dateStr = data.date ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not set';
 
       return h('div', { className: 'td-preview-wrap' },
         h('div', { className: 'td-preview-card' },
           h('div', { className: 'td-preview-img-wrap' },
-            imageUrl
-              ? h('img', { className: 'td-preview-img', src: imageUrl, alt: data.title || 'Cover' })
-              : h('div', { className: 'td-preview-img-placeholder' }, '🖼️ Cover Image')
+            imageUrl ? h('img', { className: 'td-preview-img', src: imageUrl }) : h('div', { className: 'td-preview-img-placeholder' }, '🖼️ Cover Image')
           ),
           h('div', { className: 'td-preview-content' },
             data.category ? h('span', { className: 'td-preview-tag' }, data.category.toUpperCase()) : null,
             h('h1', { className: 'td-preview-title' }, data.title || 'Your headline will appear here'),
             data.description ? h('p', { className: 'td-preview-desc' }, data.description) : null,
             h('div', { className: 'td-preview-meta' },
-              h('span', {}, '✍️ '),
-              h('strong', {}, 'The Global Desk'),
-              h('span', {}, ' · ' + dateStr),
+              h('span', {}, '✍️ '), h('strong', {}, 'The Global Desk'), h('span', {}, ' · ' + dateStr),
               data.source ? h('span', {}, ' · ' + data.source) : null
             )
           )
         )
       );
     }
+    CMS.registerPreviewTemplate('news', renderNewsPreview);
+    CMS.registerPreviewTemplate('news_drafts', renderNewsPreview);
+    CMS.registerPreviewTemplate('news_published', renderNewsPreview);
 
-    // =====================================================
-    // ✅ REGISTER FOR ALL COLLECTION NAMES
-    // =====================================================
-    CMS.registerPreviewTemplate('news', renderNewsPreview);            // পুরনো
-    CMS.registerPreviewTemplate('news_drafts', renderNewsPreview);     // 📝 নতুন
-    CMS.registerPreviewTemplate('news_published', renderNewsPreview);  // ✅ নতুন
-
-    // =====================================================
-    // 🚨 BREAKING NEWS PREVIEW
-    // =====================================================
     CMS.registerPreviewTemplate('breaking', function(props) {
       var data = props.entry.getIn(['data']).toJS();
-      var expiresStr = data.expires
-        ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
-        : 'No expiry';
-
+      var expiresStr = data.expires ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'No expiry';
       return h('div', { className: 'td-preview-wrap' },
         h('div', { className: 'td-preview-breaking-card' },
           h('span', { className: 'td-preview-breaking-badge' }, 'BREAKING'),
@@ -352,19 +205,152 @@
     });
 
     // =====================================================
-    // 🎯 FLOATING VIEW STATS BUTTON
+    // 🎯 DASHBOARD DETECTION
     // =====================================================
-    function injectFloatBtn() {
-      if (document.querySelector('.view-stats-float-btn')) return;
-      var btn = document.createElement('a');
-      btn.href = '/admin/views.html';
-      btn.target = '_blank';
-      btn.className = 'view-stats-float-btn';
-      btn.innerHTML = '📊 View Stats';
-      document.body.appendChild(btn);
+    function isOnDashboard() {
+      var hash = window.location.hash || '';
+      return !hash || hash === '#' || hash === '#/' || hash === '';
     }
-    if (document.body) injectFloatBtn();
-    setInterval(injectFloatBtn, 1500);
+
+    function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
+
+    // =====================================================
+    // QUICK BAR
+    // =====================================================
+    var BASE = window.location.origin + '/admin/';
+
+    function triggerSearch() {
+      var all = document.querySelectorAll('button, a, [role="button"]');
+      for (var i = 0; i < all.length; i++) {
+        var txt = (all[i].textContent || '').trim().toLowerCase();
+        if (txt === 'search all' || txt === 'search') { all[i].click(); return; }
+      }
+    }
+
+    function buildQuickBar() {
+      if (document.getElementById('td-quick-bar')) return;
+      var bar = document.createElement('div');
+      bar.id = 'td-quick-bar';
+      bar.className = 'td-quick-bar';
+      bar.innerHTML =
+        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn drafts"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>' +
+        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn published"><i class="fa-solid fa-circle-check"></i> Published</a>' +
+        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn breaking"><i class="fa-solid fa-bolt"></i> Breaking</a>' +
+        '<button type="button" class="td-search-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>';
+      document.body.appendChild(bar);
+      document.body.classList.add('td-quickbar-on');
+      bar.querySelector('.td-search-btn').addEventListener('click', triggerSearch);
+    }
+
+    function removeQuickBar() {
+      var bar = document.getElementById('td-quick-bar');
+      if (bar) bar.remove();
+      document.body.classList.remove('td-quickbar-on');
+    }
+
+    // =====================================================
+    // 🎯 TIME BADGE IN DRAFTS LIST
+    // =====================================================
+    var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
+    var timeCache = {};
+
+    function calcTimeAgo(dateStr) {
+      if (!dateStr) return { text: '', isNew: false };
+      var d = new Date(dateStr);
+      if (isNaN(d.getTime())) return { text: '', isNew: false };
+      var diffMs = Date.now() - d.getTime();
+      var mins = Math.floor(diffMs / 60000);
+      var hours = Math.floor(mins / 60);
+      var days = Math.floor(hours / 24);
+      var weeks = Math.floor(days / 7);
+      var months = Math.floor(days / 30);
+
+      if (mins < 1) return { text: 'just now', isNew: true };
+      if (mins < 60) return { text: mins + 'm ago', isNew: true };
+      if (hours < 2) return { text: hours + 'h ago', isNew: true };
+      if (hours < 24) return { text: hours + 'h ago', isNew: false };
+      if (days < 7) return { text: days + 'd ago', isNew: false };
+      if (weeks < 4) return { text: weeks + 'w ago', isNew: false };
+      if (months < 12) return { text: months + 'mo ago', isNew: false };
+      return { text: Math.floor(days / 365) + 'y ago', isNew: false };
+    }
+
+    async function fetchImportedAt(slug) {
+      if (timeCache[slug]) return timeCache[slug];
+      try {
+        var res = await fetch(RAW_BASE + slug + '.md', { cache: 'no-store' });
+        if (!res.ok) { timeCache[slug] = null; return null; }
+        var text = await res.text();
+        var match = text.match(/^imported_at:\s*"?([^"\n]+)"?\s*$/m);
+        if (!match) { timeCache[slug] = null; return null; }
+        var result = calcTimeAgo(match[1].trim());
+        timeCache[slug] = result;
+        return result;
+      } catch (e) {
+        timeCache[slug] = null;
+        return null;
+      }
+    }
+
+    async function injectDraftTimeBadges() {
+      var hash = window.location.hash || '';
+      if (hash.indexOf('/collections/news_drafts') === -1) return;
+      if (hash.indexOf('/entries/') !== -1) return;
+
+      var links = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
+      if (!links.length) return;
+
+      for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        if (link.querySelector('.td-time-badge')) continue;
+
+        var href = link.getAttribute('href') || '';
+        var slug = href.split('/').pop();
+        if (!slug) continue;
+
+        var timeInfo = await fetchImportedAt(slug);
+        if (!timeInfo || !timeInfo.text) continue;
+
+        var badge = document.createElement('span');
+        badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
+        badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
+        link.appendChild(badge);
+      }
+    }
+
+    // =====================================================
+    // ORCHESTRATOR
+    // =====================================================
+    function refresh() {
+      if (!isLoggedIn()) {
+        removeQuickBar();
+        return;
+      }
+
+      // ✅ Quick bar ONLY on dashboard
+      if (isOnDashboard()) {
+        buildQuickBar();
+      } else {
+        removeQuickBar();
+      }
+
+      // Time badges work on drafts list regardless of quick bar
+      setTimeout(injectDraftTimeBadges, 400);
+    }
+
+    setTimeout(refresh, 800);
+    setTimeout(refresh, 2000);
+    setTimeout(refresh, 3500);
+
+    window.addEventListener('hashchange', function() {
+      setTimeout(refresh, 400);
+    });
+
+    var t;
+    new MutationObserver(function() {
+      clearTimeout(t);
+      t = setTimeout(refresh, 600);
+    }).observe(document.body, { childList: true, subtree: true });
   });
   </script>
 </body>

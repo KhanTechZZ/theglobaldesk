@@ -3,452 +3,143 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Global Desk — Admin</title>
+  <title>The Global Desk — Editor</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    html, body { font-family: 'Inter', Arial, sans-serif !important; background: #f0f4f8 !important; }
-    body:not(:has(header[role="banner"])) { background: linear-gradient(135deg, #030f1e 0%, #061a33 100%) !important; }
+    :root {
+      --navy: #061a33;
+      --gold: #c99a3b;
+      --bg: #f4f7f9;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
 
+    /* গ্লোবাল ফন্ট ও ব্যাকগ্রাউন্ড */
+    html, body, [class*="App"], [class*="Main"] {
+      font-family: 'Inter', sans-serif !important;
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+    }
+
+    /* ডিফল্ট বেমানান সাইডবার হাইড করা */
+    aside[role="navigation"], [class*="Sidebar"] {
+      display: none !important;
+    }
+    main, [role="main"], [class*="MainContent"] {
+      margin-left: 0 !important; padding: 0 !important; width: 100% !important;
+    }
+
+    /* টপ হেডার (নিউজরুম স্টাইল) */
     header[role="banner"] {
-      background: #030f1e !important;
-      border-bottom: 2px solid #c99a3b !important;
-      padding: 0 16px !important;
-      min-height: 56px !important;
+      background: var(--navy) !important;
+      border-bottom: 3px solid var(--gold) !important;
+      padding: 0 24px !important;
+      min-height: 60px !important;
       display: flex !important;
       align-items: center !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
     }
-    header[role="banner"] img, header[role="banner"] a img {
-      max-height: 32px !important;
-      width: auto !important;
-      background: #ffffff !important;
-      padding: 4px 8px !important;
-      border-radius: 6px !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+    header[role="banner"] img { 
+      max-height: 32px !important; background: #fff !important; 
+      padding: 4px 8px !important; border-radius: 6px !important;
     }
     header[role="banner"]::after {
-      content: "NEWSROOM";
-      color: #c99a3b; font-weight: 900; font-size: 10px; letter-spacing: 2px;
-      margin-left: 12px; padding-left: 12px;
-      border-left: 1px solid rgba(201,154,59,0.3);
+      content: "EDITORIAL DESK";
+      color: var(--gold); font-weight: 800; font-size: 11px; letter-spacing: 2px;
+      margin-left: 16px; padding-left: 16px; border-left: 1px solid rgba(201,154,59,0.4);
     }
 
-    /* Sidebar hidden only when quick bar active (dashboard) */
-    body.td-quickbar-on aside[role="navigation"],
-    body.td-quickbar-on [class*="Sidebar"] {
-      display: none !important;
-      width: 0 !important; min-width: 0 !important; max-width: 0 !important;
-      overflow: hidden !important; padding: 0 !important; margin: 0 !important;
-    }
-    body.td-quickbar-on main[role="main"],
-    body.td-quickbar-on [class*="MainContent"],
-    body.td-quickbar-on [class*="AppMain"] {
-      margin-left: 0 !important; padding-left: 0 !important;
-      width: 100% !important; max-width: 100% !important;
+    /* এডিটর প্যানেলকে বড় ও পরিচ্ছন্ন করা */
+    [class*="EditorPane"], [class*="ControlPane"] {
+      background: var(--surface) !important;
+      border-radius: 12px !important;
+      margin: 20px auto !important;
+      max-width: 900px !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04) !important;
+      border: 1px solid var(--border) !important;
+      padding: 30px !important;
     }
 
-    /* Quick bar */
-    .td-quick-bar {
-      position: fixed !important; top: 56px !important;
-      left: 0 !important; right: 0 !important;
-      z-index: 2147483647 !important;
-      background: #ffffff !important;
-      border-bottom: 2px solid #e2e8f0 !important;
-      padding: 8px 12px !important;
-      display: flex !important; gap: 8px !important;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
-      box-sizing: border-box !important;
+    /* ফর্মের লেবেল ও ইনপুট ফিল্ড */
+    label[class*="FieldLabel"] {
+      color: var(--navy) !important;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      letter-spacing: 0.3px !important;
+      margin-bottom: 8px !important;
     }
-    .td-quick-btn {
-      flex: 1 !important;
-      display: flex !important; align-items: center !important; justify-content: center !important;
-      gap: 6px !important; padding: 11px 14px !important;
-      border-radius: 8px !important; text-decoration: none !important;
-      font-weight: 800 !important; font-size: 13px !important;
-      transition: all 0.2s !important; box-sizing: border-box !important;
+    input, textarea, select {
+      border-radius: 8px !important;
+      border: 1.5px solid var(--border) !important;
+      padding: 12px 16px !important;
+      font-size: 14px !important;
+      font-family: 'Inter', sans-serif !important;
+      transition: all 0.2s !important;
+      background: #f8fafc !important;
     }
-    .td-quick-btn.drafts { background: #eaf3fb !important; color: #0d4f91 !important; border: 2px solid #0d4f91 !important; }
-    .td-quick-btn.drafts:hover { background: #0d4f91 !important; color: #fff !important; }
-    .td-quick-btn.published { background: #dcfce7 !important; color: #16a34a !important; border: 2px solid #16a34a !important; }
-    .td-quick-btn.published:hover { background: #16a34a !important; color: #fff !important; }
-    .td-quick-btn.breaking { background: #fee2e2 !important; color: #dc2626 !important; border: 2px solid #dc2626 !important; }
-    .td-quick-btn.breaking:hover { background: #dc2626 !important; color: #fff !important; }
-
-    .td-search-btn {
-      flex: 0 0 auto !important;
-      width: 44px !important; height: 44px !important;
-      background: #c99a3b !important; color: #061a33 !important;
-      border: 2px solid #c99a3b !important;
-      border-radius: 8px !important; cursor: pointer !important; font-size: 16px !important;
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--gold) !important;
+      background: #fff !important;
+      box-shadow: 0 0 0 3px rgba(201,154,59,0.15) !important;
+      outline: none !important;
     }
 
-    body.td-quickbar-on main,
-    body.td-quickbar-on [role="main"],
-    body.td-quickbar-on [class*="MainContent"] {
-      padding-top: 70px !important;
+    /* বড় টেক্সট এরিয়া (Markdown Editor) */
+    [class*="CodeMirror"], [class*="Markdown"] {
+      font-family: 'Merriweather', Georgia, serif !important;
+      font-size: 16px !important;
+      line-height: 1.8 !important;
+      border-radius: 8px !important;
+      border: 1.5px solid var(--border) !important;
+      background: #fff !important;
+    }
+    [class*="CodeMirror"]:focus {
+      border-color: var(--gold) !important;
     }
 
+    /* বাটন স্টাইল */
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
-      background: #c99a3b !important; color: #061a33 !important;
-      font-weight: 800 !important; border-radius: 8px !important; border: none !important;
-      padding: 5px 12px !important; font-size: 12px !important;
+      background: var(--navy) !important;
+      color: #fff !important;
+      font-weight: 700 !important;
+      border-radius: 8px !important;
+      border: none !important;
+      padding: 10px 24px !important;
+      font-size: 14px !important;
+      transition: background 0.2s !important;
     }
-    label[class*="FieldLabel"] { color: #061a33 !important; font-weight: 700 !important; font-size: 13px !important; }
-    input, textarea, select { border-radius: 8px !important; border: 1.5px solid #e2e8f0 !important; padding: 10px 12px !important; font-size: 13.5px !important; }
-
-    /* Time badge in list view */
-    .td-time-badge {
-      display: inline-flex !important; align-items: center !important;
-      gap: 4px !important; margin-left: 10px !important;
-      padding: 3px 10px !important; border-radius: 12px !important;
-      font-size: 10px !important; font-weight: 800 !important;
-      letter-spacing: 0.3px !important; vertical-align: middle !important;
-      white-space: nowrap !important; font-family: Arial, sans-serif !important;
-    }
-    .td-time-badge.td-new {
-      background: #16a34a !important; color: #ffffff !important;
-      box-shadow: 0 2px 8px rgba(22,163,74,0.3) !important;
-    }
-    .td-time-badge.td-old {
-      background: #e2e8f0 !important; color: #475569 !important;
+    button[type="submit"]:hover, [class*="ToolbarButton"]:hover, [class*="ButtonPrimary"]:hover {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
     }
 
-    /* Views Badge */
-    .td-view-badge {
-      display: inline-flex !important; align-items: center !important; justify-content: center !important;
-      gap: 4px !important; margin-left: 10px !important;
-      padding: 3px 10px !important; border-radius: 12px !important;
-      font-size: 11px !important; font-weight: 800 !important;
-      background: #e2e8f0 !important; color: #061a33 !important;
-      vertical-align: middle !important; white-space: nowrap !important;
-      font-family: Arial, sans-serif !important;
+    /* লিস্ট ভিউ (ড্রাফট বা পাবলিশড লিস্ট) */
+    [class*="EntryCard"], [class*="ListItem"] {
+      background: var(--surface) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 8px !important;
+      margin-bottom: 10px !important;
+      padding: 16px 20px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+      transition: all 0.2s ease !important;
     }
-
-    @media (max-width: 768px) {
-      header[role="banner"] { padding: 0 10px !important; min-height: 50px !important; }
-      header[role="banner"]::after { display: none; }
-      .td-quick-bar { top: 50px !important; padding: 6px 8px !important; gap: 5px !important; }
-      .td-quick-btn { padding: 9px 8px !important; font-size: 11px !important; }
-      .td-search-btn { width: 38px !important; height: 38px !important; }
-      body.td-quickbar-on main,
-      body.td-quickbar-on [role="main"] { padding-top: 60px !important; }
-      .td-time-badge { font-size: 9px !important; padding: 2px 7px !important; margin-left: 6px !important; }
-      .td-view-badge { font-size: 10px !important; padding: 2px 7px !important; margin-left: 6px !important; }
+    [class*="EntryCard"]:hover, [class*="ListItem"]:hover {
+      border-color: var(--gold) !important;
+      box-shadow: 0 4px 15px rgba(201,154,59,0.15) !important;
+      transform: translateY(-2px) !important;
+    }
+    [class*="EntryCard"] h2, [class*="EntryCard"] h3 {
+      font-family: 'Merriweather', serif !important;
+      color: var(--navy) !important;
+      font-size: 16px !important;
     }
   </style>
 </head>
 <body>
+  <!-- শুধু Decap CMS লোড হবে, কোনো বাগি স্ক্রিপ্ট নেই -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-  <script>
-  window.addEventListener('load', function() {
-    if (typeof CMS === 'undefined') return;
-
-    var h = window.h || (window.CMS && window.CMS.h);
-
-    // =====================================================
-    // PREVIEW CSS
-    // =====================================================
-    var previewCSS = `
-      * { box-sizing: border-box; }
-      html, body { margin: 0; padding: 0; background: #f8fafc; font-family: Arial, sans-serif; }
-      .td-preview-wrap { padding: 12px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; }
-      .td-preview-card { background: #fff; border-radius: 8px; overflow: hidden; width: 100% !important; max-width: 320px !important; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; margin: 0 auto; }
-      .td-preview-img-wrap { width: 100% !important; height: 180px !important; overflow: hidden; background: #e2e8f0; }
-      .td-preview-img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
-      .td-preview-img-placeholder { width: 100%; height: 100%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 11px; font-weight: 600; }
-      .td-preview-content { padding: 12px 14px 14px; }
-      .td-preview-tag { display: inline-block; color: #c99a3b; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
-      .td-preview-title { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; color: #061a33; margin: 0 0 7px; font-weight: 700; }
-      .td-preview-desc { font-size: 11px; font-weight: 600; color: #4a5663; border-left: 3px solid #c99a3b; padding-left: 7px; margin: 0 0 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-      .td-preview-meta { font-size: 9px; color: #929ba5; padding-top: 7px; border-top: 1px solid #edf1f4; display: flex; flex-wrap: wrap; gap: 3px; }
-      .td-preview-meta strong { color: #061a33; }
-      .td-preview-breaking-card { background: #061a33; color: #fff; padding: 14px; border-radius: 8px; max-width: 320px !important; border-top: 3px solid #c51f2d; margin: 0 auto; }
-      .td-preview-breaking-badge { display: inline-block; background: #c51f2d; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 7px; }
-      .td-preview-breaking-card h2 { font-family: Georgia, serif; font-size: 15px; line-height: 1.3; margin: 0 0 7px; color: #fff; font-weight: 700; }
-      .td-preview-breaking-meta { font-size: 10px; color: rgba(255,255,255,0.65); padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.1); }
-    `;
-    CMS.registerPreviewStyle(previewCSS, { raw: true });
-
-    function resolveImage(path) {
-      if (!path || typeof path !== 'string') return null;
-      if (/^https?:\/\//i.test(path)) return path;
-      return path.startsWith('/') ? path : '/' + path;
-    }
-
-    function renderNewsPreview(props) {
-      var data = props.entry.getIn(['data']).toJS();
-      var imageUrl = resolveImage(data.image);
-      var dateStr = data.date ? new Date(data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Date not set';
-
-      return h('div', { className: 'td-preview-wrap' },
-        h('div', { className: 'td-preview-card' },
-          h('div', { className: 'td-preview-img-wrap' },
-            imageUrl ? h('img', { className: 'td-preview-img', src: imageUrl }) : h('div', { className: 'td-preview-img-placeholder' }, '🖼️ Cover Image')
-          ),
-          h('div', { className: 'td-preview-content' },
-            data.category ? h('span', { className: 'td-preview-tag' }, data.category.toUpperCase()) : null,
-            h('h1', { className: 'td-preview-title' }, data.title || 'Your headline will appear here'),
-            data.description ? h('p', { className: 'td-preview-desc' }, data.description) : null,
-            h('div', { className: 'td-preview-meta' },
-              h('span', {}, '✍️ '), h('strong', {}, 'The Global Desk'), h('span', {}, ' · ' + dateStr),
-              data.source ? h('span', {}, ' · ' + data.source) : null
-            )
-          )
-        )
-      );
-    }
-    CMS.registerPreviewTemplate('news', renderNewsPreview);
-    CMS.registerPreviewTemplate('news_drafts', renderNewsPreview);
-    CMS.registerPreviewTemplate('news_published', renderNewsPreview);
-
-    CMS.registerPreviewTemplate('breaking', function(props) {
-      var data = props.entry.getIn(['data']).toJS();
-      var expiresStr = data.expires ? new Date(data.expires).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'No expiry';
-      return h('div', { className: 'td-preview-wrap' },
-        h('div', { className: 'td-preview-breaking-card' },
-          h('span', { className: 'td-preview-breaking-badge' }, 'BREAKING'),
-          h('h2', {}, data.title || 'Breaking headline'),
-          h('div', { className: 'td-preview-breaking-meta' },
-            '⏰ ' + expiresStr + ' · ⚡ ' + (data.priority || 'Normal') + ' · ' + (data.active ? '✅ Active' : '❌ Inactive')
-          )
-        )
-      );
-    });
-
-    // =====================================================
-    // 🎯 DASHBOARD DETECTION & QUICK BAR
-    // =====================================================
-    function isOnDashboard() {
-      var hash = window.location.hash || '';
-      return !hash || hash === '#' || hash === '#/' || hash === '';
-    }
-
-    function isLoggedIn() { return document.querySelectorAll('a[href*="/collections/"]').length > 0; }
-
-    var BASE = window.location.origin + '/admin/';
-
-    function triggerSearch() {
-      var all = document.querySelectorAll('button, a, [role="button"]');
-      for (var i = 0; i < all.length; i++) {
-        var txt = (all[i].textContent || '').trim().toLowerCase();
-        if (txt === 'search all' || txt === 'search') { all[i].click(); return; }
-      }
-    }
-
-    function buildQuickBar() {
-      if (document.getElementById('td-quick-bar')) return;
-      var bar = document.createElement('div');
-      bar.id = 'td-quick-bar';
-      bar.className = 'td-quick-bar';
-      bar.innerHTML =
-        '<a href="' + BASE + '#/collections/news_drafts" class="td-quick-btn drafts"><i class="fa-solid fa-pen-to-square"></i> Drafts</a>' +
-        '<a href="' + BASE + '#/collections/news_published" class="td-quick-btn published"><i class="fa-solid fa-circle-check"></i> Published</a>' +
-        '<a href="' + BASE + '#/collections/breaking" class="td-quick-btn breaking"><i class="fa-solid fa-bolt"></i> Breaking</a>' +
-        '<button type="button" class="td-search-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>';
-      document.body.appendChild(bar);
-      document.body.classList.add('td-quickbar-on');
-      bar.querySelector('.td-search-btn').addEventListener('click', triggerSearch);
-    }
-
-    function removeQuickBar() {
-      var bar = document.getElementById('td-quick-bar');
-      if (bar) bar.remove();
-      document.body.classList.remove('td-quickbar-on');
-    }
-
-    // =====================================================
-    // 🎯 CORE LOGIC: TIME BADGE, SORTING & VIEWS
-    // =====================================================
-    var RAW_BASE = 'https://raw.githubusercontent.com/KhanTechZZ/theglobaldesk/main/news/';
-    var timeCache = {};
-    var viewsCache = {};
-
-    function calcTimeAgo(dateStr) {
-      if (!dateStr) return { text: '', isNew: false, rawDate: 0 };
-      var d = new Date(dateStr);
-      if (isNaN(d.getTime())) return { text: '', isNew: false, rawDate: 0 };
-      var diffMs = Date.now() - d.getTime();
-      var mins = Math.floor(diffMs / 60000);
-      var hours = Math.floor(mins / 60);
-      var days = Math.floor(hours / 24);
-      var weeks = Math.floor(days / 7);
-      var months = Math.floor(days / 30);
-
-      var text = '';
-      if (mins < 1) text = 'just now';
-      else if (mins < 60) text = mins + 'm ago';
-      else if (hours < 24) text = hours + 'h ago';
-      else if (days < 7) text = days + 'd ago';
-      else if (weeks < 4) text = weeks + 'w ago';
-      else if (months < 12) text = months + 'mo ago';
-      else text = Math.floor(days / 365) + 'y ago';
-
-      return { text: text, isNew: (hours < 2), rawDate: d.getTime() };
-    }
-
-    async function fetchImportedAt(slug) {
-      if (timeCache[slug]) return timeCache[slug];
-      try {
-        var res = await fetch(RAW_BASE + slug + '.md', { cache: 'no-store' });
-        if (!res.ok) { timeCache[slug] = null; return null; }
-        var text = await res.text();
-        var match = text.match(/^imported_at:\s*"?([^"\n]+)"?\s*$/m);
-        if (!match) { timeCache[slug] = null; return null; }
-        var result = calcTimeAgo(match[1].trim());
-        timeCache[slug] = result;
-        return result;
-      } catch (e) {
-        timeCache[slug] = null;
-        return null;
-      }
-    }
-
-    async function fetchViews(slug) {
-      if (viewsCache[slug] !== undefined) return viewsCache[slug];
-      try {
-        var controller = new AbortController();
-        var timeoutId = setTimeout(() => controller.abort(), 2500);
-        var res = await fetch('https://abacus.jamesm.dev/get/theglobaldesk/' + slug, { signal: controller.signal });
-        clearTimeout(timeoutId);
-        if (!res.ok) { viewsCache[slug] = 0; return 0; }
-        var data = await res.json();
-        var count = data.value || 0;
-        viewsCache[slug] = count;
-        return count;
-      } catch (e) {
-        viewsCache[slug] = 0;
-        return 0;
-      }
-    }
-
-    // Main processor
-    async function processList() {
-      if (!isLoggedIn()) return;
-      
-      var hash = window.location.hash || '';
-      
-      // 1. Process Drafts
-      if (hash.indexOf('/collections/news_drafts') !== -1 && hash.indexOf('/entries/') === -1) {
-        var draftLinks = document.querySelectorAll('a[href*="/collections/news_drafts/entries/"]');
-        if (!draftLinks.length) return;
-
-        for (var i = 0; i < draftLinks.length; i++) {
-          var link = draftLinks[i];
-          
-          // ✅ ডুপ্লিকেট লক: যদি অলরেডি প্রসেস করা হয় বা ব্যাজ থাকে, তবে স্কিপ করবে
-          if (link.getAttribute('data-td-processing') || link.querySelector('.td-time-badge')) continue;
-          link.setAttribute('data-td-processing', 'true');
-
-          var href = link.getAttribute('href') || '';
-          var slug = href.split('/').pop();
-          if (!slug) continue;
-
-          var timeInfo = await fetchImportedAt(slug);
-          if (!timeInfo || !timeInfo.text) {
-            link.removeAttribute('data-td-processing');
-            continue;
-          }
-
-          var badge = document.createElement('span');
-          badge.className = 'td-time-badge ' + (timeInfo.isNew ? 'td-new' : 'td-old');
-          badge.textContent = timeInfo.isNew ? '● NEW  ' + timeInfo.text : timeInfo.text;
-          link.appendChild(badge);
-          
-          link.removeAttribute('data-td-processing');
-        }
-
-        // Sorting (Newest First)
-        var allLinks = Array.from(draftLinks);
-        var listContainer = allLinks[0] ? allLinks[0].closest('ul, [role="list"]') : null;
-        if (!listContainer) listContainer = allLinks[0] ? allLinks[0].parentElement.parentElement : null;
-
-        if (listContainer) {
-          var rows = Array.from(listContainer.children).filter(function(row) { 
-            return row.querySelector('a[href*="/collections/news_drafts/entries/"]'); 
-          });
-          
-          if (rows.length > 1) {
-            var needsSort = false;
-            for (var j = 0; j < rows.length - 1; j++) {
-              var aSlug = rows[j].querySelector('a').getAttribute('href').split('/').pop();
-              var bSlug = rows[j+1].querySelector('a').getAttribute('href').split('/').pop();
-              var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
-              var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-              if (timeA < timeB) { needsSort = true; break; }
-            }
-            if (needsSort) {
-              rows.sort(function(a, b) {
-                var aSlug = a.querySelector('a').getAttribute('href').split('/').pop();
-                var bSlug = b.querySelector('a').getAttribute('href').split('/').pop();
-                var timeA = (timeCache[aSlug] && timeCache[aSlug].rawDate) ? timeCache[aSlug].rawDate : 0;
-                var timeB = (timeCache[bSlug] && timeCache[bSlug].rawDate) ? timeCache[bSlug].rawDate : 0;
-                return timeB - timeA;
-              });
-              rows.forEach(function(row) { listContainer.appendChild(row); });
-            }
-          }
-        }
-      }
-
-      // 2. Process Published (Views)
-      if (hash.indexOf('/collections/news_published') !== -1 && hash.indexOf('/entries/') === -1) {
-        var pubLinks = document.querySelectorAll('a[href*="/collections/news_published/entries/"]');
-        if (!pubLinks.length) return;
-
-        for (var k = 0; k < pubLinks.length; k++) {
-          var pLink = pubLinks[k];
-          
-          // ✅ ডুপ্লিকেট লক
-          if (pLink.getAttribute('data-td-v-processing') || pLink.querySelector('.td-view-badge')) continue;
-          pLink.setAttribute('data-td-v-processing', 'true');
-
-          var pHref = pLink.getAttribute('href') || '';
-          var pSlug = pHref.split('/').pop();
-          if (!pSlug) continue;
-
-          var viewSpan = document.createElement('span');
-          viewSpan.className = 'td-view-badge';
-          viewSpan.innerHTML = '<i class="fa-solid fa-eye"></i> ...'; 
-          pLink.appendChild(viewSpan);
-
-          fetchViews(pSlug).then(function(span, slug) {
-            return function(views) {
-              span.innerHTML = '<i class="fa-solid fa-eye"></i> ' + views;
-            };
-          }(viewSpan, pSlug));
-        }
-      }
-    }
-
-    // =====================================================
-    // ORCHESTRATOR (Interval based to avoid React DOM conflicts)
-    // =====================================================
-    function refresh() {
-      if (!isLoggedIn()) {
-        removeQuickBar();
-        return;
-      }
-
-      if (isOnDashboard()) {
-        buildQuickBar();
-      } else {
-        removeQuickBar();
-      }
-
-      // Call the list processor
-      processList();
-    }
-
-    // Run immediately and then every 1.5 seconds
-    setTimeout(refresh, 800);
-    setInterval(refresh, 1500); 
-    
-    // Also run on hashchange
-    window.addEventListener('hashchange', function() {
-      setTimeout(refresh, 400);
-    });
-  });
-  </script>
 </body>
 </html>

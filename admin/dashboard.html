@@ -6,26 +6,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin Dashboard | The Global Desk</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f5f9;color:#172033;font:15px Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f5f9;color:#172033;font:15px Arial,sans-serif}
 header{background:#101c33;color:white;padding:20px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-header strong{font-size:21px}main{max-width:1200px;margin:30px auto;padding:0 18px}
-button,input{font:inherit;padding:11px;border-radius:7px;border:1px solid #d5dbe5}
-button{cursor:pointer;background:#14233d;color:white;border:0}button:disabled{opacity:.5}
-a{color:#a77822}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0}
+header strong{font-size:21px}
+main{max-width:1200px;margin:30px auto;padding:0 18px}
+button,input,select{font:inherit;padding:11px;border-radius:7px;border:1px solid #d5dbe5}
+button{cursor:pointer;background:#14233d;color:white;border:0}
+button:disabled{opacity:.5;cursor:not-allowed}
+a{color:#a77822;text-decoration:none}
+a:hover{text-decoration:underline}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0}
 .card,.panel,#login{background:white;border:1px solid #e2e7ef;border-radius:12px;padding:22px}
 .stat{font-size:30px;font-weight:bold;margin-top:10px}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.toolbar input{flex:1;min-width:170px}.tablewrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;padding:14px;border-bottom:1px solid #e8ebf1;white-space:nowrap}
-th{background:#f7f8fb;font-size:13px}td small{color:#667085}
+.toolbar input,.toolbar select{flex:1;min-width:150px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:white}
+th,td{text-align:left;padding:14px;border-bottom:1px solid #e8ebf1;white-space:nowrap}
+th{background:#f7f8fb;font-size:13px}
 .status{padding:5px 9px;border-radius:20px;background:#eef2f7;font-size:12px}
-#message{margin:15px 0;color:#475467}#login{max-width:420px;margin:70px auto}
-#login input{width:100%;margin:12px 0}#login button{width:100%}
-.danger{background:#b42318}.muted{color:#667085;font-size:13px}
-@media(max-width:600px){.stats{grid-template-columns:1fr}.card{padding:15px}header{padding:16px}}
+.status.published{background:#dcfae6;color:#067647}
+.status.draft{background:#f2f4f7;color:#344054}
+#message{margin:15px 0;color:#475467;overflow-wrap:anywhere}
+#login{max-width:420px;margin:70px auto}
+#login input{width:100%;margin:12px 0}
+#login button{width:100%}
+.muted{color:#667085;font-size:13px}
+.cms-actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.cms-btn{display:inline-block;background:#14233d;color:white;padding:12px 16px;border-radius:8px;font-weight:bold}
+.cms-btn:hover{opacity:.9;text-decoration:none}
+.cms-btn.green{background:#16865b}
+.cms-btn.red{background:#b42318}
+.cms-btn.gray{background:#475467}
+.small-btn{padding:8px 12px}
+@media(max-width:600px){
+ .stats{grid-template-columns:1fr}
+ .card{padding:15px}
+ header{padding:16px}
+ main{margin:20px auto}
+}
 </style>
 </head>
 <body>
+
 <header>
   <strong>The Global Desk <span style="color:#e6b65c">/ Admin</span></strong>
   <nav>
@@ -38,56 +62,119 @@ th{background:#f7f8fb;font-size:13px}td small{color:#667085}
   <h2>Admin Login</h2>
   <p class="muted">Sign in to manage website articles.</p>
   <form id="loginForm">
-    <input id="password" type="password" placeholder="Admin password" required autocomplete="current-password">
-    <button type="submit">Sign in</button>
+    <input id="password" type="password"
+      placeholder="Admin password" required
+      autocomplete="current-password">
+    <button type="submit" id="loginButton">Sign in</button>
   </form>
-  <p id="loginMessage"></p>
+  <p id="loginMessage" role="status"></p>
 </div>
 
 <main id="app" hidden>
   <h1>Dashboard</h1>
-  <p class="muted">Article data is loaded from your GitHub repository.</p>
+  <p class="muted">Manage your news through the connected CMS.</p>
+
+  <div class="cms-actions">
+    <a class="cms-btn" href="/admin/#/collections/news_drafts/new">
+      + Add News / Draft
+    </a>
+    <a class="cms-btn green" href="/admin/#/collections/news_published">
+      Published News
+    </a>
+    <a class="cms-btn gray" href="/admin/#/collections/news_drafts">
+      Manage Drafts
+    </a>
+    <a class="cms-btn red" href="/admin/#/collections/breaking">
+      Breaking News
+    </a>
+    <a class="cms-btn" href="/admin/">
+      Open Full CMS
+    </a>
+  </div>
+
   <div class="stats">
-    <div class="card">Total articles<div class="stat" id="total">—</div></div>
-    <div class="card">Published<div class="stat" id="published">—</div></div>
-    <div class="card">Drafts<div class="stat" id="drafts">—</div></div>
+    <div class="card">
+      Total articles
+      <div class="stat" id="total">—</div>
+    </div>
+    <div class="card">
+      Published
+      <div class="stat" id="published">—</div>
+    </div>
+    <div class="card">
+      Drafts
+      <div class="stat" id="drafts">—</div>
+    </div>
   </div>
 
   <section class="panel">
+    <h2>News Management</h2>
+    <p class="muted">
+      Search articles below. Use Edit in CMS to change an article,
+      publish it, or manage its status.
+    </p>
+
     <div class="toolbar">
       <input id="search" placeholder="Search article title...">
       <input id="from" type="date" aria-label="From date">
       <input id="to" type="date" aria-label="To date">
       <button id="refresh">Refresh</button>
-      <button id="delete" class="danger" disabled>Delete selected</button>
     </div>
+
+    <div class="toolbar">
+      <select id="statusFilter" aria-label="Filter by status">
+        <option value="all">All statuses</option>
+        <option value="Published">Published</option>
+        <option value="Draft">Draft</option>
+        <option value="Breaking">Breaking</option>
+      </select>
+    </div>
+
     <p id="message" role="status">Please sign in.</p>
+
     <div class="tablewrap">
       <table>
-        <thead><tr>
-          <th><input id="all" type="checkbox" aria-label="Select all visible"></th>
-          <th>Article</th><th>Date</th><th>Status</th><th>Views</th><th>Manage</th>
-        </tr></thead>
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Manage</th>
+          </tr>
+        </thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
-    <p class="muted">Views are not connected in this version. The dash (—) is not a view count.</p>
+
+    <p class="muted">
+      Article statistics depend on the Dashboard API.
+      Page views are not connected.
+    </p>
   </section>
 </main>
 
 <script>
 const $ = id => document.getElementById(id);
 let articles = [];
-const selected = new Set();
 
 async function api(url, options = {}) {
   const response = await fetch(url, {
     credentials: "same-origin",
     ...options,
-    headers: {"Content-Type":"application/json", ...(options.headers || {})}
+    headers: {
+      ...(options.body ? {"Content-Type":"application/json"} : {}),
+      ...(options.headers || {})
+    }
   });
+
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.error || "Request failed");
+
+  if (!response.ok) {
+    throw new Error(
+      data.details || data.error || `Request failed (${response.status})`
+    );
+  }
+
   return data;
 }
 
@@ -97,89 +184,123 @@ function showApp() {
   $("logout").hidden = false;
 }
 
+function showLogin() {
+  $("app").hidden = true;
+  $("login").hidden = false;
+  $("logout").hidden = true;
+}
+
 function dateValue(value) {
   if (!value) return "";
-  const match = value.match(/^\d{4}-\d{2}-\d{2}/);
+  const match = String(value).match(/^\d{4}-\d{2}-\d{2}/);
   return match ? match[0] : "";
+}
+
+function cmsCollection(article) {
+  if (article.published || article.status === "Published") {
+    return "news_published";
+  }
+  if (article.status === "Breaking") {
+    return "breaking";
+  }
+  return "news_drafts";
+}
+
+function cmsEntryUrl(article) {
+  const file = String(article.path || "").split("/").pop();
+  const slug = file.replace(/\.md$/i, "");
+  return `/admin/#/collections/${cmsCollection(article)}/entries/${encodeURIComponent(slug)}`;
 }
 
 function render() {
   const q = $("search").value.trim().toLowerCase();
   const from = $("from").value;
   const to = $("to").value;
+  const wantedStatus = $("statusFilter").value;
+
   const filtered = articles.filter(a => {
+    const title = String(a.title || "").toLowerCase();
     const d = dateValue(a.date);
-    return a.title.toLowerCase().includes(q) &&
+    const status = String(a.status || "Draft");
+
+    return title.includes(q) &&
       (!from || (d && d >= from)) &&
-      (!to || (d && d <= to));
+      (!to || (d && d <= to)) &&
+      (wantedStatus === "all" || status === wantedStatus);
   });
 
   $("rows").replaceChildren();
+
+  if (!filtered.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 4;
+    td.textContent = articles.length
+      ? "No articles match your filters."
+      : "No news articles found. Use Add News / Draft to create one.";
+    tr.append(td);
+    $("rows").append(tr);
+  }
+
   for (const a of filtered) {
     const tr = document.createElement("tr");
-    const checkCell = document.createElement("td");
-    const check = document.createElement("input");
-    check.type = "checkbox";
-    check.checked = selected.has(a.path);
-    check.setAttribute("aria-label", "Select " + a.title);
-    check.onchange = () => {
-      check.checked ? selected.add(a.path) : selected.delete(a.path);
-      updateSelection();
-    };
-    checkCell.append(check);
 
     const title = document.createElement("td");
-    title.textContent = a.title;
+    title.textContent = a.title || "Untitled";
 
     const date = document.createElement("td");
     date.textContent = a.date || "—";
 
-    const status = document.createElement("td");
+    const statusCell = document.createElement("td");
     const badge = document.createElement("span");
-    badge.className = "status";
-    badge.textContent = a.status;
-    status.append(badge);
-
-    const views = document.createElement("td");
-    views.textContent = "—";
+    const statusText = a.status || (a.published ? "Published" : "Draft");
+    badge.className = "status " +
+      (statusText === "Published" ? "published" : "draft");
+    badge.textContent = statusText;
+    statusCell.append(badge);
 
     const manage = document.createElement("td");
     const edit = document.createElement("a");
-    edit.href = "/admin/";
-    edit.textContent = "Open CMS";
+    edit.href = cmsEntryUrl(a);
+    edit.className = "cms-btn small-btn";
+    edit.textContent = "Edit in CMS";
     manage.append(edit);
 
-    tr.append(checkCell, title, date, status, views, manage);
+    tr.append(title, date, statusCell, manage);
     $("rows").append(tr);
   }
-  $("all").checked = filtered.length > 0 && filtered.every(a => selected.has(a.path));
-  updateSelection();
-}
 
-function updateSelection() {
-  $("delete").disabled = selected.size === 0;
-  $("delete").textContent = selected.size
-    ? `Delete selected (${selected.size})` : "Delete selected";
+  if (filtered.length) {
+    $("message").textContent =
+      `Showing ${filtered.length} of ${articles.length} articles.`;
+  }
 }
 
 async function loadArticles() {
   $("message").textContent = "Loading articles...";
   $("refresh").disabled = true;
+
   try {
     const data = await api("/api/dashboard");
-    articles = data.articles || [];
-    selected.clear();
-    $("total").textContent = articles.length;
-    $("published").textContent = data.published;
-    $("drafts").textContent = data.drafts;
+    articles = Array.isArray(data.articles) ? data.articles : [];
+
+    $("total").textContent = data.total ?? articles.length;
+    $("published").textContent =
+      data.published ?? articles.filter(a => a.published).length;
+    $("drafts").textContent =
+      data.drafts ?? articles.filter(a => !a.published).length;
+
     render();
-    $("message").textContent = "Loaded " + articles.length + " articles.";
+
+    if (!articles.length) {
+      $("message").textContent =
+        "No articles found. Use Add News / Draft to create a news article.";
+    }
   } catch (e) {
-    $("message").textContent = e.message;
-    if (e.message === "Unauthorized") {
-      $("app").hidden = true;
-      $("login").hidden = false;
-      $("logout").hidden = true;
+    $("message").textContent = "Could not load articles: " + e.message;
+
+    if (e.message.toLowerCase().includes("unauthorized")) {
+      showLogin();
     }
   } finally {
     $("refresh").disabled = false;
@@ -189,28 +310,39 @@ async function loadArticles() {
 $("loginForm").onsubmit = async e => {
   e.preventDefault();
   $("loginMessage").textContent = "Signing in...";
+  $("loginButton").disabled = true;
+
   try {
     await api("/api/dashboard-login", {
       method: "POST",
       body: JSON.stringify({password: $("password").value})
     });
+
     $("password").value = "";
     showApp();
     await loadArticles();
   } catch (err) {
     $("loginMessage").textContent = err.message;
+  } finally {
+    $("loginButton").disabled = false;
   }
 };
 
 $("logout").onclick = async () => {
-  try { await api("/api/dashboard-logout", {method:"POST", body:"{}"}); }
-  finally {
+  $("logout").disabled = true;
+
+  try {
+    await api("/api/dashboard-logout", {
+      method: "POST",
+      body: "{}"
+    });
+  } catch (e) {
+    console.error("Logout request failed:", e);
+  } finally {
     articles = [];
-    selected.clear();
-    $("app").hidden = true;
-    $("login").hidden = false;
-    $("logout").hidden = true;
+    showLogin();
     $("loginMessage").textContent = "Logged out.";
+    $("logout").disabled = false;
   }
 };
 
@@ -218,51 +350,27 @@ $("refresh").onclick = loadArticles;
 $("search").oninput = render;
 $("from").onchange = render;
 $("to").onchange = render;
+$("statusFilter").onchange = render;
 
-$("all").onchange = () => {
-  const q = $("search").value.trim().toLowerCase();
-  const from = $("from").value, to = $("to").value;
-  for (const a of articles) {
-    const d = dateValue(a.date);
-    if (a.title.toLowerCase().includes(q) &&
-        (!from || (d && d >= from)) &&
-        (!to || (d && d <= to))) {
-      $("all").checked ? selected.add(a.path) : selected.delete(a.path);
-    }
-  }
-  render();
-};
-
-$("delete").onclick = async () => {
-  const paths = [...selected];
-  if (!paths.length || !confirm(`Permanently delete ${paths.length} article(s) from GitHub?`)) return;
-  $("delete").disabled = true;
-  $("message").textContent = "Deleting selected articles...";
-  try {
-    const result = await api("/api/dashboard", {
-      method: "DELETE", body: JSON.stringify({paths})
-    });
-    $("message").textContent = `Deleted: ${result.deleted}; failed: ${result.failed}.`;
-    await loadArticles();
-  } catch (e) {
-    $("message").textContent = e.message;
-  } finally {
-    updateSelection();
-  }
-};
-
+// Check whether an existing admin session is valid.
 (async () => {
   try {
     const data = await api("/api/dashboard");
     showApp();
-    articles = data.articles || [];
-    $("total").textContent = articles.length;
-    $("published").textContent = data.published;
-    $("drafts").textContent = data.drafts;
+
+    articles = Array.isArray(data.articles) ? data.articles : [];
+    $("total").textContent = data.total ?? articles.length;
+    $("published").textContent = data.published ?? 0;
+    $("drafts").textContent = data.drafts ?? 0;
+
     render();
-    $("message").textContent = "Dashboard loaded.";
-  } catch {
-    $("login").hidden = false;
+
+    if (!articles.length) {
+      $("message").textContent =
+        "No articles found. Use Add News / Draft to create one.";
+    }
+  } catch (e) {
+    showLogin();
   }
 })();
 </script>

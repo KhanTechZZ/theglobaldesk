@@ -1,216 +1,343 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard | The Global Desk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newsroom Dashboard | The Global Desk</title>
 <style>
 :root {
-  --bg:#f4f6fa; --card:#fff; --text:#172033; --muted:#778197;
-  --line:#e6eaf0; --blue:#2457e6; --nav:#101b30;
-  --green:#16865b; --orange:#d97706; --red:#dc3545;
+  --bg:#f5f7fb;--surface:#fff;--ink:#182338;--muted:#7c879b;
+  --line:#e8edf4;--nav:#111c31;--blue:#4169f5;
+  --green:#13865c;--orange:#bd7410;--red:#d84b56;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,a{font:inherit}
-a{text-decoration:none;color:inherit}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:245px;background:var(--nav);color:#fff;padding:25px 17px;flex-shrink:0}
-.brand{font-size:21px;font-weight:800;line-height:1.4;margin:0 8px 8px}
-.brand span{color:#72a0ff}
-.brand-sub{color:#9caac0;font-size:12px;margin:0 8px 30px}
-.nav-label{font-size:10px;letter-spacing:1.5px;color:#8290a8;margin:23px 10px 10px}
-.nav a{display:flex;gap:12px;align-items:center;padding:12px 11px;margin:4px 0;border-radius:8px;color:#c5cede;font-size:14px}
-.nav a:hover,.nav a.active{background:#233653;color:#fff}
-.nav a.active{border-left:3px solid #75a0ff}
-.sidebar-note{font-size:11px;color:#8e9bb1;line-height:1.7;margin:35px 8px}
-.main{flex:1;min-width:0;padding:28px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:26px}
-h1{font-size:26px;margin:0 0 7px}
-.subtitle{color:var(--muted);font-size:13px}
-.top-actions{display:flex;gap:9px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:white;font-size:12px;font-weight:700;cursor:pointer}
-.btn.primary{background:var(--blue);border-color:var(--blue);color:white}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.app{display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--nav);color:#fff;padding:25px 16px;flex-shrink:0}
+.logo{font-size:22px;font-weight:900;letter-spacing:.5px;padding:0 10px}
+.logo span{color:#7da0ff}
+.sublogo{font-size:10px;letter-spacing:2px;color:#93a2bc;padding:7px 10px 28px}
+.nav-label{font-size:10px;color:#7f8ca5;letter-spacing:1.5px;padding:17px 10px 8px}
+.nav a{display:block;padding:12px;border-radius:8px;color:#c6cede;font-size:13px;margin:3px 0}
+.nav a:hover,.nav a.active{background:#273753;color:white}
+.nav a.active{border-left:3px solid #81a2ff}
+.sidebar-foot{margin:35px 10px;font-size:11px;color:#8997ad;line-height:1.8}
+main{flex:1;min-width:0;padding:28px}
+.header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+h1{font-size:25px;margin:0 0 7px}
+.subtitle{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}
+.btn.primary{background:var(--blue);color:white;border-color:var(--blue)}
 .btn:hover{opacity:.85}
-.section-title{font-size:15px;font-weight:800;margin:25px 0 14px}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:19px}
-.stat-top{display:flex;justify-content:space-between;align-items:center;gap:6px}
-.stat-label{font-size:12px;color:var(--muted)}
-.stat-icon{font-size:20px}
-.stat-value{font-size:29px;font-weight:800;margin:15px 0 7px;overflow-wrap:anywhere}
-.stat-foot{font-size:11px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:18px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;min-width:0}
+.eyebrow{font-size:11px;color:var(--muted);letter-spacing:1px;font-weight:800;margin:25px 0 13px;text-transform:uppercase}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat,.panel{background:var(--surface);border:1px solid var(--line);border-radius:13px}
+.stat{padding:19px;min-width:0}
+.stat-head{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.stat-icon{font-size:21px}
+.number{font-size:29px;font-weight:850;margin:16px 0 7px;overflow-wrap:anywhere}
+.note{font-size:11px;color:var(--muted);line-height:1.5}
+.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:15px;margin-top:17px}
+.panel{min-width:0;overflow:hidden}
 .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:17px 19px;border-bottom:1px solid var(--line)}
 .panel-head h2{font-size:14px;margin:0}
-.panel-body{padding:18px}
-.quick-links{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.quick{border:1px solid var(--line);border-radius:10px;padding:15px;display:block}
-.quick:hover{border-color:#9bb5ff;background:#f8faff}
-.quick-icon{font-size:21px;margin-bottom:10px}
-.quick strong{display:block;font-size:13px;margin-bottom:5px}
-.quick small{color:var(--muted);font-size:11px;line-height:1.5}
-.notice{border-radius:9px;padding:13px;font-size:12px;line-height:1.7;margin-bottom:12px}
-.notice.info{background:#edf4ff;color:#244b9a}
-.notice.warn{background:#fff6e7;color:#87520b}
-.status{display:inline-block;border-radius:20px;padding:5px 9px;font-size:10px;font-weight:800;background:#edf0f5;color:#596579}
-.status.ok{background:#e4f7ed;color:#13774d}
-.status.warn{background:#fff1d9;color:#9a6100}
+.panel-body{padding:17px}
+.badge{font-size:10px;font-weight:800;border-radius:20px;padding:6px 9px;background:#edf0f6;color:#657086;white-space:nowrap}
+.badge.green{background:#e2f7ed;color:#11784e}
+.badge.orange{background:#fff2db;color:#96600b}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.quick{display:block;border:1px solid var(--line);padding:15px;border-radius:10px}
+.quick:hover{border-color:#a9baff;background:#f8faff}
+.quick .emoji{font-size:21px;margin-bottom:10px}
+.quick strong{font-size:12px;display:block;margin-bottom:6px}
+.quick small{font-size:11px;color:var(--muted);line-height:1.5}
+.info{font-size:12px;line-height:1.7;padding:13px;border-radius:9px;margin-bottom:11px;background:#edf4ff;color:#2b4b91}
+.warning{background:#fff5e6;color:#85540d}
+.table-tools{display:flex;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.search{width:100%;max-width:330px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12px;outline:none}
+.search:focus{border-color:#91a8ff}
 .table-wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:500px}
-th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);font-size:12px}
-th{color:var(--muted);font-weight:700;background:#fafbfd}
-td{line-height:1.5}
+table{border-collapse:collapse;width:100%;min-width:580px}
+th,td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}
+th{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);background:#fafbfd}
+td.title-cell{font-weight:700;max-width:310px}
 td a{color:var(--blue);font-weight:700}
-.empty{padding:22px;color:var(--muted);font-size:12px;line-height:1.7}
-.footer{margin-top:24px;text-align:center;color:var(--muted);font-size:11px}
-@media(max-width:1050px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}}
+.count{font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.empty{padding:24px;color:var(--muted);font-size:12px;line-height:1.8}
+.panel-actions{display:flex;gap:8px;align-items:center}
+.small-btn{border:1px solid var(--line);background:white;border-radius:7px;padding:7px 10px;font-size:11px;cursor:pointer}
+.footer{text-align:center;font-size:11px;color:var(--muted);margin-top:25px}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}}
 @media(max-width:700px){
- .layout{display:block}
- .sidebar{width:100%;padding:15px}
- .brand{font-size:19px}
- .brand-sub{margin-bottom:13px}
- .nav-label,.sidebar-note{display:none}
- .nav{display:flex;gap:5px;overflow-x:auto;padding-bottom:4px}
- .nav a{white-space:nowrap;padding:10px;font-size:12px}
- .main{padding:18px 13px}
- .topbar{align-items:flex-start;flex-direction:column}
- h1{font-size:23px}
- .stats{gap:10px}
- .stat{padding:14px}
- .stat-value{font-size:24px}
- .stat-label{font-size:11px}
- .quick-links{grid-template-columns:1fr 1fr}
+ .app{display:block}.sidebar{width:100%;padding:16px}
+ .logo{font-size:20px}.sublogo{padding-bottom:12px}
+ .nav-label,.sidebar-foot{display:none}
+ .nav{display:flex;overflow-x:auto;gap:4px}
+ .nav a{white-space:nowrap;font-size:11px;padding:10px}
+ main{padding:18px 12px}.header{align-items:flex-start;flex-direction:column}
+ h1{font-size:22px}.stats{gap:9px}.stat{padding:13px}
+ .number{font-size:24px}.stat-head{font-size:11px}
+ .quick-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:370px){.stats{grid-template-columns:1fr}.quick-links{grid-template-columns:1fr}}
+@media(max-width:360px){.stats{grid-template-columns:1fr}.quick-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="layout">
-  <aside class="sidebar">
-    <div class="brand">THE <span>GLOBAL</span><br>DESK</div>
-    <div class="brand-sub">EDITORIAL CONTROL PANEL</div>
-    <nav class="nav">
-      <div style="width:100%">
-        <div class="nav-label">WORKSPACE</div>
-        <a class="active" href="dashboard.html">▦ &nbsp; Dashboard</a>
-        <a href="index.html">✎ &nbsp; News Editor (CMS)</a>
-        <a href="../">↗ &nbsp; Visit Website</a>
-        <div class="nav-label">CONTENT</div>
-        <a href="index.html#/collections/news_published">▤ &nbsp; Published News</a>
-        <a href="index.html#/collections/news_drafts">◷ &nbsp; Drafts</a>
-        <a href="index.html#/collections/breaking">⚡ &nbsp; Breaking News</a>
-      </div>
-    </nav>
-    <div class="sidebar-note">Independent journalism.<br>Global perspective.</div>
-  </aside>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo">THE <span>GLOBAL</span><br>DESK</div>
+  <div class="sublogo">NEWSROOM CONTROL CENTER</div>
+  <nav class="nav">
+    <div class="nav-label">WORKSPACE</div>
+    <a class="active" href="dashboard.html">▦ &nbsp; Dashboard</a>
+    <a href="index.html">✎ &nbsp; Open News Editor</a>
+    <a href="../">↗ &nbsp; View Website</a>
+    <div class="nav-label">CONTENT</div>
+    <a href="index.html#/collections/news_published">▤ &nbsp; Published News</a>
+    <a href="index.html#/collections/news_drafts">◷ &nbsp; Drafts</a>
+    <a href="index.html#/collections/breaking">⚡ &nbsp; Breaking News</a>
+  </nav>
+  <div class="sidebar-foot">THE GLOBAL DESK<br>Independent journalism.<br>Global perspective.</div>
+</aside>
 
-  <main class="main">
-    <header class="topbar">
-      <div>
-        <h1>Editorial Dashboard</h1>
-        <div class="subtitle">Manage your newsroom from one place.</div>
-      </div>
-      <div class="top-actions">
-        <a class="btn" href="../">↗ View Website</a>
-        <a class="btn primary" href="index.html">+ Manage News</a>
-      </div>
-    </header>
-
-    <div class="notice info">
-      <strong>Welcome to The Global Desk.</strong><br>
-      Use the shortcuts below to write, edit, publish and manage your news.
+<main>
+  <header class="header">
+    <div>
+      <h1>Newsroom Dashboard</h1>
+      <div class="subtitle">Your editorial overview, article analytics and shortcuts.</div>
     </div>
+    <div class="actions">
+      <a class="btn" href="../">↗ Website</a>
+      <a class="btn primary" href="index.html">+ Manage News</a>
+    </div>
+  </header>
 
-    <div class="section-title">Overview</div>
-    <section class="stats">
-      <div class="stat">
-        <div class="stat-top"><span class="stat-label">Published Articles</span><span class="stat-icon">📰</span></div>
-        <div class="stat-value">—</div>
-        <div class="stat-foot">Connect your content data to display the total</div>
-      </div>
-      <div class="stat">
-        <div class="stat-top"><span class="stat-label">Draft Articles</span><span class="stat-icon">📝</span></div>
-        <div class="stat-value">—</div>
-        <div class="stat-foot">Connect your content data to display the total</div>
-      </div>
-      <div class="stat">
-        <div class="stat-top"><span class="stat-label">Total Article Views</span><span class="stat-icon">👁️</span></div>
-        <div class="stat-value">—</div>
-        <div class="stat-foot">Waiting for a verified view-counter API</div>
-      </div>
-      <div class="stat">
-        <div class="stat-top"><span class="stat-label">Breaking News</span><span class="stat-icon">⚡</span></div>
-        <div class="stat-value">—</div>
-        <div class="stat-foot">Connect your content data to display the total</div>
-      </div>
-    </section>
+  <div class="info">
+    <strong>Welcome back, Editor.</strong> Manage your articles using the existing Decap CMS.
+    Article views will load from CounterAPI for the slugs configured below.
+  </div>
 
-    <section class="grid">
-      <div class="panel">
-        <div class="panel-head"><h2>Quick Actions</h2><span class="status ok">READY</span></div>
-        <div class="panel-body">
-          <div class="quick-links">
-            <a class="quick" href="index.html#/collections/news_published">
-              <div class="quick-icon">📰</div><strong>Published News</strong>
-              <small>Open, edit or update published articles.</small>
-            </a>
-            <a class="quick" href="index.html#/collections/news_drafts">
-              <div class="quick-icon">📝</div><strong>Draft Articles</strong>
-              <small>Continue writing unpublished stories.</small>
-            </a>
-            <a class="quick" href="index.html#/collections/breaking">
-              <div class="quick-icon">🚨</div><strong>Breaking News</strong>
-              <small>Create and manage breaking news items.</small>
-            </a>
-            <a class="quick" href="index.html#/collections/news_published">
-              <div class="quick-icon">✏️</div><strong>Edit an Article</strong>
-              <small>Select a published story and make changes.</small>
-            </a>
-          </div>
+  <div class="eyebrow">Content overview</div>
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-head">Published Articles <span class="stat-icon">📰</span></div>
+      <div class="number" id="publishedCount">—</div>
+      <div class="note">Articles configured in this dashboard</div>
+    </div>
+    <div class="stat">
+      <div class="stat-head">Draft Articles <span class="stat-icon">📝</span></div>
+      <div class="number" id="draftCount">—</div>
+      <div class="note">Enter your current draft total below</div>
+    </div>
+    <div class="stat">
+      <div class="stat-head">Total Article Views <span class="stat-icon">👁️</span></div>
+      <div class="number" id="totalViews">Loading…</div>
+      <div class="note" id="viewStatus">Checking CounterAPI…</div>
+    </div>
+    <div class="stat">
+      <div class="stat-head">Most Read Views <span class="stat-icon">🔥</span></div>
+      <div class="number" id="topViews">—</div>
+      <div class="note" id="topTitle">Waiting for view data</div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="panel">
+      <div class="panel-head"><h2>Quick Actions</h2><span class="badge green">CMS LINKS</span></div>
+      <div class="panel-body">
+        <div class="quick-grid">
+          <a class="quick" href="index.html#/collections/news_published">
+            <div class="emoji">📰</div><strong>Published News</strong>
+            <small>Open and edit existing articles.</small>
+          </a>
+          <a class="quick" href="index.html#/collections/news_drafts">
+            <div class="emoji">📝</div><strong>Drafts</strong>
+            <small>Continue unpublished stories.</small>
+          </a>
+          <a class="quick" href="index.html#/collections/breaking">
+            <div class="emoji">🚨</div><strong>Breaking News</strong>
+            <small>Create or update breaking news.</small>
+          </a>
+          <a class="quick" href="index.html">
+            <div class="emoji">✍️</div><strong>Write News</strong>
+            <small>Open the existing news editor.</small>
+          </a>
         </div>
       </div>
-
-      <div class="panel">
-        <div class="panel-head"><h2>System Status</h2><span class="status warn">PARTIAL</span></div>
-        <div class="panel-body">
-          <div class="notice info"><strong>CMS</strong><br>Links open your existing Decap CMS. The current editor is preserved.</div>
-          <div class="notice warn"><strong>View analytics</strong><br>Live view counts are not connected to this dashboard yet. The actual counter API must be verified before displaying numbers.</div>
-          <div class="notice info"><strong>Security</strong><br>Protect this dashboard and the CMS with suitable access controls. This page alone does not provide authentication.</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-title">Article Views</div>
-    <section class="panel">
-      <div class="panel-head">
-        <h2>Most Read Articles</h2>
-        <span class="status">NOT CONNECTED</span>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Article Title</th><th>Views</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr>
-              <td colspan="3" class="empty">
-                View data will appear here after connecting the dashboard to the same counter used by published articles. No sample or invented statistics are displayed.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <div class="footer">
-      © <span id="year"></span> The Global Desk · Editorial Dashboard
     </div>
-  </main>
+    <div class="panel">
+      <div class="panel-head"><h2>Analytics Status</h2><span class="badge orange" id="apiBadge">CHECKING</span></div>
+      <div class="panel-body">
+        <div class="info" id="apiMessage">Connecting to the view counter.</div>
+        <div class="info warning">
+          <strong>Important:</strong> The article template must increment the same CounterAPI namespace and slug that this dashboard reads. Otherwise counts may be missing or inconsistent.
+        </div>
+        <button class="btn" id="refreshBtn" type="button">↻ Refresh View Counts</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="eyebrow">Article analytics</div>
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Published Articles & Views</h2>
+      <span class="badge" id="articleCountBadge">0 ARTICLES</span>
+    </div>
+    <div class="table-tools">
+      <input class="search" id="searchInput" placeholder="Search article title…" aria-label="Search articles">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Article</th><th>Views</th><th>Counter</th><th>Action</th></tr>
+        </thead>
+        <tbody id="articleRows">
+          <tr><td colspan="4" class="empty">Loading article analytics…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">© <span id="year"></span> The Global Desk · Newsroom Dashboard</div>
+</main>
 </div>
+
 <script>
+/*
+  IMPORTANT SETUP:
+  Add each published article below.
+  slug must match the last part of that article's URL AND the slug
+  used by the CounterAPI increment script.
+
+  Example URL: https://thegdesk.com/world/sample-story/
+  Example slug: sample-story
+
+  Set draftCount to your current number of drafts.
+*/
+const COUNTER_NAMESPACE = "theglobaldesk";
+const draftCount = 0;
+
+const ARTICLES = [
+  // Replace these examples with your real published articles:
+  // { title: "Your real article headline", slug: "your-real-article-slug", url: "/world/your-real-article-slug/" },
+];
+
+const rows = document.getElementById("articleRows");
+const searchInput = document.getElementById("searchInput");
+const results = new Map();
+
 document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("publishedCount").textContent = ARTICLES.length;
+document.getElementById("draftCount").textContent = draftCount;
+document.getElementById("articleCountBadge").textContent = ARTICLES.length + " ARTICLES";
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function renderRows() {
+  const q = searchInput.value.trim().toLowerCase();
+  const visible = ARTICLES.filter(a => a.title.toLowerCase().includes(q));
+
+  if (!visible.length) {
+    rows.innerHTML = `<tr><td colspan="4" class="empty">${
+      ARTICLES.length
+        ? "No articles match your search."
+        : "No article list has been configured yet. Add your published article titles, slugs and URLs to the ARTICLES array in this file."
+    }</td></tr>`;
+    return;
+  }
+
+  rows.innerHTML = visible.map(article => {
+    const count = results.get(article.slug);
+    const counterStatus = count === undefined ? "Unavailable" : "Connected";
+    const viewText = count === undefined ? "—" : count.toLocaleString();
+    const articleUrl = article.url || ("/" + article.slug + "/");
+    return `<tr>
+      <td class="title-cell">${escapeHTML(article.title)}</td>
+      <td class="count">${viewText}</td>
+      <td><span class="badge ${count === undefined ? "orange" : "green"}">${counterStatus}</span></td>
+      <td><a href="${escapeHTML(articleUrl)}" target="_blank" rel="noopener">View ↗</a></td>
+    </tr>`;
+  }).join("");
+}
+
+async function getCount(slug) {
+  const endpoint = `https://api.counterapi.dev/v1/${encodeURIComponent(COUNTER_NAMESPACE)}/${encodeURIComponent(slug)}/get`;
+  const response = await fetch(endpoint, { cache: "no-store" });
+  if (!response.ok) throw new Error("CounterAPI request failed");
+  const data = await response.json();
+
+  // CounterAPI v1 normally returns a numeric count in `count`.
+  const value = Number(data.count);
+  if (!Number.isFinite(value)) throw new Error("Counter response has no valid count");
+  return value;
+}
+
+async function refreshViews() {
+  const button = document.getElementById("refreshBtn");
+  button.disabled = true;
+  button.textContent = "Refreshing…";
+  document.getElementById("viewStatus").textContent = "Loading counters…";
+  document.getElementById("apiBadge").textContent = "CHECKING";
+  document.getElementById("apiMessage").textContent = "Checking the configured article counters…";
+
+  results.clear();
+  let successful = 0;
+
+  await Promise.all(ARTICLES.map(async article => {
+    try {
+      const count = await getCount(article.slug);
+      results.set(article.slug, count);
+      successful++;
+    } catch (error) {
+      results.set(article.slug, undefined);
+    }
+  }));
+
+  const validCounts = ARTICLES
+    .map(a => results.get(a.slug))
+    .filter(v => Number.isFinite(v));
+
+  const total = validCounts.reduce((sum, v) => sum + v, 0);
+  document.getElementById("totalViews").textContent =
+    validCounts.length ? total.toLocaleString() : (ARTICLES.length ? "N/A" : "—");
+
+  document.getElementById("viewStatus").textContent =
+    validCounts.length + " of " + ARTICLES.length + " counters loaded";
+
+  const top = ARTICLES
+    .filter(a => Number.isFinite(results.get(a.slug)))
+    .sort((a, b) => results.get(b.slug) - results.get(a.slug))[0];
+
+  document.getElementById("topViews").textContent =
+    top ? results.get(top.slug).toLocaleString() : "—";
+  document.getElementById("topTitle").textContent =
+    top ? top.title : "No verified view data";
+
+  const allConnected = ARTICLES.length > 0 && successful === ARTICLES.length;
+  document.getElementById("apiBadge").textContent =
+    allConnected ? "CONNECTED" : "PARTIAL / NOT CONNECTED";
+  document.getElementById("apiBadge").className =
+    "badge " + (allConnected ? "green" : "orange");
+  document.getElementById("apiMessage").textContent =
+    allConnected
+      ? "All configured article counters returned view data."
+      : "Some or all counters could not be read. Verify the article slugs and CounterAPI endpoint.";
+  renderRows();
+  button.disabled = false;
+  button.textContent = "↻ Refresh View Counts";
+}
+
+searchInput.addEventListener("input", renderRows);
+document.getElementById("refreshBtn").addEventListener("click", refreshViews);
+renderRows();
+refreshViews();
 </script>
 </body>
 </html>
-```

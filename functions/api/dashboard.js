@@ -5,116 +5,96 @@ const OWNER = "KhanTechZZ";
 const REPO = "theglobaldesk";
 const BRANCH = "main";
 
-async function getArticles(env) {
-  const query = `
-    query {
-      repository(owner: "${OWNER}", name: "${REPO}") {
-        object(expression: "${BRANCH}:news") {
-          ... on Tree {
-            entries {
-              name
-              type
-              object {
-                ... on Blob {
-                  text
-                  oid
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-      "Content-Type": "application/json",
-      Accept: "application/vnd.github+json"
-    },
-    body: JSON.stringify({ query })
-  });
-
-  if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status}`);
-  }
-
-  const result = await response.json();
-
-  if (result.errors?.length) {
-    throw new Error(result.errors[0].message);
-  }
-
-  const entries =
-    result.data?.repository?.object?.entries || [];
-
-  return entries
-    .filter(entry =>
-      entry.type === "blob" &&
-      entry.name.endsWith(".md") &&
-      typeof entry.object?.text === "string"
-    )
-    .map(entry => {
-      const content = entry.object.text;
-      const match = content.match(
-        /^---\s*\r?\n([\s\S]*?)\r?\n---(?:\s*\r?\n|$)/
-      );
-
-      const frontmatter = match ? match[1] : "";
-
-      function field(name) {
-        const regex = new RegExp(
-          "^" + name + ":\\s*(.*)$",
-          "m"
-        );
-        const found = frontmatter.match(regex);
-
-        return found
-          ? found[1].trim().replace(/^(['"])(.*)\1$/, "$2")
-          : "";
-      }
-
-      const published = /^published:\s*true\s*(?:#.*)?$/mi
-        .test(frontmatter);
-
-      return {
-        path: `news/${entry.name}`,
-        sha: entry.object.oid,
-        title: field("title") || entry.name.replace(/\.md$/i, ""),
-        date: field("date"),
-        category: field("category"),
-        published,
-        status: published ? "Published" : "Draft"
-      };
-    })
-    .sort((a, b) => b.date.localeCompare(a.date));
-}
-
 export async function onRequestGet({ request, env }) {
-  if (!(await isAdmin(request, env))) {
-    return json({ error: "Unauthorized" }, 401);
-  }
-
-  if (!env.GITHUB_TOKEN) {
-    return json({ error: "GITHUB_TOKEN is missing" }, 500);
-  }
-
   try {
-    const articles = await getArticles(env);
+    if (!(await isAdmin(request, env))) {
+      return json({ error: "Unauthorized" }, 401);
+    }
+
+    if (!env.GITHUB_TOKEN) {
+      return json({ error: "GITHUB_TOKEN is missing" }, 500);
+    }
+
+    const url =
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/news?ref=${BRANCH}`;
+
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "The-Global-Desk"
+      }
+    });
+
+    // GitHub-এ news ফোল্ডার না থাকলে খালি তালিকা দেখাবে।
+    if (response.status === 404) {
+      return json({
+        ok: true,
+        articles: [],
+        total: 0,
+        published: 0,
+        drafts: 0
+      });
+    }
+
+    if (!response.ok) {
+      const details = await response.text();
+
+      return json({
+        error: "GitHub API request failed",
+        status: response.status,
+        details: details.slice(0, 500)
+      }, 502);
+    }
+
+    const files = await response.json();
+
+    if (!Array.isArray(files)) {
+      return json({
+        error: "Unexpected GitHub API response"
+      }, 502);
+    }
+
+    const articles = files
+      .filter(file =>
+        file.type === "file" &&
+        file.name.toLowerCase().endsWith(".md")
+      )
+      .map(file => {
+        const title = file.name
+          .replace(/\.md$/i, "")
+          .replace(/^\d{4}-\d{2}-\d{2}-/, "")
+          .replace(/[-_]/g, " ");
+
+        const dateMatch = file.name.match(
+          /^(\d{4}-\d{2}-\d{2})/
+        );
+
+        return {
+          path: file.path,
+          sha: file.sha,
+          title: title || file.name,
+          date: dateMatch ? dateMatch[1] : "",
+          category: "",
+          published: false,
+          status: "Draft"
+        };
+      })
+      .sort((a, b) => b.date.localeCompare(a.date));
 
     return json({
       ok: true,
       articles,
       total: articles.length,
-      published: articles.filter(a => a.published).length,
-      drafts: articles.filter(a => !a.published).length
+      published: 0,
+      drafts: articles.length
     });
+
   } catch (error) {
     return json({
-      error: "Could not load news from GitHub",
+      error: "Dashboard request failed",
       details: error.message
-    }, 502);
+    }, 500);
   }
 }

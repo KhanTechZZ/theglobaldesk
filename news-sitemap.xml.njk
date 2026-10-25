@@ -1,5 +1,18 @@
----
-permalink: /news-sitemap.xml
-eleventyExcludeFromCollections: true
----
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">{% for story in collections.news | reverse %}{% if story.data.date | isRecent %}<url><loc>https://thegdesk.com{{ story.url }}</loc><news:news><news:publication><news:name>The Global Desk</news:name><news:language>en</news:language></news:publication><news:publication_date>{{ story.data.date | isoDate }}</news:publication_date><news:title>{{ story.data.title }}</news:title></news:news></url>{% endif %}{% endfor %}</urlset>
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  {%- for post in collections.news %}
+    {%- if post.data.published %}
+      <url>
+        <loc>{{ post.url | absoluteUrl("https://thegdesk.com") }}</loc>
+        <news:news>
+          <news:publication>
+            <news:name>The Global Desk</news:name>
+            <news:language>en</news:language>
+          </news:publication>
+          <news:publication_date>{{ post.date | dateToRfc3339 }}</news:publication_date>
+          <news:title>{{ post.data.title }}</news:title>
+        </news:news>
+      </url>
+    {%- endif %}
+  {%- endfor %}
+</urlset>

@@ -2,144 +2,276 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Global Desk — Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>The Global Desk — Editorial</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --navy: #061a33;
+      --navy-light: #0d2a4a;
       --gold: #c99a3b;
-      --bg: #f4f7f9;
+      --bg: #f1f5f9;
       --surface: #ffffff;
       --text: #1e293b;
-      --border: #e2e8f0;
+      --border: #cbd5e1;
     }
 
-    /* গ্লোবাল ফন্ট ও ব্যাকগ্রাউন্ড */
-    html, body, [class*="App"], [class*="Main"] {
+    /* Global Reset & Fonts */
+    html, body, [class*="App"] {
       font-family: 'Inter', sans-serif !important;
       background-color: var(--bg) !important;
       color: var(--text) !important;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* ডিফল্ট বেমানান সাইডবার হাইড করা */
-    aside[role="navigation"], [class*="Sidebar"] {
+    /* Hide Default Headers & Sidebars */
+    header[role="banner"], aside[role="navigation"], [class*="Sidebar"] {
       display: none !important;
     }
+
+    /* Main Content Full Width */
     main, [role="main"], [class*="MainContent"] {
-      margin-left: 0 !important; padding: 0 !important; width: 100% !important;
+      margin-left: 0 !important; 
+      padding: 0 !important; 
+      width: 100% !important;
     }
 
-    /* টপ হেডার (নিউজরুম স্টাইল) */
-    header[role="banner"] {
-      background: var(--navy) !important;
-      border-bottom: 3px solid var(--gold) !important;
-      padding: 0 24px !important;
-      min-height: 60px !important;
-      display: flex !important;
-      align-items: center !important;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    /* Top Navigation Bar */
+    .td-topbar {
+      background: var(--navy);
+      border-bottom: 3px solid var(--gold);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    header[role="banner"] img { 
-      max-height: 32px !important; background: #fff !important; 
-      padding: 4px 8px !important; border-radius: 6px !important;
+    .td-topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    header[role="banner"]::after {
-      content: "EDITORIAL DESK";
-      color: var(--gold); font-weight: 800; font-size: 11px; letter-spacing: 2px;
-      margin-left: 16px; padding-left: 16px; border-left: 1px solid rgba(201,154,59,0.4);
+    .td-topbar-brand img {
+      height: 28px;
+      background: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .td-topbar-brand span {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+    .td-topbar-nav {
+      display: flex;
+      gap: 8px;
+    }
+    .td-nav-btn {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .td-nav-btn:hover, .td-nav-btn.active {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .td-nav-btn.active {
+      color: var(--gold);
     }
 
-    /* এডিটর প্যানেলকে বড় ও পরিচ্ছন্ন করা */
+    /* Push Content Down */
+    body {
+      padding-top: 70px !important;
+    }
+
+    /* Editor Layout (Side-by-Side on PC, Stacked on Mobile) */
     [class*="EditorPane"], [class*="ControlPane"] {
       background: var(--surface) !important;
       border-radius: 12px !important;
-      margin: 20px auto !important;
-      max-width: 900px !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.04) !important;
+      margin: 16px auto !important;
+      max-width: 1100px !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03) !important;
       border: 1px solid var(--border) !important;
-      padding: 30px !important;
+      padding: 24px !important;
     }
 
-    /* ফর্মের লেবেল ও ইনপুট ফিল্ড */
+    /* Form Fields */
     label[class*="FieldLabel"] {
       color: var(--navy) !important;
       font-weight: 700 !important;
-      font-size: 13px !important;
-      letter-spacing: 0.3px !important;
-      margin-bottom: 8px !important;
-    }
-    input, textarea, select {
-      border-radius: 8px !important;
-      border: 1.5px solid var(--border) !important;
-      padding: 12px 16px !important;
       font-size: 14px !important;
-      font-family: 'Inter', sans-serif !important;
-      transition: all 0.2s !important;
-      background: #f8fafc !important;
+      margin-bottom: 8px !important;
+      display: block;
     }
-    input:focus, textarea:focus, select:focus {
+    input, select {
+      border-radius: 8px !important;
+      border: 2px solid var(--border) !important;
+      padding: 14px 16px !important;
+      font-size: 16px !important; /* Prevents iOS zoom */
+      font-family: 'Inter', sans-serif !important;
+      background: #f8fafc !important;
+      width: 100% !important;
+      box-sizing: border-box;
+      transition: 0.2s;
+    }
+    input:focus, select:focus {
       border-color: var(--gold) !important;
       background: #fff !important;
-      box-shadow: 0 0 0 3px rgba(201,154,59,0.15) !important;
       outline: none !important;
+      box-shadow: 0 0 0 4px rgba(201,154,59,0.15) !important;
     }
 
-    /* বড় টেক্সট এরিয়া (Markdown Editor) */
-    [class*="CodeMirror"], [class*="Markdown"] {
+    /* Markdown Editor (The Big Writing Area) */
+    [class*="CodeMirror"], [class*="CodeMirror-lines"] {
       font-family: 'Merriweather', Georgia, serif !important;
-      font-size: 16px !important;
+      font-size: 18px !important;
       line-height: 1.8 !important;
+    }
+    [class*="CodeMirror"] {
       border-radius: 8px !important;
-      border: 1.5px solid var(--border) !important;
+      border: 2px solid var(--border) !important;
       background: #fff !important;
+      min-height: 400px !important; /* Big area for writing */
     }
     [class*="CodeMirror"]:focus {
       border-color: var(--gold) !important;
     }
 
-    /* বাটন স্টাইল */
+    /* Action Buttons (Save, Publish) */
     button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
       background: var(--navy) !important;
       color: #fff !important;
       font-weight: 700 !important;
       border-radius: 8px !important;
       border: none !important;
-      padding: 10px 24px !important;
-      font-size: 14px !important;
+      padding: 14px 28px !important;
+      font-size: 16px !important;
       transition: background 0.2s !important;
+      min-height: 48px !important;
+      cursor: pointer;
     }
     button[type="submit"]:hover, [class*="ToolbarButton"]:hover, [class*="ButtonPrimary"]:hover {
       background: var(--gold) !important;
       color: var(--navy) !important;
     }
 
-    /* লিস্ট ভিউ (ড্রাফট বা পাবলিশড লিস্ট) */
+    /* List View (Cards for Articles) */
     [class*="EntryCard"], [class*="ListItem"] {
       background: var(--surface) !important;
       border: 1px solid var(--border) !important;
-      border-radius: 8px !important;
-      margin-bottom: 10px !important;
-      padding: 16px 20px !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+      border-radius: 10px !important;
+      margin-bottom: 12px !important;
+      padding: 16px !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02) !important;
       transition: all 0.2s ease !important;
     }
     [class*="EntryCard"]:hover, [class*="ListItem"]:hover {
       border-color: var(--gold) !important;
-      box-shadow: 0 4px 15px rgba(201,154,59,0.15) !important;
+      box-shadow: 0 6px 15px rgba(201,154,59,0.1) !important;
       transform: translateY(-2px) !important;
     }
-    [class*="EntryCard"] h2, [class*="EntryCard"] h3 {
+    [class*="EntryCard"] h2, [class*="EntryCard"] h3, [class*="ListItem"] h2 {
       font-family: 'Merriweather', serif !important;
       color: var(--navy) !important;
       font-size: 16px !important;
+      margin: 0 !important;
+    }
+    [class*="EntryCard"] p, [class*="ListItem"] p {
+      color: #64748b !important;
+      font-size: 13px !important;
+      margin-top: 6px !important;
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 768px) {
+      .td-topbar {
+        padding: 8px 12px;
+      }
+      .td-topbar-brand span { display: none; } /* Hide 'Editorial Desk' text on phone */
+      .td-nav-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+      .td-nav-btn span { display: none; } /* Hide text, show only icon on phone */
+      .td-nav-btn i { font-size: 16px; }
+      
+      [class*="EditorPane"], [class*="ControlPane"] {
+        margin: 8px !important;
+        padding: 16px !important;
+      }
+      input, select {
+        padding: 12px !important;
+      }
+      button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]) {
+        width: 100% !important;
+        margin-bottom: 10px !important;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- শুধু Decap CMS লোড হবে, কোনো বাগি স্ক্রিপ্ট নেই -->
+  <!-- Load Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Clean, Bug-Free JavaScript for Top Navigation -->
+  <script>
+    window.addEventListener('load', function() {
+      if (typeof CMS === 'undefined') return;
+
+      function buildTopBar() {
+        if (document.getElementById('td-topbar')) return;
+
+        var bar = document.createElement('div');
+        bar.id = 'td-topbar';
+        bar.className = 'td-topbar';
+
+        var hash = window.location.hash;
+        var isDrafts = hash.includes('news_drafts');
+        var isPublished = hash.includes('news_published');
+        var isBreaking = hash.includes('breaking');
+
+        bar.innerHTML = `
+          <div class="td-topbar-brand">
+            <img src="https://thegdesk.com/Logo.png" alt="Logo">
+            <span>EDITORIAL</span>
+          </div>
+          <div class="td-topbar-nav">
+            <a href="#/collections/news_drafts" class="td-nav-btn ${isDrafts ? 'active' : ''}">
+              <i class="fa-solid fa-file-lines"></i> <span>Drafts</span>
+            </a>
+            <a href="#/collections/news_published" class="td-nav-btn ${isPublished ? 'active' : ''}">
+              <i class="fa-solid fa-check-circle"></i> <span>Published</span>
+            </a>
+            <a href="#/collections/breaking" class="td-nav-btn ${isBreaking ? 'active' : ''}">
+              <i class="fa-solid fa-bolt"></i> <span>Breaking</span>
+            </a>
+          </div>
+        `;
+        document.body.prepend(bar);
+      }
+
+      // Run only once on load and hash change (No intervals, no bugs)
+      setTimeout(buildTopBar, 500);
+      
+      window.addEventListener('hashchange', function() {
+        var existingBar = document.getElementById('td-topbar');
+        if (existingBar) existingBar.remove();
+        setTimeout(buildTopBar, 300);
+      });
+    });
+  </script>
 </body>
 </html>

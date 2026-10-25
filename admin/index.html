@@ -1,277 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>The Global Desk — Editorial</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071a2c">
+  <title>The Global Desk — Newsroom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-    :root {
-      --navy: #061a33;
-      --navy-light: #0d2a4a;
-      --gold: #c99a3b;
-      --bg: #f1f5f9;
-      --surface: #ffffff;
-      --text: #1e293b;
-      --border: #cbd5e1;
+    :root{
+      --ink:#102235;--navy:#071a2c;--navy2:#102d47;--gold:#d8ad55;
+      --red:#c72c3b;--paper:#f3f6f9;--white:#fff;--muted:#647589;
+      --line:#dce4ec;--green:#16865b;--shadow:0 8px 28px rgba(13,35,56,.07);
+      --topbar:68px;
     }
-
-    /* Global Reset & Fonts */
-    html, body, [class*="App"] {
-      font-family: 'Inter', sans-serif !important;
-      background-color: var(--bg) !important;
-      color: var(--text) !important;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Hide Default Headers & Sidebars */
-    header[role="banner"], aside[role="navigation"], [class*="Sidebar"] {
-      display: none !important;
-    }
-
-    /* Main Content Full Width */
-    main, [role="main"], [class*="MainContent"] {
-      margin-left: 0 !important; 
-      padding: 0 !important; 
-      width: 100% !important;
-    }
-
-    /* Top Navigation Bar */
-    .td-topbar {
-      background: var(--navy);
-      border-bottom: 3px solid var(--gold);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 9999;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .td-topbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .td-topbar-brand img {
-      height: 28px;
-      background: #fff;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-    .td-topbar-brand span {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-    }
-    .td-topbar-nav {
-      display: flex;
-      gap: 8px;
-    }
-    .td-nav-btn {
-      color: #94a3b8;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 12px;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0!important;padding:var(--topbar) 0 0!important;background:var(--paper)!important;color:var(--ink)!important;font-family:"DM Sans",Arial,sans-serif!important;-webkit-tap-highlight-color:transparent}
+    body, [class*="App"]{font-family:"DM Sans",Arial,sans-serif!important}
+    
+    /* Custom newsroom header */
+    .tg-header{position:fixed;inset:0 0 auto 0;height:var(--topbar);z-index:99999;display:flex;align-items:center;gap:24px;padding:0 clamp(14px,3vw,38px);background:var(--navy);border-bottom:3px solid var(--gold);box-shadow:0 5px 20px #06172725}
+    .tg-brand{display:flex;align-items:center;gap:12px;min-width:max-content;text-decoration:none}
+    
+    /* ✅ নতুন লোগো স্টাইল */
+    .tg-logo-img {
+      max-height: 36px;
+      width: auto;
+      background: #ffffff;
+      padding: 4px 10px;
       border-radius: 6px;
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    .td-nav-btn:hover, .td-nav-btn.active {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
+    
+    .tg-brand-copy{display:flex;flex-direction:column;gap:2px}
+    .tg-brand-copy strong{color:#fff;font-size:15px;letter-spacing:.3px}
+    .tg-brand-copy small{color:#b9c7d5;font-size:9px;letter-spacing:2.2px;font-weight:800}
+    .tg-header-rule{height:30px;width:1px;background:#ffffff24}
+    .tg-edition{color:#c1cdd8;font-size:11px;line-height:1.5}
+    .tg-edition b{display:block;color:#fff;font-size:12px}
+    .tg-nav{display:flex;align-items:center;gap:5px;margin-left:auto}
+    .tg-nav a,.tg-tool{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 13px;border:1px solid transparent;border-radius:7px;color:#d5dfe8;text-decoration:none;font-size:12px;font-weight:700;white-space:nowrap;transition:.18s}
+    .tg-nav a:hover,.tg-nav a.active{background:#ffffff12;color:#fff;border-color:#ffffff1c}
+    .tg-nav a.active{box-shadow:inset 0 -2px var(--gold);border-radius:7px 7px 4px 4px}
+    .tg-nav a i{font-size:13px}
+    .tg-nav .tg-stats{background:var(--gold);color:var(--navy);font-weight:800}
+    .tg-nav .tg-stats:hover{background:#f0cc7b;color:var(--navy)}
+    .tg-mobile-menu{display:none;background:#ffffff12;color:white;border:1px solid #ffffff25;border-radius:7px;width:42px;height:42px;font-size:17px}
+    .tg-subhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px clamp(14px,3vw,38px) 12px}
+    .tg-page-title{margin:0;font-size:22px;letter-spacing:-.5px;font-weight:800;color:var(--navy)}
+    .tg-page-kicker{margin:4px 0 0;color:var(--muted);font-size:12px}
+    .tg-status{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbe8d9;background:#effaf4;color:#14734d;border-radius:99px;padding:7px 11px;font-size:11px;font-weight:800;white-space:nowrap}
+    .tg-status i{font-size:8px}
+    
+    /* Keep CMS functionality; restyle rather than replace its React interface */
+    header[role="banner"]{display:none!important}
+    aside[role="navigation"],[class*="Sidebar"]{background:#fff!important;border-right:1px solid var(--line)!important}
+    main,[role="main"],[class*="MainContent"],[class*="AppMain"]{margin-left:0!important;max-width:100%!important}
+    [class*="App"]{background:var(--paper)!important;color:var(--ink)!important}
+    [class*="CollectionMain"],[class*="Entries"],[class*="CollectionPage"]{max-width:1440px!important;margin:0 auto!important}
+    [class*="EditorPane"],[class*="ControlPane"],[class*="EditorContainer"],[class*="PreviewPane"]{background:#fff!important;border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:var(--shadow)!important}
+    [class*="EditorPane"],[class*="ControlPane"]{margin:12px!important}
+    [class*="FieldLabel"],label{font-family:"DM Sans",Arial,sans-serif!important;color:#203a52!important;font-weight:700!important}
+    input,textarea,select,[role="textbox"]{font-family:"DM Sans",Arial,sans-serif!important;border-radius:8px!important;border:1px solid #cbd7e2!important;background:#fff!important;color:var(--ink)!important;max-width:100%}
+    input:focus,textarea:focus,select:focus,[role="textbox"]:focus{outline:0!important;border-color:#c99a3b!important;box-shadow:0 0 0 3px #d8ad5528!important}
+    button[type="submit"],[class*="ToolbarButton"]:not([class*="Disabled"]),[class*="ButtonPrimary"]{border-radius:8px!important;font-family:"DM Sans",Arial,sans-serif!important;font-weight:800!important;cursor:pointer!important}
+    button[type="submit"],[class*="ButtonPrimary"]{background:var(--navy)!important;color:#fff!important;border:1px solid var(--navy)!important}
+    button[type="submit"]:hover,[class*="ButtonPrimary"]:hover{background:#173b5b!important}
+    [class*="EntryCard"],[class*="ListItem"],[class*="CollectionCard"]{border-radius:9px!important;border-color:var(--line)!important;background:#fff!important;box-shadow:0 2px 7px #10223508!important}
+    [class*="EntryCard"]:hover,[class*="ListItem"]:hover{border-color:#d8ad55!important;box-shadow:0 5px 16px #10223510!important}
+    [class*="CodeMirror"]{font-family:"Libre Baskerville",Georgia,serif!important;font-size:16px!important;line-height:1.8!important;border-radius:8px!important;border-color:#d6e0e8!important}
+    [class*="PreviewPane"]{background:#edf2f6!important}
+    
+    /* utility strip */
+    .tg-tip{margin:0 clamp(14px,3vw,38px) 18px;padding:12px 15px;display:flex;align-items:flex-start;gap:11px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;color:#516579;font-size:12px;line-height:1.55}
+    .tg-tip i{color:#b1842f;margin-top:2px}
+    .tg-tip strong{color:var(--navy)}
+    
+    @media(max-width:900px){
+      :root{--topbar:62px}
+      .tg-header{gap:12px;padding:0 14px}
+      .tg-header-rule,.tg-edition{display:none}
+      .tg-nav{gap:3px}
+      .tg-nav a{padding:0 10px}
+      .tg-nav a span{display:none}
+      .tg-nav a i{font-size:16px}
+      .tg-nav .tg-stats span{display:inline}
+      .tg-nav .tg-stats{padding:0 11px}
+      .tg-brand-copy strong{font-size:13px}
+      .tg-brand-copy small{font-size:8px}
+      .tg-subhead{padding-top:16px}
     }
-    .td-nav-btn.active {
-      color: var(--gold);
-    }
-
-    /* Push Content Down */
-    body {
-      padding-top: 70px !important;
-    }
-
-    /* Editor Layout (Side-by-Side on PC, Stacked on Mobile) */
-    [class*="EditorPane"], [class*="ControlPane"] {
-      background: var(--surface) !important;
-      border-radius: 12px !important;
-      margin: 16px auto !important;
-      max-width: 1100px !important;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03) !important;
-      border: 1px solid var(--border) !important;
-      padding: 24px !important;
-    }
-
-    /* Form Fields */
-    label[class*="FieldLabel"] {
-      color: var(--navy) !important;
-      font-weight: 700 !important;
-      font-size: 14px !important;
-      margin-bottom: 8px !important;
-      display: block;
-    }
-    input, select {
-      border-radius: 8px !important;
-      border: 2px solid var(--border) !important;
-      padding: 14px 16px !important;
-      font-size: 16px !important; /* Prevents iOS zoom */
-      font-family: 'Inter', sans-serif !important;
-      background: #f8fafc !important;
-      width: 100% !important;
-      box-sizing: border-box;
-      transition: 0.2s;
-    }
-    input:focus, select:focus {
-      border-color: var(--gold) !important;
-      background: #fff !important;
-      outline: none !important;
-      box-shadow: 0 0 0 4px rgba(201,154,59,0.15) !important;
-    }
-
-    /* Markdown Editor (The Big Writing Area) */
-    [class*="CodeMirror"], [class*="CodeMirror-lines"] {
-      font-family: 'Merriweather', Georgia, serif !important;
-      font-size: 18px !important;
-      line-height: 1.8 !important;
-    }
-    [class*="CodeMirror"] {
-      border-radius: 8px !important;
-      border: 2px solid var(--border) !important;
-      background: #fff !important;
-      min-height: 400px !important; /* Big area for writing */
-    }
-    [class*="CodeMirror"]:focus {
-      border-color: var(--gold) !important;
-    }
-
-    /* Action Buttons (Save, Publish) */
-    button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]), [class*="ButtonPrimary"] {
-      background: var(--navy) !important;
-      color: #fff !important;
-      font-weight: 700 !important;
-      border-radius: 8px !important;
-      border: none !important;
-      padding: 14px 28px !important;
-      font-size: 16px !important;
-      transition: background 0.2s !important;
-      min-height: 48px !important;
-      cursor: pointer;
-    }
-    button[type="submit"]:hover, [class*="ToolbarButton"]:hover, [class*="ButtonPrimary"]:hover {
-      background: var(--gold) !important;
-      color: var(--navy) !important;
-    }
-
-    /* List View (Cards for Articles) */
-    [class*="EntryCard"], [class*="ListItem"] {
-      background: var(--surface) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 10px !important;
-      margin-bottom: 12px !important;
-      padding: 16px !important;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02) !important;
-      transition: all 0.2s ease !important;
-    }
-    [class*="EntryCard"]:hover, [class*="ListItem"]:hover {
-      border-color: var(--gold) !important;
-      box-shadow: 0 6px 15px rgba(201,154,59,0.1) !important;
-      transform: translateY(-2px) !important;
-    }
-    [class*="EntryCard"] h2, [class*="EntryCard"] h3, [class*="ListItem"] h2 {
-      font-family: 'Merriweather', serif !important;
-      color: var(--navy) !important;
-      font-size: 16px !important;
-      margin: 0 !important;
-    }
-    [class*="EntryCard"] p, [class*="ListItem"] p {
-      color: #64748b !important;
-      font-size: 13px !important;
-      margin-top: 6px !important;
-    }
-
-    /* Mobile Adjustments */
-    @media (max-width: 768px) {
-      .td-topbar {
-        padding: 8px 12px;
-      }
-      .td-topbar-brand span { display: none; } /* Hide 'Editorial Desk' text on phone */
-      .td-nav-btn {
-        padding: 8px 10px;
-        font-size: 12px;
-      }
-      .td-nav-btn span { display: none; } /* Hide text, show only icon on phone */
-      .td-nav-btn i { font-size: 16px; }
-      
-      [class*="EditorPane"], [class*="ControlPane"] {
-        margin: 8px !important;
-        padding: 16px !important;
-      }
-      input, select {
-        padding: 12px !important;
-      }
-      button[type="submit"], [class*="ToolbarButton"]:not([class*="Disabled"]) {
-        width: 100% !important;
-        margin-bottom: 10px !important;
-      }
+    @media(max-width:560px){
+      :root{--topbar:60px}
+      .tg-header{height:var(--topbar);padding:0 10px;gap:8px}
+      .tg-logo-img{max-height:30px} /* মোবাইলে লোগো একটু ছোট হবে */
+      .tg-brand{gap:8px}
+      .tg-brand-copy strong{font-size:12px}
+      .tg-brand-copy small{letter-spacing:1.5px}
+      .tg-nav{gap:2px}
+      .tg-nav a{width:36px;height:38px;min-height:38px;padding:0}
+      .tg-nav a span{display:none!important}
+      .tg-nav .tg-stats{width:38px;padding:0}
+      .tg-nav .tg-stats span{display:none!important}
+      .tg-subhead{align-items:flex-start;padding:14px 12px 10px}
+      .tg-page-title{font-size:18px}
+      .tg-page-kicker{font-size:11px}
+      .tg-status{font-size:10px;padding:6px 8px}
+      .tg-tip{margin:0 12px 12px;font-size:11px}
+      [class*="EditorPane"],[class*="ControlPane"]{margin:7px!important;padding:12px!important}
+      [class*="CodeMirror"]{font-size:15px!important;min-height:300px}
+      input,textarea,select{font-size:16px!important}
+      button[type="submit"],[class*="ToolbarButton"]:not([class*="Disabled"]){min-height:44px!important}
     }
   </style>
 </head>
 <body>
-  <!-- Load Decap CMS -->
+  <header class="tg-header" id="tg-header">
+    <a class="tg-brand" href="/admin/" aria-label="The Global Desk newsroom home">
+      <!-- ✅ আপনার আসল লোগো এখানে বসানো হলো -->
+      <img src="https://thegdesk.com/Logo.png" alt="The Global Desk" class="tg-logo-img">
+      <span class="tg-brand-copy"><strong>The Global Desk</strong><small>EDITORIAL DESK</small></span>
+    </a>
+    <span class="tg-header-rule"></span>
+    <div class="tg-edition"><b>NEWSROOM WORKSPACE</b>Write · Review · Publish</div>
+    <nav class="tg-nav" aria-label="Editorial navigation">
+      <a data-section="home" href="/admin/#/" title="Dashboard"><i class="fa-solid fa-house"></i><span>Home</span></a>
+      <a data-section="news_drafts" href="/admin/#/collections/news_drafts" title="Drafts"><i class="fa-solid fa-file-pen"></i><span>Drafts</span></a>
+      <a data-section="news_published" href="/admin/#/collections/news_published" title="Published"><i class="fa-solid fa-circle-check"></i><span>Published</span></a>
+      <a data-section="breaking" href="/admin/#/collections/breaking" title="Breaking news"><i class="fa-solid fa-bolt"></i><span>Breaking</span></a>
+      <a class="tg-stats" href="/admin/views.html" title="Article views"><i class="fa-solid fa-chart-simple"></i><span>Views</span></a>
+    </nav>
+  </header>
+
+  <section class="tg-subhead">
+    <div><h1 class="tg-page-title" id="tg-title">Newsroom dashboard</h1><p class="tg-page-kicker" id="tg-kicker">Manage stories from one simple workspace.</p></div>
+    <span class="tg-status"><i class="fa-solid fa-circle"></i> Editorial workspace</span>
+  </section>
+  <div class="tg-tip" id="tg-tip"><i class="fa-solid fa-lightbulb"></i><div><strong>Quick tip</strong><br>Open Drafts to write or edit a story. Check the preview before publishing, and use Published to update live articles.</div></div>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-  <!-- Clean, Bug-Free JavaScript for Top Navigation -->
   <script>
-    window.addEventListener('load', function() {
-      if (typeof CMS === 'undefined') return;
-
-      function buildTopBar() {
-        if (document.getElementById('td-topbar')) return;
-
-        var bar = document.createElement('div');
-        bar.id = 'td-topbar';
-        bar.className = 'td-topbar';
-
-        var hash = window.location.hash;
-        var isDrafts = hash.includes('news_drafts');
-        var isPublished = hash.includes('news_published');
-        var isBreaking = hash.includes('breaking');
-
-        bar.innerHTML = `
-          <div class="td-topbar-brand">
-            <img src="https://thegdesk.com/Logo.png" alt="Logo">
-            <span>EDITORIAL</span>
-          </div>
-          <div class="td-topbar-nav">
-            <a href="#/collections/news_drafts" class="td-nav-btn ${isDrafts ? 'active' : ''}">
-              <i class="fa-solid fa-file-lines"></i> <span>Drafts</span>
-            </a>
-            <a href="#/collections/news_published" class="td-nav-btn ${isPublished ? 'active' : ''}">
-              <i class="fa-solid fa-check-circle"></i> <span>Published</span>
-            </a>
-            <a href="#/collections/breaking" class="td-nav-btn ${isBreaking ? 'active' : ''}">
-              <i class="fa-solid fa-bolt"></i> <span>Breaking</span>
-            </a>
-          </div>
-        `;
-        document.body.prepend(bar);
+    (function(){
+      function updateHeader(){
+        var hash=window.location.hash||'';
+        var title='Newsroom dashboard', kicker='Manage stories from one simple workspace.', tip='<strong>Quick tip</strong><br>Open Drafts to write or edit a story. Check the preview before publishing, and use Published to update live articles.', section='home';
+        if(hash.indexOf('news_drafts')!==-1){title='Drafts';kicker='Stories in progress · edit, review, and prepare for publication.';tip='<strong>Draft workflow</strong><br>Open a story to edit it, save your changes, and check the preview before publishing.';section='news_drafts';}
+        else if(hash.indexOf('news_published')!==-1){title='Published stories';kicker='Manage articles that are already published on the website.';tip='<strong>Published workflow</strong><br>Editing a published story may create a new Git commit. Review the article preview before saving.';section='news_published';}
+        else if(hash.indexOf('breaking')!==-1){title='Breaking news';kicker='Manage urgent headlines and their active status.';tip='<strong>Breaking news tip</strong><br>Keep the headline short, confirm the active setting, and check the expiry time.';section='breaking';}
+        document.getElementById('tg-title').textContent=title;
+        document.getElementById('tg-kicker').textContent=kicker;
+        document.getElementById('tg-tip').innerHTML='<i class="fa-solid fa-lightbulb"></i><div>'+tip+'</div>';
+        document.querySelectorAll('.tg-nav a[data-section]').forEach(function(a){a.classList.toggle('active',a.dataset.section===section);});
       }
-
-      // Run only once on load and hash change (No intervals, no bugs)
-      setTimeout(buildTopBar, 500);
-      
-      window.addEventListener('hashchange', function() {
-        var existingBar = document.getElementById('td-topbar');
-        if (existingBar) existingBar.remove();
-        setTimeout(buildTopBar, 300);
-      });
-    });
+      window.addEventListener('hashchange',updateHeader);
+      window.addEventListener('load',function(){setTimeout(updateHeader,250);});
+      updateHeader();
+    })();
   </script>
 </body>
 </html>

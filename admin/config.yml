@@ -2,10 +2,10 @@ backend:
   name: github
   repo: KhanTechZZ/theglobaldesk
   branch: main
-  base_url: https://tgdnews.pages.dev
+  base_url: https://thegdesk.com
   auth_endpoint: /api/auth
 
-logo_url: "https://tgdnews.pages.dev/Logo.png"
+logo_url: "https://thegdesk.com/Logo.png"
 locale: 'en'
 publish_mode: simple
 

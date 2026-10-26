@@ -209,7 +209,7 @@ function cmsCollection(article) {
 function cmsEntryUrl(article) {
   const file = String(article.path || "").split("/").pop();
   const slug = file.replace(/\.md$/i, "");
-  return `/admin/#/collections/${cmsCollection(article)}/entries/${encodeURIComponent(slug)}`;
+  return `/admin/cms.html#/collections/${cmsCollection(article)}/entries/${encodeURIComponent(slug)}`;
 }
 
 function render() {
@@ -376,4 +376,5 @@ $("statusFilter").onchange = render;
 </script>
 </body>
 </html>
+
 

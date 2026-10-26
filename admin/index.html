@@ -53,7 +53,7 @@ th{background:#f7f8fb;font-size:13px}
 <header>
   <strong>The Global Desk <span style="color:#e6b65c">/ Admin</span></strong>
   <nav>
-    <a href="/admin/" style="margin-right:16px">Open CMS</a>
+    <a href="/admin/cms.html" style="margin-right:16px">Open CMS</a>
     <button id="logout" hidden>Logout</button>
   </nav>
 </header>
@@ -75,19 +75,19 @@ th{background:#f7f8fb;font-size:13px}
   <p class="muted">Manage your news through the connected CMS.</p>
 
   <div class="cms-actions">
-    <a class="cms-btn" href="/admin/#/collections/news_drafts/new">
+    <a class="cms-btn" href="/admin/cms.html#/collections/news_drafts/new">
       + Add News / Draft
     </a>
-    <a class="cms-btn green" href="/admin/#/collections/news_published">
+    <a class="cms-btn green" href="/admin/cms.html#/collections/news_published">
       Published News
     </a>
-    <a class="cms-btn gray" href="/admin/#/collections/news_drafts">
+    <a class="cms-btn gray" href="/admin/cms.html#/collections/news_drafts">
       Manage Drafts
     </a>
-    <a class="cms-btn red" href="/admin/#/collections/breaking">
+    <a class="cms-btn red" href="/admin/cms.html#/collections/breaking">
       Breaking News
     </a>
-    <a class="cms-btn" href="/admin/">
+    <a class="cms-btn" href="/admin/cms.html">
       Open Full CMS
     </a>
   </div>
@@ -209,7 +209,7 @@ function cmsCollection(article) {
 function cmsEntryUrl(article) {
   const file = String(article.path || "").split("/").pop();
   const slug = file.replace(/\.md$/i, "");
-  return `/admin/#/collections/${cmsCollection(article)}/entries/${encodeURIComponent(slug)}`;
+  return `/admin/cms.html#/collections/${cmsCollection(article)}/entries/${encodeURIComponent(slug)}`;
 }
 
 function render() {
@@ -376,3 +376,5 @@ $("statusFilter").onchange = render;
 </script>
 </body>
 </html>
+
+

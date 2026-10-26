@@ -17,6 +17,19 @@ function articleCounter(slug) {
   return clean ? `article-${clean}` : "";
 }
 
+async function apiRequest(env, name, action = "") {
+  return fetch(
+    `${API_BASE}/${WORKSPACE}/${encodeURIComponent(name)}${action ? `/${action}` : ""}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${env.COUNTERAPI_TOKEN}`,
+        Accept: "application/json"
+      }
+    }
+  );
+}
+
 async function requestCounter(env, name, increment = false) {
   if (!env.COUNTERAPI_TOKEN) {
     return Response.json(
@@ -25,23 +38,43 @@ async function requestCounter(env, name, increment = false) {
     );
   }
 
-  const response = await fetch(
-    `${API_BASE}/${WORKSPACE}/${encodeURIComponent(name)}${increment ? "/up" : ""}`,
-    {
-      headers: {
-        Authorization: `Bearer ${env.COUNTERAPI_TOKEN}`,
-        Accept: "application/json"
-      }
-    }
-  );
+  try {
+    let response = await apiRequest(env, name, increment ? "up" : "");
 
-  return new Response(await response.text(), {
-    status: response.status,
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-store"
+    if (increment && response.status === 404) {
+      // Initialize a missing counter, then increment it.
+      const resetResponse = await apiRequest(env, name, "reset");
+
+      if (!resetResponse.ok) {
+        const details = await resetResponse.text();
+        return Response.json(
+          {
+            error: "Could not initialize article counter",
+            counter: name,
+            details
+          },
+          { status: resetResponse.status }
+        );
+      }
+
+      response = await apiRequest(env, name, "up");
     }
-  });
+
+    const body = await response.text();
+
+    return new Response(body, {
+      status: response.status,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store"
+      }
+    });
+  } catch (error) {
+    return Response.json(
+      { error: "CounterAPI request failed", details: String(error) },
+      { status: 502 }
+    );
+  }
 }
 
 export async function onRequestGet({ request, env }) {
@@ -53,8 +86,12 @@ export async function onRequestGet({ request, env }) {
   }
 
   const name = articleCounter(slug);
+
   if (!name) {
-    return Response.json({ error: "Invalid article slug" }, { status: 400 });
+    return Response.json(
+      { error: "Invalid article slug" },
+      { status: 400 }
+    );
   }
 
   return requestCounter(env, name);
@@ -66,13 +103,19 @@ export async function onRequestPost({ request, env }) {
   try {
     body = await request.json();
   } catch {
-    return Response.json({ error: "Invalid JSON body" }, { status: 400 });
+    return Response.json(
+      { error: "Invalid JSON body" },
+      { status: 400 }
+    );
   }
 
   const name = articleCounter(body.slug);
 
   if (!name) {
-    return Response.json({ error: "Invalid article slug" }, { status: 400 });
+    return Response.json(
+      { error: "Invalid article slug" },
+      { status: 400 }
+    );
   }
 
   return requestCounter(env, name, true);

@@ -1,4 +1,3 @@
-
 import { isAdmin, json } from "../_utils/admin.js";
 
 const OWNER = "KhanTechZZ";
@@ -15,19 +14,18 @@ export async function onRequestGet({ request, env }) {
       return json({ error: "GITHUB_TOKEN is missing" }, 500);
     }
 
-    const url =
-      `https://api.github.com/repos/${OWNER}/${REPO}/contents/news?ref=${BRANCH}`;
-
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "The-Global-Desk"
+    const response = await fetch(
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/news?ref=${BRANCH}`,
+      {
+        headers: {
+          Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+          "User-Agent": "The-Global-Desk"
+        }
       }
-    });
+    );
 
-    // GitHub-এ news ফোল্ডার না থাকলে খালি তালিকা দেখাবে।
     if (response.status === 404) {
       return json({
         ok: true,
@@ -39,58 +37,110 @@ export async function onRequestGet({ request, env }) {
     }
 
     if (!response.ok) {
-      const details = await response.text();
-
       return json({
         error: "GitHub API request failed",
         status: response.status,
-        details: details.slice(0, 500)
+        details: (await response.text()).slice(0, 500)
       }, 502);
     }
 
     const files = await response.json();
 
     if (!Array.isArray(files)) {
-      return json({
-        error: "Unexpected GitHub API response"
-      }, 502);
+      return json({ error: "Unexpected GitHub API response" }, 502);
     }
 
-    const articles = files
-      .filter(file =>
-        file.type === "file" &&
-        file.name.toLowerCase().endsWith(".md")
-      )
-      .map(file => {
-        const title = file.name
+    const markdownFiles = files.filter(file =>
+      file.type === "file" &&
+      file.name.toLowerCase().endsWith(".md")
+    );
+
+    const articles = await Promise.all(
+      markdownFiles.map(async file => {
+        const fallbackTitle = file.name
           .replace(/\.md$/i, "")
           .replace(/^\d{4}-\d{2}-\d{2}-/, "")
           .replace(/[-_]/g, " ");
 
-        const dateMatch = file.name.match(
-          /^(\d{4}-\d{2}-\d{2})/
-        );
+        const dateMatch = file.name.match(/^\d{4}-\d{2}-\d{2}/);
 
-        return {
-          path: file.path,
-          sha: file.sha,
-          title: title || file.name,
-          date: dateMatch ? dateMatch[1] : "",
-          category: "",
-          published: false,
-          status: "Draft"
-        };
+        try {
+          const detailResponse = await fetch(file.url, {
+            headers: {
+              Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+              Accept: "application/vnd.github.raw+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+              "User-Agent": "The-Global-Desk"
+            }
+          });
+
+          if (!detailResponse.ok) {
+            throw new Error("Could not read article");
+          }
+
+          const raw = await detailResponse.text();
+          const frontmatterMatch = raw.match(
+            /^---\s*\r?\n([\s\S]*?)\r?\n---/
+          );
+
+          const frontmatter = frontmatterMatch
+            ? frontmatterMatch[1]
+            : "";
+
+          function getField(name) {
+            const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const match = frontmatter.match(
+              new RegExp("^\\s*" + escaped + "\\s*:\\s*(.*?)\\s*$", "mi")
+            );
+
+            if (!match) return "";
+
+            return match[1]
+              .replace(/^["']|["']$/g, "")
+              .trim();
+          }
+
+          const title = getField("title") || fallbackTitle;
+          const publishedValue = getField("published").toLowerCase();
+          const published = ["true", "yes", "1"].includes(publishedValue);
+
+          const date = getField("date") || (dateMatch ? dateMatch[0] : "");
+
+          return {
+            path: file.path,
+            sha: file.sha,
+            title,
+            date,
+            category: getField("category"),
+            published,
+            status: published ? "Published" : "Draft"
+          };
+        } catch {
+          return {
+            path: file.path,
+            sha: file.sha,
+            title: fallbackTitle,
+            date: dateMatch ? dateMatch[0] : "",
+            category: "",
+            published: false,
+            status: "Unknown"
+          };
+        }
       })
-      .sort((a, b) => b.date.localeCompare(a.date));
+    );
+
+    articles.sort((a, b) => b.date.localeCompare(a.date));
+
+    const published = articles.filter(a => a.published).length;
+    const drafts = articles.filter(a => a.status === "Draft").length;
 
     return json({
       ok: true,
       articles,
       total: articles.length,
-      published: 0,
-      drafts: articles.length
+      published,
+      drafts
     });
-
   } catch (error) {
     return json({
       error: "Dashboard request failed",

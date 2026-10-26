@@ -1,200 +1,378 @@
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#071a2c">
-  <title>The Global Desk — Newsroom</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    :root{
-      --ink:#102235;--navy:#071a2c;--navy2:#102d47;--gold:#d8ad55;
-      --red:#c72c3b;--paper:#f3f6f9;--white:#fff;--muted:#647589;
-      --line:#dce4ec;--green:#16865b;--shadow:0 8px 28px rgba(13,35,56,.07);
-      --topbar:68px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0!important;padding:var(--topbar) 0 0!important;background:var(--paper)!important;color:var(--ink)!important;font-family:"DM Sans",Arial,sans-serif!important;-webkit-tap-highlight-color:transparent}
-    body, [class*="App"]{font-family:"DM Sans",Arial,sans-serif!important}
-    /* Custom newsroom header */
-    .tg-header{position:fixed;inset:0 0 auto 0;height:var(--topbar);z-index:99999;display:flex;align-items:center;gap:24px;padding:0 clamp(14px,3vw,38px);background:var(--navy);border-bottom:3px solid var(--gold);box-shadow:0 5px 20px #06172725}
-    .tg-brand{display:flex;align-items:center;gap:12px;min-width:max-content;text-decoration:none}
-    .tg-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:5px;background:var(--gold);color:var(--navy);font-family:"Libre Baskerville",serif;font-size:22px;font-weight:700}
-    .tg-brand-copy{display:flex;flex-direction:column;gap:2px}
-    .tg-brand-copy strong{color:#fff;font-size:15px;letter-spacing:.3px}
-    .tg-brand-copy small{color:#b9c7d5;font-size:9px;letter-spacing:2.2px;font-weight:800}
-    .tg-header-rule{height:30px;width:1px;background:#ffffff24}
-    .tg-edition{color:#c1cdd8;font-size:11px;line-height:1.5}
-    .tg-edition b{display:block;color:#fff;font-size:12px}
-    .tg-nav{display:flex;align-items:center;gap:5px;margin-left:auto}
-    .tg-nav a,.tg-tool{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 13px;border:1px solid transparent;border-radius:7px;color:#d5dfe8;text-decoration:none;font-size:12px;font-weight:700;white-space:nowrap;transition:.18s}
-    .tg-nav a:hover,.tg-nav a.active{background:#ffffff12;color:#fff;border-color:#ffffff1c}
-    .tg-nav a.active{box-shadow:inset 0 -2px var(--gold);border-radius:7px 7px 4px 4px}
-    .tg-nav a i{font-size:13px}
-    .tg-nav .tg-stats{background:var(--gold);color:var(--navy);font-weight:800}
-    .tg-nav .tg-stats:hover{background:#f0cc7b;color:var(--navy)}
-    .tg-mobile-menu{display:none;background:#ffffff12;color:white;border:1px solid #ffffff25;border-radius:7px;width:42px;height:42px;font-size:17px}
-    .tg-subhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px clamp(14px,3vw,38px) 12px}
-    .tg-page-title{margin:0;font-size:22px;letter-spacing:-.5px;font-weight:800;color:var(--navy)}
-    .tg-page-kicker{margin:4px 0 0;color:var(--muted);font-size:12px}
-    .tg-status{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbe8d9;background:#effaf4;color:#14734d;border-radius:99px;padding:7px 11px;font-size:11px;font-weight:800;white-space:nowrap}
-    .tg-status i{font-size:8px}
-    /* Keep CMS functionality; restyle rather than replace its React interface */
-    /* Keep Decap CMS toolbar visible: Save / Publish actions live here */
-    header[role="banner"]{
-      display:flex!important;
-      position:sticky!important;
-      top:var(--topbar)!important;
-      z-index:900!important;
-      visibility:visible!important;
-      opacity:1!important;
-      background:#fff!important;
-      color:var(--ink)!important;
-      border-bottom:1px solid var(--line)!important;
-      box-shadow:0 3px 12px rgba(13,35,56,.06)!important;
-    }
-    header[role="banner"] button,
-    header[role="banner"] a,
-    header[role="banner"] [role="button"]{
-      visibility:visible!important;
-      opacity:1!important;
-    }
-    aside[role="navigation"],[class*="Sidebar"]{background:#fff!important;border-right:1px solid var(--line)!important}
-    main,[role="main"],[class*="MainContent"],[class*="AppMain"]{margin-left:0!important;max-width:100%!important}
-    [class*="App"]{background:var(--paper)!important;color:var(--ink)!important}
-    [class*="CollectionMain"],[class*="Entries"],[class*="CollectionPage"]{max-width:1440px!important;margin:0 auto!important}
-    [class*="EditorPane"],[class*="ControlPane"],[class*="EditorContainer"],[class*="PreviewPane"]{background:#fff!important;border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:var(--shadow)!important}
-    [class*="EditorPane"],[class*="ControlPane"]{margin:12px!important}
-    [class*="FieldLabel"],label{font-family:"DM Sans",Arial,sans-serif!important;color:#203a52!important;font-weight:700!important}
-    input,textarea,select,[role="textbox"]{font-family:"DM Sans",Arial,sans-serif!important;border-radius:8px!important;border:1px solid #cbd7e2!important;background:#fff!important;color:var(--ink)!important;max-width:100%}
-    input:focus,textarea:focus,select:focus,[role="textbox"]:focus{outline:0!important;border-color:#c99a3b!important;box-shadow:0 0 0 3px #d8ad5528!important}
-    button[type="submit"],[class*="ToolbarButton"]:not([class*="Disabled"]),[class*="ButtonPrimary"]{border-radius:8px!important;font-family:"DM Sans",Arial,sans-serif!important;font-weight:800!important;cursor:pointer!important}
-    button[type="submit"],[class*="ButtonPrimary"]{background:var(--navy)!important;color:#fff!important;border:1px solid var(--navy)!important}
-    button[type="submit"]:hover,[class*="ButtonPrimary"]:hover{background:#173b5b!important}
-    [class*="EntryCard"],[class*="ListItem"],[class*="CollectionCard"]{border-radius:9px!important;border-color:var(--line)!important;background:#fff!important;box-shadow:0 2px 7px #10223508!important}
-    [class*="EntryCard"]:hover,[class*="ListItem"]:hover{border-color:#d8ad55!important;box-shadow:0 5px 16px #10223510!important}
-    [class*="CodeMirror"]{font-family:"Libre Baskerville",Georgia,serif!important;font-size:16px!important;line-height:1.8!important;border-radius:8px!important;border-color:#d6e0e8!important}
-    /* Compact live preview; reserve more width for the editing form */
-    [class*="PreviewPane"]{
-      background:#edf2f6!important;
-      flex:0 0 36%!important;
-      width:36%!important;
-      max-width:36%!important;
-      min-width:280px!important;
-      overflow:auto!important;
-    }
-    [class*="EditorPane"],[class*="ControlPane"],[class*="EditorContainer"]{
-      flex:1 1 64%!important;
-      min-width:0!important;
-    }
-    /* Decap split panes can use grid or flex depending on CMS version */
-    [class*="EditorContainer"]{
-      max-width:100%!important;
-    }
-    @media(max-width:900px){
-      [class*="PreviewPane"]{
-        flex-basis:42%!important;
-        width:42%!important;
-        max-width:42%!important;
-        min-width:220px!important;
-      }
-    }
-    @media(max-width:650px){
-      [class*="PreviewPane"]{
-        flex-basis:100%!important;
-        width:100%!important;
-        max-width:100%!important;
-        min-width:0!important;
-      }
-    }
-    /* utility strip */
-    .tg-tip{margin:0 clamp(14px,3vw,38px) 18px;padding:12px 15px;display:flex;align-items:flex-start;gap:11px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;color:#516579;font-size:12px;line-height:1.55}
-    .tg-tip i{color:#b1842f;margin-top:2px}
-    .tg-tip strong{color:var(--navy)}
-    @media(max-width:900px){
-      :root{--topbar:62px}
-      .tg-header{gap:12px;padding:0 14px}
-      .tg-header-rule,.tg-edition{display:none}
-      .tg-nav{gap:3px}
-      .tg-nav a{padding:0 10px}
-      .tg-nav a span{display:none}
-      .tg-nav a i{font-size:16px}
-      .tg-nav .tg-stats span{display:inline}
-      .tg-nav .tg-stats{padding:0 11px}
-      .tg-brand-copy strong{font-size:13px}
-      .tg-brand-copy small{font-size:8px}
-      .tg-subhead{padding-top:16px}
-    }
-    @media(max-width:560px){
-      :root{--topbar:60px}
-      .tg-header{height:var(--topbar);padding:0 10px;gap:8px}
-      .tg-mark{width:34px;height:34px;font-size:20px}
-      .tg-brand{gap:8px}
-      .tg-brand-copy strong{font-size:12px}
-      .tg-brand-copy small{letter-spacing:1.5px}
-      .tg-nav{gap:2px}
-      .tg-nav a{width:36px;height:38px;min-height:38px;padding:0}
-      .tg-nav a span{display:none!important}
-      .tg-nav .tg-stats{width:38px;padding:0}
-      .tg-nav .tg-stats span{display:none!important}
-      .tg-subhead{align-items:flex-start;padding:14px 12px 10px}
-      .tg-page-title{font-size:18px}
-      .tg-page-kicker{font-size:11px}
-      .tg-status{font-size:10px;padding:6px 8px}
-      .tg-tip{margin:0 12px 12px;font-size:11px}
-      [class*="EditorPane"],[class*="ControlPane"]{margin:7px!important;padding:12px!important}
-      [class*="CodeMirror"]{font-size:15px!important;min-height:300px}
-      input,textarea,select{font-size:16px!important}
-      button[type="submit"],[class*="ToolbarButton"]:not([class*="Disabled"]){min-height:44px!important}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard | The Global Desk</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f5f9;color:#172033;font:15px Arial,sans-serif}
+header{background:#101c33;color:white;padding:20px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header strong{font-size:21px}
+main{max-width:1200px;margin:30px auto;padding:0 18px}
+button,input,select{font:inherit;padding:11px;border-radius:7px;border:1px solid #d5dbe5}
+button{cursor:pointer;background:#14233d;color:white;border:0}
+button:disabled{opacity:.5;cursor:not-allowed}
+a{color:#a77822;text-decoration:none}
+a:hover{text-decoration:underline}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0}
+.card,.panel,#login{background:white;border:1px solid #e2e7ef;border-radius:12px;padding:22px}
+.stat{font-size:30px;font-weight:bold;margin-top:10px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.toolbar input,.toolbar select{flex:1;min-width:150px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:white}
+th,td{text-align:left;padding:14px;border-bottom:1px solid #e8ebf1;white-space:nowrap}
+th{background:#f7f8fb;font-size:13px}
+.status{padding:5px 9px;border-radius:20px;background:#eef2f7;font-size:12px}
+.status.published{background:#dcfae6;color:#067647}
+.status.draft{background:#f2f4f7;color:#344054}
+#message{margin:15px 0;color:#475467;overflow-wrap:anywhere}
+#login{max-width:420px;margin:70px auto}
+#login input{width:100%;margin:12px 0}
+#login button{width:100%}
+.muted{color:#667085;font-size:13px}
+.cms-actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.cms-btn{display:inline-block;background:#14233d;color:white;padding:12px 16px;border-radius:8px;font-weight:bold}
+.cms-btn:hover{opacity:.9;text-decoration:none}
+.cms-btn.green{background:#16865b}
+.cms-btn.red{background:#b42318}
+.cms-btn.gray{background:#475467}
+.small-btn{padding:8px 12px}
+@media(max-width:600px){
+ .stats{grid-template-columns:1fr}
+ .card{padding:15px}
+ header{padding:16px}
+ main{margin:20px auto}
+}
+</style>
 </head>
 <body>
-  <header class="tg-header" id="tg-header">
-    <a class="tg-brand" href="/admin/" aria-label="The Global Desk newsroom home">
-      <span class="tg-mark">G</span>
-      <span class="tg-brand-copy"><strong>The Global Desk</strong><small>EDITORIAL DESK</small></span>
+
+<header>
+  <strong>The Global Desk <span style="color:#e6b65c">/ Admin</span></strong>
+  <nav>
+    <a href="/admin/" style="margin-right:16px">Open CMS</a>
+    <button id="logout" hidden>Logout</button>
+  </nav>
+</header>
+
+<div id="login">
+  <h2>Admin Login</h2>
+  <p class="muted">Sign in to manage website articles.</p>
+  <form id="loginForm">
+    <input id="password" type="password"
+      placeholder="Admin password" required
+      autocomplete="current-password">
+    <button type="submit" id="loginButton">Sign in</button>
+  </form>
+  <p id="loginMessage" role="status"></p>
+</div>
+
+<main id="app" hidden>
+  <h1>Dashboard</h1>
+  <p class="muted">Manage your news through the connected CMS.</p>
+
+  <div class="cms-actions">
+    <a class="cms-btn" href="/admin/#/collections/news_drafts/new">
+      + Add News / Draft
     </a>
-    <span class="tg-header-rule"></span>
-    <div class="tg-edition"><b>NEWSROOM WORKSPACE</b>Write · Review · Publish</div>
-    <nav class="tg-nav" aria-label="Editorial navigation">
-      <a data-section="home" href="/admin/#/" title="Dashboard"><i class="fa-solid fa-house"></i><span>Home</span></a>
-      <a data-section="news_drafts" href="/admin/#/collections/news_drafts" title="Drafts"><i class="fa-solid fa-file-pen"></i><span>Drafts</span></a>
-      <a data-section="news_published" href="/admin/#/collections/news_published" title="Published"><i class="fa-solid fa-circle-check"></i><span>Published</span></a>
-      <a data-section="breaking" href="/admin/#/collections/breaking" title="Breaking news"><i class="fa-solid fa-bolt"></i><span>Breaking</span></a>
-      <a class="tg-stats" href="/admin/views.html" title="Article views"><i class="fa-solid fa-chart-simple"></i><span>Views</span></a>
-    </nav>
-  </header>
+    <a class="cms-btn green" href="/admin/#/collections/news_published">
+      Published News
+    </a>
+    <a class="cms-btn gray" href="/admin/#/collections/news_drafts">
+      Manage Drafts
+    </a>
+    <a class="cms-btn red" href="/admin/#/collections/breaking">
+      Breaking News
+    </a>
+    <a class="cms-btn" href="/admin/">
+      Open Full CMS
+    </a>
+  </div>
 
-  <section class="tg-subhead">
-    <div><h1 class="tg-page-title" id="tg-title">Newsroom dashboard</h1><p class="tg-page-kicker" id="tg-kicker">Manage stories from one simple workspace.</p></div>
-    <span class="tg-status"><i class="fa-solid fa-circle"></i> Editorial workspace</span>
+  <div class="stats">
+    <div class="card">
+      Total articles
+      <div class="stat" id="total">ΓÇö</div>
+    </div>
+    <div class="card">
+      Published
+      <div class="stat" id="published">ΓÇö</div>
+    </div>
+    <div class="card">
+      Drafts
+      <div class="stat" id="drafts">ΓÇö</div>
+    </div>
+  </div>
+
+  <section class="panel">
+    <h2>News Management</h2>
+    <p class="muted">
+      Search articles below. Use Edit in CMS to change an article,
+      publish it, or manage its status.
+    </p>
+
+    <div class="toolbar">
+      <input id="search" placeholder="Search article title...">
+      <input id="from" type="date" aria-label="From date">
+      <input id="to" type="date" aria-label="To date">
+      <button id="refresh">Refresh</button>
+    </div>
+
+    <div class="toolbar">
+      <select id="statusFilter" aria-label="Filter by status">
+        <option value="all">All statuses</option>
+        <option value="Published">Published</option>
+        <option value="Draft">Draft</option>
+        <option value="Breaking">Breaking</option>
+      </select>
+    </div>
+
+    <p id="message" role="status">Please sign in.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Manage</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <p class="muted">
+      Article statistics depend on the Dashboard API.
+      Page views are not connected.
+    </p>
   </section>
-  <div class="tg-tip" id="tg-tip"><i class="fa-solid fa-lightbulb"></i><div><strong>Quick tip</strong><br>Open Drafts to write or edit a story. Check the preview before publishing, and use Published to update live articles.</div></div>
+</main>
 
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    (function(){
-      function updateHeader(){
-        var hash=window.location.hash||'';
-        var title='Newsroom dashboard', kicker='Manage stories from one simple workspace.', tip='<strong>Quick tip</strong><br>Open Drafts to write or edit a story. Check the preview before publishing, and use Published to update live articles.', section='home';
-        if(hash.indexOf('news_drafts')!==-1){title='Drafts';kicker='Stories in progress · edit, review, and prepare for publication.';tip='<strong>Draft workflow</strong><br>Open a story to edit it, save your changes, and check the preview before publishing.';section='news_drafts';}
-        else if(hash.indexOf('news_published')!==-1){title='Published stories';kicker='Manage articles that are already published on the website.';tip='<strong>Published workflow</strong><br>Editing a published story may create a new Git commit. Review the article preview before saving.';section='news_published';}
-        else if(hash.indexOf('breaking')!==-1){title='Breaking news';kicker='Manage urgent headlines and their active status.';tip='<strong>Breaking news tip</strong><br>Keep the headline short, confirm the active setting, and check the expiry time.';section='breaking';}
-        document.getElementById('tg-title').textContent=title;
-        document.getElementById('tg-kicker').textContent=kicker;
-        document.getElementById('tg-tip').innerHTML='<i class="fa-solid fa-lightbulb"></i><div>'+tip+'</div>';
-        document.querySelectorAll('.tg-nav a[data-section]').forEach(function(a){a.classList.toggle('active',a.dataset.section===section);});
-      }
-      window.addEventListener('hashchange',updateHeader);
-      window.addEventListener('load',function(){setTimeout(updateHeader,250);});
-      updateHeader();
-    })();
-  </script>
+<script>
+const $ = id => document.getElementById(id);
+let articles = [];
+
+async function api(url, options = {}) {
+  const response = await fetch(url, {
+    credentials: "same-origin",
+    ...options,
+    headers: {
+      ...(options.body ? {"Content-Type":"application/json"} : {}),
+      ...(options.headers || {})
+    }
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(
+      data.details || data.error || `Request failed (${response.status})`
+    );
+  }
+
+  return data;
+}
+
+function showApp() {
+  $("login").hidden = true;
+  $("app").hidden = false;
+  $("logout").hidden = false;
+}
+
+function showLogin() {
+  $("app").hidden = true;
+  $("login").hidden = false;
+  $("logout").hidden = true;
+}
+
+function dateValue(value) {
+  if (!value) return "";
+  const match = String(value).match(/^\d{4}-\d{2}-\d{2}/);
+  return match ? match[0] : "";
+}
+
+function cmsCollection(article) {
+  if (article.published || article.status === "Published") {
+    return "news_published";
+  }
+  if (article.status === "Breaking") {
+    return "breaking";
+  }
+  return "news_drafts";
+}
+
+function cmsEntryUrl(article) {
+  const file = String(article.path || "").split("/").pop();
+  const slug = file.replace(/\.md$/i, "");
+  return `/admin/#/collections/${cmsCollection(article)}/entries/${encodeURIComponent(slug)}`;
+}
+
+function render() {
+  const q = $("search").value.trim().toLowerCase();
+  const from = $("from").value;
+  const to = $("to").value;
+  const wantedStatus = $("statusFilter").value;
+
+  const filtered = articles.filter(a => {
+    const title = String(a.title || "").toLowerCase();
+    const d = dateValue(a.date);
+    const status = String(a.status || "Draft");
+
+    return title.includes(q) &&
+      (!from || (d && d >= from)) &&
+      (!to || (d && d <= to)) &&
+      (wantedStatus === "all" || status === wantedStatus);
+  });
+
+  $("rows").replaceChildren();
+
+  if (!filtered.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 4;
+    td.textContent = articles.length
+      ? "No articles match your filters."
+      : "No news articles found. Use Add News / Draft to create one.";
+    tr.append(td);
+    $("rows").append(tr);
+  }
+
+  for (const a of filtered) {
+    const tr = document.createElement("tr");
+
+    const title = document.createElement("td");
+    title.textContent = a.title || "Untitled";
+
+    const date = document.createElement("td");
+    date.textContent = a.date || "ΓÇö";
+
+    const statusCell = document.createElement("td");
+    const badge = document.createElement("span");
+    const statusText = a.status || (a.published ? "Published" : "Draft");
+    badge.className = "status " +
+      (statusText === "Published" ? "published" : "draft");
+    badge.textContent = statusText;
+    statusCell.append(badge);
+
+    const manage = document.createElement("td");
+    const edit = document.createElement("a");
+    edit.href = cmsEntryUrl(a);
+    edit.className = "cms-btn small-btn";
+    edit.textContent = "Edit in CMS";
+    manage.append(edit);
+
+    tr.append(title, date, statusCell, manage);
+    $("rows").append(tr);
+  }
+
+  if (filtered.length) {
+    $("message").textContent =
+      `Showing ${filtered.length} of ${articles.length} articles.`;
+  }
+}
+
+async function loadArticles() {
+  $("message").textContent = "Loading articles...";
+  $("refresh").disabled = true;
+
+  try {
+    const data = await api("/api/dashboard");
+    articles = Array.isArray(data.articles) ? data.articles : [];
+
+    $("total").textContent = data.total ?? articles.length;
+    $("published").textContent =
+      data.published ?? articles.filter(a => a.published).length;
+    $("drafts").textContent =
+      data.drafts ?? articles.filter(a => !a.published).length;
+
+    render();
+
+    if (!articles.length) {
+      $("message").textContent =
+        "No articles found. Use Add News / Draft to create a news article.";
+    }
+  } catch (e) {
+    $("message").textContent = "Could not load articles: " + e.message;
+
+    if (e.message.toLowerCase().includes("unauthorized")) {
+      showLogin();
+    }
+  } finally {
+    $("refresh").disabled = false;
+  }
+}
+
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
+  $("loginMessage").textContent = "Signing in...";
+  $("loginButton").disabled = true;
+
+  try {
+    await api("/api/dashboard-login", {
+      method: "POST",
+      body: JSON.stringify({password: $("password").value})
+    });
+
+    $("password").value = "";
+    showApp();
+    await loadArticles();
+  } catch (err) {
+    $("loginMessage").textContent = err.message;
+  } finally {
+    $("loginButton").disabled = false;
+  }
+};
+
+$("logout").onclick = async () => {
+  $("logout").disabled = true;
+
+  try {
+    await api("/api/dashboard-logout", {
+      method: "POST",
+      body: "{}"
+    });
+  } catch (e) {
+    console.error("Logout request failed:", e);
+  } finally {
+    articles = [];
+    showLogin();
+    $("loginMessage").textContent = "Logged out.";
+    $("logout").disabled = false;
+  }
+};
+
+$("refresh").onclick = loadArticles;
+$("search").oninput = render;
+$("from").onchange = render;
+$("to").onchange = render;
+$("statusFilter").onchange = render;
+
+// Check whether an existing admin session is valid.
+(async () => {
+  try {
+    const data = await api("/api/dashboard");
+    showApp();
+
+    articles = Array.isArray(data.articles) ? data.articles : [];
+    $("total").textContent = data.total ?? articles.length;
+    $("published").textContent = data.published ?? 0;
+    $("drafts").textContent = data.drafts ?? 0;
+
+    render();
+
+    if (!articles.length) {
+      $("message").textContent =
+        "No articles found. Use Add News / Draft to create one.";
+    }
+  } catch (e) {
+    showLogin();
+  }
+})();
+</script>
 </body>
 </html>
-```[cite: 1]

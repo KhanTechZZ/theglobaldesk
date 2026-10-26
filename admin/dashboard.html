@@ -53,7 +53,7 @@ th{background:#f7f8fb;font-size:13px}
 <header>
   <strong>The Global Desk <span style="color:#e6b65c">/ Admin</span></strong>
   <nav>
-    <a href="/admin/cms.html" style="margin-right:16px">Open CMS</a>
+    <a href="/admin/cms.html" id="openCMS" style="margin-right:16px" hidden>Open CMS</a>
     <button id="logout" hidden>Logout</button>
   </nav>
 </header>
@@ -182,12 +182,14 @@ function showApp() {
   $("login").hidden = true;
   $("app").hidden = false;
   $("logout").hidden = false;
+  openCMS.hidden = false;
 }
 
 function showLogin() {
   $("app").hidden = true;
   $("login").hidden = false;
   $("logout").hidden = true;
+  openCMS.hidden = true;
 }
 
 function dateValue(value) {
@@ -376,5 +378,6 @@ $("statusFilter").onchange = render;
 </script>
 </body>
 </html>
+
 
 

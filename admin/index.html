@@ -16,7 +16,7 @@ button{cursor:pointer;background:#14233d;color:white;border:0}
 button:disabled{opacity:.5;cursor:not-allowed}
 a{color:#a77822;text-decoration:none}
 a:hover{text-decoration:underline}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:20px 0}
 .card,.panel,#login{background:white;border:1px solid #e2e7ef;border-radius:12px;padding:22px}
 .stat{font-size:30px;font-weight:bold;margin-top:10px}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
@@ -102,6 +102,10 @@ th{background:#f7f8fb;font-size:13px}
       <div class="stat" id="published">ΓÇö</div>
     </div>
     <div class="card">
+      Views
+      <div class="stat" id="views">—</div>
+    </div>
+    <div class="card">
       Drafts
       <div class="stat" id="drafts">ΓÇö</div>
     </div>
@@ -148,7 +152,7 @@ th{background:#f7f8fb;font-size:13px}
 
     <p class="muted">
       Article statistics depend on the Dashboard API.
-      Page views are not connected.
+      Page views are connected to the live view counter.
     </p>
   </section>
 </main>
@@ -291,6 +295,7 @@ async function loadArticles() {
       data.published ?? articles.filter(a => a.published).length;
     $("drafts").textContent =
       data.drafts ?? articles.filter(a => !a.published).length;
+    $("views").textContent = data.views ?? "—";
 
     render();
 
@@ -364,6 +369,7 @@ $("statusFilter").onchange = render;
     $("total").textContent = data.total ?? articles.length;
     $("published").textContent = data.published ?? 0;
     $("drafts").textContent = data.drafts ?? 0;
+    $("views").textContent = data.views ?? "—";
 
     render();
 
@@ -378,6 +384,7 @@ $("statusFilter").onchange = render;
 </script>
 </body>
 </html>
+
 
 
 

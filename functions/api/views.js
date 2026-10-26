@@ -1,4 +1,4 @@
-﻿const WORKSPACE = "md-zikrullahs-team-6054";
+const WORKSPACE = "md-zikrullahs-team-6054";
 const LEGACY_COUNTER = "first-counter-6054";
 const API_BASE = "https://api.counterapi.dev/v2";
 
@@ -12,111 +12,130 @@ function normalizeSlug(value) {
     .slice(0, 60);
 }
 
-function articleCounter(slug) {
-  const clean = normalizeSlug(slug);
-  return clean ? `article-${clean}` : "";
+function json(data, status = 200) {
+  return Response.json(data, {
+    status,
+    headers: { "Cache-Control": "no-store" }
+  });
 }
 
-async function apiRequest(env, name, action = "") {
-  return fetch(
-    `${API_BASE}/${WORKSPACE}/${encodeURIComponent(name)}${action ? `/${action}` : ""}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${env.COUNTERAPI_TOKEN}`,
-        Accept: "application/json"
-      }
-    }
-  );
-}
-
-async function requestCounter(env, name, increment = false) {
+// Keep the existing global views counter on CounterAPI.
+async function getLegacyCounter(env) {
   if (!env.COUNTERAPI_TOKEN) {
-    return Response.json(
-      { error: "COUNTERAPI_TOKEN is missing" },
-      { status: 500 }
-    );
+    return json({ error: "COUNTERAPI_TOKEN is missing" }, 500);
   }
 
   try {
-    let response = await apiRequest(env, name, increment ? "up" : "");
-
-    if (increment && response.status === 404) {
-      // Initialize a missing counter, then increment it.
-      const resetResponse = await apiRequest(env, name, "reset");
-
-      if (!resetResponse.ok) {
-        const details = await resetResponse.text();
-        return Response.json(
-          {
-            error: "Could not initialize article counter",
-            counter: name,
-            details
-          },
-          { status: resetResponse.status }
-        );
+    const response = await fetch(
+      `${API_BASE}/${WORKSPACE}/${LEGACY_COUNTER}`,
+      {
+        headers: {
+          Authorization: `Bearer ${env.COUNTERAPI_TOKEN}`,
+          Accept: "application/json"
+        }
       }
+    );
 
-      response = await apiRequest(env, name, "up");
-    }
-
-    const body = await response.text();
-
-    return new Response(body, {
+    return new Response(await response.text(), {
       status: response.status,
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store"
       }
     });
-  } catch (error) {
-    return Response.json(
-      { error: "CounterAPI request failed", details: String(error) },
-      { status: 502 }
-    );
+  } catch {
+    return json({ error: "Could not read global views" }, 502);
   }
+}
+
+async function ensureArticle(env, slug) {
+  await env.DB.prepare(`
+    INSERT INTO article_views (slug, views)
+    VALUES (?, 0)
+    ON CONFLICT(slug) DO NOTHING
+  `).bind(slug).run();
 }
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
-  const slug = url.searchParams.get("slug");
+  const requestedSlug = url.searchParams.get("slug");
+
+  // No slug means the legacy global counter.
+  if (!requestedSlug) {
+    return getLegacyCounter(env);
+  }
+
+  if (!env.DB) {
+    return json({ error: "D1 binding DB is missing" }, 500);
+  }
+
+  const slug = normalizeSlug(requestedSlug);
 
   if (!slug) {
-    return requestCounter(env, LEGACY_COUNTER);
+    return json({ error: "Invalid article slug" }, 400);
   }
 
-  const name = articleCounter(slug);
+  try {
+    await ensureArticle(env, slug);
 
-  if (!name) {
-    return Response.json(
-      { error: "Invalid article slug" },
-      { status: 400 }
-    );
+    const row = await env.DB.prepare(
+      "SELECT views FROM article_views WHERE slug = ?"
+    ).bind(slug).first();
+
+    return json({
+      ok: true,
+      slug,
+      views: Number(row?.views ?? 0)
+    });
+  } catch (error) {
+    return json({
+      error: "Could not read article views",
+      details: error.message
+    }, 500);
   }
-
-  return requestCounter(env, name);
 }
 
 export async function onRequestPost({ request, env }) {
+  if (!env.DB) {
+    return json({ error: "D1 binding DB is missing" }, 500);
+  }
+
   let body;
 
   try {
     body = await request.json();
   } catch {
-    return Response.json(
-      { error: "Invalid JSON body" },
-      { status: 400 }
-    );
+    return json({ error: "Invalid JSON body" }, 400);
   }
 
-  const name = articleCounter(body.slug);
+  const slug = normalizeSlug(body?.slug);
 
-  if (!name) {
-    return Response.json(
-      { error: "Invalid article slug" },
-      { status: 400 }
-    );
+  if (!slug) {
+    return json({ error: "Invalid article slug" }, 400);
   }
 
-  return requestCounter(env, name, true);
+  try {
+    await env.DB.prepare(`
+      INSERT INTO article_views (slug, views, updated_at)
+      VALUES (?, 1, CURRENT_TIMESTAMP)
+      ON CONFLICT(slug) DO UPDATE SET
+        views = article_views.views + 1,
+        updated_at = CURRENT_TIMESTAMP
+    `).bind(slug).run();
+
+    const row = await env.DB.prepare(
+      "SELECT views FROM article_views WHERE slug = ?"
+    ).bind(slug).first();
+
+    return json({
+      ok: true,
+      slug,
+      views: Number(row?.views ?? 0)
+    });
+  } catch (error) {
+    return json({
+      error: "Could not update article views",
+      details: error.message
+    }, 500);
+  }
 }

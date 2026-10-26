@@ -1,8 +1,44 @@
-﻿import { isAdmin, json } from "../_utils/admin.js";
+import { isAdmin, json } from "../_utils/admin.js";
 
 const OWNER = "KhanTechZZ";
 const REPO = "theglobaldesk";
 const BRANCH = "main";
+// Each article receives a stable, separate CounterAPI counter.
+function articleCounterSlug(path) {
+  const filename = String(path || "").split("/").pop();
+  const slug = filename
+    .replace(/\.md$/i, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 60);
+
+  return slug ? `article-${slug}` : "";
+}
+
+async function readCounter(env, name) {
+  if (!env.COUNTERAPI_TOKEN || !name) return 0;
+
+  try {
+    const response = await fetch(
+      `https://api.counterapi.dev/v2/md-zikrullahs-team-6054/${encodeURIComponent(name)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${env.COUNTERAPI_TOKEN}`,
+          Accept: "application/json"
+        }
+      }
+    );
+
+    if (!response.ok) return 0;
+
+    const result = await response.json();
+    return Number(result.data?.up_count ?? result.up_count ?? 0) || 0;
+  } catch {
+    return 0;
+  }
+}
 
 export async function onRequestGet({ request, env }) {
   try {
@@ -134,27 +170,29 @@ export async function onRequestGet({ request, env }) {
     const published = articles.filter(a => a.published).length;
     const drafts = articles.filter(a => a.status === "Draft").length;
 
-    let views = null;
-    try {
-      const viewsResponse = await fetch(
-        "https://api.counterapi.dev/v2/md-zikrullahs-team-6054/first-counter-6054",
-        {
-          headers: {
-            Authorization: `Bearer ${env.COUNTERAPI_TOKEN}`,
-            Accept: "application/json"
-          }
-        }
-      );
-      if (viewsResponse.ok) {
-        const viewsData = await viewsResponse.json();
-        views = viewsData.data?.up_count ?? viewsData.up_count ?? null;
-      }
-    } catch {
-      views = null;
-    }
+    // Preserve historical global views and add all new article counters.
+    const legacyViews = await readCounter(env, "first-counter-6054");
+
+    const articlesWithViews = await Promise.all(
+      articles.map(async article => ({
+        ...article,
+        views: await readCounter(
+          env,
+          articleCounterSlug(article.path)
+        )
+      }))
+    );
+
+    const articleViews = articlesWithViews.reduce(
+      (sum, article) => sum + article.views,
+      0
+    );
+
+    const views = legacyViews + articleViews;
+
     return json({
       ok: true,
-      articles,
+      articles: articlesWithViews,
       total: articles.length,
       published,
       drafts,

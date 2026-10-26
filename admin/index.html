@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,6 +141,7 @@ th{background:#f7f8fb;font-size:13px}
         <thead>
           <tr>
             <th>Article</th>
+            <th>Views</th>
             <th>Date</th>
             <th>Status</th>
             <th>Manage</th>
@@ -202,6 +203,21 @@ function dateValue(value) {
   return match ? match[0] : "";
 }
 
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  }).format(date);
+}
 function cmsCollection(article) {
   if (article.published || article.status === "Published") {
     return "news_published";
@@ -240,7 +256,7 @@ function render() {
   if (!filtered.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 4;
+    td.colSpan = 5;
     td.textContent = articles.length
       ? "No articles match your filters."
       : "No news articles found. Use Add News / Draft to create one.";
@@ -254,8 +270,10 @@ function render() {
     const title = document.createElement("td");
     title.textContent = a.title || "Untitled";
 
+    const viewsCell = document.createElement("td");
+    viewsCell.textContent = Number(a.views ?? 0).toLocaleString();
     const date = document.createElement("td");
-    date.textContent = a.date || "ΓÇö";
+    date.textContent = formatDate(a.date) || "—";
 
     const statusCell = document.createElement("td");
     const badge = document.createElement("span");
@@ -272,7 +290,7 @@ function render() {
     edit.textContent = "Edit in CMS";
     manage.append(edit);
 
-    tr.append(title, date, statusCell, manage);
+    tr.append(title, viewsCell, date, statusCell, manage);
     $("rows").append(tr);
   }
 
@@ -384,7 +402,3 @@ $("statusFilter").onchange = render;
 </script>
 </body>
 </html>
-
-
-
-

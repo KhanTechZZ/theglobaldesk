@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +16,7 @@ button{cursor:pointer;background:#14233d;color:white;border:0}
 button:disabled{opacity:.5;cursor:not-allowed}
 a{color:#a77822;text-decoration:none}
 a:hover{text-decoration:underline}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:20px 0}
 .card,.panel,#login{background:white;border:1px solid #e2e7ef;border-radius:12px;padding:22px}
 .stat{font-size:30px;font-weight:bold;margin-top:10px}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
@@ -100,6 +100,10 @@ th{background:#f7f8fb;font-size:13px}
     <div class="card">
       Published
       <div class="stat" id="published">ΓÇö</div>
+    </div>
+    <div class="card">
+      Views
+      <div class="stat" id="views">—</div>
     </div>
     <div class="card">
       Drafts
@@ -289,6 +293,7 @@ async function loadArticles() {
     $("total").textContent = data.total ?? articles.length;
     $("published").textContent =
       data.published ?? articles.filter(a => a.published).length;
+    $("views").textContent = data.views ?? "—";
     $("drafts").textContent =
       data.drafts ?? articles.filter(a => !a.published).length;
 
@@ -363,6 +368,7 @@ $("statusFilter").onchange = render;
     articles = Array.isArray(data.articles) ? data.articles : [];
     $("total").textContent = data.total ?? articles.length;
     $("published").textContent = data.published ?? 0;
+    $("views").textContent = data.views ?? "—";
     $("drafts").textContent = data.drafts ?? 0;
 
     render();
@@ -378,6 +384,3 @@ $("statusFilter").onchange = render;
 </script>
 </body>
 </html>
-
-
-

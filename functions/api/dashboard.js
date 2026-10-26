@@ -1,4 +1,4 @@
-import { isAdmin, json } from "../_utils/admin.js";
+﻿import { isAdmin, json } from "../_utils/admin.js";
 
 const OWNER = "KhanTechZZ";
 const REPO = "theglobaldesk";
@@ -134,12 +134,31 @@ export async function onRequestGet({ request, env }) {
     const published = articles.filter(a => a.published).length;
     const drafts = articles.filter(a => a.status === "Draft").length;
 
+    let views = null;
+    try {
+      const viewsResponse = await fetch(
+        "https://api.counterapi.dev/v2/md-zikrullahs-team-6054/first-counter-6054",
+        {
+          headers: {
+            Authorization: `Bearer ${env.COUNTERAPI_TOKEN}`,
+            Accept: "application/json"
+          }
+        }
+      );
+      if (viewsResponse.ok) {
+        const viewsData = await viewsResponse.json();
+        views = viewsData.data?.up_count ?? viewsData.up_count ?? null;
+      }
+    } catch {
+      views = null;
+    }
     return json({
       ok: true,
       articles,
       total: articles.length,
       published,
-      drafts
+      drafts,
+      views
     });
   } catch (error) {
     return json({

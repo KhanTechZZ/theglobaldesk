@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -52,8 +52,8 @@
         <div class="header-inner">
             <a href="/" class="brand"><img src="/Logo.png" alt="The Global Desk"></a>
             <div class="header-actions">
-                <a href="/search/" class="header-btn"><span>⌕</span> Search</a>
-                <button class="header-btn theme-btn" id="themeToggle">◐</button>
+                <a href="/search/" class="header-btn"><span>âŒ•</span> Search</a>
+                <button class="header-btn theme-btn" id="themeToggle">â—</button>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
         {% endif %}
 
         <div class="article-body">{{ content | safe }}</div>
-        <div class="article-footer"><a href="/" class="read-link">← Back to Homepage</a></div>
+        <div class="article-footer"><a href="/" class="read-link">â† Back to Homepage</a></div>
     </article>
 
     <section class="related-news">
@@ -114,27 +114,26 @@
         <div class="footer-column"><h4>Information</h4><a href="/about/">About Us</a><a href="/editorial-policy/">Editorial Policy</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a></div>
         <div class="footer-column"><h4>Follow</h4><a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a><a href="https://x.com/thegdeskHQ" target="_blank"><i class="fa-brands fa-x-twitter"></i> X</a><a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a><a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a><a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 The Global Desk.</span><span>Independent International News Platform</span></div>
+    <div class="footer-bottom"><span>Â© 2026 The Global Desk.</span><span>Independent International News Platform</span></div>
 </footer>
 
-<div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
+<div class="toast" id="toast"><span>âœ“</span><p id="toastMessage">Done</p></div>
 <script src="/app.js"></script>
 
 <script>
-(function() {
-    var slug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
-    fetch('https://abacus.jasoncameron.dev/hit/theglobaldesk/' + slug).catch(function() {});
-})(); 
-// ভিউ বাড়ানোর স্ক্রিপ্ট
-  document.addEventListener("DOMContentLoaded", function() {
-    var pathParts = window.location.pathname.split('/');
-    var slug = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
-    
-    if (slug) {
-      fetch('https://api.counterapi.dev/v1/theglobaldesk/' + slug + '/up')
-        .catch(function(err) { console.log('View counter error:', err); });
-    }
+(function () {
+  var slug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
+
+  if (slug === 'admin' || slug === 'api') return;
+
+  fetch('/api/views', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ slug: slug })
+  }).catch(function (err) {
+    console.error('View counter error:', err);
   });
+})();
 </script>
 </body>
 </html>

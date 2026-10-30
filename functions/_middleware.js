@@ -17,6 +17,11 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const path = url.pathname;
 
+  // Block direct access to private CMS assets.
+  if (path.toLowerCase().startsWith("/_private-cms/")) {
+    return notFound();
+  }
+
   // Hide the original public admin paths.
   if (path.toLowerCase().startsWith("/admin")) {
     return notFound();

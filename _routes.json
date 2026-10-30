@@ -3,7 +3,8 @@
   "include": [
     "/api/*",
     "/admin*",
-    "/desk-9c41b7e2*"
+    "/desk-9c41b7e2*",
+    "/_private-cms/*"
   ],
   "exclude": []
 }

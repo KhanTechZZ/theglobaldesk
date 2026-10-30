@@ -22,9 +22,24 @@ export async function onRequest(context) {
     return notFound();
   }
 
-  // Hide the original public admin paths.
+  // Show branded 404 page for old public admin paths.
   if (path.toLowerCase().startsWith("/admin")) {
-    return notFound();
+    const pageUrl = new URL("/admin/closed.html", url.origin);
+    const pageResponse = await env.ASSETS.fetch(
+      new Request(pageUrl.toString(), { method: "GET" })
+    );
+
+    if (!pageResponse.ok) return notFound();
+
+    const headers = new Headers(pageResponse.headers);
+    headers.set("Content-Type", "text/html; charset=utf-8");
+    headers.set("Cache-Control", "no-store");
+
+    return new Response(pageResponse.body, {
+      status: 404,
+      statusText: "Not Found",
+      headers
+    });
   }
 
   const isLogin =
@@ -74,6 +89,3 @@ export async function onRequest(context) {
 
   return assetResponse;
 }
-
-
-

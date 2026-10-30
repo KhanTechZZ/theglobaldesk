@@ -1,4 +1,4 @@
-import { makeSession, cookieHeaders, sameOrigin, json } from "../_utils/admin.js";
+﻿import { makeSession, cookieHeaders, sameOrigin, json } from "../_utils/admin.js";
 
 export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request)) return json({ error: "Forbidden" }, 403);
@@ -15,8 +15,9 @@ export async function onRequestPost({ request, env }) {
     }
 
     const session = await makeSession(env.SESSION_SECRET);
-    return json({ ok: true }, 200, cookieHeaders(session));
+    return json({ ok: true }, 200, cookieHeaders(session, request.url));
   } catch {
     return json({ error: "Invalid request" }, 400);
   }
 }
+

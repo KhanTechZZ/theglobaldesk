@@ -1,4 +1,4 @@
-const enc = new TextEncoder();
+﻿const enc = new TextEncoder();
 
 function b64(bytes) {
   let s = "";
@@ -29,13 +29,17 @@ export async function makeSession(secret) {
 export async function isAdmin(request, env) {
   if (!env.SESSION_SECRET) return false;
   const cookie = request.headers.get("Cookie") || "";
-  const match = cookie.match(/(?:^|;\s*)tg_admin=([^;]+)/);
-  if (!match) return false;
 
+
+const match = cookie.match(/(?:^|;\s*)tg_admin=([^;]+)/);
+
+
+if (!match) return false;
   const [payload, signature] = match[1].split(".");
   if (!payload || !signature) return false;
 
   const expected = await sign(payload, env.SESSION_SECRET);
+
   if (signature !== expected) return false;
 
   try {
@@ -46,17 +50,21 @@ export async function isAdmin(request, env) {
   }
 }
 
-export function cookieHeaders(value) {
+export function cookieHeaders(value, requestUrl) {
+  const hostname = requestUrl ? new URL(requestUrl).hostname : "";
+  const secure = ["localhost", "127.0.0.1", "::1"].includes(hostname) ? "" : " Secure;";
   return {
-    "Set-Cookie": `tg_admin=${value}; HttpOnly; Secure; SameSite=Strict; Path=/api; Max-Age=28800`,
+    "Set-Cookie": `tg_admin=${value}; HttpOnly;${secure} SameSite=Strict; Path=/; Max-Age=28800`,
     "Cache-Control": "no-store",
     "Content-Type": "application/json"
   };
 }
 
-export function clearCookieHeaders() {
+export function clearCookieHeaders(requestUrl) {
+  const hostname = requestUrl ? new URL(requestUrl).hostname : "";
+  const secure = ["localhost", "127.0.0.1", "::1"].includes(hostname) ? "" : " Secure;";
   return {
-    "Set-Cookie": "tg_admin=; HttpOnly; Secure; SameSite=Strict; Path=/api; Max-Age=0",
+    "Set-Cookie": `tg_admin=; HttpOnly;${secure} SameSite=Strict; Path=/; Max-Age=0`,
     "Cache-Control": "no-store",
     "Content-Type": "application/json"
   };
@@ -73,3 +81,4 @@ export function json(data, status = 200, extra = {}) {
     headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...extra }
   });
 }
+

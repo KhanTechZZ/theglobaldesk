@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Global Desk | International News, Analysis & Global Affairs</title>
-    <meta name="description" content="The Global Desk is an independent digital news platform focused on international affairs, geopolitics, economics, science, and technology.">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <title>The Global Desk | World News, Research & Global Analysis</title>
+    <meta name="description" content="The Global Desk is an independent digital news platform headquartered in Dhaka, Bangladesh, covering South Asia, Asia and global affairs through news, research, in-depth analysis and next-generation editorial platforms.">
     <meta name="author" content="The Global Desk">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#071a33">
@@ -15,16 +20,58 @@
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thegdesk.com/">
-    <meta property="og:title" content="The Global Desk | International News & Analysis">
-    <meta property="og:description" content="Independent international news, analysis and global affairs.">
+    <meta property="og:title" content="The Global Desk | World News, Research & Global Analysis">
+    <meta property="og:description" content="Independent news, research and global analysis from Dhaka, Bangladesh, covering South Asia, Asia and the world.">
     <meta property="og:image" content="https://thegdesk.com/Logo.png">
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="The Global Desk | International News & Analysis">
-    <meta property="twitter:description" content="Independent international news, analysis and global affairs.">
+    <meta property="twitter:title" content="The Global Desk | World News, Research & Global Analysis">
+    <meta property="twitter:description" content="Independent news, research and global analysis from Dhaka, Bangladesh, covering South Asia, Asia and the world.">
     <meta property="twitter:image" content="https://thegdesk.com/Logo.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "NewsMediaOrganization",
+      "@id": "https://thegdesk.com/#organization",
+      "name": "The Global Desk",
+      "url": "https://thegdesk.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thegdesk.com/Logo.png"
+      },
+      "foundingDate": "2026",
+      "email": "contact@thegdesk.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD"
+      },
+      "areaServed": ["South Asia", "Asia", "Worldwide"],
+      "sameAs": [
+        "https://facebook.com/thegdesk",
+        "https://youtube.com/@thegdesk",
+        "https://x.com/thegdeskHQ",
+        "https://instagram.com/thegdesk",
+        "https://tiktok.com/@thegdesk"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://thegdesk.com/#website",
+      "url": "https://thegdesk.com/",
+      "name": "The Global Desk",
+      "publisher": {
+        "@id": "https://thegdesk.com/#organization"
+      },
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
 </head>
 
 <body>
@@ -52,8 +99,8 @@
         <div class="header-inner">
             <a href="/" class="brand"><img src="/Logo.png" alt="The Global Desk"></a>
             <div class="header-actions">
-                <a href="/search/" class="header-btn"><span>⌕</span> Search</a>
-                <button class="header-btn theme-btn" id="themeToggle">◐</button>
+                <a href="/search/" class="header-btn"><span>&#x2315;</span> Search</a>
+                <button class="header-btn theme-btn" id="themeToggle">&#x25D0;</button>
             </div>
         </div>
     </div>
@@ -67,7 +114,7 @@
             <a href="/category/politics/" class="nav-link">Politics</a>
 
             <div class="dropdown" id="dropdown">
-                <button class="nav-link dropdown-btn" id="dropdownBtn">More <span class="chevron">▾</span></button>
+                <button class="nav-link dropdown-btn" id="dropdownBtn">More <span class="chevron">&#x25BE;</span></button>
                 <div class="dropdown-content">
                     <a href="/category/economy/">Economy</a>
                     <a href="/category/tech-and-ai/">Tech and AI</a>
@@ -87,8 +134,8 @@
 <section class="breaking-bar" id="breakingBar">
     <div class="breaking-inner">
         <div class="breaking-label"><span class="breaking-pulse"></span><strong>BREAKING</strong></div>
-        <div class="breaking-track" id="breakingTrack"><div class="breaking-content" id="breakingNews"><a href="/" id="breakingLink">The Global Desk — Live</a></div></div>
-        <button class="breaking-next" id="breakingNext">›</button>
+        <div class="breaking-track" id="breakingTrack"><div class="breaking-content" id="breakingNews"><a href="/" id="breakingLink">The Global Desk &mdash; Live</a></div></div>
+        <button class="breaking-next" id="breakingNext">&#x203A;</button>
     </div>
 </section>
 
@@ -213,7 +260,7 @@
                 </div>
             </div>
 
-            <!-- ✅ WORKING NEWSLETTER FORM -->
+            <!-- WORKING NEWSLETTER FORM -->
             <div class="sidebar-widget newsletter-widget">
                 <h4>The Morning Brief</h4>
                 <p>Get the top global stories in your inbox every morning.</p>
@@ -250,10 +297,10 @@
         <div class="footer-column"><h4>Information</h4><a href="/about/">About Us</a><a href="/editorial-policy/">Editorial Policy</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a></div>
         <div class="footer-column"><h4>Follow</h4><a href="https://facebook.com/thegdesk" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a><a href="https://x.com/thegdeskHQ" target="_blank"><i class="fa-brands fa-x-twitter"></i> X</a><a href="https://youtube.com/@thegdesk" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a><a href="https://instagram.com/thegdesk" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a><a href="https://tiktok.com/@thegdesk" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 The Global Desk. All Rights Reserved.</span><span>Independent International News Platform</span></div>
+    <div class="footer-bottom"><span>&copy; 2026 The Global Desk. All Rights Reserved.</span><span>Independent International News Platform</span></div>
 </footer>
 
-<div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
+<div class="toast" id="toast"><span>&#x2713;</span><p id="toastMessage">Done</p></div>
 <script src="/app.js"></script>
 </body>
 </html>

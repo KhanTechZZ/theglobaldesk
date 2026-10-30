@@ -9,11 +9,17 @@ eleventyExcludeFromCollections: true
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
-    {% for story in collections.news | reverse %}
+    {% for path in ["/about/", "/contact/", "/editorial-policy/", "/privacy/", "/archive/", "/z-desk/", "/alpha-desk/"] %}
     <url>
-        <loc>https://thegdesk.com{{ story.url }}</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <loc>https://thegdesk.com{{ path }}</loc>
     </url>
+    {% endfor %}
+    {% for story in collections.news | reverse %}
+    {% if story.data.published %}
+    <url>
+        <loc>{{ story.url | absoluteUrl("https://thegdesk.com") }}</loc>
+        <lastmod>{{ story.date | isoDate }}</lastmod>
+    </url>
+    {% endif %}
     {% endfor %}
 </urlset>

@@ -2,10 +2,10 @@
 permalink: /news-sitemap.xml
 eleventyExcludeFromCollections: true
 ---
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
-  {%- for post in collections.news %}
-    {%- if post.data.published %}
+  {%- for post in collections.news | reverse %}
+    {%- if post.data.published and (post.date | isRecent) %}
       <url>
         <loc>{{ post.url | absoluteUrl("https://thegdesk.com") }}</loc>
         <news:news>

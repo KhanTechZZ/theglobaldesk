@@ -1,8 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <title>{{ title }} - The Global Desk</title>
     <meta name="description" content="{{ description or 'Read the latest international news on The Global Desk.' }}">
     <meta name="author" content="{{ source or 'The Global Desk' }}">
@@ -13,16 +18,18 @@
     <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-X1E8X103FR');</script>
 
     <meta property="og:type" content="article">
+    <meta property="og:site_name" content="The Global Desk">
     <meta property="og:url" content="https://thegdesk.com{{ page.url }}">
     <meta property="og:title" content="{{ title }}">
-    <meta property="og:description" content="{{ description }}">
+    <meta property="og:description" content="{{ description or 'Read the latest international news on The Global Desk.' }}">
     {% if image %}<meta property="og:image" content="{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}https://thegdesk.com/{{ image }}{% elif image.slice(0, 4) === 'http' %}{{ image }}{% else %}https://thegdesk.com{{ image }}{% endif %}">{% else %}<meta property="og:image" content="https://thegdesk.com/Logo.png">{% endif %}
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="{{ title }}">
-    <meta property="twitter:description" content="{{ description }}">
+    <meta property="twitter:description" content="{{ description or 'Read the latest international news on The Global Desk.' }}">
+    {% if image %}<meta property="twitter:image" content="{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}https://thegdesk.com/{{ image }}{% elif image.slice(0, 4) === 'http' %}{{ image }}{% else %}https://thegdesk.com{{ image }}{% endif %}">{% else %}<meta property="twitter:image" content="https://thegdesk.com/Logo.png">{% endif %}
 
     <script type="application/ld+json">
-    { "@context": "https://schema.org", "@type": "NewsArticle", "headline": {{ title | jsonify | safe }}, "image": [{% if image %}"{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}https://thegdesk.com/{{ image }}{% elif image.slice(0, 4) === 'http' %}{{ image }}{% else %}https://thegdesk.com{{ image }}{% endif %}"{% else %}"https://thegdesk.com/Logo.png"{% endif %}], "datePublished": {{ date | isoDate | jsonify | safe }}, "dateModified": {{ date | isoDate | jsonify | safe }}, "author": { "@type": "Person", "name": "The Global Desk" }, "publisher": { "@type": "Organization", "name": "The Global Desk", "logo": { "@type": "ImageObject", "url": "https://thegdesk.com/Logo.png" } }, "description": {{ description | jsonify | safe }} }
+    { "@context": "https://schema.org", "@type": "NewsArticle", "headline": {{ title | jsonify | safe }}, "image": [{% if image %}"{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}https://thegdesk.com/{{ image }}{% elif image.slice(0, 4) === 'http' %}{{ image }}{% else %}https://thegdesk.com{{ image }}{% endif %}"{% else %}"https://thegdesk.com/Logo.png"{% endif %}], "datePublished": {{ date | isoDate | jsonify | safe }}, "dateModified": {{ date | isoDate | jsonify | safe }}, "author": { "@type": "Organization", "name": "The Global Desk", "url": "https://thegdesk.com/" }, "publisher": { "@type": "Organization", "@id": "https://thegdesk.com/#organization", "name": "The Global Desk", "url": "https://thegdesk.com/", "logo": { "@type": "ImageObject", "url": "https://thegdesk.com/Logo.png" } }, "description": {{ (description or 'Read the latest international news on The Global Desk.') | jsonify | safe }} }
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

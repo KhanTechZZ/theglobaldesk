@@ -3,6 +3,11 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("style.css");
   eleventyConfig.addPassthroughCopy("app.js");
   eleventyConfig.addPassthroughCopy("Logo.png");
+  eleventyConfig.addPassthroughCopy("apple-touch-icon.png");
+  eleventyConfig.addPassthroughCopy("favicon-48.png");
+  eleventyConfig.addPassthroughCopy("favicon-32.png");
+  eleventyConfig.addPassthroughCopy("favicon.png");
+  eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("_private-cms");
   eleventyConfig.addPassthroughCopy("images");
@@ -37,8 +42,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("isRecent", (dateObj) => {
     const d = new Date(dateObj);
     const now = new Date();
-    const diff = now - d;
-    return diff < 48 * 60 * 60 * 1000;
+    const diff = now.getTime() - d.getTime();
+    return Number.isFinite(diff) && diff >= 0 && diff <= 48 * 60 * 60 * 1000;
   });
 
   // ✅ NEW: Absolute URL filter (Sitemap-এর জন্য দরকার)

@@ -1,0 +1,632 @@
+=== HOMEPAGE TEMPLATE ===
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <title>The Global Desk | World News, Research &amp; Global Analysis</title>
+    <meta name="description" content="The Global Desk is an independent digital news platform headquartered in Dhaka, Bangladesh, covering South Asia, Asia and global affairs through news, research, in-depth analysis and education.">
+    <meta name="author" content="The Global Desk">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#071a33">
+    <link rel="canonical" href="https://thegdesk.com/">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1E8X103FR"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-X1E8X103FR');</script>
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thegdesk.com/">
+    <meta property="og:title" content="The Global Desk | World News, Research &amp; Global Analysis">
+    <meta property="og:description" content="Independent news, research and global analysis from Dhaka, Bangladesh, covering South Asia, Asia and the world.">
+    <meta property="og:image" content="https://thegdesk.com/Logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Global Desk | World News, Research &amp; Global Analysis">
+    <meta name="twitter:description" content="Independent news, research and global analysis from Dhaka, Bangladesh, covering South Asia, Asia and the world.">
+    <meta name="twitter:image" content="https://thegdesk.com/Logo.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "NewsMediaOrganization",
+          "@id": "https://thegdesk.com/#organization",
+          "name": "The Global Desk",
+          "url": "https://thegdesk.com/",
+          "logo": {"@type": "ImageObject", "url": "https://thegdesk.com/Logo.png"},
+          "foundingDate": "2026",
+          "email": "contact@thegdesk.com",
+          "address": {"@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD"},
+          "areaServed": ["South Asia", "Asia", "Worldwide"],
+          "sameAs": [
+            "https://facebook.com/thegdesk",
+            "https://youtube.com/@thegdesk",
+            "https://x.com/thegdeskHQ",
+            "https://instagram.com/thegdesk",
+            "https://tiktok.com/@thegdesk"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://thegdesk.com/#website",
+          "url": "https://thegdesk.com/",
+          "name": "The Global Desk",
+          "publisher": {"@id": "https://thegdesk.com/#organization"},
+          "inLanguage": "en"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+{% set allNews = collections.news | reverse %}
+{% macro imageUrl(image) %}{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}/{{ image }}{% else %}{{ image }}{% endif %}{% endmacro %}
+
+<header class="site-header" id="siteHeader">
+    <div class="utility-bar">
+        <div class="utility-inner">
+            <div class="utility-left">
+                <span id="liveDate">THE GLOBAL DESK</span>
+                <span class="util-divider">|</span>
+                <span id="liveTime">UTC</span>
+                <span class="live-dot" aria-hidden="true"></span>
+            </div>
+            <div class="utility-right" aria-label="Social media">
+                <a href="https://facebook.com/thegdesk" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://x.com/thegdeskHQ" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://youtube.com/@thegdesk" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://instagram.com/thegdesk" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com/@thegdesk" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-main">
+        <div class="header-inner">
+            <a href="/" class="brand" aria-label="The Global Desk homepage"><img src="/Logo.png" alt="The Global Desk"></a>
+            <div class="header-actions">
+                <a href="/search/" class="header-btn"><span aria-hidden="true">&#x2315;</span> Search</a>
+                <button class="header-btn theme-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">&#x25D0;</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-link active">Home</a>
+            <a href="/category/world/" class="nav-link">World</a>
+            <a href="/category/asia/" class="nav-link">Asia</a>
+            <a href="/category/politics/" class="nav-link">Politics</a>
+            <a href="/category/economy/" class="nav-link">Business</a>
+            <a href="/category/science/" class="nav-link">Science</a>
+            <div class="dropdown" id="dropdown">
+                <button class="nav-link dropdown-btn" id="dropdownBtn" type="button" aria-expanded="false">More <span class="chevron">&#x25BE;</span></button>
+                <div class="dropdown-content">
+                    <a href="/category/explainer/">Explainers &amp; Analysis</a>
+                    <a href="/category/tech-and-ai/">Technology &amp; AI</a>
+                    <a href="/category/environment/">Environment</a>
+                    <a href="/category/research/">Research &amp; Studies</a>
+                    <a href="/category/human-rights/">Human Rights</a>
+                    <a href="/alpha-desk/">Alpha Desk</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="breaking-bar" id="breakingBar" aria-label="Breaking news">
+    <div class="breaking-inner">
+        <div class="breaking-label"><span class="breaking-pulse" aria-hidden="true"></span><strong>BREAKING</strong></div>
+        <div class="breaking-track" id="breakingTrack">
+            <div class="breaking-content" id="breakingNews"><a href="/" id="breakingLink">The Global Desk — Live</a></div>
+        </div>
+        <button class="breaking-next" id="breakingNext" type="button" aria-label="Next breaking headline">&#x203A;</button>
+    </div>
+</section>
+
+<main class="tdg-home">
+    <div class="tdg-edition-line">
+        <span><i class="fa-solid fa-globe"></i> INDEPENDENT GLOBAL NEWSROOM</span>
+        <span class="tdg-edition-date">NEWS · ANALYSIS · RESEARCH</span>
+    </div>
+
+    {% if allNews.length %}
+    <section class="tdg-lead-grid" aria-label="Top stories">
+        <div class="tdg-lead-main">
+            {% set lead = allNews[0] %}
+            <article class="tdg-lead-story">
+                <a href="{{ lead.url }}" class="tdg-image-link">
+                    {% if lead.data.image %}
+                    <img src="{{ imageUrl(lead.data.image) }}" alt="{{ lead.data.title }}" class="tdg-lead-image" fetchpriority="high">
+                    {% else %}
+                    <div class="tdg-image-placeholder"><i class="fa-regular fa-newspaper"></i></div>
+                    {% endif %}
+                </a>
+                <div class="tdg-lead-copy">
+                    <span class="tdg-category">{{ lead.data.category | upper }}</span>
+                    <h1><a href="{{ lead.url }}">{{ lead.data.title }}</a></h1>
+                    {% if lead.data.description %}<p>{{ lead.data.description }}</p>{% endif %}
+                    <div class="tdg-meta">THE GLOBAL DESK <span>·</span> <time class="time-ago" data-published="{{ lead.data.date | isoDate }}">{{ lead.data.date | readableDate }}</time>{% if lead.data.source %}<span>·</span> {{ lead.data.source }}{% endif %}</div>
+                </div>
+            </article>
+        </div>
+
+        <aside class="tdg-lead-side">
+            <div class="tdg-block-heading"><span>TOP STORIES</span><a href="/search/">All news <i class="fa-solid fa-arrow-right"></i></a></div>
+            {% for story in allNews %}
+                {% if loop.index > 1 and loop.index <= 6 %}
+                <article class="tdg-top-item">
+                    <span class="tdg-category">{{ story.data.category }}</span>
+                    <h2><a href="{{ story.url }}">{{ story.data.title }}</a></h2>
+                    <time class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</time>
+                </article>
+                {% endif %}
+            {% endfor %}
+        </aside>
+    </section>
+
+    <section class="tdg-latest-section">
+        <div class="tdg-section-heading">
+            <div><span class="tdg-overline">THE NEWSROOM</span><h2>Latest News</h2></div>
+            <a href="/search/" class="tdg-view-all">View all <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="tdg-latest-grid">
+            {% for story in allNews %}
+                {% if loop.index > 1 and loop.index <= 9 %}
+                <article class="tdg-news-card">
+                    <a href="{{ story.url }}" class="tdg-card-image">
+                        {% if story.data.image %}
+                        <img src="{{ imageUrl(story.data.image) }}" alt="{{ story.data.title }}" loading="lazy">
+                        {% else %}
+                        <span class="tdg-image-placeholder"><i class="fa-regular fa-newspaper"></i></span>
+                        {% endif %}
+                    </a>
+                    <div class="tdg-card-copy">
+                        <span class="tdg-category">{{ story.data.category }}</span>
+                        <h3><a href="{{ story.url }}">{{ story.data.title }}</a></h3>
+                        {% if story.data.description %}<p>{{ story.data.description }}</p>{% endif %}
+                        <time class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</time>
+                    </div>
+                </article>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="tdg-topic-band">
+        <div class="tdg-section-heading">
+            <div><span class="tdg-overline">FOLLOW THE STORY</span><h2>Explore the World</h2></div>
+        </div>
+        <div class="tdg-topic-grid">
+            <a href="/category/world/" class="tdg-topic-card"><span class="tdg-topic-icon"><i class="fa-solid fa-earth-americas"></i></span><strong>World</strong><small>Global affairs · Diplomacy · Conflict</small><i class="fa-solid fa-arrow-right"></i></a>
+            <a href="/category/asia/" class="tdg-topic-card"><span class="tdg-topic-icon"><i class="fa-solid fa-earth-asia"></i></span><strong>Asia</strong><small>South Asia · East Asia · Southeast Asia</small><i class="fa-solid fa-arrow-right"></i></a>
+            <a href="/category/politics/" class="tdg-topic-card"><span class="tdg-topic-icon"><i class="fa-solid fa-landmark"></i></span><strong>Politics</strong><small>Elections · Policy · Geopolitics</small><i class="fa-solid fa-arrow-right"></i></a>
+            <a href="/category/economy/" class="tdg-topic-card"><span class="tdg-topic-icon"><i class="fa-solid fa-chart-line"></i></span><strong>Business</strong><small>Economy · Finance · Trade</small><i class="fa-solid fa-arrow-right"></i></a>
+            <a href="/category/science/" class="tdg-topic-card"><span class="tdg-topic-icon"><i class="fa-solid fa-flask"></i></span><strong>Science</strong><small>Discovery · Space · Innovation</small><i class="fa-solid fa-arrow-right"></i></a>
+            <a href="/category/research/" class="tdg-topic-card"><span class="tdg-topic-icon"><i class="fa-solid fa-book-open"></i></span><strong>Research</strong><small>Research papers · Academic studies · Evidence</small><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section class="tdg-editorial-grid">
+        <div class="tdg-editorial-main">
+            <div class="tdg-section-heading">
+                <div><span class="tdg-overline">BEYOND THE HEADLINES</span><h2>Research &amp; In-Depth</h2></div>
+                <a href="/category/research/" class="tdg-view-all">Explore research <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="tdg-research-list">
+                {% for story in allNews %}
+                    {% if story.data.category == "Research" or story.data.category == "Explainer" %}
+                    <article class="tdg-research-item">
+                        {% if story.data.image %}<a href="{{ story.url }}" class="tdg-research-thumb"><img src="{{ imageUrl(story.data.image) }}" alt="{{ story.data.title }}" loading="lazy"></a>{% endif %}
+                        <div><span class="tdg-category">{{ story.data.category }}</span><h3><a href="{{ story.url }}">{{ story.data.title }}</a></h3>{% if story.data.description %}<p>{{ story.data.description }}</p>{% endif %}<time class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</time></div>
+                    </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <aside class="tdg-briefing">
+            <span class="tdg-overline">THE GLOBAL DESK</span>
+            <h2>The Morning Brief</h2>
+            <p>A concise selection of global headlines and important developments, delivered to your inbox.</p>
+            <form action="https://buttondown.com/api/emails/embed-subscribe/theglobaldesk" method="post" class="newsletter-form" target="popupwindow" onsubmit="window.open('https://buttondown.com/theglobaldesk', 'popupwindow', 'width=500,height=600,scrollbars=yes');">
+                <input type="email" name="email" placeholder="Your email address" required autocomplete="email" aria-label="Email address">
+                <button type="submit">Subscribe</button>
+            </form>
+            <small>No spam. Unsubscribe anytime.</small>
+        </aside>
+    </section>
+
+    <section class="tdg-category-strip">
+        <div class="tdg-section-heading"><div><span class="tdg-overline">MORE PERSPECTIVES</span><h2>Across Every Desk</h2></div></div>
+        <div class="tdg-category-links">
+            <a href="/category/tech-and-ai/"><i class="fa-solid fa-microchip"></i><span><b>Technology</b><small>AI · Cybersecurity · Digital world</small></span></a>
+            <a href="/category/environment/"><i class="fa-solid fa-leaf"></i><span><b>Environment</b><small>Climate · Nature · Sustainability</small></span></a>
+            <a href="/category/human-rights/"><i class="fa-solid fa-scale-balanced"></i><span><b>Human Rights</b><small>Rights · Justice · Society</small></span></a>
+            <a href="/category/explainer/"><i class="fa-solid fa-lightbulb"></i><span><b>Explainers</b><small>Context · Analysis · Background</small></span></a>
+        </div>
+    </section>
+    {% else %}
+    <section class="tdg-empty-state"><i class="fa-regular fa-newspaper"></i><h1>Newsroom is getting ready</h1><p>New stories will appear here as soon as they are published.</p></section>
+    {% endif %}
+</main>
+
+<footer class="site-footer">
+    <div class="footer-main">
+        <div class="footer-brand"><img src="/Logo.png" alt="The Global Desk"><p>Independent journalism, global perspectives and evidence-led research.</p></div>
+        <div class="footer-column"><h4>Explore</h4><a href="/category/world/">World</a><a href="/category/asia/">Asia</a><a href="/category/politics/">Politics</a><a href="/category/economy/">Business</a><a href="/category/research/">Research</a></div>
+        <div class="footer-column"><h4>Information</h4><a href="/about/">About Us</a><a href="/editorial-policy/">Editorial Policy</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy Policy</a></div>
+        <div class="footer-column"><h4>Follow</h4><a href="https://facebook.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i> Facebook</a><a href="https://x.com/thegdeskHQ" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i> X</a><a href="https://youtube.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a><a href="https://instagram.com/thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a><a href="https://tiktok.com/@thegdesk" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 The Global Desk. All Rights Reserved.</span><span>Independent International News Platform</span></div>
+</footer>
+
+<div class="toast" id="toast"><span>&#x2713;</span><p id="toastMessage">Done</p></div>
+<script src="/app.js"></script>
+</body>
+</html>
+
+=== CSS FIRST 220 LINES ===
+/* =========================================================
+   THE GLOBAL DESK — FULL CSS
+   ========================================================= */
+
+:root {
+    --navy: #061a33;
+    --navy-2: #092646;
+    --blue: #0d4f91;
+    --gold: #c99a3b;
+    --gold-light: #e5c06b;
+    --red: #c51f2d;
+    --white: #ffffff;
+    --off-white: #f5f7fa;
+    --text: #16202c;
+    --muted: #667383;
+    --border: #dfe5eb;
+    --shadow: 0 8px 30px rgba(7, 28, 50, .08);
+    --shadow-heavy: 0 18px 50px rgba(7, 28, 50, .14);
+    --radius: 10px;
+    --max: 1240px;
+}
+
+/* ================= RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background .3s ease, color .3s ease;
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+
+/* ================= HEADER ================= */
+.site-header {
+    position: sticky; top: 0; z-index: 1000;
+    background: var(--navy);
+    box-shadow: 0 3px 20px rgba(0,0,0,.18);
+    transition: all 0.3s ease-in-out;
+}
+.utility-bar {
+    background: #030f1e;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    font-size: 11px;
+    max-height: 40px;
+    overflow: hidden;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+}
+.utility-inner {
+    max-width: var(--max);
+    margin: auto;
+    padding: 6px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.utility-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,.55);
+    font-weight: 700;
+    letter-spacing: .8px;
+}
+.utility-left #liveTime { color: var(--gold-light); }
+.util-divider { color: rgba(255,255,255,.2); }
+.live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #48d879;
+    box-shadow: 0 0 0 3px rgba(72,216,121,.2);
+    animation: clockPulse 2s infinite;
+}
+@keyframes clockPulse { 50% { box-shadow: 0 0 0 6px rgba(72,216,121,0); } }
+
+.utility-right { display: flex; align-items: center; gap: 15px; }
+.utility-right a {
+    color: rgba(255,255,255,.5);
+    font-size: 14px;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.utility-right a:hover { color: var(--gold-light); transform: translateY(-2px); }
+
+.header-main {
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    max-height: 100px;
+    overflow: hidden;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+}
+.header-inner {
+    max-width: var(--max);
+    margin: auto;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 12px 22px;
+}
+.brand { display: flex; align-items: center; min-width: 200px; }
+.brand img {
+    width: auto;
+    max-width: 220px;
+    height: 55px;
+    object-fit: contain;
+    display: block;
+    transition: transform .3s ease;
+    border-radius: 8px;
+}
+.brand:hover img { transform: scale(1.03); }
+
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.header-btn {
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+    color: white;
+    border-radius: 8px;
+    padding: 9px 13px;
+    font-size: 12px;
+    transition: .2s;
+    text-decoration: none;
+}
+.header-btn:hover { background: rgba(255,255,255,.14); border-color: var(--gold); }
+.theme-btn { width: 38px; height: 38px; padding: 0; font-size: 17px; }
+
+.site-header.scrolled .utility-bar { max-height: 0; opacity: 0; border-bottom: none; }
+.site-header.scrolled .header-main { max-height: 0; opacity: 0; border-bottom: none; }
+.site-header.scrolled { box-shadow: 0 3px 15px rgba(0,0,0,.3); }
+
+/* ================= NAV ================= */
+.main-nav { background: var(--navy-2); position: relative; }
+.nav-inner {
+    max-width: var(--max);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-link {
+    flex-shrink: 0;
+    padding: 14px 15px;
+    color: rgba(255,255,255,.78);
+    font-size: 13px;
+    font-weight: 700;
+    position: relative;
+    transition: .2s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+.nav-link:hover, .nav-link.active { color: white; }
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 15px; right: 15px; bottom: 0;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 3px 3px 0 0;
+}
+
+.dropdown { position: relative; display: inline-block; flex-shrink: 0; }
+.dropdown-btn .chevron {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.dropdown.open .dropdown-btn .chevron { transform: rotate(180deg); }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--navy-2);
+    min-width: 210px;
+    box-shadow: 0px 15px 35px rgba(0,0,0,0.4);
+    z-index: 9999;
+    border-radius: 0 0 8px 8px;
+    border-top: 3px solid var(--gold);
+    overflow: hidden;
+}
+.dropdown.open .dropdown-content {
+    display: block;
+    animation: dropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes dropdownSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.dropdown-content a {
+    color: rgba(255,255,255,.78);
+    padding: 12px 18px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all .2s;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+}
+.dropdown-content a:last-child { border-bottom: none; }
+.dropdown-content a:hover {
+    background-color: var(--gold);
+    color: var(--navy);
+
+=== CSS RESPONSIVE BREAKPOINTS ===
+235: @media (max-width: 800px) {
+972: @media (max-width: 1100px) {
+985: @media (max-width: 900px) {
+997: @media (max-width: 800px) {
+1017: @media (max-width: 600px) {
+1050: @media (max-width: 800px) {
+1172: @media (max-width: 600px) {
+1225: @media (max-width: 600px) {
+1265: @media (max-width: 600px) {
+1374: @media(max-width:1000px) {
+1378: @media(max-width:760px) {
+1391: @media(max-width:480px) {
+1406: @media(prefers-reduced-motion:reduce) {
+
+=== JAVASCRIPT FIRST 120 LINES ===
+/* =========================================================
+   THE GLOBAL DESK — MAIN ENGINE
+   ========================================================= */
+
+/* ---------- 1. LIVE DATE & TIME ---------- */
+function updateClock() {
+    const clock = document.getElementById("liveTime");
+    const date = document.getElementById("liveDate");
+    if (!clock) return;
+    const now = new Date();
+    const utcH = String(now.getUTCHours()).padStart(2, "0");
+    const utcM = String(now.getUTCMinutes()).padStart(2, "0");
+    const utcS = String(now.getUTCSeconds()).padStart(2, "0");
+    const localH = String(now.getHours()).padStart(2, "0");
+    const localM = String(now.getMinutes()).padStart(2, "0");
+    const localS = String(now.getSeconds()).padStart(2, "0");
+    const localTz = Intl.DateTimeFormat("en-US", { timeZoneName: "short" })
+        .formatToParts(now).find(p => p.type === "timeZoneName")?.value || "";
+    clock.innerHTML = `${utcH}:${utcM}:${utcS} UTC <span class="util-divider">|</span> ${localH}:${localM}:${localS} ${localTz}`;
+    if (date) {
+        date.textContent = now.toLocaleDateString("en-US", {
+            weekday: "long", day: "2-digit", month: "long", year: "numeric"
+        }).toUpperCase();
+    }
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+
+/* ---------- 2. STICKY HEADER ---------- */
+const siteHeader = document.getElementById("siteHeader");
+let ticking = false;
+window.addEventListener("scroll", () => {
+    const current = window.scrollY;
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            if (current > 200) siteHeader?.classList.add("scrolled");
+            else if (current < 100) siteHeader?.classList.remove("scrolled");
+            ticking = false;
+        });
+        ticking = true;
+    }
+}, { passive: true });
+
+
+/* ---------- 3. DROPDOWN MENU ---------- */
+const dropdown = document.getElementById("dropdown");
+const dropdownBtn = document.getElementById("dropdownBtn");
+
+dropdownBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown?.classList.toggle("open");
+});
+document.addEventListener("click", (e) => {
+    if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove("open");
+});
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") dropdown?.classList.remove("open");
+});
+window.addEventListener("scroll", () => {
+    if (window.innerWidth <= 800) dropdown?.classList.remove("open");
+}, { passive: true });
+
+
+/* ---------- 4. BREAKING NEWS ---------- */
+let breakingStories = [{ title: "The Global Desk — Live", url: "/" }];
+let breakingIndex = 0;
+
+async function loadBreakingNews() {
+    try {
+        const response = await fetch("/breaking.json");
+        if (!response.ok) return;
+        const data = await response.json();
+        const now = new Date();
+        const active = data.filter(item => !item.expires || new Date(item.expires) > now);
+        if (active.length) {
+            breakingStories = active.map(item => ({ title: item.title, url: item.url || "/" }));
+        }
+    } catch (e) { console.error("Breaking news load error:", e); }
+}
+function showBreakingNews() {
+    const link = document.getElementById("breakingLink");
+    const wrap = document.getElementById("breakingNews");
+    if (!link || !wrap) return;
+    wrap.classList.add("switching");
+    setTimeout(() => {
+        const story = breakingStories[breakingIndex];
+        link.textContent = story.title;
+        link.href = story.url;
+        wrap.classList.remove("switching");
+    }, 230);
+    breakingIndex++;
+    if (breakingIndex >= breakingStories.length) breakingIndex = 0;
+}
+const breakingBar = document.getElementById("breakingBar");
+let breakingTimer = setInterval(showBreakingNews, 6500);
+breakingBar?.addEventListener("mouseenter", () => clearInterval(breakingTimer));
+breakingBar?.addEventListener("mouseleave", () => {
+    clearInterval(breakingTimer);
+    breakingTimer = setInterval(showBreakingNews, 6500);
+});
+document.getElementById("breakingNext")?.addEventListener("click", showBreakingNews);
+loadBreakingNews().then(() => showBreakingNews());
+
+
+/* ---------- 5. TIME AGO ---------- */
+function timeAgo(dateString) {
+    if (!dateString) return "";
+    const now = new Date();
+    const past = new Date(dateString);
+    const diffMs = now - past;
+    const diffMin = Math.floor(diffMs / 60000);
+    const diffHour = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHour / 24);
+    if (diffMin < 1) return "Just now";
+    if (diffMin < 60) return `${diffMin} min ago`;
+    if (diffHour < 24) return `${diffHour} hour${diffHour > 1 ? "s" : ""} ago`;
+    return `${diffDay} day${diffDay > 1 ? "s" : ""} ago`;
+}
+function updateAllTimes() {

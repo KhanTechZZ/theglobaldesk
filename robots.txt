@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://thegdesk.com/sitemap.xml
+Sitemap: https://thegdesk.com/news-sitemap.xml

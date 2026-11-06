@@ -1,0 +1,12 @@
+﻿{
+  "name": "tgdnews",
+  "pages_build_output_dir": "./_site",
+  "compatibility_date": "2026-10-29",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "theglobaldesk-views",
+      "database_id": "9791bab7-05ac-40ae-9eec-999a6bae4680"
+    }
+  ]
+}

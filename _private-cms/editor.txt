@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Global Desk — Editorial CMS</title>
+  <link rel="icon" href="/Logo.png">
+<link href="/desk-9c41b7e2/config.yml" type="text/yaml" rel="cms-config-url">
+  <link rel="stylesheet" href="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .topbar { min-height: 54px; padding: 12px 20px; background: #101b32; color: #fff; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+    .topbar strong { margin-right: auto; }
+    .topbar a { color: #fff; text-decoration: none; }
+    .topbar a:hover { text-decoration: underline; }
+    /* Make the CMS preview pane narrower */
+    @media (min-width: 900px) {
+      #nc-root [class*="Pane2"],
+      #nc-root .Pane2 {
+        width: 38% !important;
+        max-width: 520px !important;
+        min-width: 280px !important;
+      }
+    }
+
+    @media (max-width: 899px) {
+      #nc-root [class*="Pane2"],
+      #nc-root .Pane2 {
+        width: 50% !important;
+        max-width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <strong>THE GLOBAL DESK · EDITORIAL CMS</strong>
+    <a href="/desk-9c41b7e2/">← Dashboard</a>
+    <a href="/">View website ↗</a>
+  </header>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</body>
+</html>

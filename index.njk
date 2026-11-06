@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>The Global Desk | World News, Research & Global Analysis</title>
+  <meta name="description" content="Independent international news, global affairs, research and analysis from The Global Desk.">
+  <meta name="theme-color" content="#071a33">
+  <link rel="canonical" href="https://thegdesk.com/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/homepage-reference.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1E8X103FR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X1E8X103FR');
+  </script>
+</head>
+
+<body class="tdg-ref-home">
+
+{% set allNews = collections.news | reverse %}
+{% set breakingItems = collections.breaking %}
+{% set lead = allNews[0] %}
+{% set analysisStory = allNews[5] or lead %}
+{% set researchStories = allNews | byCategory("Research") %}{% set researchStory = researchStories[0] or lead %}
+
+<div class="tdg-ad-ribbon" aria-label="Advertisement">
+  <div class="tdg-ad-inner">
+    <span class="tdg-ad-label">ADVERTISEMENT</span>
+
+    <div class="tdg-ad-media" id="tdgAdMedia" aria-busy="true">
+      <div class="tdg-ad-skeleton" id="tdgAdSkeleton">
+        <span class="tdg-ad-shimmer"></span>
+        <span class="tdg-ad-loading-text">Preparing advertisement...</span>
+      </div>
+
+      <img
+        id="tdgDelayedAd"
+        data-src="/images/nova-tech-ad-banner.png"
+        alt="NOVA TECH &mdash; Smarter Technology. A Brighter Tomorrow."
+        decoding="async">
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  const ad = document.getElementById("tdgDelayedAd");
+  const media = document.getElementById("tdgAdMedia");
+  const skeleton = document.getElementById("tdgAdSkeleton");
+
+  if (!ad || !media || !skeleton) return;
+
+  setTimeout(function () {
+    ad.onload = function () {
+      ad.classList.add("is-loaded");
+      media.setAttribute("aria-busy", "false");
+      skeleton.remove();
+    };
+
+    ad.onerror = function () {
+      skeleton.textContent = "Advertisement unavailable.";
+      media.setAttribute("aria-busy", "false");
+    };
+
+    ad.src = ad.dataset.src;
+  }, 3000);
+})();
+</script>
+<header class="tdg-ref-header" id="siteHeader">
+  <div class="tdg-ref-head-inner">
+
+    <a class="tdg-ref-brand" href="/" aria-label="The Global Desk Home">
+      <img src="/Logo.png" alt="The Global Desk">
+    </a>
+
+    <nav class="tdg-ref-nav" aria-label="Main navigation">
+      <a class="is-active" href="/">Home</a>
+      <a href="/category/world/">World</a>
+      <a href="/category/economy/">Business</a>
+      <a href="/category/politics/">Politics</a>
+      <a href="/category/science/">Science</a>
+      <a href="/category/tech-and-ai/">Technology</a>
+      <a href="/category/explainer/">Analysis</a>
+
+      <div class="tdg-ref-more">
+        <button type="button" aria-expanded="false" id="tdgMoreBtn">
+          More <span>&#9662;</span>
+        </button>
+
+        <div class="tdg-ref-dropdown" id="tdgMoreMenu">
+          <a href="/category/asia/">Asia</a>
+          <a href="/category/environment/">Environment</a>
+          <a href="/category/research/">Research</a>
+          <a href="/category/human-rights/">Human Rights</a>
+          <a href="/z-desk/">Z Desk</a>
+          <a href="/alpha-desk/">AlphaDesk</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="tdg-ref-tools">
+      <a href="/search/" aria-label="Search">&#128269;</a>
+      <button id="tdgMobileBtn" type="button" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+
+  </div>
+
+  <nav class="tdg-ref-mobile" id="tdgMobileNav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/category/world/">World</a>
+    <a href="/category/asia/">Asia</a>
+    <a href="/category/economy/">Business</a>
+    <a href="/category/politics/">Politics</a>
+    <a href="/category/science/">Science</a>
+    <a href="/category/tech-and-ai/">Technology</a>
+    <a href="/category/explainer/">Analysis</a>
+    <a href="/category/research/">Research</a>
+    <a href="/z-desk/">Z Desk</a>
+    <a href="/alpha-desk/">AlphaDesk</a>
+    <a href="/category/environment/">Environment</a>
+    <a href="/category/human-rights/">Human Rights</a>
+  </nav>
+</header>
+
+
+<!-- BREAKING NEWS -->
+
+{% if breakingItems and breakingItems.length %}
+<div class="tdg-ref-breaking" id="breakingBar">
+  <div class="tdg-ref-breaking-label"><i></i> BREAKING</div>
+
+  <div class="tdg-ref-breaking-window" id="breakingTrack">
+    <div class="tdg-ref-breaking-text" id="breakingNews">
+      {% for item in breakingItems %}
+        <a href="{{ item.url }}">{{ item.data.title }}</a>
+        {% if not loop.last %}<span> &bull; </span>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <a class="tdg-ref-live" href="/category/world/"><i></i> LIVE</a>
+  <button class="tdg-ref-breaking-next" id="breakingNext" type="button" aria-label="Next breaking news">&rsaquo;</button>
+</div>
+{% else %}
+<div class="tdg-ref-breaking" id="breakingBar">
+  <div class="tdg-ref-breaking-label"><i></i> BREAKING</div>
+  <div class="tdg-ref-breaking-window" id="breakingTrack">
+    <div class="tdg-ref-breaking-text" id="breakingNews">
+      <a href="/category/world/" id="breakingLink">The Global Desk &#8212; Latest global updates</a>
+    </div>
+  </div>
+  <a class="tdg-ref-live" href="/category/world/"><i></i> LIVE</a>
+  <button class="tdg-ref-breaking-next" id="breakingNext" type="button" aria-label="Next breaking news">&rsaquo;</button>
+</div>
+{% endif %}
+
+
+
+<section class="tdg-trending-strip" aria-label="Trending stories">
+  <div class="tdg-trending-label"><span></span> TRENDING</div>
+  <div class="tdg-trending-items">
+    {% for story in allNews %}
+      {% if loop.index <= 4 %}
+      <a href="{{ story.url }}">
+        <span class="tdg-trending-number">0{{ loop.index }}</span>
+        <span>{{ story.data.title }}</span>
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+<main class="tdg-ref-main">
+
+{% if allNews.length %}
+
+  <!-- LEAD NEWSROOM -->
+
+  <section class="tdg-ref-lead-grid">
+
+    <div class="tdg-live-left-column">
+    <section class="tdg-live-desk" aria-label="Global Live Desk">
+
+  {% set liveCoverage = collections.liveCoverage[0] %}
+
+  <!-- HEADER -->
+  <div class="tdg-live-desk-heading">
+    <h2>GLOBAL LIVE DESK</h2>
+    {% if liveCoverage %}
+      <span class="tdg-live-status">
+        <i></i> LIVE
+      </span>
+    {% else %}
+      <span class="tdg-live-status tdg-live-standby">
+        <i></i> STANDBY
+      </span>
+    {% endif %}
+  </div>
+
+  {% if liveCoverage %}
+
+    <!-- FEATURED LIVE EVENT -->
+    <div class="tdg-live-feature">
+
+      <a class="tdg-live-feature-image" href="{{ liveCoverage.url }}">
+        <img
+          src="{{ liveCoverage.data.image or '/images/default-news.jpg' }}"
+          alt="{{ liveCoverage.data.title }}"
+          loading="lazy"
+        >
+      </a>
+
+      <div class="tdg-live-feature-copy">
+
+        <span class="tdg-live-category">
+          {{ liveCoverage.data.category or "LIVE COVERAGE" }}
+        </span>
+
+        <h3>
+          <a href="{{ liveCoverage.url }}">
+            {{ liveCoverage.data.title }}
+          </a>
+        </h3>
+
+        <div class="tdg-live-dates">
+
+          {% if liveCoverage.data.started %}
+            <div>
+              <span>Started:</span>
+              <strong>{{ liveCoverage.data.started | timeAgo }}</strong>
+            </div>
+          {% endif %}
+
+          {% if liveCoverage.data.updated %}
+            <div>
+              <span>Updated:</span>
+              <strong>{{ liveCoverage.data.updated | timeAgo }}</strong>
+            </div>
+          {% elif liveCoverage.data.started %}
+            <div>
+              <span>Updated:</span>
+              <strong>{{ liveCoverage.data.started | timeAgo }}</strong>
+            </div>
+          {% endif %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- REAL EVENT TIMELINE -->
+    {% if liveCoverage.data.updates and liveCoverage.data.updates.length %}
+
+      <div class="tdg-live-timeline">
+
+        {% for item in liveCoverage.data.updates | reverse %}
+
+          {% if loop.index <= 4 %}
+
+            <a
+              class="tdg-live-update {% if loop.first %}is-latest{% endif %}"
+              href="{{ liveCoverage.url }}"
+            >
+
+              <span class="tdg-live-update-dot"></span>
+
+              <div class="tdg-live-update-content">
+
+                {% if item.date %}
+                  <span class="tdg-live-update-time">
+                    {{ item.date | timeAgo }}
+                  </span>
+                {% endif %}
+
+                <strong>{{ item.title }}</strong>
+
+              </div>
+
+            </a>
+
+          {% endif %}
+
+        {% endfor %}
+
+      </div>
+
+    {% endif %}
+
+    <!-- COVERAGE LINK -->
+    <a class="tdg-live-footer" href="{{ liveCoverage.url }}">
+      <span>VIEW ALL UPDATES</span>
+      <b>&rarr;</b>
+    </a>
+
+  {% else %}
+
+    <!-- ✅ NEW: Professional Empty State -->
+    <div class="tdg-live-empty-state">
+      <svg class="tdg-live-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v3M12 20v3M1 12h3M20 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+      </svg>
+      <h3>Monitoring Global Events</h3>
+      <p>Our newsroom is actively tracking world events. When breaking coverage begins, updates will appear here in real-time.</p>
+      <a href="/news/" class="tdg-live-empty-link">
+        <span>Browse Latest News</span>
+        <b>&rarr;</b>
+      </a>
+    </div>
+
+  {% endif %}
+
+</section>
+
+</div><article class="tdg-ref-hero">
+      <a href="{{ lead.url }}">
+
+        <img
+          src="{% set fallbackImage = lead.data.image or lead.data.image or '/Logo.png' %}{% if fallbackImage[0] !== '/' and fallbackImage.slice(0,4) !== 'http' %}/{{ fallbackImage }}{% else %}{{ fallbackImage }}{% endif %}"
+          alt="{{ lead.data.title }}"
+          fetchpriority="high">
+
+        <span class="tdg-ref-tag">{{ lead.data.category or "WORLD" }}</span>
+
+        <div class="tdg-ref-hero-copy">
+          <h1>{{ lead.data.title }}</h1>
+          <p>{{ lead.data.description }}</p>
+          <div class="tdg-ref-meta">
+            <span class="time-ago" data-published="{{ lead.data.date | isoDate }}">
+              {{ lead.data.date | readableDate }}
+            </span>
+            <b>Read full story&nbsp; &rarr;</b>
+          </div>
+        </div>
+      </a>
+    </article>
+</section>
+
+<section class="tdg-l-news-section" aria-label="Latest News">
+
+  <div class="tdg-l-news-heading">
+    <div>
+      <span>THE GLOBAL DESK</span>
+      <h2>Latest News</h2>
+    </div>
+
+    <a href="/news/">VIEW ALL NEWS &rarr;</a>
+  </div>
+
+  {% set latestStories = allNews.slice(1, 9) %}
+
+  {% if latestStories.length %}
+
+    <div class="tdg-l-news-grid">
+
+      {% for story in latestStories %}
+
+        <article class="tdg-l-news-card">
+
+          <a class="tdg-l-news-image" href="{{ story.url }}">
+            <img
+              src="{% set fallbackImage = story.data.image or '/Logo.png' %}{% if fallbackImage[0] !== '/' and fallbackImage.slice(0,4) !== 'http' %}/{{ fallbackImage }}{% else %}{{ fallbackImage }}{% endif %}"
+              alt="{{ story.data.title }}"
+              loading="lazy">
+          </a>
+
+          <div class="tdg-l-news-copy">
+
+            <span class="tdg-l-news-category">
+              {{ story.data.category or "NEWS" }}
+            </span>
+
+            <h3>
+              <a href="{{ story.url }}">
+                {{ story.data.title }}
+              </a>
+            </h3>
+
+            {% if story.data.description %}
+              <p>{{ story.data.description }}</p>
+            {% endif %}
+
+            <div class="tdg-l-news-meta">
+              <span>{{ story.data.date | readableDate }}</span>
+              <b>READ STORY &rarr;</b>
+            </div>
+
+          </div>
+
+        </article>
+
+      {% endfor %}
+
+    </div>
+
+  {% endif %}
+
+</section>
+
+<!-- EDITORIAL SELECTION -->
+<section class="tdg-ref-section tdg-editors-picks">
+  <div class="tdg-ref-section-head">
+    <div>
+      <span class="tdg-ref-eyebrow">THE EDITORIAL SELECTION</span>
+      <h2>Editor's Picks</h2>
+    </div>
+    <span class="tdg-editor-note">Selected stories from our newsroom</span>
+  </div>
+
+  <div class="tdg-editor-grid">
+    {% for story in allNews %}
+      {% if loop.index > 2 and loop.index <= 5 %}
+      <article class="tdg-editor-card">
+        <a class="tdg-editor-image" href="{{ story.url }}">
+          <img src="{% set fallbackImage = story.data.image or lead.data.image or '/Logo.png' %}{% if fallbackImage[0] !== '/' and fallbackImage.slice(0,4) !== 'http' %}/{{ fallbackImage }}{% else %}{{ fallbackImage }}{% endif %}" alt="{{ story.data.title }}" loading="lazy">
+        </a>
+        <div class="tdg-editor-copy">
+          <span>{{ story.data.category or "WORLD" }}</span>
+          <h3><a href="{{ story.url }}">{{ story.data.title }}</a></h3>
+          <small>{{ story.data.date | readableDate }}</small>
+        </div>
+      </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+<!-- MORE GLOBAL STORIES -->
+<section class="tdg-ref-more tdg-more-editorial">
+  <div class="tdg-ref-section-heading">
+    <div>
+      <span class="tdg-ref-eyebrow">DISCOVER MORE</span>
+      <h2>More from The Global Desk</h2>
+    </div>
+    <a href="/category/world/">Explore all coverage &rarr;</a>
+  </div>
+
+  <div class="tdg-more-grid">
+    {% for story in allNews %}
+      {% if loop.index <= 3 %}
+        {% set moreImage = story.data.image or lead.data.image or '/Logo.png' %}
+        <a class="tdg-more-card" href="{{ story.url }}">
+          <div class="tdg-more-image">
+            <img src="{{ moreImage }}" alt="{{ story.data.title }}" loading="lazy">
+          </div>
+          <span class="tdg-ref-eyebrow">{{ story.data.category or 'GLOBAL NEWS' }}</span>
+          <h3>{{ story.data.title }}</h3>
+          <span class="tdg-more-read">Read story &rarr;</span>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<footer class="site-footer tdg-modern-footer">
+  <div class="footer-main tdg-modern-footer-main">
+
+    <div class="footer-brand tdg-modern-footer-brand">
+      <a href="/" aria-label="The Global Desk homepage">
+        <img src="/Logo.png" alt="The Global Desk">
+      </a>
+      <p>Independent journalism, global perspectives and evidence-led research.</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>EXPLORE</h4>
+      <a href="/category/world/">World</a>
+      <a href="/category/asia/">Asia</a>
+      <a href="/category/politics/">Politics</a>
+      <a href="/category/business/">Business</a>
+      <a href="/category/research/">Research</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>INFORMATION</h4>
+      <a href="/about/">About Us</a>
+      <a href="/editorial-policy/">Editorial Policy</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy Policy</a>
+    </div>
+
+    <div class="footer-column tdg-footer-follow">
+  <h4>FOLLOW</h4>
+
+  <a href="https://facebook.com/thegdesk" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.8-.1-1.6-.2-2.4-.2-2.4 0-4.1 1.5-4.1 4.2v2.3H7.6V13h2.7v8h3.2z"/></svg>
+    <span>Facebook</span>
+  </a>
+
+  <a href="https://x.com/thegdeskHQ" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.6 5.5 22H2.3l7.3-8.4L1.8 2h6.5l4.5 6.9L18.9 2zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20z"/></svg>
+    <span>X</span>
+  </a>
+
+  <a href="https://youtube.com/@thegdesk" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+    <span>YouTube</span>
+  </a>
+
+  <a href="https://instagram.com/thegdesk" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7zm5 2.3a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2.2a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6zm5.7-3.1a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg>
+    <span>Instagram</span>
+  </a>
+
+  <a href="https://tiktok.com/@thegdesk" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.6 7.1a6.7 6.7 0 0 1-4.1-1.4v9.1a6.2 6.2 0 1 1-6.2-6.2c.4 0 .8 0 1.2.1v3.4a2.8 2.8 0 1 0 1.9 2.7V2h3.4a6.7 6.7 0 0 0 3.8 3.8v1.3z"/></svg>
+    <span>TikTok</span>
+  </a>
+</div>
+
+    <div class="tdg-footer-newsletter">
+      <h3>The Morning Brief</h3>
+      <p>A concise selection of global headlines and important developments, delivered to your inbox.</p>
+      <form class="tdg-footer-newsletter-form">
+        <input type="email" placeholder="Your email address" aria-label="Your email address">
+        <button type="button">Subscribe</button>
+      </form>
+      <div class="tdg-footer-note">
+        <span aria-hidden="true">&#10003;</span>
+        <span>No spam. Unsubscribe anytime.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom tdg-modern-footer-bottom">
+    <span>&copy; 2026 The Global Desk. All Rights Reserved.</span>
+    <span>Independent International News Platform</span>
+  </div>
+</footer>
+
+
+<script src="/app.js"></script>
+
+<!-- REAL WORLD MAP: Natural Earth country boundaries -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+(function () {
+  "use strict";
+
+  const more = document.getElementById("tdgMoreBtn");
+  const menu = document.getElementById("tdgMoreMenu");
+
+  if (more && menu) {
+    more.addEventListener("click", function (event) {
+      event.stopPropagation();
+      const opened = menu.classList.toggle("open");
+      more.setAttribute("aria-expanded", String(opened));
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest(".tdg-ref-more")) {
+        menu.classList.remove("open");
+        more.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  const mobileBtn = document.getElementById("tdgMobileBtn");
+  const mobileNav = document.getElementById("tdgMobileNav");
+
+  if (mobileBtn && mobileNav) {
+    mobileBtn.addEventListener("click", function () {
+      const opened = mobileNav.classList.toggle("open");
+      mobileBtn.setAttribute("aria-expanded", String(opened));
+    });
+  }
+
+  const regionCategories = {
+    "Asia": ["asia"],
+    "Europe": ["europe"],
+    "Africa": ["africa"],
+    "North America": ["north america", "americas"],
+    "South America": ["south america", "americas"],
+    "Oceania": ["oceania"]
+  };
+
+  const regionDescriptions = {
+    "Asia": "Explore regional reporting from across Asia.",
+    "Europe": "Explore news and analysis from across Europe.",
+    "Africa": "Explore developments from across Africa.",
+    "North America": "Explore reporting from North America.",
+    "South America": "Explore reporting from South America.",
+    "Oceania": "Explore Australia and the Pacific region."
+  };
+
+  // Prepare published news for map-region filtering.
+  const newsItems = [
+    {% for story in allNews %}
+    {
+      title: {{ story.data.title | dump | safe }},
+      url: {{ story.url | dump | safe }},
+      category: {{ (story.data.category or "World") | dump | safe }},
+      date: {{ (story.data.date | readableDate) | dump | safe }}
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ];
+
+  function showRegionNews(region) {
+    const list = document.getElementById("tdgRegionNews");
+    const title = document.getElementById("tdgSelectedRegion");
+    const note = document.getElementById("tdgMapNote");
+    if (!list) return;
+
+    if (title) title.textContent = region;
+    if (note) note.textContent = regionDescriptions[region] || "";
+
+    const allowed = regionCategories[region] || [];
+    const matches = newsItems.filter(function (item) {
+      return allowed.includes(String(item.category).toLowerCase().trim());
+    }).slice(0, 4);
+
+    if (!matches.length) {
+      list.innerHTML = '<li class="tdg-ref-no-region-news"><span>No dedicated stories in this region yet.</span><small>Explore</small></li>';
+      return;
+    }
+
+    list.innerHTML = matches.map(function (item) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      const small = document.createElement("small");
+
+      a.href = item.url;
+      a.textContent = item.title;
+      small.textContent = item.date || region;
+
+      li.append(a, small);
+      return li.outerHTML;
+    }).join("");
+  }
+
+  const regionButtons = document.querySelectorAll(".tdg-ref-regions button");
+
+  function selectRegion(region) {
+    regionButtons.forEach(function (button) {
+      button.classList.toggle("active", button.dataset.region === region);
+    });
+    showRegionNews(region);
+
+    if (window.tdgSelectMapRegion) {
+      window.tdgSelectMapRegion(region);
+    }
+  }
+
+  regionButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      selectRegion(button.dataset.region);
+    });
+  });
+
+  const resetButton = document.getElementById("tdgMapReset");
+  if (resetButton) {
+    resetButton.addEventListener("click", function () {
+      if (window.tdgResetWorldMap) window.tdgResetWorldMap();
+    });
+  }
+
+  // Initial selection.
+  showRegionNews("Asia");
+
+  // Draw the actual country geometry from Natural Earth GeoJSON.
+  async function loadWorldMap() {
+    const svgElement = document.getElementById("tdgMapSvg");
+    const layerElement = document.getElementById("tdgMapLayer");
+    const loading = document.getElementById("tdgMapLoading");
+
+    if (!svgElement || !layerElement || !window.d3) {
+      if (loading) loading.textContent = "World map could not be loaded.";
+      return;
+    }
+
+    const d3 = window.d3;
+    const svg = d3.select(svgElement);
+    const layer = d3.select(layerElement);
+
+    const width = 700;
+    const height = 360;
+
+    const projection = d3.geoNaturalEarth1()
+      .fitExtent([[12, 12], [width - 12, height - 12]], {type: "Sphere"});
+
+    const path = d3.geoPath(projection);
+
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson"
+      );
+
+      if (!response.ok) throw new Error("Map data request failed");
+
+      const world = await response.json();
+
+      const features = world.features.filter(function (feature) {
+        return feature.properties && feature.geometry;
+      });
+
+      const continentColors = {
+        "Asia": "#b68b3c",
+        "Europe": "#7992aa",
+        "Africa": "#8d9c9b",
+        "North America": "#8299ae",
+        "South America": "#9b9a80",
+        "Oceania": "#9b8d77"
+      };
+
+      const countryPaths = layer.selectAll("path")
+        .data(features)
+        .join("path")
+        .attr("class", "tdg-map-country")
+        .attr("d", path)
+        .attr("fill", function (d) {
+          return continentColors[d.properties.CONTINENT] || "#536b82";
+        })
+        .attr("data-continent", function (d) {
+          return d.properties.CONTINENT || "";
+        })
+        .attr("tabindex", 0)
+        .attr("role", "button")
+        .attr("aria-label", function (d) {
+          return (d.properties.NAME || "Country") + ", " +
+            (d.properties.CONTINENT || "Unknown region");
+        });
+
+      layer.append("path")
+        .datum({type: "Sphere"})
+        .attr("class", "tdg-map-outline")
+        .attr("d", path);
+
+      const zoom = d3.zoom()
+        .scaleExtent([1, 3.1])
+        .on("zoom", function (event) {
+          layer.attr("transform", event.transform);
+        });
+
+      svg.call(zoom);
+
+      const continentCenters = {
+        "Asia": [105, 32],
+        "Europe": [18, 52],
+        "Africa": [20, 0],
+        "North America": [-105, 42],
+        "South America": [-60, -17],
+        "Oceania": [135, -25]
+      };
+
+      function activateContinent(region) {
+        countryPaths.classed("is-selected", function (d) {
+          return d.properties.CONTINENT === region;
+        });
+
+        countryPaths.classed("is-dimmed", function (d) {
+          return d.properties.CONTINENT !== region;
+        });
+
+        const center = continentCenters[region];
+        if (!center) return;
+
+        const point = projection(center);
+        const scale = 1.75;
+        const transform = d3.zoomIdentity
+          .translate(width / 2 - point[0] * scale, height / 2 - point[1] * scale)
+          .scale(scale);
+
+        svg.transition().duration(750).call(zoom.transform, transform);
+      }
+
+      countryPaths
+        .on("click", function (event, feature) {
+          const continent = feature.properties.CONTINENT;
+          if (regionCategories[continent]) {
+            selectRegion(continent);
+          }
+        })
+        .on("keydown", function (event, feature) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            const continent = feature.properties.CONTINENT;
+            if (regionCategories[continent]) selectRegion(continent);
+          }
+        });
+
+      window.tdgSelectMapRegion = activateContinent;
+
+      window.tdgResetWorldMap = function () {
+        countryPaths.classed("is-selected", false).classed("is-dimmed", false);
+        svg.transition().duration(650).call(zoom.transform, d3.zoomIdentity);
+      };
+
+      if (loading) loading.remove();
+
+      activateContinent("Asia");
+
+    } catch (error) {
+      console.error("World map:", error);
+      if (loading) loading.textContent = "Map unavailable. Please check your connection.";
+    }
+  }
+
+  loadWorldMap();
+
+})();
+</script>
+
+</body>
+</html>

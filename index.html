@@ -565,6 +565,8 @@ document.addEventListener('click', function(e) {
     var list = document.querySelector('[data-trending-list]');
     if (!list) return;
     var refreshMs = 12 * 60 * 60 * 1000;
+    var allTopics = [];
+    var expanded = false;
 
     function showUnavailable() {
       list.replaceChildren();
@@ -586,7 +588,15 @@ document.addEventListener('click', function(e) {
         list.setAttribute('aria-busy', 'false');
         return;
       }
-      data.topics.slice(0, 8).forEach(function (topic, index) {
+      allTopics = data.topics;
+      expanded = false;
+      renderTopics();
+    }
+
+    function renderTopics() {
+      list.replaceChildren();
+      var visibleTopics = expanded ? allTopics : allTopics.slice(0, 4);
+      visibleTopics.forEach(function (topic, index) {
         var link = document.createElement('a');
         link.className = 'gd-trending-topic';
         link.href = topic.url || '#gd-trending-title';
@@ -609,6 +619,18 @@ document.addEventListener('click', function(e) {
         link.append(rank, category, title, meta);
         list.appendChild(link);
       });
+      if (allTopics.length > 4) {
+        var more = document.createElement('button');
+        more.className = 'gd-trending-more';
+        more.type = 'button';
+        more.setAttribute('aria-expanded', String(expanded));
+        more.textContent = expanded ? 'Show less' : 'Show all ' + allTopics.length + ' topics';
+        more.addEventListener('click', function () {
+          expanded = !expanded;
+          renderTopics();
+        });
+        list.appendChild(more);
+      }
       list.setAttribute('aria-busy', 'false');
     }
 

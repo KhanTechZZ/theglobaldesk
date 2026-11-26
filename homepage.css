@@ -8392,3 +8392,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-trending-panel__topics { grid-template-columns:minmax(0,1fr); gap:.45rem; }
   .gd-trending-panel__topics > .gd-trending-topic { min-height:70px; }
 }
+.gd-trending-more { grid-column:1 / -1; justify-self:center; margin-top:.08rem; padding:.48rem .88rem; border:1px solid #d7c99f; border-radius:99px; background:#fffdf8; color:#725719; cursor:pointer; font:750 .68rem/1.2 'Inter',sans-serif; transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease; }
+.gd-trending-more:hover { transform:translateY(-1px); border-color:#b99645; background:#f5f0e3; color:#17304b; }
+.gd-trending-more:focus-visible { outline:2px solid #17304b; outline-offset:3px; }

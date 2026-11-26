@@ -1,5 +1,12 @@
 
 
+const isPlaceholderHeadline = (item) => {
+  const title = String(item?.data?.title || "").trim();
+  const description = String(item?.data?.description || "");
+  return /^(?:\d+(?:st|nd|rd|th)?\s+news|test(?:\b|\s)|untitled\b|placeholder\b|sample\b|\[?demo\]?\b)/i.test(title) ||
+    /lorem ipsum|placeholder text|sample report for testing|not real news|layout testing/i.test(description);
+};
+
 module.exports = function (eleventyConfig) {
 
   // Never publish private backups
@@ -123,6 +130,18 @@ module.exports = function (eleventyConfig) {
       String(item.data.format || "").toLowerCase() === String(format || "").toLowerCase()
     )
   );
+  eleventyConfig.addNunjucksFilter("relatedNews", (items, currentUrl, category, limit = 3) => {
+    const candidates = (Array.isArray(items) ? items : [])
+      .filter(item => item.url !== currentUrl && !isPlaceholderHeadline(item));
+    const normalizedCategory = String(category || "").trim().toLowerCase();
+    const sameCategory = candidates.filter(item =>
+      String(item.data.category || "").trim().toLowerCase() === normalizedCategory
+    );
+    const otherCategories = candidates.filter(item =>
+      String(item.data.category || "").trim().toLowerCase() !== normalizedCategory
+    );
+    return [...sameCategory, ...otherCategories].slice(0, Math.max(0, Number(limit) || 0));
+  });
   // News collection
   eleventyConfig.addCollection("news", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")
@@ -134,6 +153,17 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("publishedNews", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")
       .filter(item => item.data.published === true && item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" && !String(item.data.title || "").startsWith("[DEMO]") && !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug))
+      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+  });
+
+  // The ticker is for usable editorial headlines; keep CMS test entries out of it.
+  eleventyConfig.addCollection("headlineNews", (collectionApi) => {
+    return collectionApi.getFilteredByGlob("./news/*.md")
+      .filter(item => item.data.published === true &&
+        item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" &&
+        !String(item.data.title || "").startsWith("[DEMO]") &&
+        !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug) &&
+        !isPlaceholderHeadline(item))
       .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
   });
 

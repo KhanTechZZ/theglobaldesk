@@ -397,9 +397,82 @@
     }
   }
 
+  .gd-article-body { font-size: var(--gd-reader-font-size, 18px) !important; }
+  .gd-reader-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .55rem;
+    max-width: 820px;
+    margin: 1.4rem auto 1.7rem;
+    padding: .85rem 0;
+    border-top: 1px solid #dce2e8;
+    border-bottom: 1px solid #dce2e8;
+    font-family: 'Inter', sans-serif;
+  }
+  .gd-reader-tools__group { display: inline-flex; align-items: center; gap: .35rem; }
+  .gd-reader-tools__label,
+  .gd-reader-tools__translate > span { color: #47596b; font-size: .78rem; font-weight: 750; }
+  .gd-reader-tools button,
+  .gd-reader-tools select,
+  .gd-reader-tools__saved-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    padding: .4rem .7rem;
+    border: 1px solid #c7d0d9;
+    border-radius: 3px;
+    background: #fff;
+    color: #17304b;
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .gd-reader-tools button:hover,
+  .gd-reader-tools__saved-link:hover { border-color: #12375f; background: #f2f6f9; }
+  .gd-reader-tools button[aria-pressed="true"] { border-color: #12375f; background: #12375f; color: #fff; }
+  .gd-reader-tools__translate { display: inline-flex; align-items: center; gap: .4rem; }
+  .gd-reader-tools__translate select { min-width: 132px; }
+  .gd-reader-tools__status { flex-basis: 100%; min-height: 1.2em; color: #536477; font-size: .78rem; }
+  .gd-reader-tools :focus-visible,
+  .gd-related-stories a:focus-visible { outline: 3px solid #c49632; outline-offset: 3px; }
+  body.gd-reader-high-contrast { background: #fff !important; }
+  body.gd-reader-high-contrast .gd-article-page,
+  body.gd-reader-high-contrast .gd-article-body,
+  body.gd-reader-high-contrast .gd-article-body h2,
+  body.gd-reader-high-contrast .gd-article-body h3,
+  body.gd-reader-high-contrast .gd-article-body blockquote { color: #000 !important; }
+  body.gd-reader-high-contrast .gd-reader-tools { border-color: #000; background: #fff; }
+  body.gd-reader-high-contrast .gd-reader-tools button,
+  body.gd-reader-high-contrast .gd-reader-tools select,
+  body.gd-reader-high-contrast .gd-reader-tools__saved-link { border: 2px solid #000; color: #000; }
+  .gd-related-stories { margin: 3rem auto 0; padding-top: 1.65rem; border-top: 1px solid #dce2e8; }
+  .gd-related-stories__heading > span { color: #8c6617; font: 800 .72rem/1.3 'Inter',sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+  .gd-related-stories__heading h2 { margin: .35rem 0 1rem; color: #17304b; font: 750 clamp(1.5rem,3vw,2rem)/1.2 Georgia,serif; }
+  .gd-related-stories__grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+  .gd-related-story { min-width: 0; border: 1px solid #dce2e8; background: #fff; }
+  .gd-related-story > a { display: flex; height: 100%; flex-direction: column; padding: 1rem; color: inherit; text-decoration: none; }
+  .gd-related-story > a:hover { background: #f6f8fa; }
+  .gd-related-story__category { color: #8c6617; font: 800 .7rem/1.3 'Inter',sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+  .gd-related-story h3 { margin: .45rem 0; color: #17304b; font: 700 1.13rem/1.3 Georgia,serif; }
+  .gd-related-story p { display: -webkit-box; overflow: hidden; margin: 0 0 .65rem; color: #526273; font: .84rem/1.5 'Inter',sans-serif; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+  .gd-related-story__date { margin-top: auto; color: #758292; font: 650 .72rem/1.4 'Inter',sans-serif; }
+  .gd-related-stories__empty { color: #526273; line-height: 1.6; }
+  .gd-related-stories__empty a { color: #12375f; font-weight: 750; }
+  @media (max-width: 760px) {
+    .gd-reader-tools { gap: .45rem; }
+    .gd-reader-tools__group { flex: 1 1 100%; }
+    .gd-reader-tools__translate { flex: 1 1 100%; justify-content: space-between; }
+    .gd-reader-tools__translate select { flex: 1; }
+    .gd-related-stories__grid { grid-template-columns: minmax(0,1fr); }
+  }
+
 </style>
 </head>
-<body data-article-slug="{{ page.fileSlug }}">
+<body data-article-slug="{{ page.fileSlug }}" data-article-title="{{ title | escape }}" data-article-category="{{ category | escape }}" data-article-url="{{ page.url }}">
   <div class="gd-topbar">
     <div class="gd-container gd-topbar__inner">
       <div class="gd-topbar__live-stack">
@@ -441,6 +514,7 @@
           <input type="search" name="q" placeholder="Search global news..." aria-label="Search global news">
           <button type="submit">Search</button>
         </form>
+        <a href="/reader/sign-in/" class="gd-mobile-signin">Sign In</a>
 
         <a href="/">Home</a>
 
@@ -503,7 +577,7 @@
             <path d="m21 21-4.3-4.3"/>
           </svg>
         </a>
-        <a href="#" class="gd-signin">Sign In</a>
+        <a href="/reader/sign-in/" class="gd-signin">Sign In</a>
       </div>
     </div>
   </header>
@@ -522,6 +596,7 @@
           {% if author %}<span>By <strong>{{ author }}</strong></span>{% endif %}
           {% if date %}<time datetime="{{ date | readableDate }}">{{ date | readableDate }}</time>{% endif %}
           <span>The Global Desk</span>
+          <span id="gd-reading-time" data-reading-time>Calculating reading time…</span>
         </div>
       </header>
 
@@ -539,10 +614,63 @@
       {% endif %}
       {% endif %}
 
+      <div class="gd-reader-tools" role="toolbar" aria-label="Article reading tools">
+        <div class="gd-reader-tools__group" role="group" aria-label="Text size">
+          <span class="gd-reader-tools__label">Text size</span>
+          <button type="button" data-reader-font="down" aria-label="Decrease article text size">A−</button>
+          <button type="button" data-reader-font="up" aria-label="Increase article text size">A+</button>
+        </div>
+        <button type="button" data-reader-contrast aria-pressed="false">High contrast</button>
+        <button type="button" data-reader-listen>Listen to article</button>
+        <button type="button" data-reader-stop hidden>Stop audio</button>
+        <button type="button" data-reader-save aria-pressed="false">Save for later</button>
+        <label class="gd-reader-tools__translate" for="gd-translate-language">
+          <span>Translate</span>
+          <select id="gd-translate-language" data-translate-language>
+            <option value="">Choose language</option>
+            <option value="bn">বাংলা</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ur">اردو</option>
+            <option value="ar">العربية</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="zh-CN">简体中文</option>
+          </select>
+        </label>
+        <button type="button" data-reader-translate>Open translation</button>
+        <a class="gd-reader-tools__saved-link" href="/saved/">Saved stories</a>
+        <span class="gd-reader-tools__status" data-reader-status role="status" aria-live="polite"></span>
+      </div>
+
       <div class="gd-article-body">
         {{ content | safe }}
       </div>
     </article>
+
+    {% set relatedItems = collections.publishedNews | relatedNews(page.url, category, 3) %}
+    <section class="gd-related-stories" aria-labelledby="gd-related-title">
+      <div class="gd-related-stories__heading">
+        <span>Keep reading</span>
+        <h2 id="gd-related-title">Related stories</h2>
+      </div>
+      {% if relatedItems.length %}
+      <div class="gd-related-stories__grid">
+        {% for item in relatedItems %}
+        <article class="gd-related-story">
+          <a href="{{ item.url }}">
+            <span class="gd-related-story__category">{{ item.data.category or "News" }}</span>
+            <h3>{{ item.data.title }}</h3>
+            {% if item.data.description %}<p>{{ item.data.description }}</p>{% endif %}
+            <span class="gd-related-story__date">{{ item.date | readableDate }}</span>
+          </a>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="gd-related-stories__empty">More coverage is coming soon. <a href="/search/">Browse all stories</a>.</p>
+      {% endif %}
+    </section>
 
     <a class="gd-article-back" href="/">‹ Back</a>
   </main>
@@ -688,6 +816,161 @@
           keepalive: true
         }).catch(function () {});
       }
+    })();
+
+    // Reader controls: reading time, text size, contrast, audio, saves, and translation.
+    (function () {
+      const articleBody = document.querySelector('.gd-article-body');
+      const status = document.querySelector('[data-reader-status]');
+      const savedKey = 'tgd-saved-stories-v1';
+      const fontKey = 'tgd-reader-font-size-v1';
+      const contrastKey = 'tgd-reader-high-contrast-v1';
+      const showStatus = function (message) {
+        if (status) status.textContent = message;
+      };
+      const readSaved = function () {
+        try {
+          const items = JSON.parse(localStorage.getItem(savedKey) || '[]');
+          return Array.isArray(items) ? items.filter(function (item) {
+            return item && typeof item.url === 'string' && typeof item.title === 'string';
+          }) : [];
+        } catch (error) { return []; }
+      };
+      const store = function (key, value) {
+        try { localStorage.setItem(key, value); return true; } catch (error) { return false; }
+      };
+
+      if (!articleBody) return;
+
+      const readingTime = document.querySelector('[data-reading-time]');
+      const wordCount = (articleBody.innerText || articleBody.textContent || '').trim().split(/\s+/).filter(Boolean).length;
+      if (readingTime) readingTime.textContent = Math.max(1, Math.ceil(wordCount / 200)) + ' min read';
+
+      let fontSize = 18;
+      try {
+        const storedSize = Number(localStorage.getItem(fontKey));
+        if (storedSize >= 16 && storedSize <= 26) fontSize = storedSize;
+      } catch (error) {}
+      const applyFontSize = function () {
+        articleBody.style.setProperty('--gd-reader-font-size', fontSize + 'px');
+      };
+      applyFontSize();
+      document.querySelectorAll('[data-reader-font]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          fontSize = Math.max(16, Math.min(26, fontSize + (button.dataset.readerFont === 'up' ? 2 : -2)));
+          applyFontSize();
+          store(fontKey, String(fontSize));
+          showStatus('Article text size: ' + fontSize + ' pixels.');
+        });
+      });
+
+      const contrastButton = document.querySelector('[data-reader-contrast]');
+      let highContrast = false;
+      try { highContrast = localStorage.getItem(contrastKey) === 'true'; } catch (error) {}
+      const applyContrast = function () {
+        document.body.classList.toggle('gd-reader-high-contrast', highContrast);
+        if (contrastButton) contrastButton.setAttribute('aria-pressed', String(highContrast));
+      };
+      applyContrast();
+      if (contrastButton) contrastButton.addEventListener('click', function () {
+        highContrast = !highContrast;
+        applyContrast();
+        store(contrastKey, String(highContrast));
+        showStatus(highContrast ? 'High contrast is on.' : 'High contrast is off.');
+      });
+
+      const saveButton = document.querySelector('[data-reader-save]');
+      const article = document.querySelector('article');
+      const articleUrl = new URL(document.body.dataset.articleUrl || window.location.pathname, window.location.origin).pathname;
+      const articleItem = {
+        url: articleUrl,
+        title: document.body.dataset.articleTitle || document.querySelector('.gd-article-title')?.textContent.trim() || 'The Global Desk story',
+        category: document.body.dataset.articleCategory || 'News'
+      };
+      const updateSaveButton = function () {
+        const isSaved = readSaved().some(function (item) { return item.url === articleItem.url; });
+        if (saveButton) {
+          saveButton.setAttribute('aria-pressed', String(isSaved));
+          saveButton.textContent = isSaved ? 'Saved for later' : 'Save for later';
+        }
+      };
+      updateSaveButton();
+      if (saveButton) saveButton.addEventListener('click', function () {
+        const items = readSaved();
+        const index = items.findIndex(function (item) { return item.url === articleItem.url; });
+        if (index >= 0) {
+          items.splice(index, 1);
+          if (store(savedKey, JSON.stringify(items))) showStatus('Removed from saved stories.');
+          else showStatus('This browser could not update your saved stories.');
+        } else {
+          items.unshift(Object.assign({ savedAt: new Date().toISOString() }, articleItem));
+          if (store(savedKey, JSON.stringify(items.slice(0, 100)))) showStatus('Saved on this device. Open Saved stories to find it later.');
+          else showStatus('This browser could not save the story.');
+        }
+        updateSaveButton();
+      });
+
+      const listenButton = document.querySelector('[data-reader-listen]');
+      const stopButton = document.querySelector('[data-reader-stop]');
+      const synth = window.speechSynthesis;
+      if (!synth || !window.SpeechSynthesisUtterance) {
+        if (listenButton) listenButton.hidden = true;
+        if (stopButton) stopButton.hidden = true;
+      } else {
+        const resetAudioControls = function () {
+          if (listenButton) listenButton.textContent = 'Listen to article';
+          if (stopButton) stopButton.hidden = true;
+        };
+        if (listenButton) listenButton.addEventListener('click', function () {
+          if (synth.speaking && synth.paused) {
+            synth.resume();
+            listenButton.textContent = 'Pause audio';
+            showStatus('Audio resumed.');
+            return;
+          }
+          if (synth.speaking) {
+            synth.pause();
+            listenButton.textContent = 'Resume audio';
+            showStatus('Audio paused.');
+            return;
+          }
+          const utterance = new SpeechSynthesisUtterance(articleBody.innerText || articleBody.textContent || '');
+          utterance.lang = document.documentElement.lang || 'en';
+          utterance.rate = 1;
+          utterance.onstart = function () {
+            listenButton.textContent = 'Pause audio';
+            if (stopButton) stopButton.hidden = false;
+            showStatus('Reading the article aloud.');
+          };
+          utterance.onend = function () { resetAudioControls(); showStatus('Audio finished.'); };
+          utterance.onerror = function () { resetAudioControls(); showStatus('Audio could not play in this browser.'); };
+          synth.cancel();
+          synth.speak(utterance);
+        });
+        if (stopButton) stopButton.addEventListener('click', function () {
+          synth.cancel();
+          resetAudioControls();
+          showStatus('Audio stopped.');
+        });
+        window.addEventListener('beforeunload', function () { synth.cancel(); });
+      }
+
+      const translateButton = document.querySelector('[data-reader-translate]');
+      const languageSelect = document.querySelector('[data-translate-language]');
+      if (translateButton && languageSelect) translateButton.addEventListener('click', function () {
+        const language = languageSelect.value;
+        if (!language) {
+          showStatus('Choose a language first.');
+          languageSelect.focus();
+          return;
+        }
+        const translateUrl = new URL('https://translate.google.com/translate');
+        translateUrl.searchParams.set('sl', 'auto');
+        translateUrl.searchParams.set('tl', language);
+        translateUrl.searchParams.set('u', window.location.href);
+        window.open(translateUrl.toString(), '_blank', 'noopener,noreferrer');
+        showStatus('Opening Google Translate in a new tab.');
+      });
     })();
   </script>
 </body>

@@ -54,6 +54,7 @@
           <input type="search" name="q" placeholder="Search global news..." aria-label="Search global news">
           <button type="submit">Search</button>
         </form>
+        <a href="/reader/sign-in/" class="gd-mobile-signin">Sign In</a>
       </div>
       <a href="/">Home</a>
       <div class="gd-nav__dropdown">
@@ -108,18 +109,20 @@
       <a href="/search/" class="gd-icon-btn" aria-label="Search">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       </a>
+      <a href="/reader/sign-in/" class="gd-signin">Sign In</a>
     </div>
   </div>
 </header>
 
 <div class="gd-breaking">
   <div class="gd-breaking__label">
-    <span class="gd-breaking__dot"></span><span class="gd-breaking__text">Just In</span>
+    <span class="gd-breaking__dot"></span><span class="gd-breaking__text">Latest headlines</span>
   </div>
-  <div class="gd-breaking__slider" role="region" aria-label="Just In headlines" aria-live="off">
-    {% for post in collections.publishedNews | take(4) %}
+  <div class="gd-breaking__slider" role="region" aria-label="Latest headlines" aria-live="off">
+    {% for post in collections.headlineNews | take(4) %}
     <a href="{{ post.url }}" class="gd-breaking__item{% if loop.index0 == 0 %} is-active{% endif %}">{{ post.data.title }}</a>
     {% endfor %}
+    {% if collections.headlineNews.length == 0 %}<span class="gd-breaking__item is-active">No new headlines yet. Browse the latest stories below.</span>{% endif %}
   </div>
   <div class="gd-breaking__controls" aria-label="Headline controls">
     <button class="gd-breaking__control" type="button" data-ticker-prev aria-label="Previous headline" title="Previous headline">

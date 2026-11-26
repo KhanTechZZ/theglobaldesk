@@ -1,0 +1,95 @@
+---
+layout: static-page.njk
+permalink: /saved/
+title: Saved stories
+description: Stories you saved on this browser.
+---
+<section class="reader-saved-page" aria-labelledby="reader-saved-title">
+  <span class="reader-saved-page__eyebrow">Your reading list</span>
+  <h2 id="reader-saved-title">Saved stories</h2>
+  <p class="reader-saved-page__note">Stories are saved in this browser on this device. They are not synced to an account.</p>
+  <div class="reader-saved-page__empty" data-saved-empty hidden>
+    <h3>No saved stories yet</h3>
+    <p>Use “Save for later” on an article to keep it here.</p>
+    <a href="/">Browse the latest news</a>
+  </div>
+  <div class="reader-saved-page__list" data-saved-list aria-live="polite"></div>
+</section>
+<style>
+  .reader-saved-page{max-width:900px;margin:1rem auto 2.5rem}
+  .reader-saved-page__eyebrow{color:#8c6617;font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .reader-saved-page h2{margin:.35rem 0 .5rem;color:#17304b;font-family:Georgia,serif;font-size:clamp(1.8rem,4vw,2.5rem)}
+  .reader-saved-page__note{color:#5a6877;line-height:1.55}
+  .reader-saved-page__empty{margin-top:1.5rem;padding:1.4rem;border:1px solid #dce2e8;background:#f7f9fb}
+  .reader-saved-page__empty h3{margin:.1rem 0 .4rem;color:#17304b;font-family:Georgia,serif}
+  .reader-saved-page__empty p{color:#526273;line-height:1.5}
+  .reader-saved-page__empty a{color:#12375f;font-weight:750}
+  .reader-saved-page__list{display:grid;gap:.75rem;margin-top:1.25rem}
+  .reader-saved-story{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem 1rem;align-items:center;padding:1rem 1.1rem;border:1px solid #dce2e8;background:#fff}
+  .reader-saved-story__category{color:#8c6617;font-size:.72rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+  .reader-saved-story h3{margin:.25rem 0;color:#17304b;font-family:Georgia,serif;font-size:1.2rem;line-height:1.3}
+  .reader-saved-story__date{color:#718090;font-size:.8rem}
+  .reader-saved-story__remove{min-height:42px;padding:.45rem .7rem;border:1px solid #b8c3ce;background:#fff;color:#26394c;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
+  .reader-saved-story__remove:hover{background:#f2f5f7}
+  @media(max-width:560px){.reader-saved-story{grid-template-columns:minmax(0,1fr)}.reader-saved-story__remove{justify-self:start}}
+</style>
+<script>
+(function () {
+  var key = 'tgd-saved-stories-v1';
+  var list = document.querySelector('[data-saved-list]');
+  var empty = document.querySelector('[data-saved-empty]');
+  if (!list || !empty) return;
+
+  function readItems() {
+    try {
+      var value = JSON.parse(localStorage.getItem(key) || '[]');
+      return Array.isArray(value) ? value.filter(function (item) {
+        return item && typeof item.title === 'string' && typeof item.url === 'string';
+      }) : [];
+    } catch (error) { return []; }
+  }
+
+  function render() {
+    var items = readItems();
+    list.replaceChildren();
+    empty.hidden = items.length > 0;
+    items.forEach(function (item, index) {
+      var url;
+      try { url = new URL(item.url, window.location.origin); } catch (error) { return; }
+      if (url.origin !== window.location.origin || !url.pathname.startsWith('/news/')) return;
+
+      var card = document.createElement('article');
+      card.className = 'reader-saved-story';
+      var copy = document.createElement('div');
+      var category = document.createElement('span');
+      category.className = 'reader-saved-story__category';
+      category.textContent = item.category || 'News';
+      var title = document.createElement('h3');
+      var link = document.createElement('a');
+      link.href = url.pathname;
+      link.textContent = item.title;
+      title.appendChild(link);
+      var date = document.createElement('span');
+      date.className = 'reader-saved-story__date';
+      date.textContent = item.savedAt ? 'Saved ' + new Date(item.savedAt).toLocaleDateString() : 'Saved story';
+      copy.append(category, title, date);
+      var remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'reader-saved-story__remove';
+      remove.textContent = 'Remove';
+      remove.setAttribute('aria-label', 'Remove ' + item.title + ' from saved stories');
+      remove.addEventListener('click', function () {
+        var latest = readItems();
+        latest.splice(index, 1);
+        try { localStorage.setItem(key, JSON.stringify(latest)); } catch (error) {}
+        render();
+      });
+      card.append(copy, remove);
+      list.appendChild(card);
+    });
+    if (list.childElementCount > 0) empty.hidden = true;
+  }
+
+  render();
+})();
+</script>

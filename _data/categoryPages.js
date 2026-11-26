@@ -17,6 +17,8 @@
   { title: "Earth", slug: "earth", category: "Environment" },
   { title: "Research", slug: "research", category: "Research" },
   { title: "Featured Voices", slug: "feature-voices", category: "Z Desk" },
+  { title: "Z Desk", slug: "z-desk", category: "Z Desk" },
+  { title: "Alpha Desk", slug: "alpha-desk", category: "Alpha Desk" },
   { title: "Explainers", slug: "explainer", category: "Explainer" },
   { title: "Environment", slug: "environment", category: "Environment" },
   { title: "Editorial", slug: "editorial", category: "Editorial" },

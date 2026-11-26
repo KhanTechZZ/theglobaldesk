@@ -9,7 +9,6 @@ description: "Explore the searches drawing the most attention around the world, 
 <section class="gd-trending-page" aria-label="Trending searches around the world">
   <div class="gd-trending-filters" aria-label="Filter trending topics">
     <label class="gd-trending-filter"><span>Country</span><select data-trending-country><option value="">All countries</option></select></label>
-    <label class="gd-trending-filter"><span>Category</span><select data-trending-category><option value="">All categories</option></select></label>
   </div>
   <div class="gd-trending-page__summary" data-trending-page-summary>Loading trending searches…</div>
   <div class="gd-trending-page__list" data-trending-page-list aria-live="polite" aria-busy="true">
@@ -22,8 +21,7 @@ description: "Explore the searches drawing the most attention around the world, 
     var list = document.querySelector('[data-trending-page-list]');
     var summary = document.querySelector('[data-trending-page-summary]');
     var countryFilter = document.querySelector('[data-trending-country]');
-    var categoryFilter = document.querySelector('[data-trending-category]');
-    if (!list || !summary || !countryFilter || !categoryFilter) return;
+    if (!list || !summary || !countryFilter) return;
     var allTopics = [];
     var compactNumber = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
 
@@ -40,16 +38,13 @@ description: "Explore the searches drawing the most attention around the world, 
       if (!Array.isArray(data.topics)) throw new Error('No trends returned');
       allTopics = data.topics;
       addOptions(countryFilter, (data.sourcesAvailable || []).slice().sort(function (a, b) { return a.localeCompare(b); }));
-      var categories = Array.from(new Set(allTopics.map(function (topic) { return topic.category || 'World'; }))).sort(function (a, b) { return a.localeCompare(b); });
-      addOptions(categoryFilter, categories);
       drawTopics();
     }
 
     function drawTopics() {
       var country = countryFilter.value;
-      var category = categoryFilter.value;
       var topics = allTopics.filter(function (topic) {
-        return (!country || (topic.markets || []).indexOf(country) !== -1) && (!category || (topic.category || 'World') === category);
+        return !country || (topic.markets || []).indexOf(country) !== -1;
       });
       if (country) topics.sort(function (a, b) { return ((b.marketVolumes || {})[country] || 0) - ((a.marketVolumes || {})[country] || 0); });
       list.replaceChildren();
@@ -57,7 +52,7 @@ description: "Explore the searches drawing the most attention around the world, 
       if (!topics.length) {
         var empty = document.createElement('p');
         empty.className = 'gd-trending-loading';
-        empty.textContent = 'No topics match these filters. Try another country or category.';
+        empty.textContent = 'No topics match this country. Try another country.';
         list.appendChild(empty);
         list.setAttribute('aria-busy', 'false');
         return;
@@ -72,9 +67,6 @@ description: "Explore the searches drawing the most attention around the world, 
         var rank = document.createElement('span');
         rank.className = 'gd-trending-topic__rank';
         rank.textContent = String(index + 1).padStart(2, '0');
-        var category = document.createElement('span');
-        category.className = 'gd-trending-topic__category';
-        category.textContent = topic.category || 'World';
         var title = document.createElement('span');
         title.className = 'gd-trending-topic__title';
         title.textContent = topic.title;
@@ -87,7 +79,7 @@ description: "Explore the searches drawing the most attention around the world, 
         var marketCount = topic.marketCount || (topic.markets || []).length;
         var marketLabel = country || (marketCount === 1 ? (topic.markets || ['1 country'])[0] : marketCount + ' countries');
         meta.textContent = ['searches', marketLabel].filter(Boolean).join(' · ');
-        link.append(rank, category, title, volume, meta);
+        link.append(rank, title, volume, meta);
         list.appendChild(link);
       });
       list.setAttribute('aria-busy', 'false');
@@ -108,6 +100,5 @@ description: "Explore the searches drawing the most attention around the world, 
       .then(render)
       .catch(showUnavailable);
     countryFilter.addEventListener('change', drawTopics);
-    categoryFilter.addEventListener('change', drawTopics);
   })();
 </script>

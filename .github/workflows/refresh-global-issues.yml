@@ -41,14 +41,6 @@ jobs:
             { geo: 'NG', name: 'Nigeria' }, { geo: 'KE', name: 'Kenya' }, { geo: 'GH', name: 'Ghana' }, { geo: 'ZA', name: 'South Africa' }
           ];
           const excluded = /\b(song|songs|album|lyrics|singer|concert|music video|celebrity|celebrities|actor|actress|movie|movies|film|films|reality show|tv show|television|streaming|series|episode|gossip|influencer|viral challenge|meme|horoscope|astrology|grammy|oscar|emmy|tabii|trt1|netflix|hulu|telenovela)\b/i;
-          const categoryRules = [
-            ['Sport', /\b(cricket|football|soccer|basketball|tennis|olympics?|world cup|champions league|grand slam|nba|nfl|ipl|vs\.?|match|tournament|cup|\w+\s+fc)\b/i],
-            ['Climate', /climate|weather|storm|hurricane|cyclone|flood|wildfire|earthquake|environment/i],
-            ['Health', /health|virus|disease|hospital|vaccine|outbreak|epidemic|pandemic|medical/i],
-            ['Economy', /econom|inflation|stocks?|shares|market|currency|trade|jobs|tariff|oil price|interest rate/i],
-            ['Science & tech', /technology|\btech\b|\bai\b|artificial intelligence|space| nasa|scientist|research|robot|cyber/i],
-            ['Politics', /election|president|prime minister|parliament|government|minister|diplomat|sanction|war|conflict|attack|ceasefire/i]
-          ];
           const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
           const decode = value => String(value || '')
             .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
@@ -85,10 +77,9 @@ jobs:
                 if (!title || !volume || !newsTitles.length || excluded.test(signals)) continue;
                 const key = title.normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
                 if (!key) continue;
-                if (!candidates.has(key)) candidates.set(key, { title, signals, markets: new Map(), url: `https://news.google.com/search?q=${encodeURIComponent(title)}` });
+                if (!candidates.has(key)) candidates.set(key, { title, markets: new Map(), url: `https://news.google.com/search?q=${encodeURIComponent(title)}` });
                 const candidate = candidates.get(key);
                 candidate.markets.set(market.name, Math.max(candidate.markets.get(market.name) || 0, volume));
-                candidate.signals += ` ${signals}`;
               }
             } catch (error) {
               console.error(`${market.name} feed: ${error.message}`);
@@ -98,10 +89,8 @@ jobs:
           const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
           const topics = [...candidates.values()].map(candidate => {
             const total = [...candidate.markets.values()].reduce((sum, value) => sum + value, 0);
-            const category = categoryRules.find(([, pattern]) => pattern.test(candidate.signals))?.[0] || 'World';
             return {
               title: candidate.title,
-              category,
               volume: `${compact.format(total)}+ searches`,
               markets: [...candidate.markets.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name),
               marketVolumes: Object.fromEntries(candidate.markets),

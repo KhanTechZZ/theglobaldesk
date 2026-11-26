@@ -17,9 +17,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261126-desktop-date-visible">
+  <link rel="stylesheet" href="homepage.css?v=20261126-reader-friendly">
 </head>
 <body>
+<a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
 <div class="gd-topbar">
   <div class="gd-container gd-topbar__inner">
     <div class="gd-topbar__live-stack">
@@ -32,7 +33,7 @@
 <header class="gd-header">
   <div class="gd-container gd-header__inner">
     <button class="gd-menu-btn" aria-label="Open menu" id="gd-menu-btn"><svg viewBox="0 0 34 24" width="34" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="gd-menu-btn__search"><path d="M5 6H29M5 12H29M5 18H29" stroke-width="2.1"/></g><g class="gd-menu-btn__close"><path d="m8 5 18 14M26 5 8 19" stroke-width="2.4"/></g></svg></button>
-    <a href="#" class="gd-logo">
+    <a href="/" class="gd-logo" aria-label="The Global Desk home">
       <img src="images/Logo-header.png" alt="The Global Desk" class="gd-logo__img">
       <span class="gd-logo__text">The Global Desk</span>
     </a>
@@ -53,7 +54,6 @@
           <input type="search" name="q" placeholder="Search global news..." aria-label="Search global news">
           <button type="submit">Search</button>
         </form>
-        <a href="#" class="gd-mobile-signin">Sign In</a>
       </div>
       <a href="/">Home</a>
       <div class="gd-nav__dropdown">
@@ -108,7 +108,6 @@
       <a href="/search/" class="gd-icon-btn" aria-label="Search">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       </a>
-      <a href="#" class="gd-signin">Sign In</a>
     </div>
   </div>
 </header>
@@ -132,7 +131,7 @@
   </div>
 </div>
 
-<main class="gd-main gd-container gd-home">  <section class="gd-lead-grid" aria-label="Top news">
+<main id="gd-main-content" class="gd-main gd-container gd-home" tabindex="-1">  <section class="gd-lead-grid" aria-label="Top news">
     <div class="gd-lead-left">
     <article class="gd-lead-story">
       {% if collections.publishedNews.length > 0 %}
@@ -342,9 +341,9 @@
   <div class="gd-container">
         <section class="gd-newsletter" aria-labelledby="gd-newsletter-title">
       <div class="gd-newsletter__copy"><h2 id="gd-newsletter-title">The Morning Brief</h2><p>A concise selection of global headlines and important developments, delivered to your inbox.</p></div>
-      <form class="gd-newsletter__form" action="#" onsubmit="event.preventDefault()">
+      <form class="gd-newsletter__form" action="https://buttondown.com/api/emails/embed-subscribe/theglobaldesk" method="post">
         <label for="gd-newsletter-email">Email address</label>
-        <div class="gd-newsletter__controls"><input id="gd-newsletter-email" name="email" type="email" placeholder="Email address" autocomplete="email" required><button type="submit">Subscribe</button></div><p class="gd-newsletter__note">No spam. Unsubscribe anytime. By subscribing, you agree to our <a href="#">Privacy Policy</a>.</p>
+        <div class="gd-newsletter__controls"><input id="gd-newsletter-email" name="email" type="email" placeholder="Email address" autocomplete="email" required><button type="submit">Subscribe</button></div><p class="gd-newsletter__note">Your email goes to Buttondown for The Morning Brief. Unsubscribe anytime.</p>
         
       </form>
     </section><div class="gd-footer__grid">
@@ -357,9 +356,9 @@
 </div></div></div>
       <div><h3 class="gd-footer__heading">Sections</h3><ul class="gd-footer__list"><li><a href="#gd-latest-title">Latest News</a></li><li><a href="#gd-live-coverage-title">Most Read</a></li><li><a href="#gd-trending-title">Explore Topics</a></li><li><a href="#gd-world-title">World</a></li><li><a href="#gd-asia-title">Asia</a></li></ul></div>
       <div><h3 class="gd-footer__heading">Discover</h3><ul class="gd-footer__list"><li><a href="#gd-explainers-title">Understand the Story</a></li><li><a href="#gd-opinion-title">Perspectives</a></li><li><a href="#gd-opinion-title">Editorials</a></li><li><a href="#gd-earth-title">Earth</a></li><li><a href="#gd-voices-title">Featured Voices</a></li></ul></div>
-      <div><h3 class="gd-footer__heading">About</h3><ul class="gd-footer__list"><li><a href="#">About us</a></li><li><a href="#">Contact</a></li><li><a href="#">Editorial policy</a></li><li><a href="#">Privacy</a></li></ul></div>
+      <div><h3 class="gd-footer__heading">About</h3><ul class="gd-footer__list"><li><a href="/about/">About us</a></li><li><a href="/contact/">Contact</a></li><li><a href="/editorial-policy/">Editorial policy</a></li></ul></div>
     </div>
-    <div class="gd-footer__bottom"><span>&copy; 2027 The Global Desk. All rights reserved.</span></div>
+    <div class="gd-footer__bottom"><span>&copy; <span id="gd-footer-year">2026</span> The Global Desk. All rights reserved.</span></div>
   </div>
 </footer>
 
@@ -370,6 +369,8 @@
   // 1. Live Date
   (function() {
     const dateEl = document.getElementById('gd-topbar-date');
+    const yearEl = document.getElementById('gd-footer-year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
     if (dateEl) {
       const d = new Date();
       const opts = { day: 'numeric', month: 'long', year: 'numeric' };

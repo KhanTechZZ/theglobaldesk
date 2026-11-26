@@ -7687,6 +7687,44 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   text-overflow: ellipsis !important;
 }
 
+/* Let readers scan the lead and every homepage section without overlong teasers. */
+.gd-home .gd-lead-story__content > p,
+.gd-home .gd-brief-story > p,
+.gd-home .gd-explainer-card p,
+.gd-home .gd-opinion-feature__caption {
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
+}
+
+/* Keyboard readers can jump straight past the navigation and see focus clearly. */
+.gd-skip-link {
+  position: fixed;
+  top: .5rem;
+  left: .5rem;
+  z-index: 10000;
+  transform: translateY(calc(-100% - 1rem));
+  padding: .65rem .9rem;
+  border: 2px solid #c49632;
+  background: #fff;
+  color: #092453;
+  font-weight: 800;
+  text-decoration: none;
+}
+.gd-skip-link:focus { transform: translateY(0); }
+.gd-home a:focus-visible,
+.gd-home button:focus-visible,
+.gd-header a:focus-visible,
+.gd-header button:focus-visible,
+.gd-footer a:focus-visible,
+.gd-newsletter button:focus-visible,
+.gd-newsletter input:focus-visible {
+  outline: 3px solid #c49632;
+  outline-offset: 3px;
+}
+
 /* Requested homepage refinements */
 .gd-earth-news-grid .gd-news-card__body h3 { margin-bottom: .9rem !important; }
 .gd-earth-news-grid .gd-news-card__body p { margin-top: 0 !important; }
@@ -7946,9 +7984,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-menu-btn .gd-menu-btn__close { transition: none !important; }
 }
 
-/* Mobile drawer shortcuts: social links, search, and sign-in. */
-.gd-mobile-drawer__social,
-.gd-mobile-signin { display: none; }
+/* Mobile drawer shortcuts: social links and search. */
+.gd-mobile-drawer__social { display: none; }
 @media (max-width: 900px) {
   .gd-mobile-drawer__social {
     display: flex;
@@ -7987,23 +8024,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-mobile-drawer__social-links svg { width: 15px; height: 15px; fill: currentColor; }
   .gd-mobile-drawer__social-links a:nth-child(2) svg { fill: none; stroke: currentColor; stroke-width: 1.8; }
   .gd-mobile-drawer__social-links a:nth-child(2) circle:last-child { fill: currentColor; stroke: none; }
-  .gd-mobile-signin {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    margin: 0 16px 14px;
-    border: 1px solid #c99a39;
-    border-radius: 5px;
-    background: #08295f;
-    color: #fff;
-    font-size: .84rem;
-    font-weight: 800;
-    letter-spacing: .055em;
-    text-transform: uppercase;
-    transition: background .18s ease, transform .18s ease;
-  }
-  .gd-mobile-signin:hover { background: #123d7b; transform: translateY(-1px); }
 }
 @media (max-width: 360px) {
   .gd-mobile-drawer__social { gap: .35rem; margin-right: 12px; margin-left: 12px; }
@@ -8011,7 +8031,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-mobile-drawer__social-links a { width: 28px; height: 28px; }
 }
 
-/* Keep search and sign-in side by side inside the mobile drawer. */
+/* Give the mobile drawer search the full row. */
 .gd-mobile-drawer__actions { display: none; }
 @media (max-width: 900px) {
   .gd-mobile-drawer__actions {
@@ -8044,21 +8064,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     font-size: .74rem;
     white-space: nowrap;
   }
-  .gd-mobile-drawer__actions .gd-mobile-signin {
-    flex: 0 0 84px;
-    width: 84px;
-    min-height: 48px;
-    margin: 0 !important;
-    padding: 0 .45rem;
-    font-size: .76rem;
-    white-space: nowrap;
-  }
 }
 @media (max-width: 360px) {
   .gd-mobile-drawer__actions { gap: 6px; margin-right: 12px; margin-left: 12px; }
   .gd-mobile-drawer__actions .gd-mobile-search { padding: 0 7px !important; gap: 5px; }
   .gd-mobile-drawer__actions .gd-mobile-search button { padding: .42rem .4rem; font-size: .7rem; }
-  .gd-mobile-drawer__actions .gd-mobile-signin { flex-basis: 78px; width: 78px; padding: 0 .35rem; font-size: .72rem; }
 }
 
 /* Keep the publication date visible above the header on compact screens. */

@@ -441,7 +441,7 @@
   .gd-reader-tools [data-reader-translate]:hover { background: #1b4a7c; }
   .gd-reader-tools__status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
   .gd-language-note { max-width: 660px; margin: -.9rem auto 1.15rem; color: #687789; font: 500 .72rem/1.45 'Inter',sans-serif; }
-  .gd-word-translate { position: fixed; z-index: 1200; min-height: 36px; padding: .45rem .7rem; border: 1px solid #0e315a; border-radius: 4px; background: #0e315a; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.18); font: 700 .76rem/1.2 'Inter',sans-serif; cursor: pointer; }
+  .gd-word-translate { position: fixed; z-index: 1200; max-width: min(320px,calc(100vw - 24px)); min-height: 36px; padding: .45rem .7rem; border: 1px solid #0e315a; border-radius: 4px; background: #0e315a; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.18); font: 700 .76rem/1.35 'Inter',sans-serif; cursor: pointer; }
   .gd-word-translate[hidden] { display: none; }
   .gd-reader-tools button:hover,
   .gd-reader-tools__saved-link:hover { border-color: #12375f; background: #f2f6f9; }
@@ -480,7 +480,7 @@
     <div class="gd-article-breadcrumb"><a href="/">Home</a> / <span>{{ category or "News" }}</span></div>
 
     <article>
-      <header>
+      <header data-translate-fragment>
         <span class="gd-article-category">{{ category or "News" }}</span>
         <h1 class="gd-article-title">{{ title }}</h1>
         {% if description %}
@@ -497,7 +497,7 @@
       {% if image %}
       <img class="gd-article-image" src="{{ image }}" alt="{{ imageAlt or title }}">
       {% if imageCaption or imageCredit %}
-      <div class="gd-article-image-caption">
+      <div class="gd-article-image-caption" data-translate-fragment>
         {% if imageCaption %}
         <span class="gd-image-caption-text">{{ imageCaption }}</span>
         {% endif %}
@@ -509,10 +509,11 @@
       {% endif %}
 
       <div class="gd-reader-tools" role="toolbar" aria-label="Article reading tools">
-        <label class="gd-reader-tools__translate" for="gd-translate-language" aria-label="Translate article from English">
+        <label class="gd-reader-tools__translate" for="gd-translate-language" aria-label="Choose article language">
           <span>Translate to</span>
           <select id="gd-translate-language" data-translate-language aria-label="Select translation language">
-            <option value="bn" selected>বাংলা</option>
+            <option value="" selected>Choose language</option>
+            <option value="bn">বাংলা</option>
             <option value="hi">हिन्दी</option>
             <option value="ur">اردو</option>
             <option value="ar">العربية</option>
@@ -522,22 +523,22 @@
             <option value="zh-CN">简体中文</option>
           </select>
         </label>
-        <button type="button" data-reader-translate aria-label="Translate article" title="Open translated article in a new tab">Translate</button>
+        <button type="button" data-reader-translate aria-label="Translate this article" title="Translate this article" disabled>Translate</button>
         <button type="button" data-reader-share aria-label="Share article" title="Share article"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.6 6.6-4.2M8.7 13.4l6.6 4.2"/></svg></button>
         <button type="button" data-reader-listen aria-label="Listen to article" title="Listen to article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg></button>
         <button type="button" data-reader-save aria-label="Save for later" title="Save for later" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v16l-6-4-6 4z"/></svg></button>
         <span class="gd-reader-tools__status" data-reader-status role="status" aria-live="polite"></span>
       </div>
-      <p class="gd-language-note">The English original stays here; the translation opens in a new tab so you can compare.</p>
+      <p class="gd-language-note" data-translation-note>Choose a language to translate this article here. You can switch back to English anytime.</p>
 
-      <div class="gd-article-body">
+      <div class="gd-article-body" data-translate-fragment>
         {{ content | safe }}
       </div>
-      <button class="gd-word-translate" type="button" data-word-translate hidden>বাংলা অর্থ</button>
+      <button class="gd-word-translate" type="button" data-word-translate hidden>Translate selection</button>
     </article>
 
     {% set relatedItems = collections.publishedNews | relatedNews(page.url, category, 3) %}
-    <section class="gd-related-stories" aria-labelledby="gd-related-title">
+    <section class="gd-related-stories" aria-labelledby="gd-related-title" data-translate-fragment>
       <div class="gd-related-stories__heading">
         <span>Keep reading</span>
         <h2 id="gd-related-title">Related stories</h2>
@@ -673,7 +674,7 @@
       }
     })();
 
-    // Reader controls: reading time, text size, contrast, audio, saves, and translation.
+    // Reader controls: reading time, audio, saves, and in-page translation.
     (function () {
       const articleBody = document.querySelector('.gd-article-body');
       const status = document.querySelector('[data-reader-status]');
@@ -786,20 +787,87 @@
 
       const translateButton = document.querySelector('[data-reader-translate]');
       const languageSelect = document.querySelector('[data-translate-language]');
-      if (translateButton && languageSelect) translateButton.addEventListener('click', function () {
-        const language = languageSelect.value;
-        if (!language) {
+      const translationNote = document.querySelector('[data-translation-note]');
+      const translationFragments = Array.from(document.querySelectorAll('[data-translate-fragment]'));
+      const originalFragments = translationFragments.map(function (element) { return element.innerHTML; });
+      let translatedLanguage = '';
+      let translationBusy = false;
+      const updateTranslateButton = function () {
+        if (!translateButton || !languageSelect) return;
+        translateButton.disabled = translationBusy || (!languageSelect.value && !translatedLanguage);
+        if (translatedLanguage && (!languageSelect.value || languageSelect.value === translatedLanguage)) {
+          translateButton.textContent = 'Show English';
+          translateButton.setAttribute('aria-label', 'Show English original');
+        } else if (translatedLanguage && languageSelect.value) {
+          translateButton.textContent = 'Update translation';
+          translateButton.setAttribute('aria-label', 'Update article translation');
+        } else {
+          translateButton.textContent = 'Translate';
+          translateButton.setAttribute('aria-label', 'Translate this article in this page');
+        }
+      };
+      if (languageSelect) languageSelect.addEventListener('change', updateTranslateButton);
+
+      const cleanTranslatedHtml = function (html) {
+        const parsed = new DOMParser().parseFromString(String(html || ''), 'text/html');
+        parsed.querySelectorAll('script,style,iframe,object,embed,form').forEach(function (node) { node.remove(); });
+        parsed.body.querySelectorAll('*').forEach(function (node) {
+          Array.from(node.attributes).forEach(function (attribute) {
+            const name = attribute.name.toLowerCase();
+            if (name.startsWith('on') || name === 'srcdoc' || name === 'style') node.removeAttribute(attribute.name);
+            if (name === 'href' || name === 'src') {
+              const value = attribute.value.trim();
+              if (/^(javascript|data|vbscript):/i.test(value)) node.removeAttribute(attribute.name);
+            }
+          });
+        });
+        return parsed.body.innerHTML;
+      };
+      const requestTranslation = async function (fragments, target, format) {
+        const response = await fetch('/api/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fragments: fragments, target: target, format: format || 'html' })
+        });
+        const result = await response.json().catch(function () { return {}; });
+        if (!response.ok) throw new Error(result.error || 'Translation is temporarily unavailable.');
+        return result.translations || [];
+      };
+      if (translateButton && languageSelect) translateButton.addEventListener('click', async function () {
+        const target = languageSelect.value;
+        if (translatedLanguage && (!target || target === translatedLanguage)) {
+          translationFragments.forEach(function (element, index) { element.innerHTML = originalFragments[index]; });
+          translatedLanguage = '';
+          if (translationNote) translationNote.textContent = 'Choose a language to translate this article here. You can switch back to English anytime.';
+          updateTranslateButton();
+          showStatus('English original restored.');
+          return;
+        }
+        if (!target) {
           showStatus('Choose a language first.');
           languageSelect.focus();
           return;
         }
-        const translateUrl = new URL('https://translate.google.com/translate');
-        translateUrl.searchParams.set('sl', 'auto');
-        translateUrl.searchParams.set('tl', language);
-        translateUrl.searchParams.set('u', window.location.href);
-        window.open(translateUrl.toString(), '_blank', 'noopener,noreferrer');
-        showStatus('Opening the translation in a new tab. Keep this English article open to compare.');
+        translationBusy = true;
+        updateTranslateButton();
+        translateButton.textContent = 'Translating…';
+        showStatus('Translating this article…');
+        try {
+          const translated = await requestTranslation(originalFragments, target, 'html');
+          if (translated.length !== translationFragments.length) throw new Error('The translation service returned an incomplete article.');
+          translationFragments.forEach(function (element, index) { element.innerHTML = cleanTranslatedHtml(translated[index]); });
+          translatedLanguage = target;
+          const selectedOption = languageSelect.options[languageSelect.selectedIndex];
+          if (translationNote) translationNote.textContent = 'Machine translation in ' + selectedOption.text + '. Use “Show English” to compare with the original.';
+          showStatus('Article translated in this page.');
+        } catch (error) {
+          showStatus(error.message || 'Translation is temporarily unavailable.');
+        } finally {
+          translationBusy = false;
+          updateTranslateButton();
+        }
       });
+      updateTranslateButton();
 
       const wordTranslateButton = document.querySelector('[data-word-translate]');
       let selectedPhrase = '';
@@ -809,7 +877,7 @@
           const selection = window.getSelection();
           const phrase = selection ? selection.toString().trim() : '';
           const range = selection && selection.rangeCount ? selection.getRangeAt(0) : null;
-          if (!phrase || !range || !articleBody.contains(range.commonAncestorContainer)) {
+          if (!phrase || !range || translatedLanguage || !articleBody.contains(range.commonAncestorContainer)) {
             wordTranslateButton.hidden = true;
             selectedPhrase = '';
             return;
@@ -820,17 +888,26 @@
           wordTranslateButton.style.top = Math.max(8, Math.min(rect.bottom + 8, window.innerHeight - 48)) + 'px';
           wordTranslateButton.hidden = false;
         });
-        wordTranslateButton.addEventListener('click', function () {
-          const targetLanguage = languageSelect ? languageSelect.value : 'bn';
+        wordTranslateButton.addEventListener('click', async function () {
+          const targetLanguage = languageSelect ? languageSelect.value : '';
           if (!selectedPhrase) return;
-          const wordUrl = new URL('https://translate.google.com/');
-          wordUrl.searchParams.set('sl', 'en');
-          wordUrl.searchParams.set('tl', targetLanguage);
-          wordUrl.searchParams.set('text', selectedPhrase);
-          wordUrl.searchParams.set('op', 'translate');
-          window.open(wordUrl.toString(), '_blank', 'noopener,noreferrer');
-          showStatus('Opening the selected word or phrase translation in a new tab.');
-          wordTranslateButton.hidden = true;
+          if (!targetLanguage) {
+            showStatus('Choose a language to see the selected word or phrase meaning.');
+            if (languageSelect) languageSelect.focus();
+            return;
+          }
+          wordTranslateButton.disabled = true;
+          wordTranslateButton.textContent = 'Translating…';
+          try {
+            const translated = await requestTranslation([selectedPhrase], targetLanguage, 'text');
+            wordTranslateButton.textContent = translated[0] || 'No translation found.';
+            showStatus('Selected word or phrase translated in this page.');
+          } catch (error) {
+            wordTranslateButton.textContent = error.message || 'Translation unavailable.';
+            showStatus(error.message || 'Translation is temporarily unavailable.');
+          } finally {
+            wordTranslateButton.disabled = false;
+          }
         });
       }
     })();

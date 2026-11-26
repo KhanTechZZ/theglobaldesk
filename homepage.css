@@ -7673,9 +7673,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-live-coverage[data-view="most-read"] > .gd-live-coverage__header { display: flex; align-items: center; padding: .55rem 0 .7rem; border-top: 3px solid var(--gd-gold); border-bottom: 1px solid #d9dee4; }
 .gd-topbar__edition { padding-left: 0; font-size: .72rem; font-weight: 700; letter-spacing: .02em; }
 
-/* Keep Latest News cards the same height so long summaries cannot push sections below. */
-.gd-home .gd-latest .gd-news-card__body > p {
+/* Keep homepage news-card summaries consistent across every section. */
+.gd-home .gd-news-card__body > p {
   display: -webkit-box !important;
+  line-height: 1.45 !important;
   height: 2.9em !important;
   min-height: 2.9em !important;
   max-height: 2.9em !important;

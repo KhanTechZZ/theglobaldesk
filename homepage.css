@@ -7501,6 +7501,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-logo__img { height: 42px; }
 }
 
+/* Slightly larger masthead mark across the responsive header. */
+.gd-header .gd-logo__img { height: 64px !important; width: auto !important; }
+@media (max-width: 1024px) {
+  .gd-header .gd-logo__img { height: 58px !important; }
+}
+@media (max-width: 768px) {
+  .gd-header .gd-logo__img { height: 54px !important; }
+}
+@media (max-width: 380px) {
+  .gd-header .gd-logo__img { height: 50px !important; }
+}
+
 /* Final image sizing: give every photo and empty-image state the same crop. */
 .gd-home .gd-news-card__media {
   height: auto !important;

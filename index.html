@@ -190,18 +190,14 @@
         {% endfor %}
       </ol>
     </section>
-    <section class="gd-trending-panel" aria-labelledby="gd-trending-title">
-      <div class="gd-trending-panel__intro"><h2 id="gd-trending-title">Explore Topics</h2></div>
-      <div class="gd-trending-panel__topics">
-        <a href="/search/?q=Oceans"><strong>Oceans</strong></a>
-        <a href="/search/?q=Climate"><strong>Climate</strong></a>
-        <a href="/search/?q=South+Asia"><strong>South Asia</strong></a>
-        <a href="/search/?q=Global+health"><strong>Global health</strong></a>
-        <a href="/search/?q=AI"><strong>AI</strong></a>
-        <a href="/search/?q=Diplomacy"><strong>Diplomacy</strong></a>
-        <a href="/search/?q=Energy"><strong>Energy</strong></a>
-        <a href="/search/?q=Cities"><strong>Cities</strong></a>
+    <section class="gd-trending-panel" aria-labelledby="gd-trending-title" data-trending-panel>
+      <div class="gd-trending-panel__intro">
+        <span class="gd-trending-panel__eyebrow">Search trends</span>
+        <h2 id="gd-trending-title">Trending today</h2>
+        <p>Google searches across Bangladesh, India, the US and UK</p>
       </div>
+      <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
+      <div class="gd-trending-panel__meta"><span data-trending-status>Refreshes every 12 hours</span><a href="https://trends.google.com/trending" target="_blank" rel="noopener noreferrer">Google Trends <span aria-hidden="true">↗</span></a></div>
     </section>
   </section>
 
@@ -561,6 +557,60 @@ document.addEventListener('click', function(e) {
     window.setInterval(refreshStoryTimes, 60000);
   })();
 </script>
+
+<script>
+  (function () {
+    var list = document.querySelector('[data-trending-list]');
+    var status = document.querySelector('[data-trending-status]');
+    if (!list || !status) return;
+    var refreshMs = 12 * 60 * 60 * 1000;
+    var timeFormat = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Dhaka' });
+
+    function showUnavailable() {
+      list.replaceChildren();
+      var message = document.createElement('p');
+      message.className = 'gd-trending-loading';
+      message.textContent = 'Live search trends are temporarily unavailable.';
+      list.appendChild(message);
+      list.setAttribute('aria-busy', 'false');
+      status.textContent = 'Try again in a few minutes';
+    }
+
+    function render(data) {
+      if (!Array.isArray(data.topics) || !data.topics.length) throw new Error('No trends returned');
+      list.replaceChildren();
+      data.topics.slice(0, 8).forEach(function (topic) {
+        var link = document.createElement('a');
+        var query = new URLSearchParams({ geo: topic.geo || 'BD', q: topic.title });
+        link.className = 'gd-trending-topic';
+        link.href = 'https://trends.google.com/trends/explore?' + query.toString();
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        var title = document.createElement('span');
+        title.className = 'gd-trending-topic__title';
+        title.textContent = topic.title;
+        var regions = document.createElement('span');
+        regions.className = 'gd-trending-topic__regions';
+        regions.textContent = (topic.regions || [{ label: topic.country }]).map(function (region) { return region.label; }).join(' · ');
+        link.append(title, regions);
+        list.appendChild(link);
+      });
+      list.setAttribute('aria-busy', 'false');
+      var updated = data.updatedAt ? new Date(data.updatedAt) : new Date();
+      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · Refreshes every 12 hours';
+    }
+
+    function update() {
+      fetch('/api/trending', { cache: 'no-store' })
+        .then(function (response) { if (!response.ok) throw new Error('Trends unavailable'); return response.json(); })
+        .then(render)
+        .catch(function () { showUnavailable(); window.setTimeout(update, 5 * 60 * 1000); });
+    }
+    update();
+    window.setInterval(update, refreshMs);
+  })();
+</script>
+
 </body>
 </html>
 

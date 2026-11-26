@@ -441,6 +441,8 @@
   .gd-reader-tools [data-reader-translate]:hover { background: #1b4a7c; }
   .gd-reader-tools__status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
   .gd-language-note { max-width: 660px; margin: -.9rem auto 1.15rem; color: #687789; font: 500 .72rem/1.45 'Inter',sans-serif; }
+  .gd-word-translate { position: fixed; z-index: 1200; min-height: 36px; padding: .45rem .7rem; border: 1px solid #0e315a; border-radius: 4px; background: #0e315a; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.18); font: 700 .76rem/1.2 'Inter',sans-serif; cursor: pointer; }
+  .gd-word-translate[hidden] { display: none; }
   .gd-reader-tools button:hover,
   .gd-reader-tools__saved-link:hover { border-color: #12375f; background: #f2f6f9; }
   .gd-reader-tools button[aria-pressed="true"] { border-color: #12375f; background: #12375f; color: #fff; }
@@ -531,6 +533,7 @@
       <div class="gd-article-body">
         {{ content | safe }}
       </div>
+      <button class="gd-word-translate" type="button" data-word-translate hidden>বাংলা অর্থ</button>
     </article>
 
     {% set relatedItems = collections.publishedNews | relatedNews(page.url, category, 3) %}
@@ -797,6 +800,39 @@
         window.open(translateUrl.toString(), '_blank', 'noopener,noreferrer');
         showStatus('Opening the translation in a new tab. Keep this English article open to compare.');
       });
+
+      const wordTranslateButton = document.querySelector('[data-word-translate]');
+      let selectedPhrase = '';
+      if (wordTranslateButton) {
+        wordTranslateButton.addEventListener('mousedown', function (event) { event.preventDefault(); });
+        document.addEventListener('selectionchange', function () {
+          const selection = window.getSelection();
+          const phrase = selection ? selection.toString().trim() : '';
+          const range = selection && selection.rangeCount ? selection.getRangeAt(0) : null;
+          if (!phrase || !range || !articleBody.contains(range.commonAncestorContainer)) {
+            wordTranslateButton.hidden = true;
+            selectedPhrase = '';
+            return;
+          }
+          selectedPhrase = phrase.slice(0, 160);
+          const rect = range.getBoundingClientRect();
+          wordTranslateButton.style.left = Math.max(8, Math.min(rect.left, window.innerWidth - 112)) + 'px';
+          wordTranslateButton.style.top = Math.max(8, Math.min(rect.bottom + 8, window.innerHeight - 48)) + 'px';
+          wordTranslateButton.hidden = false;
+        });
+        wordTranslateButton.addEventListener('click', function () {
+          const targetLanguage = languageSelect ? languageSelect.value : 'bn';
+          if (!selectedPhrase) return;
+          const wordUrl = new URL('https://translate.google.com/');
+          wordUrl.searchParams.set('sl', 'en');
+          wordUrl.searchParams.set('tl', targetLanguage);
+          wordUrl.searchParams.set('text', selectedPhrase);
+          wordUrl.searchParams.set('op', 'translate');
+          window.open(wordUrl.toString(), '_blank', 'noopener,noreferrer');
+          showStatus('Opening the selected word or phrase translation in a new tab.');
+          wordTranslateButton.hidden = true;
+        });
+      }
     })();
   </script>
 </body>

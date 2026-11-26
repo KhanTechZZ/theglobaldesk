@@ -3,7 +3,10 @@ published: true
 title: "Why the World Needs Shared Rules for Its Oceans"
 category: World
 description: "From maritime boundaries to marine protection, international ocean law shapes how countries share and manage the world's seas."
-image: ""
+image: "/images/ocean-governance-hero.svg"
+imageAlt: "Editorial illustration of ocean routes and shared maritime boundaries around a blue globe."
+imageCaption: "The world's oceans connect countries through shipping, marine life and shared resources."
+imageCredit: "Illustration: The Global Desk"
 date: 2026-11-24T23:00:00.000+06:00
 source: "United Nations"
 ---

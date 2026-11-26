@@ -1,6 +1,6 @@
 {
   "scope": "Global issue search activity",
-  "metric": "Approximate Google search traffic summed across 10 markets; bucket values are lower bounds, over the past 24 hours",
+  "metric": "Approximate Google search traffic summed across 37 markets; bucket values are lower bounds, over the past 24 hours",
   "sourcesAvailable": [
     "Bangladesh",
     "India",

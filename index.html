@@ -194,7 +194,7 @@
       <div class="gd-trending-panel__intro">
         <span class="gd-trending-panel__eyebrow">Global issues</span>
         <h2 id="gd-trending-title">Trending today</h2>
-        <p>Major global issues · approximate search volume across 10 markets</p>
+        <p>Major global issues · approximate search volume across 37 countries</p>
       </div>
       <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
       <div class="gd-trending-panel__meta"><span data-trending-status>Approximate search volume · country-by-country · refreshes every 12 hours</span></div>
@@ -606,7 +606,7 @@ document.addEventListener('click', function(e) {
       });
       list.setAttribute('aria-busy', 'false');
       var updated = data.updatedAt ? new Date(data.updatedAt) : new Date();
-      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · approximate search volume across 10 markets · refreshes every 12 hours';
+      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · approximate search volume across 37 countries · refreshes every 12 hours';
     }
 
     function update() {

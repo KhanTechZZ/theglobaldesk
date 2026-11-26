@@ -4,28 +4,92 @@
   "sourcesAvailable": [
     "Bangladesh",
     "India",
-    "United States",
-    "United Kingdom",
-    "Brazil",
+    "Pakistan",
+    "Indonesia",
+    "Singapore",
+    "Thailand",
+    "Philippines",
     "Japan",
+    "South Korea",
     "Australia",
+    "New Zealand",
+    "United States",
+    "Canada",
+    "Mexico",
+    "Brazil",
+    "Argentina",
+    "Chile",
+    "Colombia",
+    "United Kingdom",
+    "Ireland",
+    "France",
     "Germany",
-    "South Africa",
-    "Nigeria"
+    "Spain",
+    "Italy",
+    "Netherlands",
+    "Poland",
+    "Sweden",
+    "Ukraine",
+    "Russia",
+    "Türkiye",
+    "Saudi Arabia",
+    "United Arab Emirates",
+    "Egypt",
+    "Nigeria",
+    "Kenya",
+    "Ghana",
+    "South Africa"
   ],
-  "updatedAt": "2026-11-26T17:53:28.246Z",
+  "updatedAt": "2026-11-26T18:35:10.593Z",
   "refreshAfterSeconds": 43200,
   "topics": [
     {
-      "title": "Israel–Palestine war",
+      "title": "Israel–Palestine conflict",
       "source": "Approximate search volume",
-      "volume": "300+ searches",
+      "volume": "2K+ searches",
       "detail": "Past 24 hours · lower bound across monitored countries",
       "markets": [
-        "United Kingdom",
-        "Brazil"
+        "Indonesia",
+        "South Korea",
+        "Canada",
+        "Germany",
+        "Italy",
+        "Kenya"
       ],
-      "url": "https://news.google.com/search?q=Israel%E2%80%93Palestine%20war"
+      "url": "https://news.google.com/search?q=Israel%E2%80%93Palestine%20conflict"
+    },
+    {
+      "title": "Yemen conflict",
+      "source": "Approximate search volume",
+      "volume": "1K+ searches",
+      "detail": "Past 24 hours · lower bound across monitored countries",
+      "markets": [
+        "Pakistan",
+        "Philippines",
+        "Ireland",
+        "Kenya"
+      ],
+      "url": "https://news.google.com/search?q=Yemen%20conflict"
+    },
+    {
+      "title": "Iran tensions",
+      "source": "Approximate search volume",
+      "volume": "1K+ searches",
+      "detail": "Past 24 hours · lower bound across monitored countries",
+      "markets": [
+        "Canada"
+      ],
+      "url": "https://news.google.com/search?q=Iran%20tensions"
+    },
+    {
+      "title": "Congo conflict",
+      "source": "Approximate search volume",
+      "volume": "200+ searches",
+      "detail": "Past 24 hours · lower bound across monitored countries",
+      "markets": [
+        "Ghana"
+      ],
+      "url": "https://news.google.com/search?q=Congo%20conflict"
     }
   ]
 }

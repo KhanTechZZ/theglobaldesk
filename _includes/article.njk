@@ -412,7 +412,6 @@
     overflow-x: auto;
     scrollbar-width: thin;
   }
-  .gd-reader-tools__translate > span { color: #47596b; font-size: .72rem; font-weight: 750; white-space: nowrap; }
   .gd-reader-tools button,
   .gd-reader-tools select,
   .gd-reader-tools__saved-link {
@@ -435,16 +434,9 @@
     cursor: pointer;
   }
   .gd-reader-tools svg { width: 17px; height: 17px; flex: 0 0 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .gd-reader-tools__translate { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .35rem; margin-inline: .2rem; }
-  .gd-reader-tools__translate select { width: 116px; min-width: 116px; max-width: 116px; padding-right: .25rem; }
-  .gd-reader-tools [data-reader-translate] { border-color: #12375f; background: #12375f; color: #fff; }
-  .gd-reader-tools [data-reader-translate]:hover { background: #1b4a7c; }
   .gd-reader-tools__status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-  .gd-language-note { max-width: 660px; margin: -.9rem auto 1.15rem; color: #687789; font: 500 .72rem/1.45 'Inter',sans-serif; }
-  .gd-word-translate { position: fixed; z-index: 1200; max-width: min(320px,calc(100vw - 24px)); min-height: 36px; padding: .45rem .7rem; border: 1px solid #0e315a; border-radius: 4px; background: #0e315a; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.18); font: 700 .76rem/1.35 'Inter',sans-serif; cursor: pointer; }
-  .gd-word-translate[hidden] { display: none; }
   .gd-reader-tools button:hover,
-  .gd-reader-tools__saved-link:hover { border-color: #12375f; background: #f2f6f9; }
+  .gd-reader-tools a:hover { border-color: #12375f; background: #f2f6f9; }
   .gd-reader-tools button[aria-pressed="true"] { border-color: #12375f; background: #12375f; color: #fff; }
   .gd-reader-tools :focus-visible,
   .gd-related-stories a:focus-visible { outline: 3px solid #c49632; outline-offset: 3px; }
@@ -465,9 +457,23 @@
   .gd-related-stories__empty a { color: #12375f; font-weight: 750; }
   @media (max-width: 760px) {
     .gd-reader-tools { gap: .55rem; }
-    .gd-reader-tools__translate select { width: 104px; min-width: 104px; max-width: 104px; }
     .gd-related-stories__grid { grid-template-columns: minmax(0,1fr); }
   }
+
+  .gd-article-breadcrumb { margin-bottom: 1rem; color: #67778a; font: 600 .78rem/1.45 'Inter',sans-serif; }
+  .gd-article-breadcrumb a { color: #12375f; text-decoration: none; }
+  .gd-article-breadcrumb a:hover { text-decoration: underline; }
+  .gd-article-title { max-width: 780px; font-size: clamp(2.25rem,5vw,3.65rem); }
+  .gd-article-description { max-width: 720px; margin-bottom: 1.15rem; color: #4e5b69; font-size: clamp(1.03rem,2vw,1.18rem); font-style: italic; line-height: 1.65; }
+  .gd-reader-tools { max-width: 660px; margin: .8rem auto 1.5rem; padding: .65rem 0; border-bottom: 0; }
+  .gd-reader-tools button { min-height: 40px; padding: .4rem .65rem; }
+  .gd-article-image { margin-bottom: 0; }
+  .gd-article-image-caption { max-width: 760px; margin: .65rem auto 1.35rem; padding-left: .75rem; border-left: 2px solid #c49632; color: #647181; font: 500 .76rem/1.5 'Inter',sans-serif; }
+  .gd-image-caption-text { color: #4d5b69; }
+  .gd-image-credit { color: #768291; }
+  .gd-article-meta { display: flex; justify-content: space-between; max-width: 660px; margin: 0 auto 1.5rem; padding: .8rem 0; border-top: 1px solid #e1e5e9; border-bottom: 1px solid #e1e5e9; color: #5f6d7b; font: 600 .78rem/1.5 'Inter',sans-serif; }
+  .gd-article-meta time { color: #697787; }
+  .gd-article-meta strong { color: #17304b; }
 
 </style>
 </head>
@@ -477,27 +483,37 @@
 
 
   <main class="gd-container gd-article-page">
-    <div class="gd-article-breadcrumb"><a href="/">Home</a> / <span>{{ category or "News" }}</span></div>
+    <div class="gd-article-breadcrumb"><a href="/">News</a> / <a href="/category/{{ category | slug }}/">{{ category or "News" }}</a></div>
 
     <article>
-      <header data-translate-fragment>
-        <span class="gd-article-category">{{ category or "News" }}</span>
+      <header>
+        <span class="gd-article-category">{{ (category or "News") | upper }}</span>
         <h1 class="gd-article-title">{{ title }}</h1>
         {% if description %}
         <p class="gd-article-description">{{ description }}</p>
         {% endif %}
-        <div class="gd-article-meta">
-          {% if author %}<span>By <strong>{{ author }}</strong></span>{% endif %}
-          {% if date %}<time datetime="{{ date | readableDate }}">{{ date | readableDate }}</time>{% endif %}
-          <span>The Global Desk</span>
-          <span id="gd-reading-time" data-reading-time>Calculating reading time…</span>
-        </div>
       </header>
+
+      <div class="gd-reader-tools" role="toolbar" aria-label="Article actions">
+        <button type="button" data-reader-listen aria-label="Listen to article" title="Listen to article">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg>
+          <span data-listen-label>Listen</span><span class="gd-read-time" data-reading-time>(… mins)</span>
+        </button>
+        <button type="button" data-reader-save aria-label="Save to reading list" title="Save to reading list" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v16l-6-4-6 4z"/></svg>
+          <span data-reader-save-label>Save</span>
+        </button>
+        <button type="button" data-reader-share aria-label="Share article" title="Share article">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.6 6.6-4.2M8.7 13.4l6.6 4.2"/></svg>
+          <span>Share</span>
+        </button>
+        <span class="gd-reader-tools__status" data-reader-status role="status" aria-live="polite"></span>
+      </div>
 
       {% if image %}
       <img class="gd-article-image" src="{{ image }}" alt="{{ imageAlt or title }}">
       {% if imageCaption or imageCredit %}
-      <div class="gd-article-image-caption" data-translate-fragment>
+      <div class="gd-article-image-caption">
         {% if imageCaption %}
         <span class="gd-image-caption-text">{{ imageCaption }}</span>
         {% endif %}
@@ -508,37 +524,18 @@
       {% endif %}
       {% endif %}
 
-      <div class="gd-reader-tools" role="toolbar" aria-label="Article reading tools">
-        <label class="gd-reader-tools__translate" for="gd-translate-language" aria-label="Choose article language">
-          <span>Translate to</span>
-          <select id="gd-translate-language" data-translate-language aria-label="Select translation language">
-            <option value="" selected>Choose language</option>
-            <option value="bn">বাংলা</option>
-            <option value="hi">हिन्दी</option>
-            <option value="ur">اردو</option>
-            <option value="ar">العربية</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="zh-CN">简体中文</option>
-          </select>
-        </label>
-        <button type="button" data-reader-translate aria-label="Translate this article" title="Translate this article" disabled>Translate</button>
-        <button type="button" data-reader-share aria-label="Share article" title="Share article"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.6 6.6-4.2M8.7 13.4l6.6 4.2"/></svg></button>
-        <button type="button" data-reader-listen aria-label="Listen to article" title="Listen to article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg></button>
-        <button type="button" data-reader-save aria-label="Save for later" title="Save for later" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v16l-6-4-6 4z"/></svg></button>
-        <span class="gd-reader-tools__status" data-reader-status role="status" aria-live="polite"></span>
+      <div class="gd-article-meta">
+        <span>By <strong>{{ author or "The Global Desk" }}</strong></span>
+        {% if date %}<time datetime="{{ date | isoDate }}">Published {{ date | readableDate }}</time>{% endif %}
       </div>
-      <p class="gd-language-note" data-translation-note>Choose a language to translate this article here. You can switch back to English anytime.</p>
 
-      <div class="gd-article-body" data-translate-fragment>
+      <div class="gd-article-body">
         {{ content | safe }}
       </div>
-      <button class="gd-word-translate" type="button" data-word-translate hidden>Translate selection</button>
     </article>
 
     {% set relatedItems = collections.publishedNews | relatedNews(page.url, category, 3) %}
-    <section class="gd-related-stories" aria-labelledby="gd-related-title" data-translate-fragment>
+    <section class="gd-related-stories" aria-labelledby="gd-related-title">
       <div class="gd-related-stories__heading">
         <span>Keep reading</span>
         <h2 id="gd-related-title">Related stories</h2>
@@ -674,7 +671,7 @@
       }
     })();
 
-    // Reader controls: reading time, audio, saves, and in-page translation.
+    // Article actions: read time, audio, saved stories and sharing.
     (function () {
       const articleBody = document.querySelector('.gd-article-body');
       const status = document.querySelector('[data-reader-status]');
@@ -698,7 +695,8 @@
 
       const readingTime = document.querySelector('[data-reading-time]');
       const wordCount = (articleBody.innerText || articleBody.textContent || '').trim().split(/\s+/).filter(Boolean).length;
-      if (readingTime) readingTime.textContent = Math.max(1, Math.ceil(wordCount / 200)) + ' min read';
+      const minutes = Math.max(1, Math.ceil(wordCount / 200));
+      if (readingTime) readingTime.textContent = '(' + minutes + (minutes === 1 ? ' min' : ' mins') + ')';
 
       const saveButton = document.querySelector('[data-reader-save]');
       const articleUrl = new URL(document.body.dataset.articleUrl || window.location.pathname, window.location.origin).pathname;
@@ -711,8 +709,10 @@
         const isSaved = readSaved().some(function (item) { return item.url === articleItem.url; });
         if (saveButton) {
           saveButton.setAttribute('aria-pressed', String(isSaved));
-          saveButton.setAttribute('aria-label', isSaved ? 'Remove from saved stories' : 'Save for later');
-          saveButton.title = isSaved ? 'Remove from saved stories' : 'Save for later';
+          saveButton.setAttribute('aria-label', isSaved ? 'Remove from reading list' : 'Save to reading list');
+          saveButton.title = isSaved ? 'Remove from reading list' : 'Save to reading list';
+          const label = saveButton.querySelector('[data-reader-save-label]');
+          if (label) label.textContent = isSaved ? 'Saved' : 'Save';
         }
       };
       updateSaveButton();
@@ -721,38 +721,42 @@
         const index = items.findIndex(function (item) { return item.url === articleItem.url; });
         if (index >= 0) {
           items.splice(index, 1);
-          if (store(savedKey, JSON.stringify(items))) showStatus('Removed from saved stories.');
+          if (store(savedKey, JSON.stringify(items))) showStatus('Removed from your reading list.');
           else showStatus('This browser could not update your saved stories.');
         } else {
           items.unshift(Object.assign({ savedAt: new Date().toISOString() }, articleItem));
-          if (store(savedKey, JSON.stringify(items.slice(0, 100)))) showStatus('Saved on this device. Open Saved stories to find it later.');
+          if (store(savedKey, JSON.stringify(items.slice(0, 100)))) showStatus('Saved to your reading list on this device.');
           else showStatus('This browser could not save the story.');
         }
         updateSaveButton();
       });
 
       const listenButton = document.querySelector('[data-reader-listen]');
+      const listenLabel = listenButton && listenButton.querySelector('[data-listen-label]');
+      const setListenLabel = function (label) {
+        if (!listenButton) return;
+        if (listenLabel) listenLabel.textContent = label;
+        const action = label === 'Listen' ? 'Listen to article' : label + ' audio';
+        listenButton.setAttribute('aria-label', action);
+        listenButton.title = action;
+      };
       const synth = window.speechSynthesis;
       if (!synth || !window.SpeechSynthesisUtterance) {
         if (listenButton) listenButton.hidden = true;
       } else {
         const resetAudioControls = function () {
-          if (listenButton) {
-            listenButton.setAttribute('aria-label', 'Listen to article');
-            listenButton.title = 'Listen to article';
-            listenButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg>';
-          }
+          setListenLabel('Listen');
         };
         if (listenButton) listenButton.addEventListener('click', function () {
           if (synth.speaking && synth.paused) {
             synth.resume();
-            listenButton.setAttribute('aria-label', 'Pause audio'); listenButton.title = 'Pause audio';
+            setListenLabel('Pause');
             showStatus('Audio resumed.');
             return;
           }
           if (synth.speaking) {
             synth.pause();
-            listenButton.setAttribute('aria-label', 'Resume audio'); listenButton.title = 'Resume audio';
+            setListenLabel('Resume');
             showStatus('Audio paused.');
             return;
           }
@@ -760,7 +764,7 @@
           utterance.lang = document.documentElement.lang || 'en';
           utterance.rate = 1;
           utterance.onstart = function () {
-            listenButton.setAttribute('aria-label', 'Pause audio'); listenButton.title = 'Pause audio';
+            setListenLabel('Pause');
             showStatus('Reading the article aloud.');
           };
           utterance.onend = function () { resetAudioControls(); showStatus('Audio finished.'); };
@@ -785,131 +789,6 @@
         }
       });
 
-      const translateButton = document.querySelector('[data-reader-translate]');
-      const languageSelect = document.querySelector('[data-translate-language]');
-      const translationNote = document.querySelector('[data-translation-note]');
-      const translationFragments = Array.from(document.querySelectorAll('[data-translate-fragment]'));
-      const originalFragments = translationFragments.map(function (element) { return element.innerHTML; });
-      let translatedLanguage = '';
-      let translationBusy = false;
-      const updateTranslateButton = function () {
-        if (!translateButton || !languageSelect) return;
-        translateButton.disabled = translationBusy || (!languageSelect.value && !translatedLanguage);
-        if (translatedLanguage && (!languageSelect.value || languageSelect.value === translatedLanguage)) {
-          translateButton.textContent = 'Show English';
-          translateButton.setAttribute('aria-label', 'Show English original');
-        } else if (translatedLanguage && languageSelect.value) {
-          translateButton.textContent = 'Update translation';
-          translateButton.setAttribute('aria-label', 'Update article translation');
-        } else {
-          translateButton.textContent = 'Translate';
-          translateButton.setAttribute('aria-label', 'Translate this article in this page');
-        }
-      };
-      if (languageSelect) languageSelect.addEventListener('change', updateTranslateButton);
-
-      const cleanTranslatedHtml = function (html) {
-        const parsed = new DOMParser().parseFromString(String(html || ''), 'text/html');
-        parsed.querySelectorAll('script,style,iframe,object,embed,form').forEach(function (node) { node.remove(); });
-        parsed.body.querySelectorAll('*').forEach(function (node) {
-          Array.from(node.attributes).forEach(function (attribute) {
-            const name = attribute.name.toLowerCase();
-            if (name.startsWith('on') || name === 'srcdoc' || name === 'style') node.removeAttribute(attribute.name);
-            if (name === 'href' || name === 'src') {
-              const value = attribute.value.trim();
-              if (/^(javascript|data|vbscript):/i.test(value)) node.removeAttribute(attribute.name);
-            }
-          });
-        });
-        return parsed.body.innerHTML;
-      };
-      const requestTranslation = async function (fragments, target, format) {
-        const response = await fetch('/api/translate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ fragments: fragments, target: target, format: format || 'html' })
-        });
-        const result = await response.json().catch(function () { return {}; });
-        if (!response.ok) throw new Error(result.error || 'Translation is temporarily unavailable.');
-        return result.translations || [];
-      };
-      if (translateButton && languageSelect) translateButton.addEventListener('click', async function () {
-        const target = languageSelect.value;
-        if (translatedLanguage && (!target || target === translatedLanguage)) {
-          translationFragments.forEach(function (element, index) { element.innerHTML = originalFragments[index]; });
-          translatedLanguage = '';
-          if (translationNote) translationNote.textContent = 'Choose a language to translate this article here. You can switch back to English anytime.';
-          updateTranslateButton();
-          showStatus('English original restored.');
-          return;
-        }
-        if (!target) {
-          showStatus('Choose a language first.');
-          languageSelect.focus();
-          return;
-        }
-        translationBusy = true;
-        updateTranslateButton();
-        translateButton.textContent = 'Translating…';
-        showStatus('Translating this article…');
-        try {
-          const translated = await requestTranslation(originalFragments, target, 'html');
-          if (translated.length !== translationFragments.length) throw new Error('The translation service returned an incomplete article.');
-          translationFragments.forEach(function (element, index) { element.innerHTML = cleanTranslatedHtml(translated[index]); });
-          translatedLanguage = target;
-          const selectedOption = languageSelect.options[languageSelect.selectedIndex];
-          if (translationNote) translationNote.textContent = 'Machine translation in ' + selectedOption.text + '. Use “Show English” to compare with the original.';
-          showStatus('Article translated in this page.');
-        } catch (error) {
-          showStatus(error.message || 'Translation is temporarily unavailable.');
-        } finally {
-          translationBusy = false;
-          updateTranslateButton();
-        }
-      });
-      updateTranslateButton();
-
-      const wordTranslateButton = document.querySelector('[data-word-translate]');
-      let selectedPhrase = '';
-      if (wordTranslateButton) {
-        wordTranslateButton.addEventListener('mousedown', function (event) { event.preventDefault(); });
-        document.addEventListener('selectionchange', function () {
-          const selection = window.getSelection();
-          const phrase = selection ? selection.toString().trim() : '';
-          const range = selection && selection.rangeCount ? selection.getRangeAt(0) : null;
-          if (!phrase || !range || translatedLanguage || !articleBody.contains(range.commonAncestorContainer)) {
-            wordTranslateButton.hidden = true;
-            selectedPhrase = '';
-            return;
-          }
-          selectedPhrase = phrase.slice(0, 160);
-          const rect = range.getBoundingClientRect();
-          wordTranslateButton.style.left = Math.max(8, Math.min(rect.left, window.innerWidth - 112)) + 'px';
-          wordTranslateButton.style.top = Math.max(8, Math.min(rect.bottom + 8, window.innerHeight - 48)) + 'px';
-          wordTranslateButton.hidden = false;
-        });
-        wordTranslateButton.addEventListener('click', async function () {
-          const targetLanguage = languageSelect ? languageSelect.value : '';
-          if (!selectedPhrase) return;
-          if (!targetLanguage) {
-            showStatus('Choose a language to see the selected word or phrase meaning.');
-            if (languageSelect) languageSelect.focus();
-            return;
-          }
-          wordTranslateButton.disabled = true;
-          wordTranslateButton.textContent = 'Translating…';
-          try {
-            const translated = await requestTranslation([selectedPhrase], targetLanguage, 'text');
-            wordTranslateButton.textContent = translated[0] || 'No translation found.';
-            showStatus('Selected word or phrase translated in this page.');
-          } catch (error) {
-            wordTranslateButton.textContent = error.message || 'Translation unavailable.';
-            showStatus(error.message || 'Translation is temporarily unavailable.');
-          } finally {
-            wordTranslateButton.disabled = false;
-          }
-        });
-      }
     })();
   </script>
 </body>

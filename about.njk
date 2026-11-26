@@ -3,7 +3,7 @@ permalink: /about/
 layout: static-page.njk
 title: "About The Global Desk"
 lastModified: 2026-11-26
-description: "The Global Desk is an independent digital news platform based in Dhaka, covering South Asia, Asia and global affairs with clear reporting, research and analysis."
+description: "Learn about The Global Desk, an independent digital news platform based in Dhaka, covering regions and issues through reporting, research and analysis."
 ---
 
 <div class="gd-static-lead">
@@ -16,22 +16,35 @@ description: "The Global Desk is an independent digital news platform based in D
   <p>We aim to make complex developments easier to understand through clear reporting, useful context and thoughtful perspectives. We help readers look beyond headlines and understand why events matter.</p>
 </section>
 
-<section class="gd-static-section" aria-labelledby="about-coverage-title">
-  <div class="gd-static-section__heading"><span class="gd-static-eyebrow">What we cover</span><h2 id="about-coverage-title">A wider view of the stories shaping our world</h2></div>
-  <p>Our coverage includes international affairs, geopolitics, politics, economics, science, technology, the environment and human rights, with attention to developments across South Asia, Asia and the wider world.</p>
-  <p>Our <strong>Research</strong> section focuses on research-driven journalism, evidence-based analysis, insights and context to help readers explore important issues in greater depth.</p>
-</section>
+<section class="gd-static-section gd-about-coverage" aria-labelledby="about-coverage-title">
+  <div class="gd-static-section__heading"><span class="gd-static-eyebrow">Our coverage</span><h2 id="about-coverage-title">Explore the regions and issues we report on</h2></div>
+  <p>Our reporting follows developments across regions and subjects, with dedicated category pages that bring related stories together.</p>
 
-<section class="gd-static-section" aria-labelledby="about-desks-title">
-  <div class="gd-static-section__heading"><span class="gd-static-eyebrow">Our desks</span><h2 id="about-desks-title">News for readers at every stage</h2></div>
-  <div class="gd-info-grid gd-info-grid--two">
-    <article class="gd-info-item gd-info-item--desk" id="z-desk"><span class="gd-static-eyebrow">For Generation Z</span><h3>Z Desk</h3><p>A dedicated editorial space for Generation Z, featuring relevant news, ideas and explainers on issues shaping young people’s lives and future.</p><a class="gd-info-link" href="/category/z-desk/">Explore Z Desk coverage <span aria-hidden="true">→</span></a></article>
-    <article class="gd-info-item gd-info-item--desk" id="alpha-desk"><span class="gd-static-eyebrow">For younger readers</span><h3>Alpha Desk</h3><p>Accessible, age-appropriate explanations and content that introduce younger audiences to news and important topics.</p><a class="gd-info-link" href="/category/alpha-desk/">Explore Alpha Desk coverage <span aria-hidden="true">→</span></a></article>
-  </div>
+  <section class="gd-coverage-group" aria-labelledby="coverage-regions-title">
+    <h3 id="coverage-regions-title">Regions and global affairs</h3>
+    <div class="gd-category-link-grid" aria-label="Regional news categories">
+      {% for item in categoryPages %}{% if item.slug == "world" or item.slug == "asia" or item.slug == "europe" or item.slug == "middle-east" or item.slug == "africa" or item.slug == "americas" or item.slug == "asia-pacific" or item.slug == "united-nations" or item.slug == "global-conflicts" or item.slug == "diplomacy" %}<a href="/category/{{ item.slug }}/">{{ item.title }}<span aria-hidden="true">→</span></a>{% endif %}{% endfor %}
+    </div>
+  </section>
+
+  <section class="gd-coverage-group" aria-labelledby="coverage-topics-title">
+    <h3 id="coverage-topics-title">Issues and ideas</h3>
+    <div class="gd-category-link-grid" aria-label="Topic news categories">
+      {% for item in categoryPages %}{% if item.slug == "climate-crisis" or item.slug == "global-health" or item.slug == "economy" or item.slug == "politics" or item.slug == "innovation" or item.slug == "earth" or item.slug == "environment" or item.slug == "human-rights" or item.slug == "science" or item.slug == "tech-and-ai" %}<a href="/category/{{ item.slug }}/">{{ item.title }}<span aria-hidden="true">→</span></a>{% endif %}{% endfor %}
+    </div>
+  </section>
+
+  <section class="gd-coverage-group" aria-labelledby="coverage-formats-title">
+    <h3 id="coverage-formats-title">Research, explanation and opinion</h3>
+    <p>Alongside daily reporting, readers can explore in-depth research, explainers, editorials, perspectives and featured voices.</p>
+    <div class="gd-category-link-grid" aria-label="Story formats">
+      {% for item in categoryPages %}{% if item.slug == "research" or item.slug == "explainer" or item.slug == "editorial" or item.slug == "perspectives" or item.slug == "feature-voices" %}<a href="/category/{{ item.slug }}/">{{ item.title }}<span aria-hidden="true">→</span></a>{% endif %}{% endfor %}
+    </div>
+  </section>
 </section>
 
 <section class="gd-about-values" aria-labelledby="about-values-title">
   <span class="gd-static-eyebrow">Our values</span>
-  <h2 id="about-values-title">Accuracy. Clarity. Independence. Fairness. Transparency.</h2>
-  <p>We aim to distinguish verified information from opinion and analysis, and provide the context readers need to form their own understanding.</p>
+  <h2 id="about-values-title">Accuracy, clarity, independence, fairness and transparency.</h2>
+  <p>We aim to distinguish verified information from opinion and analysis, and provide context that helps readers form their own understanding.</p>
 </section>

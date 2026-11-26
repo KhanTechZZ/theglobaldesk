@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261126-serious-global-issues">
+  <link rel="stylesheet" href="homepage.css?v=20261127-trending-today-page">
 </head>
 <body>
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
@@ -566,7 +566,6 @@ document.addEventListener('click', function(e) {
     if (!list) return;
     var refreshMs = 12 * 60 * 60 * 1000;
     var allTopics = [];
-    var expanded = false;
 
     function showUnavailable() {
       list.replaceChildren();
@@ -589,13 +588,12 @@ document.addEventListener('click', function(e) {
         return;
       }
       allTopics = data.topics;
-      expanded = false;
       renderTopics();
     }
 
     function renderTopics() {
       list.replaceChildren();
-      var visibleTopics = expanded ? allTopics : allTopics.slice(0, 4);
+      var visibleTopics = allTopics.slice(0, 4);
       visibleTopics.forEach(function (topic, index) {
         var link = document.createElement('a');
         link.className = 'gd-trending-topic';
@@ -620,15 +618,14 @@ document.addEventListener('click', function(e) {
         list.appendChild(link);
       });
       if (allTopics.length > 4) {
-        var more = document.createElement('button');
+        var more = document.createElement('a');
         more.className = 'gd-trending-more';
-        more.type = 'button';
-        more.setAttribute('aria-expanded', String(expanded));
-        more.textContent = expanded ? 'Show less' : 'Show all ' + allTopics.length + ' topics';
-        more.addEventListener('click', function () {
-          expanded = !expanded;
-          renderTopics();
-        });
+        more.href = '/trending-today/';
+        more.textContent = 'More';
+        var arrow = document.createElement('span');
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = ' →';
+        more.appendChild(arrow);
         list.appendChild(more);
       }
       list.setAttribute('aria-busy', 'false');

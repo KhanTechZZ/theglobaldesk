@@ -44,7 +44,7 @@ function json(data, status = 200, cacheControl = "no-store") {
 export async function onRequestGet(context) {
   const request = context.request;
   const requestUrl = new URL(request.url);
-  const cacheKey = new Request(`${requestUrl.origin}/api/trending?cache=google-trends-v1`);
+  const cacheKey = new Request(`${requestUrl.origin}/api/trending?cache=google-trends-v2`);
   const cache = caches.default;
   const cached = await cache.match(cacheKey);
   if (cached) {
@@ -53,19 +53,26 @@ export async function onRequestGet(context) {
     return new Response(cached.body, { status: cached.status, headers });
   }
 
-  const feeds = await Promise.allSettled(REGIONS.map(async (region) => {
-    const response = await fetch(`https://trends.google.com/trending/rss?geo=${region.geo}`, {
-      headers: { "Accept": "application/rss+xml, application/xml, text/xml" },
-      signal: AbortSignal.timeout(10000)
-    });
-    if (!response.ok) throw new Error(`Google Trends ${region.geo}: ${response.status}`);
-    return parseFeed(await response.text(), region);
-  }));
+  const feeds = [];
+  for (const region of REGIONS) {
+    try {
+      const response = await fetch(`https://trends.google.com/trending/rss?geo=${region.geo}`, {
+        headers: {
+          "Accept": "application/rss+xml, application/xml, text/xml",
+          "User-Agent": "TheGlobalDesk/1.0 (+https://thegdesk.com/)"
+        },
+        signal: AbortSignal.timeout(10000)
+      });
+      if (!response.ok) throw new Error(`Google Trends ${region.geo}: ${response.status}`);
+      feeds.push({ region, topics: parseFeed(await response.text(), region) });
+    } catch (error) {
+      console.warn(`Trending feed unavailable for ${region.geo}`, error);
+    }
+  }
 
   const uniqueTopics = new Map();
   for (const feed of feeds) {
-    if (feed.status !== "fulfilled") continue;
-    for (const topic of feed.value) {
+    for (const topic of feed.topics) {
       const key = topic.title.toLocaleLowerCase();
       const existing = uniqueTopics.get(key);
       if (existing) {
@@ -81,6 +88,7 @@ export async function onRequestGet(context) {
 
   const response = json({
     source: "Google Trends",
+    regionsAvailable: feeds.map((feed) => feed.region),
     updatedAt: new Date().toISOString(),
     refreshAfterSeconds: CACHE_TTL_SECONDS,
     topics
@@ -89,4 +97,3 @@ export async function onRequestGet(context) {
   else await cache.put(cacheKey, response.clone());
   return response;
 }
-

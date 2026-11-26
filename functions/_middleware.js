@@ -66,7 +66,7 @@ export async function onRequest(context) {
   const target = new URL(request.url);
 
   if (isConfig) return notFound();
-  target.pathname = "/admin/index.html";
+  target.pathname = "/admin/";
 
   const assetResponse = await env.ASSETS.fetch(new Request(target.toString(), request));
 

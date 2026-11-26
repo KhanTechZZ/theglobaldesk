@@ -570,7 +570,7 @@ document.addEventListener('click', function(e) {
       list.replaceChildren();
       var message = document.createElement('p');
       message.className = 'gd-trending-loading';
-      message.textContent = 'Global issue coverage is temporarily unavailable.';
+      message.textContent = 'Global issue coverage is being collected. Check back shortly.';
       list.appendChild(message);
       list.setAttribute('aria-busy', 'false');
       status.textContent = 'Try again in a few minutes';
@@ -600,7 +600,7 @@ document.addEventListener('click', function(e) {
     }
 
     function update() {
-      fetch('/api/trending', { cache: 'no-store' })
+      fetch('/trending.json?refresh=' + Date.now(), { cache: 'no-store' })
         .then(function (response) { if (!response.ok) throw new Error('Trends unavailable'); return response.json(); })
         .then(render)
         .catch(function () { showUnavailable(); window.setTimeout(update, 5 * 60 * 1000); });

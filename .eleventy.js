@@ -34,6 +34,7 @@ module.exports = function (eleventyConfig) {
 
   // Static assets — preserve the new homepage design
   eleventyConfig.addPassthroughCopy("homepage.css");
+  eleventyConfig.addPassthroughCopy({ "data/trending.json": "trending.json" });
   // Keep the existing static pages' styles and logo available in the new build.
   eleventyConfig.addPassthroughCopy("style.css");
   eleventyConfig.addPassthroughCopy("homepage-reference.css");

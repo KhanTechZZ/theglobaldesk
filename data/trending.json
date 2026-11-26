@@ -1,0 +1,8 @@
+{
+  "scope": "Global news coverage",
+  "metric": "Distinct monitored news articles mentioning each issue, worldwide, over the past 24 hours",
+  "sourcesAvailable": ["GDELT global news monitoring"],
+  "updatedAt": null,
+  "refreshAfterSeconds": 43200,
+  "topics": []
+}

@@ -192,12 +192,9 @@
     </section>
     <section class="gd-trending-panel" aria-labelledby="gd-trending-title" data-trending-panel>
       <div class="gd-trending-panel__intro">
-        <span class="gd-trending-panel__eyebrow">Global issues</span>
         <h2 id="gd-trending-title">Trending today</h2>
-        <p>Major global issues · approximate search volume across 37 countries</p>
       </div>
       <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
-      <div class="gd-trending-panel__meta"><span data-trending-status>Approximate search volume · country-by-country · refreshes every 12 hours</span></div>
     </section>
   </section>
 
@@ -561,19 +558,16 @@ document.addEventListener('click', function(e) {
 <script>
   (function () {
     var list = document.querySelector('[data-trending-list]');
-    var status = document.querySelector('[data-trending-status]');
-    if (!list || !status) return;
+    if (!list) return;
     var refreshMs = 12 * 60 * 60 * 1000;
-    var timeFormat = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Dhaka' });
 
     function showUnavailable() {
       list.replaceChildren();
       var message = document.createElement('p');
       message.className = 'gd-trending-loading';
-      message.textContent = 'Major issue search volumes are being collected. Check back shortly.';
+      message.textContent = 'Trends are temporarily unavailable. Please check back shortly.';
       list.appendChild(message);
       list.setAttribute('aria-busy', 'false');
-      status.textContent = 'Try again in a few minutes';
     }
 
     function render(data) {
@@ -582,14 +576,12 @@ document.addEventListener('click', function(e) {
       if (!data.topics.length) {
         var empty = document.createElement('p');
         empty.className = 'gd-trending-loading';
-        empty.textContent = 'No major issue search trends were found across the monitored countries in the past 24 hours.';
+        empty.textContent = 'No trending topics are available right now.';
         list.appendChild(empty);
         list.setAttribute('aria-busy', 'false');
-        var checkedAt = data.updatedAt ? new Date(data.updatedAt) : new Date();
-        status.textContent = 'Checked ' + timeFormat.format(checkedAt) + ' BDT · refreshes every 12 hours';
         return;
       }
-      data.topics.slice(0, 4).forEach(function (topic) {
+      data.topics.slice(0, 8).forEach(function (topic) {
         var link = document.createElement('a');
         link.className = 'gd-trending-topic';
         link.href = topic.url || '#gd-trending-title';
@@ -605,8 +597,6 @@ document.addEventListener('click', function(e) {
         list.appendChild(link);
       });
       list.setAttribute('aria-busy', 'false');
-      var updated = data.updatedAt ? new Date(data.updatedAt) : new Date();
-      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · approximate search volume across 37 countries · refreshes every 12 hours';
     }
 
     function update() {

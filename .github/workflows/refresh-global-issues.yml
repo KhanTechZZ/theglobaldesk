@@ -37,8 +37,17 @@ jobs:
           ];
           const issues = [
             { title: 'Climate crisis', pattern: /climate change|global warming|climate crisis|carbon emissions|cop\d{2}/i },
-            { title: 'Israel–Palestine war', pattern: /palestin|gaza|hamas|west bank|israel-hamas/i },
-            { title: 'Russia–Ukraine war', pattern: /ukraine|russia.{0,24}ukraine|russian invasion|zelensky|kyiv/i }
+            { title: 'Israel–Palestine conflict', pattern: /palestin|gaza|hamas|west bank|israel-hamas/i },
+            { title: 'Russia–Ukraine war', pattern: /ukraine|russia.{0,24}ukraine|russian invasion|zelensky|kyiv/i },
+            { title: 'Sudan conflict', pattern: /sudan|khartoum|darfur|rapid support forces/i },
+            { title: 'Myanmar conflict', pattern: /myanmar|burma|rohingya|junta.{0,20}myanmar/i },
+            { title: 'Congo conflict', pattern: /democratic republic of the congo|\bdr congo\b|\bdrc\b|m23 rebels|goma.{0,20}congo/i },
+            { title: 'Yemen conflict', pattern: /yemen|houthi|red sea.{0,30}attack/i },
+            { title: 'Iran tensions', pattern: /iran.{0,30}(israel|nuclear|sanction|missile)|israel.{0,30}iran/i },
+            { title: 'Haiti crisis', pattern: /haiti|port-au-prince|haitian gang/i },
+            { title: 'Global hunger', pattern: /global hunger|famine|food insecurity|food crisis/i },
+            { title: 'Displacement and refugees', pattern: /refugee|displaced people|forced displacement|asylum seeker/i },
+            { title: 'Disease outbreaks', pattern: /outbreak|epidemic|pandemic|mpox|ebola|dengue/i }
           ];
           const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
           const decode = value => String(value || '')
@@ -97,7 +106,15 @@ jobs:
               markets: [...countryValues.keys()],
               url: `https://news.google.com/search?q=${encodeURIComponent(issue.title)}`
             };
-          }).filter(Boolean);
+          }).filter(Boolean).sort((a, b) => {
+            const volume = value => {
+              const match = String(value).match(/[\d.]+/);
+              const suffix = String(value).match(/[KMB]/i);
+              const factor = { K: 1e3, M: 1e6, B: 1e9 }[(suffix && suffix[0] || '').toUpperCase()] || 1;
+              return (match ? Number(match[0]) : 0) * factor;
+            };
+            return volume(b.volume) - volume(a.volume);
+          });
           const data = {
             scope: 'Global issue search activity',
             metric: 'Approximate Google search traffic summed across 37 markets; bucket values are lower bounds, over the past 24 hours',

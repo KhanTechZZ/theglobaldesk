@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261126-google-trending-auto">
+  <link rel="stylesheet" href="homepage.css?v=20261126-worldwide-trending-signals">
 </head>
 <body>
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
@@ -192,12 +192,12 @@
     </section>
     <section class="gd-trending-panel" aria-labelledby="gd-trending-title" data-trending-panel>
       <div class="gd-trending-panel__intro">
-        <span class="gd-trending-panel__eyebrow">Search trends</span>
+        <span class="gd-trending-panel__eyebrow">Worldwide signals</span>
         <h2 id="gd-trending-title">Trending today</h2>
-        <p>Google searches across Bangladesh, India, the US and UK</p>
+        <p>News coverage, social conversations and community activity worldwide</p>
       </div>
       <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
-      <div class="gd-trending-panel__meta"><span data-trending-status>Refreshes every 12 hours</span><a href="https://trends.google.com/trending" target="_blank" rel="noopener noreferrer">Google Trends <span aria-hidden="true">↗</span></a></div>
+      <div class="gd-trending-panel__meta"><span data-trending-status>Worldwide sources · refreshes every 12 hours</span></div>
     </section>
   </section>
 
@@ -570,7 +570,7 @@ document.addEventListener('click', function(e) {
       list.replaceChildren();
       var message = document.createElement('p');
       message.className = 'gd-trending-loading';
-      message.textContent = 'Live search trends are temporarily unavailable.';
+      message.textContent = 'Worldwide trend signals are temporarily unavailable.';
       list.appendChild(message);
       list.setAttribute('aria-busy', 'false');
       status.textContent = 'Try again in a few minutes';
@@ -579,11 +579,10 @@ document.addEventListener('click', function(e) {
     function render(data) {
       if (!Array.isArray(data.topics) || !data.topics.length) throw new Error('No trends returned');
       list.replaceChildren();
-      data.topics.slice(0, 8).forEach(function (topic) {
+      data.topics.slice(0, 9).forEach(function (topic) {
         var link = document.createElement('a');
-        var query = new URLSearchParams({ geo: topic.geo || 'BD', q: topic.title });
         link.className = 'gd-trending-topic';
-        link.href = 'https://trends.google.com/trends/explore?' + query.toString();
+        link.href = topic.url || '#gd-trending-title';
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         var title = document.createElement('span');
@@ -591,13 +590,14 @@ document.addEventListener('click', function(e) {
         title.textContent = topic.title;
         var regions = document.createElement('span');
         regions.className = 'gd-trending-topic__regions';
-        regions.textContent = (topic.regions || [{ label: topic.country }]).map(function (region) { return region.label; }).join(' · ');
+        regions.textContent = [topic.source, topic.volume || topic.detail].filter(Boolean).join(' · ');
         link.append(title, regions);
         list.appendChild(link);
       });
       list.setAttribute('aria-busy', 'false');
       var updated = data.updatedAt ? new Date(data.updatedAt) : new Date();
-      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · Refreshes every 12 hours';
+      var sources = Array.isArray(data.sourcesAvailable) ? data.sourcesAvailable.join(' · ') : 'Worldwide sources';
+      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · ' + sources + ' · refreshes every 12 hours';
     }
 
     function update() {

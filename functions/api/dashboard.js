@@ -383,7 +383,14 @@ export async function onRequestPost({ request, env }) {
     if (!response.ok) {
       const details = await response.json().catch(() => ({}));
       const status = response.status === 409 || response.status === 422 ? 409 : response.status === 403 ? 403 : 502;
-      return json({ error: status === 403 ? "GitHub token needs repository Contents: write permission." : status === 409 ? "Could not save because the file changed or already exists. Reload and try again." : "GitHub could not save this article.", details: details.message || "" }, status);
+      return json({
+        error: status === 403
+          ? "GitHub token lacks write access. Grant Contents: Read and write for KhanTechZZ/theglobaldesk, then update Cloudflare's GITHUB_TOKEN."
+          : status === 409
+            ? "Could not save because the file changed or already exists. Reload and try again."
+            : "GitHub could not save this article.",
+        details: status === 403 ? "" : details.message || ""
+      }, status);
     }
     const saved = await response.json();
     if (publishingDraftId) await env.DB.prepare("DELETE FROM cms_drafts WHERE id = ?").bind(publishingDraftId).run();

@@ -412,8 +412,7 @@
     overflow-x: auto;
     scrollbar-width: thin;
   }
-  .gd-reader-tools__group { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .3rem; margin-inline: .2rem; }
-  .gd-reader-tools__label { color: #47596b; font-size: .72rem; font-weight: 750; }
+  .gd-reader-tools__translate > span { color: #47596b; font-size: .72rem; font-weight: 750; white-space: nowrap; }
   .gd-reader-tools button,
   .gd-reader-tools select,
   .gd-reader-tools__saved-link {
@@ -436,10 +435,12 @@
     cursor: pointer;
   }
   .gd-reader-tools svg { width: 17px; height: 17px; flex: 0 0 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .gd-reader-tools [data-reader-font] { min-width: 35px; font-size: .82rem; }
   .gd-reader-tools__translate { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .35rem; margin-inline: .2rem; }
-  .gd-reader-tools__translate select { width: 94px; min-width: 94px; max-width: 94px; padding-right: .25rem; }
+  .gd-reader-tools__translate select { width: 116px; min-width: 116px; max-width: 116px; padding-right: .25rem; }
+  .gd-reader-tools [data-reader-translate] { border-color: #12375f; background: #12375f; color: #fff; }
+  .gd-reader-tools [data-reader-translate]:hover { background: #1b4a7c; }
   .gd-reader-tools__status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+  .gd-language-note { max-width: 660px; margin: -.9rem auto 1.15rem; color: #687789; font: 500 .72rem/1.45 'Inter',sans-serif; }
   .gd-reader-tools button:hover,
   .gd-reader-tools__saved-link:hover { border-color: #12375f; background: #f2f6f9; }
   .gd-reader-tools button[aria-pressed="true"] { border-color: #12375f; background: #12375f; color: #fff; }
@@ -462,8 +463,7 @@
   .gd-related-stories__empty a { color: #12375f; font-weight: 750; }
   @media (max-width: 760px) {
     .gd-reader-tools { gap: .55rem; }
-    .gd-reader-tools__label { display: none; }
-    .gd-reader-tools__translate select { width: 82px; min-width: 82px; max-width: 82px; }
+    .gd-reader-tools__translate select { width: 104px; min-width: 104px; max-width: 104px; }
     .gd-related-stories__grid { grid-template-columns: minmax(0,1fr); }
   }
 
@@ -507,18 +507,10 @@
       {% endif %}
 
       <div class="gd-reader-tools" role="toolbar" aria-label="Article reading tools">
-        <button type="button" data-reader-share aria-label="Share article" title="Share article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v7h14v-7"/></svg></button>
-        <div class="gd-reader-tools__group" role="group" aria-label="Text size">
-          <button type="button" data-reader-font="down" aria-label="Decrease article text size" title="Decrease text size">A−</button>
-          <button type="button" data-reader-font="up" aria-label="Increase article text size" title="Increase text size">A+</button>
-        </div>
-        <button type="button" data-reader-listen aria-label="Listen to article" title="Listen to article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg></button>
-        <button type="button" data-reader-save aria-label="Save for later" title="Save for later" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v16l-6-4-6 4z"/></svg></button>
-        <label class="gd-reader-tools__translate" for="gd-translate-language" aria-label="Translate article">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17M12 3c2.4 2.4 3.5 5.4 3.5 9s-1.1 6.6-3.5 9c-2.4-2.4-3.5-5.4-3.5-9S9.6 5.4 12 3z"/></svg>
-          <select id="gd-translate-language" data-translate-language>
-            <option value="">Choose language</option>
-            <option value="bn">বাংলা</option>
+        <label class="gd-reader-tools__translate" for="gd-translate-language" aria-label="Translate article from English">
+          <span>Translate to</span>
+          <select id="gd-translate-language" data-translate-language aria-label="Select translation language">
+            <option value="bn" selected>বাংলা</option>
             <option value="hi">हिन्दी</option>
             <option value="ur">اردو</option>
             <option value="ar">العربية</option>
@@ -528,9 +520,13 @@
             <option value="zh-CN">简体中文</option>
           </select>
         </label>
-        <button type="button" data-reader-translate aria-label="Open translation" title="Open translation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h10M9 3v2c0 5-2.5 8-5 9M6 9c1 2 3 4 5 5M14 19l3.5-9 3.5 9M15.2 16h4.6"/></svg></button>
+        <button type="button" data-reader-translate aria-label="Translate article" title="Open translated article in a new tab">Translate</button>
+        <button type="button" data-reader-share aria-label="Share article" title="Share article"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.6 6.6-4.2M8.7 13.4l6.6 4.2"/></svg></button>
+        <button type="button" data-reader-listen aria-label="Listen to article" title="Listen to article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg></button>
+        <button type="button" data-reader-save aria-label="Save for later" title="Save for later" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v16l-6-4-6 4z"/></svg></button>
         <span class="gd-reader-tools__status" data-reader-status role="status" aria-live="polite"></span>
       </div>
+      <p class="gd-language-note">The English original stays here; the translation opens in a new tab so you can compare.</p>
 
       <div class="gd-article-body">
         {{ content | safe }}
@@ -679,7 +675,6 @@
       const articleBody = document.querySelector('.gd-article-body');
       const status = document.querySelector('[data-reader-status]');
       const savedKey = 'tgd-saved-stories-v1';
-      const fontKey = 'tgd-reader-font-size-v1';
       const showStatus = function (message) {
         if (status) status.textContent = message;
       };
@@ -700,24 +695,6 @@
       const readingTime = document.querySelector('[data-reading-time]');
       const wordCount = (articleBody.innerText || articleBody.textContent || '').trim().split(/\s+/).filter(Boolean).length;
       if (readingTime) readingTime.textContent = Math.max(1, Math.ceil(wordCount / 200)) + ' min read';
-
-      let fontSize = 18;
-      try {
-        const storedSize = Number(localStorage.getItem(fontKey));
-        if (storedSize >= 16 && storedSize <= 26) fontSize = storedSize;
-      } catch (error) {}
-      const applyFontSize = function () {
-        articleBody.style.setProperty('--gd-reader-font-size', fontSize + 'px');
-      };
-      applyFontSize();
-      document.querySelectorAll('[data-reader-font]').forEach(function (button) {
-        button.addEventListener('click', function () {
-          fontSize = Math.max(16, Math.min(26, fontSize + (button.dataset.readerFont === 'up' ? 2 : -2)));
-          applyFontSize();
-          store(fontKey, String(fontSize));
-          showStatus('Article text size: ' + fontSize + ' pixels.');
-        });
-      });
 
       const saveButton = document.querySelector('[data-reader-save]');
       const articleUrl = new URL(document.body.dataset.articleUrl || window.location.pathname, window.location.origin).pathname;
@@ -818,7 +795,7 @@
         translateUrl.searchParams.set('tl', language);
         translateUrl.searchParams.set('u', window.location.href);
         window.open(translateUrl.toString(), '_blank', 'noopener,noreferrer');
-        showStatus('Opening Google Translate in a new tab.');
+        showStatus('Opening the translation in a new tab. Keep this English article open to compare.');
       });
     })();
   </script>

@@ -40,7 +40,7 @@
     "Ghana",
     "South Africa"
   ],
-  "updatedAt": "2026-11-26T19:50:11.161Z",
+  "updatedAt": "2026-11-26T19:52:56.989Z",
   "refreshAfterSeconds": 43200,
   "topics": [
     {
@@ -54,44 +54,6 @@
       },
       "marketCount": 1,
       "url": "https://news.google.com/search?q=gold%20silver%20prices"
-    },
-    {
-      "title": "power",
-      "volume": "5K+ searches",
-      "markets": [
-        "Sweden"
-      ],
-      "marketVolumes": {
-        "Sweden": 5000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=power"
-    },
-    {
-      "title": "alice huang",
-      "volume": "2K+ searches",
-      "markets": [
-        "Singapore"
-      ],
-      "marketVolumes": {
-        "Singapore": 2000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=alice%20huang"
-    },
-    {
-      "title": "jd",
-      "volume": "1.5K+ searches",
-      "markets": [
-        "Spain",
-        "France"
-      ],
-      "marketVolumes": {
-        "France": 500,
-        "Spain": 1000
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=jd"
     },
     {
       "title": "election results",
@@ -118,30 +80,16 @@
       "url": "https://news.google.com/search?q=joe%20biden"
     },
     {
-      "title": "houthis",
-      "volume": "700+ searches",
-      "markets": [
-        "Pakistan",
-        "Kenya"
-      ],
-      "marketVolumes": {
-        "Pakistan": 500,
-        "Kenya": 200
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=houthis"
-    },
-    {
-      "title": "ptsb bawag",
+      "title": "saudi arabia vs china",
       "volume": "500+ searches",
       "markets": [
-        "Ireland"
+        "Philippines"
       ],
       "marketVolumes": {
-        "Ireland": 500
+        "Philippines": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=ptsb%20bawag"
+      "url": "https://news.google.com/search?q=saudi%20arabia%20vs%20china"
     },
     {
       "title": "mark rutte",
@@ -156,76 +104,16 @@
       "url": "https://news.google.com/search?q=mark%20rutte"
     },
     {
-      "title": "kuwait",
-      "volume": "500+ searches",
-      "markets": [
-        "United Arab Emirates"
-      ],
-      "marketVolumes": {
-        "United Arab Emirates": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=kuwait"
-    },
-    {
-      "title": "port hardy hospital",
-      "volume": "200+ searches",
-      "markets": [
-        "United States"
-      ],
-      "marketVolumes": {
-        "United States": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=port%20hardy%20hospital"
-    },
-    {
-      "title": "henry cole",
-      "volume": "200+ searches",
-      "markets": [
-        "United Kingdom"
-      ],
-      "marketVolumes": {
-        "United Kingdom": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=henry%20cole"
-    },
-    {
-      "title": "martina navrátilová",
-      "volume": "200+ searches",
-      "markets": [
-        "Poland"
-      ],
-      "marketVolumes": {
-        "Poland": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=martina%20navr%C3%A1tilov%C3%A1"
-    },
-    {
-      "title": "is us market open today",
+      "title": "weather hyderabad",
       "volume": "100+ searches",
       "markets": [
-        "Singapore"
+        "India"
       ],
       "marketVolumes": {
-        "Singapore": 100
+        "India": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=is%20us%20market%20open%20today"
-    },
-    {
-      "title": "claim",
-      "volume": "100+ searches",
-      "markets": [
-        "Philippines"
-      ],
-      "marketVolumes": {
-        "Philippines": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=claim"
+      "url": "https://news.google.com/search?q=weather%20hyderabad"
     },
     {
       "title": "weather radar",
@@ -238,18 +126,6 @@
       },
       "marketCount": 1,
       "url": "https://news.google.com/search?q=weather%20radar"
-    },
-    {
-      "title": "radar",
-      "volume": "100+ searches",
-      "markets": [
-        "Australia"
-      ],
-      "marketVolumes": {
-        "Australia": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=radar"
     },
     {
       "title": "bull market",

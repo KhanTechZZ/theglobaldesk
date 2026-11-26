@@ -40,12 +40,23 @@
     "Ghana",
     "South Africa"
   ],
-  "updatedAt": "2026-11-26T19:16:58.841Z",
+  "updatedAt": "2026-11-26T19:29:56.465Z",
   "refreshAfterSeconds": 43200,
   "topics": [
     {
+      "title": "çska sofya - trabzonspor",
+      "volume": "50K+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 50000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%C3%A7ska%20sofya%20-%20trabzonspor"
+    },
+    {
       "title": "debate a 4",
-      "category": "World",
       "volume": "20K+ searches",
       "markets": [
         "Spain"
@@ -57,39 +68,33 @@
       "url": "https://news.google.com/search?q=debate%20a%204"
     },
     {
-      "title": "brighton vs craiova",
-      "category": "Sport",
-      "volume": "17.9K+ searches",
+      "title": "torreense vs celtic",
+      "volume": "10.5K+ searches",
       "markets": [
-        "Kenya",
-        "Ireland",
-        "United Arab Emirates",
-        "Egypt",
-        "Ghana",
-        "Pakistan",
-        "Singapore",
-        "Australia",
-        "Thailand",
-        "New Zealand"
+        "United Kingdom",
+        "Ireland"
       ],
       "marketVolumes": {
-        "Pakistan": 500,
-        "Singapore": 500,
-        "Thailand": 200,
-        "Australia": 500,
-        "New Zealand": 200,
-        "Ireland": 2000,
-        "United Arab Emirates": 2000,
-        "Egypt": 1000,
-        "Kenya": 10000,
-        "Ghana": 1000
+        "United Kingdom": 10000,
+        "Ireland": 500
       },
-      "marketCount": 10,
-      "url": "https://news.google.com/search?q=brighton%20vs%20craiova"
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=torreense%20vs%20celtic"
+    },
+    {
+      "title": "gold silver prices",
+      "volume": "10K+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 10000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=gold%20silver%20prices"
     },
     {
       "title": "nfl scores",
-      "category": "Sport",
       "volume": "10K+ searches",
       "markets": [
         "Australia"
@@ -101,90 +106,73 @@
       "url": "https://news.google.com/search?q=nfl%20scores"
     },
     {
-      "title": "live cricket",
-      "category": "Sport",
-      "volume": "5.5K+ searches",
+      "title": "crystal palace - real sociedad",
+      "volume": "5.9K+ searches",
       "markets": [
-        "Pakistan",
-        "United Arab Emirates"
-      ],
-      "marketVolumes": {
-        "Pakistan": 5000,
-        "United Arab Emirates": 500
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=live%20cricket"
-    },
-    {
-      "title": "olympiacos vs milan",
-      "category": "Sport",
-      "volume": "5.4K+ searches",
-      "markets": [
-        "Kenya",
-        "United Arab Emirates",
-        "Pakistan",
-        "Saudi Arabia",
-        "Egypt",
-        "Ghana",
-        "Australia",
-        "Ireland"
-      ],
-      "marketVolumes": {
-        "Pakistan": 500,
-        "Australia": 200,
-        "Ireland": 200,
-        "Saudi Arabia": 500,
-        "United Arab Emirates": 1000,
-        "Egypt": 500,
-        "Kenya": 2000,
-        "Ghana": 500
-      },
-      "marketCount": 8,
-      "url": "https://news.google.com/search?q=olympiacos%20vs%20milan"
-    },
-    {
-      "title": "besiktas",
-      "category": "World",
-      "volume": "5.1K+ searches",
-      "markets": [
-        "Italy",
-        "Nigeria",
-        "Argentina",
-        "Chile",
+        "Spain",
+        "Mexico",
         "Colombia",
-        "Poland",
-        "Sweden",
-        "Kenya"
+        "Türkiye"
       ],
       "marketVolumes": {
-        "Argentina": 500,
-        "Chile": 500,
-        "Colombia": 500,
-        "Italy": 2000,
-        "Poland": 200,
-        "Sweden": 200,
-        "Nigeria": 1000,
-        "Kenya": 200
+        "Mexico": 500,
+        "Colombia": 200,
+        "Spain": 5000,
+        "Türkiye": 200
       },
-      "marketCount": 8,
-      "url": "https://news.google.com/search?q=besiktas"
+      "marketCount": 4,
+      "url": "https://news.google.com/search?q=crystal%20palace%20-%20real%20sociedad"
     },
     {
-      "title": "lisnard",
-      "category": "World",
-      "volume": "5K+ searches",
+      "title": "palace vs real sociedad",
+      "volume": "5.7K+ searches",
       "markets": [
+        "United States",
+        "United Kingdom",
+        "Nigeria",
+        "Kenya",
+        "South Africa",
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "United States": 2000,
+        "United Kingdom": 2000,
+        "Nigeria": 500,
+        "Kenya": 500,
+        "Ghana": 200,
+        "South Africa": 500
+      },
+      "marketCount": 6,
+      "url": "https://news.google.com/search?q=palace%20vs%20real%20sociedad"
+    },
+    {
+      "title": "sunderland – jagiellonia białystok",
+      "volume": "5.2K+ searches",
+      "markets": [
+        "Poland",
         "France"
       ],
       "marketVolumes": {
-        "France": 5000
+        "France": 200,
+        "Poland": 5000
+      },
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=sunderland%20%E2%80%93%20jagiellonia%20bia%C5%82ystok"
+    },
+    {
+      "title": "borac banja luka - atalanta",
+      "volume": "5K+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 5000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=lisnard"
+      "url": "https://news.google.com/search?q=borac%20banja%20luka%20-%20atalanta"
     },
     {
       "title": "power",
-      "category": "Climate",
       "volume": "5K+ searches",
       "markets": [
         "Sweden"
@@ -196,41 +184,29 @@
       "url": "https://news.google.com/search?q=power"
     },
     {
-      "title": "benfica",
-      "category": "World",
-      "volume": "4.1K+ searches",
+      "title": "olympiacos vs milan",
+      "volume": "4.3K+ searches",
       "markets": [
-        "Indonesia",
-        "Colombia",
-        "United Kingdom",
-        "France",
-        "Nigeria",
-        "Bangladesh",
-        "Chile",
-        "Italy",
-        "Netherlands",
-        "Poland",
-        "Canada"
+        "Kenya",
+        "United Arab Emirates",
+        "Australia",
+        "Ghana",
+        "Pakistan",
+        "Netherlands"
       ],
       "marketVolumes": {
-        "Bangladesh": 200,
-        "Indonesia": 1000,
-        "Canada": 100,
-        "Chile": 200,
-        "Colombia": 500,
-        "United Kingdom": 500,
-        "France": 500,
-        "Italy": 200,
-        "Netherlands": 200,
-        "Poland": 200,
-        "Nigeria": 500
+        "Pakistan": 200,
+        "Australia": 500,
+        "Netherlands": 100,
+        "United Arab Emirates": 1000,
+        "Kenya": 2000,
+        "Ghana": 500
       },
-      "marketCount": 11,
-      "url": "https://news.google.com/search?q=benfica"
+      "marketCount": 6,
+      "url": "https://news.google.com/search?q=olympiacos%20vs%20milan"
     },
     {
       "title": "celta vs bournemouth",
-      "category": "Sport",
       "volume": "4.1K+ searches",
       "markets": [
         "Ghana",
@@ -252,23 +228,143 @@
       "url": "https://news.google.com/search?q=celta%20vs%20bournemouth"
     },
     {
-      "title": "dinamo zagreb - leverkusen",
-      "category": "Sport",
-      "volume": "2.2K+ searches",
+      "title": "mi emirates vs abu dhabi knight riders standings",
+      "volume": "4K+ searches",
       "markets": [
-        "Colombia",
-        "Chile"
+        "Bangladesh",
+        "Saudi Arabia",
+        "United Arab Emirates"
       ],
       "marketVolumes": {
-        "Chile": 200,
-        "Colombia": 2000
+        "Bangladesh": 2000,
+        "Saudi Arabia": 1000,
+        "United Arab Emirates": 1000
+      },
+      "marketCount": 3,
+      "url": "https://news.google.com/search?q=mi%20emirates%20vs%20abu%20dhabi%20knight%20riders%20standings"
+    },
+    {
+      "title": "freiburg – twente",
+      "volume": "4K+ searches",
+      "markets": [
+        "Germany",
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Germany": 2000,
+        "Netherlands": 2000
       },
       "marketCount": 2,
-      "url": "https://news.google.com/search?q=dinamo%20zagreb%20-%20leverkusen"
+      "url": "https://news.google.com/search?q=freiburg%20%E2%80%93%20twente"
+    },
+    {
+      "title": "brighton vs craiova",
+      "volume": "3.4K+ searches",
+      "markets": [
+        "United Arab Emirates",
+        "Pakistan",
+        "Singapore",
+        "Thailand",
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "Pakistan": 500,
+        "Singapore": 500,
+        "Thailand": 200,
+        "New Zealand": 200,
+        "United Arab Emirates": 2000
+      },
+      "marketCount": 5,
+      "url": "https://news.google.com/search?q=brighton%20vs%20craiova"
+    },
+    {
+      "title": "benfica",
+      "volume": "3.3K+ searches",
+      "markets": [
+        "Indonesia",
+        "Nigeria",
+        "Colombia",
+        "Bangladesh",
+        "Chile",
+        "Italy",
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 200,
+        "Indonesia": 1000,
+        "Chile": 200,
+        "Colombia": 500,
+        "Italy": 200,
+        "Poland": 200,
+        "Nigeria": 1000
+      },
+      "marketCount": 7,
+      "url": "https://news.google.com/search?q=benfica"
+    },
+    {
+      "title": "juventus vs omonoia",
+      "volume": "2.7K+ searches",
+      "markets": [
+        "United States",
+        "India",
+        "Bangladesh",
+        "Canada",
+        "United Kingdom",
+        "Saudi Arabia",
+        "Nigeria",
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 200,
+        "India": 500,
+        "United States": 1000,
+        "Canada": 200,
+        "United Kingdom": 200,
+        "Saudi Arabia": 200,
+        "Nigeria": 200,
+        "South Africa": 200
+      },
+      "marketCount": 8,
+      "url": "https://news.google.com/search?q=juventus%20vs%20omonoia"
+    },
+    {
+      "title": "besiktas",
+      "volume": "2.2K+ searches",
+      "markets": [
+        "Argentina",
+        "Chile",
+        "Colombia",
+        "Poland",
+        "Sweden",
+        "Kenya",
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Argentina": 500,
+        "Chile": 500,
+        "Colombia": 500,
+        "Ireland": 100,
+        "Poland": 200,
+        "Sweden": 200,
+        "Kenya": 200
+      },
+      "marketCount": 7,
+      "url": "https://news.google.com/search?q=besiktas"
+    },
+    {
+      "title": "karachi",
+      "volume": "2K+ searches",
+      "markets": [
+        "Pakistan"
+      ],
+      "marketVolumes": {
+        "Pakistan": 2000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=karachi"
     },
     {
       "title": "alice huang",
-      "category": "Science & tech",
       "volume": "2K+ searches",
       "markets": [
         "Singapore"
@@ -281,7 +377,6 @@
     },
     {
       "title": "レバノン 対 日本",
-      "category": "Sport",
       "volume": "2K+ searches",
       "markets": [
         "Japan"
@@ -294,7 +389,6 @@
     },
     {
       "title": "ps5 black friday deals",
-      "category": "Economy",
       "volume": "2K+ searches",
       "markets": [
         "United States"
@@ -306,8 +400,7 @@
       "url": "https://news.google.com/search?q=ps5%20black%20friday%20deals"
     },
     {
-      "title": "iran war",
-      "category": "Politics",
+      "title": "feu",
       "volume": "2K+ searches",
       "markets": [
         "Canada"
@@ -316,11 +409,10 @@
         "Canada": 2000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=iran%20war"
+      "url": "https://news.google.com/search?q=feu"
     },
     {
       "title": "coronavírus",
-      "category": "World",
       "volume": "2K+ searches",
       "markets": [
         "Brazil"
@@ -332,47 +424,31 @@
       "url": "https://news.google.com/search?q=coronav%C3%ADrus"
     },
     {
-      "title": "hearts - mónaco",
-      "category": "World",
+      "title": "vincent cassel",
       "volume": "2K+ searches",
       "markets": [
-        "Colombia"
+        "France"
       ],
       "marketVolumes": {
-        "Colombia": 2000
+        "France": 2000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=hearts%20-%20m%C3%B3naco"
+      "url": "https://news.google.com/search?q=vincent%20cassel"
     },
     {
-      "title": "pension",
-      "category": "Politics",
+      "title": "hoffenheim – sturm graz",
       "volume": "2K+ searches",
       "markets": [
-        "United Kingdom"
+        "Germany"
       ],
       "marketVolumes": {
-        "United Kingdom": 2000
+        "Germany": 2000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=pension"
-    },
-    {
-      "title": "brighton",
-      "category": "World",
-      "volume": "2K+ searches",
-      "markets": [
-        "United Kingdom"
-      ],
-      "marketVolumes": {
-        "United Kingdom": 2000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=brighton"
+      "url": "https://news.google.com/search?q=hoffenheim%20%E2%80%93%20sturm%20graz"
     },
     {
       "title": "krankenkasse",
-      "category": "World",
       "volume": "2K+ searches",
       "markets": [
         "Germany"
@@ -384,8 +460,19 @@
       "url": "https://news.google.com/search?q=krankenkasse"
     },
     {
-      "title": "italia - turchia",
-      "category": "World",
+      "title": "julio salinas",
+      "volume": "2K+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 2000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=julio%20salinas"
+    },
+    {
+      "title": "carlos augusto",
       "volume": "2K+ searches",
       "markets": [
         "Italy"
@@ -394,26 +481,44 @@
         "Italy": 2000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=italia%20-%20turchia"
+      "url": "https://news.google.com/search?q=carlos%20augusto"
     },
     {
-      "title": "mi emirates vs abu dhabi knight riders standings",
-      "category": "Sport",
+      "title": "elgiganten",
       "volume": "2K+ searches",
       "markets": [
-        "Saudi Arabia",
-        "United Arab Emirates"
+        "Sweden"
       ],
       "marketVolumes": {
-        "Saudi Arabia": 1000,
-        "United Arab Emirates": 1000
+        "Sweden": 2000
       },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=mi%20emirates%20vs%20abu%20dhabi%20knight%20riders%20standings"
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=elgiganten"
+    },
+    {
+      "title": "cska sofia vs trabzonspor",
+      "volume": "1.4K+ searches",
+      "markets": [
+        "Egypt",
+        "United States",
+        "United Kingdom",
+        "Türkiye",
+        "Saudi Arabia",
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "United States": 200,
+        "United Kingdom": 200,
+        "Türkiye": 200,
+        "Saudi Arabia": 200,
+        "Egypt": 500,
+        "South Africa": 100
+      },
+      "marketCount": 6,
+      "url": "https://news.google.com/search?q=cska%20sofia%20vs%20trabzonspor"
     },
     {
       "title": "jada pinkett smith",
-      "category": "World",
       "volume": "1.2K+ searches",
       "markets": [
         "Singapore",
@@ -427,36 +532,75 @@
       "url": "https://news.google.com/search?q=jada%20pinkett%20smith"
     },
     {
-      "title": "mike maignan",
-      "category": "Sport",
+      "title": "nfl",
       "volume": "1.2K+ searches",
       "markets": [
-        "Italy",
-        "Mexico"
+        "Australia",
+        "Japan"
       ],
       "marketVolumes": {
-        "Mexico": 200,
-        "Italy": 1000
+        "Japan": 200,
+        "Australia": 1000
       },
       "marketCount": 2,
-      "url": "https://news.google.com/search?q=mike%20maignan"
+      "url": "https://news.google.com/search?q=nfl"
     },
     {
-      "title": "decathlon",
-      "category": "World",
-      "volume": "1K+ searches",
+      "title": "lions vs bears",
+      "volume": "1.1K+ searches",
       "markets": [
-        "India"
+        "Australia",
+        "Ireland",
+        "South Africa"
       ],
       "marketVolumes": {
-        "India": 1000
+        "Australia": 500,
+        "Ireland": 500,
+        "South Africa": 100
+      },
+      "marketCount": 3,
+      "url": "https://news.google.com/search?q=lions%20vs%20bears"
+    },
+    {
+      "title": "milan vs",
+      "volume": "1.1K+ searches",
+      "markets": [
+        "Colombia",
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 100,
+        "Colombia": 1000
+      },
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=milan%20vs"
+    },
+    {
+      "title": "gta6",
+      "volume": "1K+ searches",
+      "markets": [
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 1000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=decathlon"
+      "url": "https://news.google.com/search?q=gta6"
+    },
+    {
+      "title": "juventus vs omonia",
+      "volume": "1K+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 1000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=juventus%20vs%20omonia"
     },
     {
       "title": "bg pathum united vs lion city sailors fc standings",
-      "category": "Sport",
       "volume": "1K+ searches",
       "markets": [
         "Singapore"
@@ -469,7 +613,6 @@
     },
     {
       "title": "ดูบอลสด ucl แมนยู",
-      "category": "World",
       "volume": "1K+ searches",
       "markets": [
         "Thailand"
@@ -482,7 +625,6 @@
     },
     {
       "title": "โอลิมเปียกอส พบ มิลาน",
-      "category": "Sport",
       "volume": "1K+ searches",
       "markets": [
         "Thailand"
@@ -494,8 +636,19 @@
       "url": "https://news.google.com/search?q=%E0%B9%82%E0%B8%AD%E0%B8%A5%E0%B8%B4%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B8%B5%E0%B8%A2%E0%B8%81%E0%B8%AD%E0%B8%AA%20%E0%B8%9E%E0%B8%9A%20%E0%B8%A1%E0%B8%B4%E0%B8%A5%E0%B8%B2%E0%B8%99"
     },
     {
+      "title": "斎藤佑樹",
+      "volume": "1K+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 1000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%E6%96%8E%E8%97%A4%E4%BD%91%E6%A8%B9"
+    },
+    {
       "title": "김민",
-      "category": "World",
       "volume": "1K+ searches",
       "markets": [
         "South Korea"
@@ -507,34 +660,7 @@
       "url": "https://news.google.com/search?q=%EA%B9%80%EB%AF%BC"
     },
     {
-      "title": "juice scruggs",
-      "category": "World",
-      "volume": "1K+ searches",
-      "markets": [
-        "United States"
-      ],
-      "marketVolumes": {
-        "United States": 1000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=juice%20scruggs"
-    },
-    {
-      "title": "kirk herbstreit",
-      "category": "World",
-      "volume": "1K+ searches",
-      "markets": [
-        "United States"
-      ],
-      "marketVolumes": {
-        "United States": 1000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=kirk%20herbstreit"
-    },
-    {
       "title": "shoppers",
-      "category": "Science & tech",
       "volume": "1K+ searches",
       "markets": [
         "Canada"
@@ -546,8 +672,19 @@
       "url": "https://news.google.com/search?q=shoppers"
     },
     {
+      "title": "peixe",
+      "volume": "1K+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 1000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=peixe"
+    },
+    {
       "title": "grêmio novorizontino",
-      "category": "World",
       "volume": "1K+ searches",
       "markets": [
         "Brazil"
@@ -559,34 +696,7 @@
       "url": "https://news.google.com/search?q=gr%C3%AAmio%20novorizontino"
     },
     {
-      "title": "punição",
-      "category": "World",
-      "volume": "1K+ searches",
-      "markets": [
-        "Brazil"
-      ],
-      "marketVolumes": {
-        "Brazil": 1000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=puni%C3%A7%C3%A3o"
-    },
-    {
-      "title": "crédito",
-      "category": "World",
-      "volume": "1K+ searches",
-      "markets": [
-        "Brazil"
-      ],
-      "marketVolumes": {
-        "Brazil": 1000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=cr%C3%A9dito"
-    },
-    {
-      "title": "uefa europa league",
-      "category": "Sport",
+      "title": "asamblea constituyente",
       "volume": "1K+ searches",
       "markets": [
         "Colombia"
@@ -595,24 +705,22 @@
         "Colombia": 1000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=uefa%20europa%20league"
+      "url": "https://news.google.com/search?q=asamblea%20constituyente"
     },
     {
-      "title": "safc",
-      "category": "Sport",
+      "title": "hibernia line ferry",
       "volume": "1K+ searches",
       "markets": [
-        "United Kingdom"
+        "Ireland"
       ],
       "marketVolumes": {
-        "United Kingdom": 1000
+        "Ireland": 1000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=safc"
+      "url": "https://news.google.com/search?q=hibernia%20line%20ferry"
     },
     {
-      "title": "cholestérol",
-      "category": "World",
+      "title": "miss france 2027",
       "volume": "1K+ searches",
       "markets": [
         "France"
@@ -621,24 +729,46 @@
         "France": 1000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=cholest%C3%A9rol"
+      "url": "https://news.google.com/search?q=miss%20france%202027"
     },
     {
-      "title": "pedro acosta",
-      "category": "World",
+      "title": "donald trump",
       "volume": "1K+ searches",
       "markets": [
-        "Spain"
+        "France"
       ],
       "marketVolumes": {
-        "Spain": 1000
+        "France": 1000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=pedro%20acosta"
+      "url": "https://news.google.com/search?q=donald%20trump"
+    },
+    {
+      "title": "zska sofia – trabzonspor",
+      "volume": "1K+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 1000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=zska%20sofia%20%E2%80%93%20trabzonspor"
+    },
+    {
+      "title": "sparta praag - az",
+      "volume": "1K+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 1000
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=sparta%20praag%20-%20az"
     },
     {
       "title": "liga europy tabela",
-      "category": "World",
       "volume": "1K+ searches",
       "markets": [
         "Poland"
@@ -650,21 +780,19 @@
       "url": "https://news.google.com/search?q=liga%20europy%20tabela"
     },
     {
-      "title": "dn",
-      "category": "World",
+      "title": "zus wydał ważny komunikat dla emerytów",
       "volume": "1K+ searches",
       "markets": [
-        "Sweden"
+        "Poland"
       ],
       "marketVolumes": {
-        "Sweden": 1000
+        "Poland": 1000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=dn"
+      "url": "https://news.google.com/search?q=zus%20wyda%C5%82%20wa%C5%BCny%20komunikat%20dla%20emeryt%C3%B3w"
     },
     {
       "title": "служба безопасности украины",
-      "category": "World",
       "volume": "1K+ searches",
       "markets": [
         "Ukraine"
@@ -677,7 +805,6 @@
     },
     {
       "title": "бешикташ хапоэль",
-      "category": "World",
       "volume": "1K+ searches",
       "markets": [
         "Russia"
@@ -689,34 +816,7 @@
       "url": "https://news.google.com/search?q=%D0%B1%D0%B5%D1%88%D0%B8%D0%BA%D1%82%D0%B0%D1%88%20%D1%85%D0%B0%D0%BF%D0%BE%D1%8D%D0%BB%D1%8C"
     },
     {
-      "title": "var misin yok musun esra",
-      "category": "World",
-      "volume": "1K+ searches",
-      "markets": [
-        "Türkiye"
-      ],
-      "marketVolumes": {
-        "Türkiye": 1000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=var%20misin%20yok%20musun%20esra"
-    },
-    {
-      "title": "viktoria plzeň fk",
-      "category": "World",
-      "volume": "1K+ searches",
-      "markets": [
-        "Türkiye"
-      ],
-      "marketVolumes": {
-        "Türkiye": 1000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=viktoria%20plze%C5%88%20fk"
-    },
-    {
       "title": "dubai islamic bank emirates islamic bank",
-      "category": "World",
       "volume": "1K+ searches",
       "markets": [
         "United Arab Emirates"
@@ -728,144 +828,73 @@
       "url": "https://news.google.com/search?q=dubai%20islamic%20bank%20emirates%20islamic%20bank"
     },
     {
-      "title": "houthis",
-      "category": "Economy",
+      "title": "jota silva",
       "volume": "900+ searches",
       "markets": [
-        "Pakistan",
-        "Ireland",
-        "Kenya"
+        "Italy",
+        "Mexico",
+        "Türkiye"
       ],
       "marketVolumes": {
-        "Pakistan": 500,
-        "Ireland": 200,
-        "Kenya": 200
+        "Mexico": 200,
+        "Italy": 500,
+        "Türkiye": 200
       },
       "marketCount": 3,
-      "url": "https://news.google.com/search?q=houthis"
-    },
-    {
-      "title": "hearts vs monaco",
-      "category": "Sport",
-      "volume": "900+ searches",
-      "markets": [
-        "Ireland",
-        "Canada",
-        "Saudi Arabia",
-        "United Arab Emirates",
-        "Ghana"
-      ],
-      "marketVolumes": {
-        "Canada": 100,
-        "Ireland": 500,
-        "Saudi Arabia": 100,
-        "United Arab Emirates": 100,
-        "Ghana": 100
-      },
-      "marketCount": 5,
-      "url": "https://news.google.com/search?q=hearts%20vs%20monaco"
+      "url": "https://news.google.com/search?q=jota%20silva"
     },
     {
       "title": "europa league",
-      "category": "Sport",
       "volume": "800+ searches",
       "markets": [
+        "Pakistan",
         "Singapore",
-        "Poland",
-        "Saudi Arabia",
+        "Egypt",
         "Thailand",
         "New Zealand"
       ],
       "marketVolumes": {
+        "Pakistan": 200,
         "Singapore": 200,
         "Thailand": 100,
         "New Zealand": 100,
-        "Poland": 200,
-        "Saudi Arabia": 200
+        "Egypt": 200
       },
       "marketCount": 5,
       "url": "https://news.google.com/search?q=europa%20league"
     },
     {
-      "title": "lions vs bears",
-      "category": "Sport",
-      "volume": "800+ searches",
-      "markets": [
-        "Australia",
-        "Ireland",
-        "South Africa"
-      ],
-      "marketVolumes": {
-        "Australia": 500,
-        "Ireland": 200,
-        "South Africa": 100
-      },
-      "marketCount": 3,
-      "url": "https://news.google.com/search?q=lions%20vs%20bears"
-    },
-    {
-      "title": "holly anna ramsay",
-      "category": "World",
+      "title": "houthis",
       "volume": "700+ searches",
       "markets": [
-        "Canada",
-        "Ireland"
+        "Pakistan",
+        "Kenya"
       ],
       "marketVolumes": {
-        "Canada": 500,
-        "Ireland": 200
+        "Pakistan": 500,
+        "Kenya": 200
       },
       "marketCount": 2,
-      "url": "https://news.google.com/search?q=holly%20anna%20ramsay"
+      "url": "https://news.google.com/search?q=houthis"
     },
     {
-      "title": "viktoria plzeň vs benfica",
-      "category": "Sport",
-      "volume": "700+ searches",
+      "title": "lyon - lillestrøm",
+      "volume": "600+ searches",
       "markets": [
-        "Saudi Arabia",
-        "Kenya",
-        "Ghana",
-        "United Arab Emirates"
+        "Mexico",
+        "Spain",
+        "Türkiye"
       ],
       "marketVolumes": {
-        "Saudi Arabia": 200,
-        "United Arab Emirates": 100,
-        "Kenya": 200,
-        "Ghana": 200
+        "Mexico": 200,
+        "Spain": 200,
+        "Türkiye": 200
       },
-      "marketCount": 4,
-      "url": "https://news.google.com/search?q=viktoria%20plze%C5%88%20vs%20benfica"
-    },
-    {
-      "title": "gta6",
-      "category": "World",
-      "volume": "500+ searches",
-      "markets": [
-        "Bangladesh"
-      ],
-      "marketVolumes": {
-        "Bangladesh": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=gta6"
-    },
-    {
-      "title": "রেজা কিবরিয়া",
-      "category": "World",
-      "volume": "500+ searches",
-      "markets": [
-        "Bangladesh"
-      ],
-      "marketVolumes": {
-        "Bangladesh": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E0%A6%B0%E0%A7%87%E0%A6%9C%E0%A6%BE%20%E0%A6%95%E0%A6%BF%E0%A6%AC%E0%A6%B0%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%BE"
+      "marketCount": 3,
+      "url": "https://news.google.com/search?q=lyon%20-%20lillestr%C3%B8m"
     },
     {
       "title": "adidas",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "India"
@@ -878,7 +907,6 @@
     },
     {
       "title": "black friday sales clothing",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "India"
@@ -890,21 +918,7 @@
       "url": "https://news.google.com/search?q=black%20friday%20sales%20clothing"
     },
     {
-      "title": "kieron pollard",
-      "category": "Sport",
-      "volume": "500+ searches",
-      "markets": [
-        "Pakistan"
-      ],
-      "marketVolumes": {
-        "Pakistan": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=kieron%20pollard"
-    },
-    {
       "title": "nvidia chips singapore",
-      "category": "Science & tech",
       "volume": "500+ searches",
       "markets": [
         "Singapore"
@@ -917,7 +931,6 @@
     },
     {
       "title": "เบนฟิก้า",
-      "category": "Sport",
       "volume": "500+ searches",
       "markets": [
         "Thailand"
@@ -930,7 +943,6 @@
     },
     {
       "title": "honda avancier suv",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Thailand"
@@ -943,7 +955,6 @@
     },
     {
       "title": "เบซิคตัส",
-      "category": "Sport",
       "volume": "500+ searches",
       "markets": [
         "Thailand"
@@ -955,47 +966,7 @@
       "url": "https://news.google.com/search?q=%E0%B9%80%E0%B8%9A%E0%B8%8B%E0%B8%B4%E0%B8%84%E0%B8%95%E0%B8%B1%E0%B8%AA"
     },
     {
-      "title": "open",
-      "category": "World",
-      "volume": "500+ searches",
-      "markets": [
-        "Philippines"
-      ],
-      "marketVolumes": {
-        "Philippines": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=open"
-    },
-    {
-      "title": "北朝鮮",
-      "category": "World",
-      "volume": "500+ searches",
-      "markets": [
-        "Japan"
-      ],
-      "marketVolumes": {
-        "Japan": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E5%8C%97%E6%9C%9D%E9%AE%AE"
-    },
-    {
-      "title": "acc emerging teams asia cup",
-      "category": "Sport",
-      "volume": "500+ searches",
-      "markets": [
-        "Japan"
-      ],
-      "marketVolumes": {
-        "Japan": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=acc%20emerging%20teams%20asia%20cup"
-    },
-    {
       "title": "브라이턴 대 cs u 크라이오바",
-      "category": "Sport",
       "volume": "500+ searches",
       "markets": [
         "South Korea"
@@ -1007,8 +978,19 @@
       "url": "https://news.google.com/search?q=%EB%B8%8C%EB%9D%BC%EC%9D%B4%ED%84%B4%20%EB%8C%80%20cs%20u%20%ED%81%AC%EB%9D%BC%EC%9D%B4%EC%98%A4%EB%B0%94"
     },
     {
+      "title": "우크라이나",
+      "volume": "500+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%EC%9A%B0%ED%81%AC%EB%9D%BC%EC%9D%B4%EB%82%98"
+    },
+    {
       "title": "베식타시 대 하포엘 베르셰바",
-      "category": "Sport",
       "volume": "500+ searches",
       "markets": [
         "South Korea"
@@ -1020,34 +1002,7 @@
       "url": "https://news.google.com/search?q=%EB%B2%A0%EC%8B%9D%ED%83%80%EC%8B%9C%20%EB%8C%80%20%ED%95%98%ED%8F%AC%EC%97%98%20%EB%B2%A0%EB%A5%B4%EC%85%B0%EB%B0%94"
     },
     {
-      "title": "스파이",
-      "category": "Science & tech",
-      "volume": "500+ searches",
-      "markets": [
-        "South Korea"
-      ],
-      "marketVolumes": {
-        "South Korea": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%EC%8A%A4%ED%8C%8C%EC%9D%B4"
-    },
-    {
-      "title": "nfl",
-      "category": "Sport",
-      "volume": "500+ searches",
-      "markets": [
-        "Australia"
-      ],
-      "marketVolumes": {
-        "Australia": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=nfl"
-    },
-    {
       "title": "lottery",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Australia"
@@ -1059,8 +1014,19 @@
       "url": "https://news.google.com/search?q=lottery"
     },
     {
-      "title": "cairo santos",
-      "category": "Sport",
+      "title": "election results",
+      "volume": "500+ searches",
+      "markets": [
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "New Zealand": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=election%20results"
+    },
+    {
+      "title": "tuskegee vs alabama state",
       "volume": "500+ searches",
       "markets": [
         "United States"
@@ -1069,11 +1035,10 @@
         "United States": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=cairo%20santos"
+      "url": "https://news.google.com/search?q=tuskegee%20vs%20alabama%20state"
     },
     {
-      "title": "drew petzing",
-      "category": "World",
+      "title": "guy fieri",
       "volume": "500+ searches",
       "markets": [
         "United States"
@@ -1082,24 +1047,46 @@
         "United States": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=drew%20petzing"
+      "url": "https://news.google.com/search?q=guy%20fieri"
     },
     {
-      "title": "luther burden iii",
-      "category": "Sport",
+      "title": "bryce pickford",
       "volume": "500+ searches",
       "markets": [
-        "United States"
+        "Canada"
       ],
       "marketVolumes": {
-        "United States": 500
+        "Canada": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=luther%20burden%20iii"
+      "url": "https://news.google.com/search?q=bryce%20pickford"
     },
     {
-      "title": "peixe",
-      "category": "World",
+      "title": "motorcycle",
+      "volume": "500+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=motorcycle"
+    },
+    {
+      "title": "clima mazatlan",
+      "volume": "500+ searches",
+      "markets": [
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=clima%20mazatlan"
+    },
+    {
+      "title": "masterchef profissionais",
       "volume": "500+ searches",
       "markets": [
         "Brazil"
@@ -1108,11 +1095,22 @@
         "Brazil": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=peixe"
+      "url": "https://news.google.com/search?q=masterchef%20profissionais"
+    },
+    {
+      "title": "florianópolis",
+      "volume": "500+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=florian%C3%B3polis"
     },
     {
       "title": "anvisa",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Brazil"
@@ -1124,8 +1122,19 @@
       "url": "https://news.google.com/search?q=anvisa"
     },
     {
+      "title": "fuerzas armadas británicas",
+      "volume": "500+ searches",
+      "markets": [
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=fuerzas%20armadas%20brit%C3%A1nicas"
+    },
+    {
       "title": "viktoria plzeň - benfica",
-      "category": "Sport",
       "volume": "500+ searches",
       "markets": [
         "Chile"
@@ -1138,7 +1147,6 @@
     },
     {
       "title": "luis amaranto perea",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Colombia"
@@ -1150,34 +1158,19 @@
       "url": "https://news.google.com/search?q=luis%20amaranto%20perea"
     },
     {
-      "title": "detroit lions",
-      "category": "Sport",
+      "title": "superintendent",
       "volume": "500+ searches",
       "markets": [
-        "United Kingdom"
+        "Ireland"
       ],
       "marketVolumes": {
-        "United Kingdom": 500
+        "Ireland": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=detroit%20lions"
+      "url": "https://news.google.com/search?q=superintendent"
     },
     {
-      "title": "philippe krief",
-      "category": "World",
-      "volume": "500+ searches",
-      "markets": [
-        "France"
-      ],
-      "marketVolumes": {
-        "France": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=philippe%20krief"
-    },
-    {
-      "title": "kim jong un",
-      "category": "World",
+      "title": "juventus – omonia nikosia",
       "volume": "500+ searches",
       "markets": [
         "Germany"
@@ -1186,11 +1179,22 @@
         "Germany": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=kim%20jong%20un"
+      "url": "https://news.google.com/search?q=juventus%20%E2%80%93%20omonia%20nikosia"
     },
     {
-      "title": "josé luis ábalos",
-      "category": "World",
+      "title": "kasachstan",
+      "volume": "500+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=kasachstan"
+    },
+    {
+      "title": "almudena navalón",
       "volume": "500+ searches",
       "markets": [
         "Spain"
@@ -1199,11 +1203,10 @@
         "Spain": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=jos%C3%A9%20luis%20%C3%A1balos"
+      "url": "https://news.google.com/search?q=almudena%20naval%C3%B3n"
     },
     {
-      "title": "barbara rey",
-      "category": "World",
+      "title": "rodionov",
       "volume": "500+ searches",
       "markets": [
         "Spain"
@@ -1212,11 +1215,10 @@
         "Spain": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=barbara%20rey"
+      "url": "https://news.google.com/search?q=rodionov"
     },
     {
       "title": "andamento",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Italy"
@@ -1228,8 +1230,7 @@
       "url": "https://news.google.com/search?q=andamento"
     },
     {
-      "title": "rob van daal",
-      "category": "World",
+      "title": "abdalla ajax",
       "volume": "500+ searches",
       "markets": [
         "Netherlands"
@@ -1238,11 +1239,22 @@
         "Netherlands": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=rob%20van%20daal"
+      "url": "https://news.google.com/search?q=abdalla%20ajax"
+    },
+    {
+      "title": "henryk wypych",
+      "volume": "500+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=henryk%20wypych"
     },
     {
       "title": "kristofer lundström",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Sweden"
@@ -1254,21 +1266,7 @@
       "url": "https://news.google.com/search?q=kristofer%20lundstr%C3%B6m"
     },
     {
-      "title": "rysslands herrlandslag i ishockey",
-      "category": "World",
-      "volume": "500+ searches",
-      "markets": [
-        "Sweden"
-      ],
-      "marketVolumes": {
-        "Sweden": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=rysslands%20herrlandslag%20i%20ishockey"
-    },
-    {
       "title": "служба безпеки україни",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Ukraine"
@@ -1280,21 +1278,7 @@
       "url": "https://news.google.com/search?q=%D1%81%D0%BB%D1%83%D0%B6%D0%B1%D0%B0%20%D0%B1%D0%B5%D0%B7%D0%BF%D0%B5%D0%BA%D0%B8%20%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B8"
     },
     {
-      "title": "брайтон – університатя",
-      "category": "World",
-      "volume": "500+ searches",
-      "markets": [
-        "Ukraine"
-      ],
-      "marketVolumes": {
-        "Ukraine": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D0%B1%D1%80%D0%B0%D0%B9%D1%82%D0%BE%D0%BD%20%E2%80%93%20%D1%83%D0%BD%D1%96%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B0%D1%82%D1%8F"
-    },
-    {
       "title": "лотерея",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Russia"
@@ -1307,7 +1291,6 @@
     },
     {
       "title": "бангис счастливый",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Russia"
@@ -1319,8 +1302,23 @@
       "url": "https://news.google.com/search?q=%D0%B1%D0%B0%D0%BD%D0%B3%D0%B8%D1%81%20%D1%81%D1%87%D0%B0%D1%81%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9"
     },
     {
+      "title": "viktoria plzeň vs benfica",
+      "volume": "500+ searches",
+      "markets": [
+        "Kenya",
+        "Ghana",
+        "United Arab Emirates"
+      ],
+      "marketVolumes": {
+        "United Arab Emirates": 100,
+        "Kenya": 200,
+        "Ghana": 200
+      },
+      "marketCount": 3,
+      "url": "https://news.google.com/search?q=viktoria%20plze%C5%88%20vs%20benfica"
+    },
+    {
       "title": "kuwait",
-      "category": "Politics",
       "volume": "500+ searches",
       "markets": [
         "United Arab Emirates"
@@ -1333,7 +1331,6 @@
     },
     {
       "title": "egypt tanker fire",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "United Arab Emirates"
@@ -1345,8 +1342,31 @@
       "url": "https://news.google.com/search?q=egypt%20tanker%20fire"
     },
     {
+      "title": "وزارة التربية والتعليم",
+      "volume": "500+ searches",
+      "markets": [
+        "United Arab Emirates"
+      ],
+      "marketVolumes": {
+        "United Arab Emirates": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%D9%88%D8%B2%D8%A7%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B1%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85"
+    },
+    {
+      "title": "صوت الدعاة",
+      "volume": "500+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 500
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%D8%B5%D9%88%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B9%D8%A7%D8%A9"
+    },
+    {
       "title": "bbc.hausa",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "Nigeria"
@@ -1358,21 +1378,7 @@
       "url": "https://news.google.com/search?q=bbc.hausa"
     },
     {
-      "title": "union gilloise",
-      "category": "Sport",
-      "volume": "500+ searches",
-      "markets": [
-        "Nigeria"
-      ],
-      "marketVolumes": {
-        "Nigeria": 500
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=union%20gilloise"
-    },
-    {
       "title": "flysafair",
-      "category": "World",
       "volume": "500+ searches",
       "markets": [
         "South Africa"
@@ -1384,53 +1390,51 @@
       "url": "https://news.google.com/search?q=flysafair"
     },
     {
-      "title": "marseille vs levski sofia",
-      "category": "Sport",
+      "title": "kyle monangai",
       "volume": "400+ searches",
       "markets": [
-        "Bangladesh",
-        "Kenya"
+        "Canada",
+        "Mexico"
       ],
       "marketVolumes": {
-        "Bangladesh": 200,
+        "Canada": 200,
+        "Mexico": 200
+      },
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=kyle%20monangai"
+    },
+    {
+      "title": "europa conference league",
+      "volume": "400+ searches",
+      "markets": [
+        "Kenya",
+        "Canada",
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Canada": 100,
+        "Sweden": 100,
         "Kenya": 200
       },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=marseille%20vs%20levski%20sofia"
+      "marketCount": 3,
+      "url": "https://news.google.com/search?q=europa%20conference%20league"
     },
     {
-      "title": "jota silva",
-      "category": "Sport",
+      "title": "holly anna ramsay",
       "volume": "400+ searches",
       "markets": [
-        "Mexico",
-        "Italy"
+        "Ireland",
+        "France"
       ],
       "marketVolumes": {
-        "Mexico": 200,
-        "Italy": 200
+        "Ireland": 200,
+        "France": 200
       },
       "marketCount": 2,
-      "url": "https://news.google.com/search?q=jota%20silva"
-    },
-    {
-      "title": "ac milan",
-      "category": "Sport",
-      "volume": "400+ searches",
-      "markets": [
-        "Germany",
-        "Poland"
-      ],
-      "marketVolumes": {
-        "Germany": 200,
-        "Poland": 200
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=ac%20milan"
+      "url": "https://news.google.com/search?q=holly%20anna%20ramsay"
     },
     {
       "title": "saburtalo vs getafe",
-      "category": "Sport",
       "volume": "400+ searches",
       "markets": [
         "Ghana",
@@ -1446,111 +1450,89 @@
       "url": "https://news.google.com/search?q=saburtalo%20vs%20getafe"
     },
     {
-      "title": "leny yoro",
-      "category": "World",
-      "volume": "400+ searches",
+      "title": "retirement",
+      "volume": "300+ searches",
       "markets": [
-        "Nigeria",
+        "Canada",
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Canada": 200,
+        "Ireland": 100
+      },
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=retirement"
+    },
+    {
+      "title": "alphadjo cisse",
+      "volume": "300+ searches",
+      "markets": [
+        "Italy",
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 100,
+        "Italy": 200
+      },
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=alphadjo%20cisse"
+    },
+    {
+      "title": "hearts vs monaco",
+      "volume": "300+ searches",
+      "markets": [
+        "Saudi Arabia",
+        "United Arab Emirates",
         "Ghana"
       ],
       "marketVolumes": {
-        "Nigeria": 200,
-        "Ghana": 200
+        "Saudi Arabia": 100,
+        "United Arab Emirates": 100,
+        "Ghana": 100
       },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=leny%20yoro"
+      "marketCount": 3,
+      "url": "https://news.google.com/search?q=hearts%20vs%20monaco"
     },
     {
-      "title": "getafe",
-      "category": "Sport",
+      "title": "دوري أوروبا",
       "volume": "300+ searches",
       "markets": [
-        "Indonesia",
-        "South Africa"
+        "Egypt",
+        "Saudi Arabia"
       ],
       "marketVolumes": {
-        "Indonesia": 200,
-        "South Africa": 100
+        "Saudi Arabia": 100,
+        "Egypt": 200
       },
       "marketCount": 2,
-      "url": "https://news.google.com/search?q=getafe"
+      "url": "https://news.google.com/search?q=%D8%AF%D9%88%D8%B1%D9%8A%20%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7"
     },
     {
-      "title": "conference league",
-      "category": "Sport",
-      "volume": "300+ searches",
-      "markets": [
-        "Sweden",
-        "Canada"
-      ],
-      "marketVolumes": {
-        "Canada": 100,
-        "Sweden": 200
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=conference%20league"
-    },
-    {
-      "title": "salzburg fc",
-      "category": "Sport",
-      "volume": "300+ searches",
-      "markets": [
-        "Brazil",
-        "Nigeria"
-      ],
-      "marketVolumes": {
-        "Brazil": 200,
-        "Nigeria": 100
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=salzburg%20fc"
-    },
-    {
-      "title": "ajax",
-      "category": "Sport",
-      "volume": "300+ searches",
-      "markets": [
-        "Nigeria",
-        "South Africa"
-      ],
-      "marketVolumes": {
-        "Nigeria": 200,
-        "South Africa": 100
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=ajax"
-    },
-    {
-      "title": "uel",
-      "category": "Sport",
+      "title": "1password security breach",
       "volume": "200+ searches",
       "markets": [
-        "India",
-        "South Africa"
+        "Bangladesh"
       ],
       "marketVolumes": {
-        "India": 100,
-        "South Africa": 100
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=uel"
-    },
-    {
-      "title": "sap",
-      "category": "Science & tech",
-      "volume": "200+ searches",
-      "markets": [
-        "India"
-      ],
-      "marketVolumes": {
-        "India": 200
+        "Bangladesh": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=sap"
+      "url": "https://news.google.com/search?q=1password%20security%20breach"
+    },
+    {
+      "title": "অর্জুন কাপুর",
+      "volume": "200+ searches",
+      "markets": [
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%9C%E0%A7%81%E0%A6%A8%20%E0%A6%95%E0%A6%BE%E0%A6%AA%E0%A7%81%E0%A6%B0"
     },
     {
       "title": "1password hacked",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Pakistan"
@@ -1563,7 +1545,6 @@
     },
     {
       "title": "live cricket match today",
-      "category": "Sport",
       "volume": "200+ searches",
       "markets": [
         "Pakistan"
@@ -1576,7 +1557,6 @@
     },
     {
       "title": "as monaco",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Indonesia"
@@ -1588,8 +1568,19 @@
       "url": "https://news.google.com/search?q=as%20monaco"
     },
     {
+      "title": "red bull salzburg",
+      "volume": "200+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=red%20bull%20salzburg"
+    },
+    {
       "title": "union saint-gilloise",
-      "category": "Sport",
       "volume": "200+ searches",
       "markets": [
         "Indonesia"
@@ -1601,34 +1592,7 @@
       "url": "https://news.google.com/search?q=union%20saint-gilloise"
     },
     {
-      "title": "sunderland",
-      "category": "Sport",
-      "volume": "200+ searches",
-      "markets": [
-        "Indonesia"
-      ],
-      "marketVolumes": {
-        "Indonesia": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=sunderland"
-    },
-    {
-      "title": "ฮาร์ทส์ พบ มอนาโก",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Thailand"
-      ],
-      "marketVolumes": {
-        "Thailand": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E0%B8%AE%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%97%E0%B8%AA%E0%B9%8C%20%E0%B8%9E%E0%B8%9A%20%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%B2%E0%B9%82%E0%B8%81"
-    },
-    {
       "title": "meralco",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Philippines"
@@ -1641,7 +1605,6 @@
     },
     {
       "title": "nike",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Philippines"
@@ -1654,7 +1617,6 @@
     },
     {
       "title": "fiba asia world cup qualifiers",
-      "category": "Sport",
       "volume": "200+ searches",
       "markets": [
         "Philippines"
@@ -1666,8 +1628,19 @@
       "url": "https://news.google.com/search?q=fiba%20asia%20world%20cup%20qualifiers"
     },
     {
+      "title": "happy thanksgiving day",
+      "volume": "200+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=happy%20thanksgiving%20day"
+    },
+    {
       "title": "今村聖奈",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Japan"
@@ -1679,8 +1652,7 @@
       "url": "https://news.google.com/search?q=%E4%BB%8A%E6%9D%91%E8%81%96%E5%A5%88"
     },
     {
-      "title": "コンセプトカー",
-      "category": "World",
+      "title": "オリンピアコス 対 ミラン",
       "volume": "200+ searches",
       "markets": [
         "Japan"
@@ -1689,24 +1661,22 @@
         "Japan": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88%E3%82%AB%E3%83%BC"
+      "url": "https://news.google.com/search?q=%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%82%A2%E3%82%B3%E3%82%B9%20%E5%AF%BE%20%E3%83%9F%E3%83%A9%E3%83%B3"
     },
     {
-      "title": "タラップ",
-      "category": "World",
+      "title": "kb국민은행",
       "volume": "200+ searches",
       "markets": [
-        "Japan"
+        "South Korea"
       ],
       "marketVolumes": {
-        "Japan": 200
+        "South Korea": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E3%82%BF%E3%83%A9%E3%83%83%E3%83%97"
+      "url": "https://news.google.com/search?q=kb%EA%B5%AD%EB%AF%BC%EC%9D%80%ED%96%89"
     },
     {
       "title": "주거",
-      "category": "Science & tech",
       "volume": "200+ searches",
       "markets": [
         "South Korea"
@@ -1718,21 +1688,7 @@
       "url": "https://news.google.com/search?q=%EC%A3%BC%EA%B1%B0"
     },
     {
-      "title": "우크라이나",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "South Korea"
-      ],
-      "marketVolumes": {
-        "South Korea": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%EC%9A%B0%ED%81%AC%EB%9D%BC%EC%9D%B4%EB%82%98"
-    },
-    {
       "title": "아마존",
-      "category": "Science & tech",
       "volume": "200+ searches",
       "markets": [
         "South Korea"
@@ -1744,8 +1700,19 @@
       "url": "https://news.google.com/search?q=%EC%95%84%EB%A7%88%EC%A1%B4"
     },
     {
+      "title": "bom radar melbourne",
+      "volume": "200+ searches",
+      "markets": [
+        "Australia"
+      ],
+      "marketVolumes": {
+        "Australia": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=bom%20radar%20melbourne"
+    },
+    {
       "title": "black friday sales",
-      "category": "Politics",
       "volume": "200+ searches",
       "markets": [
         "New Zealand"
@@ -1758,7 +1725,6 @@
     },
     {
       "title": "chris chang",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "New Zealand"
@@ -1771,7 +1737,6 @@
     },
     {
       "title": "loeys–dietz syndrome",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "New Zealand"
@@ -1783,8 +1748,43 @@
       "url": "https://news.google.com/search?q=loeys%E2%80%93dietz%20syndrome"
     },
     {
+      "title": "universal studios orlando",
+      "volume": "200+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=universal%20studios%20orlando"
+    },
+    {
+      "title": "robin williams",
+      "volume": "200+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=robin%20williams"
+    },
+    {
+      "title": "waymo car",
+      "volume": "200+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=waymo%20car"
+    },
+    {
       "title": "jacob rodriguez",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "United States"
@@ -1796,73 +1796,7 @@
       "url": "https://news.google.com/search?q=jacob%20rodriguez"
     },
     {
-      "title": "brian branch",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "United States"
-      ],
-      "marketVolumes": {
-        "United States": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=brian%20branch"
-    },
-    {
-      "title": "isiah pacheco",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "United States"
-      ],
-      "marketVolumes": {
-        "United States": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=isiah%20pacheco"
-    },
-    {
-      "title": "jahmyr gibbs",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Canada"
-      ],
-      "marketVolumes": {
-        "Canada": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=jahmyr%20gibbs"
-    },
-    {
-      "title": "motorcycle",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Canada"
-      ],
-      "marketVolumes": {
-        "Canada": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=motorcycle"
-    },
-    {
-      "title": "public service alliance of canada",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Canada"
-      ],
-      "marketVolumes": {
-        "Canada": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=public%20service%20alliance%20of%20canada"
-    },
-    {
-      "title": "crystal palace - real sociedad",
-      "category": "Sport",
+      "title": "sunderland afc - jagiellonia białystok",
       "volume": "200+ searches",
       "markets": [
         "Mexico"
@@ -1871,11 +1805,10 @@
         "Mexico": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=crystal%20palace%20-%20real%20sociedad"
+      "url": "https://news.google.com/search?q=sunderland%20afc%20-%20jagiellonia%20bia%C5%82ystok"
     },
     {
       "title": "associazione calcio milan",
-      "category": "Sport",
       "volume": "200+ searches",
       "markets": [
         "Mexico"
@@ -1887,34 +1820,7 @@
       "url": "https://news.google.com/search?q=associazione%20calcio%20milan"
     },
     {
-      "title": "clima mazatlan",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Mexico"
-      ],
-      "marketVolumes": {
-        "Mexico": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=clima%20mazatlan"
-    },
-    {
-      "title": "lech poznań",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Mexico"
-      ],
-      "marketVolumes": {
-        "Mexico": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=lech%20pozna%C5%84"
-    },
-    {
-      "title": "florianópolis",
-      "category": "World",
+      "title": "borac x atalanta",
       "volume": "200+ searches",
       "markets": [
         "Brazil"
@@ -1923,11 +1829,34 @@
         "Brazil": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=florian%C3%B3polis"
+      "url": "https://news.google.com/search?q=borac%20x%20atalanta"
+    },
+    {
+      "title": "sunderland x jagiellonia białystok",
+      "volume": "200+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=sunderland%20x%20jagiellonia%20bia%C5%82ystok"
+    },
+    {
+      "title": "linus torvalds",
+      "volume": "200+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=linus%20torvalds"
     },
     {
       "title": "latam airlines brasil",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Brazil"
@@ -1939,21 +1868,19 @@
       "url": "https://news.google.com/search?q=latam%20airlines%20brasil"
     },
     {
-      "title": "br-386",
-      "category": "World",
+      "title": "sticker con audio whatsapp",
       "volume": "200+ searches",
       "markets": [
-        "Brazil"
+        "Argentina"
       ],
       "marketVolumes": {
-        "Brazil": 200
+        "Argentina": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=br-386"
+      "url": "https://news.google.com/search?q=sticker%20con%20audio%20whatsapp"
     },
     {
       "title": "temporal",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Argentina"
@@ -1966,7 +1893,6 @@
     },
     {
       "title": "quiebra",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Argentina"
@@ -1979,7 +1905,6 @@
     },
     {
       "title": "benfica vs",
-      "category": "Sport",
       "volume": "200+ searches",
       "markets": [
         "Argentina"
@@ -1991,62 +1916,7 @@
       "url": "https://news.google.com/search?q=benfica%20vs"
     },
     {
-      "title": "fuerzas armadas británicas",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Argentina"
-      ],
-      "marketVolumes": {
-        "Argentina": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=fuerzas%20armadas%20brit%C3%A1nicas"
-    },
-    {
-      "title": "claudio zuchovicki",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Argentina"
-      ],
-      "marketVolumes": {
-        "Argentina": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=claudio%20zuchovicki"
-    },
-    {
-      "title": "bournemouth",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Argentina",
-        "Colombia"
-      ],
-      "marketVolumes": {
-        "Argentina": 100,
-        "Colombia": 100
-      },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=bournemouth"
-    },
-    {
-      "title": "besiktas vs",
-      "category": "Sport",
-      "volume": "200+ searches",
-      "markets": [
-        "Chile"
-      ],
-      "marketVolumes": {
-        "Chile": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=besiktas%20vs"
-    },
-    {
       "title": "selección de fútbol sub-17 de montenegro",
-      "category": "Sport",
       "volume": "200+ searches",
       "markets": [
         "Chile"
@@ -2058,8 +1928,31 @@
       "url": "https://news.google.com/search?q=selecci%C3%B3n%20de%20f%C3%BAtbol%20sub-17%20de%20montenegro"
     },
     {
+      "title": "besiktas vs",
+      "volume": "200+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=besiktas%20vs"
+    },
+    {
+      "title": "hearts - mónaco",
+      "volume": "200+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=hearts%20-%20m%C3%B3naco"
+    },
+    {
       "title": "productividad",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Colombia"
@@ -2071,8 +1964,19 @@
       "url": "https://news.google.com/search?q=productividad"
     },
     {
+      "title": "bournemouth",
+      "volume": "200+ searches",
+      "markets": [
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Colombia": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=bournemouth"
+    },
+    {
       "title": "ajax - thun",
-      "category": "Sport",
       "volume": "200+ searches",
       "markets": [
         "Colombia"
@@ -2084,21 +1988,7 @@
       "url": "https://news.google.com/search?q=ajax%20-%20thun"
     },
     {
-      "title": "celta de vigo",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Colombia"
-      ],
-      "marketVolumes": {
-        "Colombia": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=celta%20de%20vigo"
-    },
-    {
-      "title": "george russell",
-      "category": "Politics",
+      "title": "george floyd",
       "volume": "200+ searches",
       "markets": [
         "United Kingdom"
@@ -2107,11 +1997,10 @@
         "United Kingdom": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=george%20russell"
+      "url": "https://news.google.com/search?q=george%20floyd"
     },
     {
-      "title": "challenge cup",
-      "category": "Sport",
+      "title": "doncaster vs huddersfield",
       "volume": "200+ searches",
       "markets": [
         "United Kingdom"
@@ -2120,37 +2009,24 @@
         "United Kingdom": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=challenge%20cup"
+      "url": "https://news.google.com/search?q=doncaster%20vs%20huddersfield"
     },
     {
-      "title": "laura freigang",
-      "category": "World",
+      "title": "benfica fc",
       "volume": "200+ searches",
       "markets": [
-        "United Kingdom"
+        "United Kingdom",
+        "South Africa"
       ],
       "marketVolumes": {
-        "United Kingdom": 200
+        "United Kingdom": 100,
+        "South Africa": 100
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=laura%20freigang"
-    },
-    {
-      "title": "superintendent",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Ireland"
-      ],
-      "marketVolumes": {
-        "Ireland": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=superintendent"
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=benfica%20fc"
     },
     {
       "title": "dublin",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Ireland"
@@ -2162,8 +2038,7 @@
       "url": "https://news.google.com/search?q=dublin"
     },
     {
-      "title": "carlos",
-      "category": "Politics",
+      "title": "brive – biarritz",
       "volume": "200+ searches",
       "markets": [
         "France"
@@ -2172,11 +2047,10 @@
         "France": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=carlos"
+      "url": "https://news.google.com/search?q=brive%20%E2%80%93%20biarritz"
     },
     {
-      "title": "christine kelly",
-      "category": "World",
+      "title": "ferry",
       "volume": "200+ searches",
       "markets": [
         "France"
@@ -2185,11 +2059,10 @@
         "France": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=christine%20kelly"
+      "url": "https://news.google.com/search?q=ferry"
     },
     {
-      "title": "amine gouiri",
-      "category": "World",
+      "title": "tempo edf",
       "volume": "200+ searches",
       "markets": [
         "France"
@@ -2198,37 +2071,34 @@
         "France": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=amine%20gouiri"
+      "url": "https://news.google.com/search?q=tempo%20edf"
     },
     {
-      "title": "besiktas match",
-      "category": "Sport",
+      "title": "anita defrantz",
       "volume": "200+ searches",
       "markets": [
-        "France"
+        "Germany"
       ],
       "marketVolumes": {
-        "France": 200
+        "Germany": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=besiktas%20match"
+      "url": "https://news.google.com/search?q=anita%20defrantz"
     },
     {
-      "title": "robinio vaz",
-      "category": "World",
+      "title": "steigt erik bei gzsz aus",
       "volume": "200+ searches",
       "markets": [
-        "France"
+        "Germany"
       ],
       "marketVolumes": {
-        "France": 200
+        "Germany": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=robinio%20vaz"
+      "url": "https://news.google.com/search?q=steigt%20erik%20bei%20gzsz%20aus"
     },
     {
       "title": "notruf hafenkante heute",
-      "category": "Politics",
       "volume": "200+ searches",
       "markets": [
         "Germany"
@@ -2240,73 +2110,7 @@
       "url": "https://news.google.com/search?q=notruf%20hafenkante%20heute"
     },
     {
-      "title": "alice weidel",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Germany"
-      ],
-      "marketVolumes": {
-        "Germany": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=alice%20weidel"
-    },
-    {
-      "title": "the day after tomorrow",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Germany"
-      ],
-      "marketVolumes": {
-        "Germany": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=the%20day%20after%20tomorrow"
-    },
-    {
-      "title": "liga europy",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Germany"
-      ],
-      "marketVolumes": {
-        "Germany": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=liga%20europy"
-    },
-    {
-      "title": "danilo riethmüller",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Germany"
-      ],
-      "marketVolumes": {
-        "Germany": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=danilo%20riethm%C3%BCller"
-    },
-    {
-      "title": "jens langeneke",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Germany"
-      ],
-      "marketVolumes": {
-        "Germany": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=jens%20langeneke"
-    },
-    {
-      "title": "rodionov",
-      "category": "World",
+      "title": "mad cool 2027",
       "volume": "200+ searches",
       "markets": [
         "Spain"
@@ -2315,11 +2119,10 @@
         "Spain": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=rodionov"
+      "url": "https://news.google.com/search?q=mad%20cool%202027"
     },
     {
-      "title": "tumba de alejandro magno",
-      "category": "World",
+      "title": "premios ondas 2026",
       "volume": "200+ searches",
       "markets": [
         "Spain"
@@ -2328,24 +2131,10 @@
         "Spain": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=tumba%20de%20alejandro%20magno"
+      "url": "https://news.google.com/search?q=premios%20ondas%202026"
     },
     {
-      "title": "puerto",
-      "category": "Sport",
-      "volume": "200+ searches",
-      "markets": [
-        "Spain"
-      ],
-      "marketVolumes": {
-        "Spain": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=puerto"
-    },
-    {
-      "title": "omari hutchinson",
-      "category": "World",
+      "title": "tuscia",
       "volume": "200+ searches",
       "markets": [
         "Italy"
@@ -2354,11 +2143,10 @@
         "Italy": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=omari%20hutchinson"
+      "url": "https://news.google.com/search?q=tuscia"
     },
     {
       "title": "vallese",
-      "category": "Science & tech",
       "volume": "200+ searches",
       "markets": [
         "Italy"
@@ -2370,21 +2158,7 @@
       "url": "https://news.google.com/search?q=vallese"
     },
     {
-      "title": "besiktas hapoel beer sheva",
-      "category": "Sport",
-      "volume": "200+ searches",
-      "markets": [
-        "Italy"
-      ],
-      "marketVolumes": {
-        "Italy": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=besiktas%20hapoel%20beer%20sheva"
-    },
-    {
-      "title": "abdalla ajax",
-      "category": "World",
+      "title": "prins claus fonds",
       "volume": "200+ searches",
       "markets": [
         "Netherlands"
@@ -2393,11 +2167,34 @@
         "Netherlands": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=abdalla%20ajax"
+      "url": "https://news.google.com/search?q=prins%20claus%20fonds"
+    },
+    {
+      "title": "ouazane",
+      "volume": "200+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=ouazane"
+    },
+    {
+      "title": "dilan yeşilgöz",
+      "volume": "200+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=dilan%20ye%C5%9Filg%C3%B6z"
     },
     {
       "title": "abdalla",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Netherlands"
@@ -2409,60 +2206,7 @@
       "url": "https://news.google.com/search?q=abdalla"
     },
     {
-      "title": "ede",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Netherlands"
-      ],
-      "marketVolumes": {
-        "Netherlands": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=ede"
-    },
-    {
-      "title": "karremans",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Netherlands"
-      ],
-      "marketVolumes": {
-        "Netherlands": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=karremans"
-    },
-    {
-      "title": "hapoel beer sheva",
-      "category": "Sport",
-      "volume": "200+ searches",
-      "markets": [
-        "Netherlands"
-      ],
-      "marketVolumes": {
-        "Netherlands": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=hapoel%20beer%20sheva"
-    },
-    {
-      "title": "meta bril",
-      "category": "Science & tech",
-      "volume": "200+ searches",
-      "markets": [
-        "Netherlands"
-      ],
-      "marketVolumes": {
-        "Netherlands": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=meta%20bril"
-    },
-    {
-      "title": "henryk wypych",
-      "category": "World",
+      "title": "borac – atalanta",
       "volume": "200+ searches",
       "markets": [
         "Poland"
@@ -2471,11 +2215,34 @@
         "Poland": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=henryk%20wypych"
+      "url": "https://news.google.com/search?q=borac%20%E2%80%93%20atalanta"
+    },
+    {
+      "title": "mark rutte",
+      "volume": "200+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=mark%20rutte"
+    },
+    {
+      "title": "zbigniew jakubas",
+      "volume": "200+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=zbigniew%20jakubas"
     },
     {
       "title": "inter mediolan",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Poland"
@@ -2487,8 +2254,31 @@
       "url": "https://news.google.com/search?q=inter%20mediolan"
     },
     {
+      "title": "crystal palace mot real sociedad",
+      "volume": "200+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=crystal%20palace%20mot%20real%20sociedad"
+    },
+    {
+      "title": "суспільне запоріжжя",
+      "volume": "200+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%D1%81%D1%83%D1%81%D0%BF%D1%96%D0%BB%D1%8C%D0%BD%D0%B5%20%D0%B7%D0%B0%D0%BF%D0%BE%D1%80%D1%96%D0%B6%D0%B6%D1%8F"
+    },
+    {
       "title": "футбольний арбітр",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Ukraine"
@@ -2501,7 +2291,6 @@
     },
     {
       "title": "лига конференций",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Ukraine"
@@ -2514,7 +2303,6 @@
     },
     {
       "title": "истребитель",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Ukraine"
@@ -2527,7 +2315,6 @@
     },
     {
       "title": "тібо куртуа",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Ukraine"
@@ -2540,7 +2327,6 @@
     },
     {
       "title": "бенфика",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Russia"
@@ -2553,7 +2339,6 @@
     },
     {
       "title": "бегущий по лезвию",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Russia"
@@ -2566,7 +2351,6 @@
     },
     {
       "title": "аякс – тун",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Russia"
@@ -2578,8 +2362,7 @@
       "url": "https://news.google.com/search?q=%D0%B0%D1%8F%D0%BA%D1%81%20%E2%80%93%20%D1%82%D1%83%D0%BD"
     },
     {
-      "title": "trtspor",
-      "category": "World",
+      "title": "torreense - celtic",
       "volume": "200+ searches",
       "markets": [
         "Türkiye"
@@ -2588,11 +2371,10 @@
         "Türkiye": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=trtspor"
+      "url": "https://news.google.com/search?q=torreense%20-%20celtic"
     },
     {
-      "title": "oh beşiktaş",
-      "category": "World",
+      "title": "haciz",
       "volume": "200+ searches",
       "markets": [
         "Türkiye"
@@ -2601,37 +2383,10 @@
         "Türkiye": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=oh%20be%C5%9Fikta%C5%9F"
+      "url": "https://news.google.com/search?q=haciz"
     },
     {
-      "title": "afc bournemouth",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Türkiye"
-      ],
-      "marketVolumes": {
-        "Türkiye": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=afc%20bournemouth"
-    },
-    {
-      "title": "ndidi",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Türkiye"
-      ],
-      "marketVolumes": {
-        "Türkiye": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=ndidi"
-    },
-    {
-      "title": "beşiktaş",
-      "category": "World",
+      "title": "يوفنتوس ضد أومونيا",
       "volume": "200+ searches",
       "markets": [
         "Saudi Arabia"
@@ -2640,11 +2395,58 @@
         "Saudi Arabia": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=be%C5%9Fikta%C5%9F"
+      "url": "https://news.google.com/search?q=%D9%8A%D9%88%D9%81%D9%86%D8%AA%D9%88%D8%B3%20%D8%B6%D8%AF%20%D8%A3%D9%88%D9%85%D9%88%D9%86%D9%8A%D8%A7"
+    },
+    {
+      "title": "سيموني إنزاغي",
+      "volume": "200+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%D8%B3%D9%8A%D9%85%D9%88%D9%86%D9%8A%20%D8%A5%D9%86%D8%B2%D8%A7%D8%BA%D9%8A"
+    },
+    {
+      "title": "beşiktaş - hapoel beerşeba",
+      "volume": "200+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=be%C5%9Fikta%C5%9F%20-%20hapoel%20beer%C5%9Feba"
+    },
+    {
+      "title": "ميلان",
+      "volume": "200+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%D9%85%D9%8A%D9%84%D8%A7%D9%86"
+    },
+    {
+      "title": "بشكتاش",
+      "volume": "200+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 200
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%D8%A8%D8%B4%D9%83%D8%AA%D8%A7%D8%B4"
     },
     {
       "title": "نادي غزل المحلة",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Egypt"
@@ -2657,7 +2459,6 @@
     },
     {
       "title": "الجوهري",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "Egypt"
@@ -2669,47 +2470,31 @@
       "url": "https://news.google.com/search?q=%D8%A7%D9%84%D8%AC%D9%88%D9%87%D8%B1%D9%8A"
     },
     {
-      "title": "المريخ",
-      "category": "World",
+      "title": "luis enrique",
       "volume": "200+ searches",
       "markets": [
-        "Egypt"
+        "Nigeria"
       ],
       "marketVolumes": {
-        "Egypt": 200
+        "Nigeria": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D8%A7%D9%84%D9%85%D8%B1%D9%8A%D8%AE"
+      "url": "https://news.google.com/search?q=luis%20enrique"
     },
     {
-      "title": "صنعاء",
-      "category": "World",
+      "title": "ibrahim osman",
       "volume": "200+ searches",
       "markets": [
-        "Egypt"
+        "Nigeria"
       ],
       "marketVolumes": {
-        "Egypt": 200
+        "Nigeria": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D8%B5%D9%86%D8%B9%D8%A7%D8%A1"
+      "url": "https://news.google.com/search?q=ibrahim%20osman"
     },
     {
-      "title": "دوري أبطال أفريقيا",
-      "category": "World",
-      "volume": "200+ searches",
-      "markets": [
-        "Egypt"
-      ],
-      "marketVolumes": {
-        "Egypt": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D8%AF%D9%88%D8%B1%D9%8A%20%D8%A3%D8%A8%D8%B7%D8%A7%D9%84%20%D8%A3%D9%81%D8%B1%D9%8A%D9%82%D9%8A%D8%A7"
-    },
-    {
-      "title": "europa conference league",
-      "category": "World",
+      "title": "marseille vs levski sofia",
       "volume": "200+ searches",
       "markets": [
         "Kenya"
@@ -2718,24 +2503,22 @@
         "Kenya": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=europa%20conference%20league"
+      "url": "https://news.google.com/search?q=marseille%20vs%20levski%20sofia"
     },
     {
-      "title": "business insider africa",
-      "category": "Economy",
+      "title": "leny yoro",
       "volume": "200+ searches",
       "markets": [
-        "Kenya"
+        "Ghana"
       ],
       "marketVolumes": {
-        "Kenya": 200
+        "Ghana": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=business%20insider%20africa"
+      "url": "https://news.google.com/search?q=leny%20yoro"
     },
     {
       "title": "cyberattack",
-      "category": "Science & tech",
       "volume": "200+ searches",
       "markets": [
         "Ghana"
@@ -2747,34 +2530,7 @@
       "url": "https://news.google.com/search?q=cyberattack"
     },
     {
-      "title": "joshua kutryk",
-      "category": "Science & tech",
-      "volume": "200+ searches",
-      "markets": [
-        "Ghana"
-      ],
-      "marketVolumes": {
-        "Ghana": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=joshua%20kutryk"
-    },
-    {
-      "title": "rb salzburg vs ararat-armenia",
-      "category": "Sport",
-      "volume": "200+ searches",
-      "markets": [
-        "South Africa"
-      ],
-      "marketVolumes": {
-        "South Africa": 200
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=rb%20salzburg%20vs%20ararat-armenia"
-    },
-    {
       "title": "durban",
-      "category": "World",
       "volume": "200+ searches",
       "markets": [
         "South Africa"
@@ -2786,8 +2542,7 @@
       "url": "https://news.google.com/search?q=durban"
     },
     {
-      "title": "refinery",
-      "category": "Politics",
+      "title": "pafos vs midtjylland",
       "volume": "200+ searches",
       "markets": [
         "South Africa"
@@ -2796,24 +2551,10 @@
         "South Africa": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=refinery"
-    },
-    {
-      "title": "1password security breach",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Bangladesh"
-      ],
-      "marketVolumes": {
-        "Bangladesh": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=1password%20security%20breach"
+      "url": "https://news.google.com/search?q=pafos%20vs%20midtjylland"
     },
     {
       "title": "adb bangladesh water sanitation loan",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Bangladesh"
@@ -2826,7 +2567,6 @@
     },
     {
       "title": "নগদ",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Bangladesh"
@@ -2838,21 +2578,7 @@
       "url": "https://news.google.com/search?q=%E0%A6%A8%E0%A6%97%E0%A6%A6"
     },
     {
-      "title": "অর্জুন কাপুর",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Bangladesh"
-      ],
-      "marketVolumes": {
-        "Bangladesh": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%9C%E0%A7%81%E0%A6%A8%20%E0%A6%95%E0%A6%BE%E0%A6%AA%E0%A7%81%E0%A6%B0"
-    },
-    {
       "title": "ajax vs thun",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "Bangladesh"
@@ -2864,21 +2590,31 @@
       "url": "https://news.google.com/search?q=ajax%20vs%20thun"
     },
     {
-      "title": "জগন্নাথ বিশ্ববিদ্যালয় admission 2026",
-      "category": "World",
+      "title": "അക്ഷയ് കുമാര്",
       "volume": "100+ searches",
       "markets": [
-        "Bangladesh"
+        "India"
       ],
       "marketVolumes": {
-        "Bangladesh": 100
+        "India": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E0%A6%9C%E0%A6%97%E0%A6%A8%E0%A7%8D%E0%A6%A8%E0%A6%BE%E0%A6%A5%20%E0%A6%AC%E0%A6%BF%E0%A6%B6%E0%A7%8D%E0%A6%AC%E0%A6%AC%E0%A6%BF%E0%A6%A6%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A6%AF%E0%A6%BC%20admission%202026"
+      "url": "https://news.google.com/search?q=%E0%B4%85%E0%B4%95%E0%B5%8D%E0%B4%B7%E0%B4%AF%E0%B5%8D%20%E0%B4%95%E0%B5%81%E0%B4%AE%E0%B4%BE%E0%B4%B0%E0%B5%8D"
+    },
+    {
+      "title": "uel",
+      "volume": "100+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=uel"
     },
     {
       "title": "christchurch weather",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "India"
@@ -2891,7 +2627,6 @@
     },
     {
       "title": "shaun tait",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Pakistan"
@@ -2904,7 +2639,6 @@
     },
     {
       "title": "veruschka von lehndorff",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Pakistan"
@@ -2916,8 +2650,31 @@
       "url": "https://news.google.com/search?q=veruschka%20von%20lehndorff"
     },
     {
+      "title": "lech poznan",
+      "volume": "100+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=lech%20poznan"
+    },
+    {
+      "title": "viktoria plzen",
+      "volume": "100+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=viktoria%20plzen"
+    },
+    {
       "title": "armando gonzález",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Indonesia"
@@ -2929,21 +2686,7 @@
       "url": "https://news.google.com/search?q=armando%20gonz%C3%A1lez"
     },
     {
-      "title": "red bull salzburg",
-      "category": "Politics",
-      "volume": "100+ searches",
-      "markets": [
-        "Indonesia"
-      ],
-      "marketVolumes": {
-        "Indonesia": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=red%20bull%20salzburg"
-    },
-    {
       "title": "you can see everything",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Singapore"
@@ -2956,7 +2699,6 @@
     },
     {
       "title": "amazon",
-      "category": "Science & tech",
       "volume": "100+ searches",
       "markets": [
         "Singapore"
@@ -2969,7 +2711,6 @@
     },
     {
       "title": "is us market open today",
-      "category": "Economy",
       "volume": "100+ searches",
       "markets": [
         "Singapore"
@@ -2981,8 +2722,19 @@
       "url": "https://news.google.com/search?q=is%20us%20market%20open%20today"
     },
     {
+      "title": "ฮาร์ทส์ พบ มอนาโก",
+      "volume": "100+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%E0%B8%AE%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%97%E0%B8%AA%E0%B9%8C%20%E0%B8%9E%E0%B8%9A%20%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%B2%E0%B9%82%E0%B8%81"
+    },
+    {
       "title": "มาร์กเซย",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "Thailand"
@@ -2995,7 +2747,6 @@
     },
     {
       "title": "ซันเดอร์แลนด์",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "Thailand"
@@ -3008,7 +2759,6 @@
     },
     {
       "title": "claim",
-      "category": "Politics",
       "volume": "100+ searches",
       "markets": [
         "Philippines"
@@ -3021,7 +2771,6 @@
     },
     {
       "title": "melbet",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "Philippines"
@@ -3033,21 +2782,7 @@
       "url": "https://news.google.com/search?q=melbet"
     },
     {
-      "title": "hasna cabral pbb housemate",
-      "category": "Science & tech",
-      "volume": "100+ searches",
-      "markets": [
-        "Philippines"
-      ],
-      "marketVolumes": {
-        "Philippines": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=hasna%20cabral%20pbb%20housemate"
-    },
-    {
       "title": "fiba",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Philippines"
@@ -3059,8 +2794,31 @@
       "url": "https://news.google.com/search?q=fiba"
     },
     {
+      "title": "uefaヨーロッパリーグ",
+      "volume": "100+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=uefa%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91%E3%83%AA%E3%83%BC%E3%82%B0"
+    },
+    {
+      "title": "イチロー",
+      "volume": "100+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=%E3%82%A4%E3%83%81%E3%83%AD%E3%83%BC"
+    },
+    {
       "title": "ヨーロッパカンファレンスリーグ",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "Japan"
@@ -3073,7 +2831,6 @@
     },
     {
       "title": "萩尾匡也",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Japan"
@@ -3085,34 +2842,7 @@
       "url": "https://news.google.com/search?q=%E8%90%A9%E5%B0%BE%E5%8C%A1%E4%B9%9F"
     },
     {
-      "title": "オリンピアコス 対 ミラン",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Japan"
-      ],
-      "marketVolumes": {
-        "Japan": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%82%A2%E3%82%B3%E3%82%B9%20%E5%AF%BE%20%E3%83%9F%E3%83%A9%E3%83%B3"
-    },
-    {
-      "title": "中国海警局",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Japan"
-      ],
-      "marketVolumes": {
-        "Japan": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%E4%B8%AD%E5%9B%BD%E6%B5%B7%E8%AD%A6%E5%B1%80"
-    },
-    {
       "title": "유로파리그",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "South Korea"
@@ -3125,7 +2855,6 @@
     },
     {
       "title": "hj중공업",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "South Korea"
@@ -3138,7 +2867,6 @@
     },
     {
       "title": "정연",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "South Korea"
@@ -3151,7 +2879,6 @@
     },
     {
       "title": "weather radar",
-      "category": "Climate",
       "volume": "100+ searches",
       "markets": [
         "Australia"
@@ -3163,8 +2890,19 @@
       "url": "https://news.google.com/search?q=weather%20radar"
     },
     {
+      "title": "radar",
+      "volume": "100+ searches",
+      "markets": [
+        "Australia"
+      ],
+      "marketVolumes": {
+        "Australia": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=radar"
+    },
+    {
       "title": "icu delirium",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Australia"
@@ -3176,21 +2914,7 @@
       "url": "https://news.google.com/search?q=icu%20delirium"
     },
     {
-      "title": "bom radar melbourne",
-      "category": "Climate",
-      "volume": "100+ searches",
-      "markets": [
-        "Australia"
-      ],
-      "marketVolumes": {
-        "Australia": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=bom%20radar%20melbourne"
-    },
-    {
       "title": "estate",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "New Zealand"
@@ -3202,21 +2926,7 @@
       "url": "https://news.google.com/search?q=estate"
     },
     {
-      "title": "election results 2026",
-      "category": "Politics",
-      "volume": "100+ searches",
-      "markets": [
-        "New Zealand"
-      ],
-      "marketVolumes": {
-        "New Zealand": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=election%20results%202026"
-    },
-    {
       "title": "veruschka",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "New Zealand"
@@ -3228,8 +2938,7 @@
       "url": "https://news.google.com/search?q=veruschka"
     },
     {
-      "title": "retirement",
-      "category": "World",
+      "title": "d'andre swift",
       "volume": "100+ searches",
       "markets": [
         "Canada"
@@ -3238,11 +2947,22 @@
         "Canada": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=retirement"
+      "url": "https://news.google.com/search?q=d'andre%20swift"
     },
     {
-      "title": "alphadjo cisse",
-      "category": "World",
+      "title": "khloé kardashian",
+      "volume": "100+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=khlo%C3%A9%20kardashian"
+    },
+    {
+      "title": "vayam medical",
       "volume": "100+ searches",
       "markets": [
         "Mexico"
@@ -3251,11 +2971,10 @@
         "Mexico": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=alphadjo%20cisse"
+      "url": "https://news.google.com/search?q=vayam%20medical"
     },
     {
       "title": "juan musso",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Argentina"
@@ -3267,8 +2986,7 @@
       "url": "https://news.google.com/search?q=juan%20musso"
     },
     {
-      "title": "milan vs",
-      "category": "Sport",
+      "title": "conference league",
       "volume": "100+ searches",
       "markets": [
         "Argentina"
@@ -3277,11 +2995,22 @@
         "Argentina": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=milan%20vs"
+      "url": "https://news.google.com/search?q=conference%20league"
+    },
+    {
+      "title": "milan",
+      "volume": "100+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=milan"
     },
     {
       "title": "elon musk",
-      "category": "Economy",
       "volume": "100+ searches",
       "markets": [
         "Chile"
@@ -3293,21 +3022,31 @@
       "url": "https://news.google.com/search?q=elon%20musk"
     },
     {
-      "title": "descargar stickers whatsapp",
-      "category": "World",
+      "title": "marcos alonso",
       "volume": "100+ searches",
       "markets": [
-        "Chile"
+        "United Kingdom"
       ],
       "marketVolumes": {
-        "Chile": 100
+        "United Kingdom": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=descargar%20stickers%20whatsapp"
+      "url": "https://news.google.com/search?q=marcos%20alonso"
+    },
+    {
+      "title": "hellfest",
+      "volume": "100+ searches",
+      "markets": [
+        "United Kingdom"
+      ],
+      "marketVolumes": {
+        "United Kingdom": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=hellfest"
     },
     {
       "title": "prison escape",
-      "category": "Health",
       "volume": "100+ searches",
       "markets": [
         "Ireland"
@@ -3319,21 +3058,7 @@
       "url": "https://news.google.com/search?q=prison%20escape"
     },
     {
-      "title": "donegal gaa",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Ireland"
-      ],
-      "marketVolumes": {
-        "Ireland": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=donegal%20gaa"
-    },
-    {
-      "title": "ligue europa 2026",
-      "category": "Sport",
+      "title": "trabzonspor",
       "volume": "100+ searches",
       "markets": [
         "France"
@@ -3342,11 +3067,10 @@
         "France": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=ligue%20europa%202026"
+      "url": "https://news.google.com/search?q=trabzonspor"
     },
     {
-      "title": "wie lange geht black friday",
-      "category": "World",
+      "title": "gpt-6.2",
       "volume": "100+ searches",
       "markets": [
         "Germany"
@@ -3355,11 +3079,22 @@
         "Germany": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=wie%20lange%20geht%20black%20friday"
+      "url": "https://news.google.com/search?q=gpt-6.2"
+    },
+    {
+      "title": "ac milan",
+      "volume": "100+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=ac%20milan"
     },
     {
       "title": "transporte por carretera",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Spain"
@@ -3371,21 +3106,7 @@
       "url": "https://news.google.com/search?q=transporte%20por%20carretera"
     },
     {
-      "title": "soborno",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Spain"
-      ],
-      "marketVolumes": {
-        "Spain": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=soborno"
-    },
-    {
       "title": "elisa claps",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Italy"
@@ -3397,8 +3118,7 @@
       "url": "https://news.google.com/search?q=elisa%20claps"
     },
     {
-      "title": "twente freiburg",
-      "category": "Sport",
+      "title": "brighton & hove albion fc",
       "volume": "100+ searches",
       "markets": [
         "Netherlands"
@@ -3407,50 +3127,10 @@
         "Netherlands": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=twente%20freiburg"
-    },
-    {
-      "title": "martin van vianen",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Netherlands"
-      ],
-      "marketVolumes": {
-        "Netherlands": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=martin%20van%20vianen"
-    },
-    {
-      "title": "zbigniew jakubas",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Poland"
-      ],
-      "marketVolumes": {
-        "Poland": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=zbigniew%20jakubas"
-    },
-    {
-      "title": "ajax amsterdam – thun",
-      "category": "Sport",
-      "volume": "100+ searches",
-      "markets": [
-        "Poland"
-      ],
-      "marketVolumes": {
-        "Poland": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=ajax%20amsterdam%20%E2%80%93%20thun"
+      "url": "https://news.google.com/search?q=brighton%20%26%20hove%20albion%20fc"
     },
     {
       "title": "avfall",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Sweden"
@@ -3463,7 +3143,6 @@
     },
     {
       "title": "fredrik stillman",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Sweden"
@@ -3476,7 +3155,6 @@
     },
     {
       "title": "лє",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Ukraine"
@@ -3489,7 +3167,6 @@
     },
     {
       "title": "су-75",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Ukraine"
@@ -3502,7 +3179,6 @@
     },
     {
       "title": "сергій шищенко",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Ukraine"
@@ -3515,7 +3191,6 @@
     },
     {
       "title": "цена лада азимут",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Russia"
@@ -3527,8 +3202,7 @@
       "url": "https://news.google.com/search?q=%D1%86%D0%B5%D0%BD%D0%B0%20%D0%BB%D0%B0%D0%B4%D0%B0%20%D0%B0%D0%B7%D0%B8%D0%BC%D1%83%D1%82"
     },
     {
-      "title": "ararat-ermenistan",
-      "category": "World",
+      "title": "levski sofya",
       "volume": "100+ searches",
       "markets": [
         "Türkiye"
@@ -3537,11 +3211,10 @@
         "Türkiye": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=ararat-ermenistan"
+      "url": "https://news.google.com/search?q=levski%20sofya"
     },
     {
-      "title": "lugano fc",
-      "category": "Sport",
+      "title": "ali sami yen",
       "volume": "100+ searches",
       "markets": [
         "Türkiye"
@@ -3550,11 +3223,10 @@
         "Türkiye": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=lugano%20fc"
+      "url": "https://news.google.com/search?q=ali%20sami%20yen"
     },
     {
-      "title": "juventus fc",
-      "category": "Sport",
+      "title": "pafos - midtjylland",
       "volume": "100+ searches",
       "markets": [
         "Türkiye"
@@ -3563,50 +3235,10 @@
         "Türkiye": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=juventus%20fc"
-    },
-    {
-      "title": "سيموني إنزاغي",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Saudi Arabia"
-      ],
-      "marketVolumes": {
-        "Saudi Arabia": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D8%B3%D9%8A%D9%85%D9%88%D9%86%D9%8A%20%D8%A5%D9%86%D8%B2%D8%A7%D8%BA%D9%8A"
-    },
-    {
-      "title": "دوري أوروبا",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Saudi Arabia"
-      ],
-      "marketVolumes": {
-        "Saudi Arabia": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D8%AF%D9%88%D8%B1%D9%8A%20%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7"
-    },
-    {
-      "title": "ميلان",
-      "category": "World",
-      "volume": "100+ searches",
-      "markets": [
-        "Saudi Arabia"
-      ],
-      "marketVolumes": {
-        "Saudi Arabia": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D9%85%D9%8A%D9%84%D8%A7%D9%86"
+      "url": "https://news.google.com/search?q=pafos%20-%20midtjylland"
     },
     {
       "title": "فيكتوريا بلزن ضد بنفيكا",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Egypt"
@@ -3618,8 +3250,7 @@
       "url": "https://news.google.com/search?q=%D9%81%D9%8A%D9%83%D8%AA%D9%88%D8%B1%D9%8A%D8%A7%20%D8%A8%D9%84%D8%B2%D9%86%20%D8%B6%D8%AF%20%D8%A8%D9%86%D9%81%D9%8A%D9%83%D8%A7"
     },
     {
-      "title": "دوري ابطال افريقيا",
-      "category": "World",
+      "title": "صلاة الغائب",
       "volume": "100+ searches",
       "markets": [
         "Egypt"
@@ -3628,11 +3259,10 @@
         "Egypt": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=%D8%AF%D9%88%D8%B1%D9%8A%20%D8%A7%D8%A8%D8%B7%D8%A7%D9%84%20%D8%A7%D9%81%D8%B1%D9%8A%D9%82%D9%8A%D8%A7"
+      "url": "https://news.google.com/search?q=%D8%B5%D9%84%D8%A7%D8%A9%20%D8%A7%D9%84%D8%BA%D8%A7%D8%A6%D8%A8"
     },
     {
-      "title": "luis enrique",
-      "category": "World",
+      "title": "marseille fc",
       "volume": "100+ searches",
       "markets": [
         "Nigeria"
@@ -3641,11 +3271,10 @@
         "Nigeria": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=luis%20enrique"
+      "url": "https://news.google.com/search?q=marseille%20fc"
     },
     {
       "title": "pierre-emerick aubameyang",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Nigeria"
@@ -3657,8 +3286,19 @@
       "url": "https://news.google.com/search?q=pierre-emerick%20aubameyang"
     },
     {
+      "title": "salzburg fc",
+      "volume": "100+ searches",
+      "markets": [
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Nigeria": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=salzburg%20fc"
+    },
+    {
       "title": "bayer leverkusen",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Nigeria"
@@ -3670,8 +3310,19 @@
       "url": "https://news.google.com/search?q=bayer%20leverkusen"
     },
     {
+      "title": "uefa europa league",
+      "volume": "100+ searches",
+      "markets": [
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Kenya": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=uefa%20europa%20league"
+    },
+    {
       "title": "kairat",
-      "category": "Sport",
       "volume": "100+ searches",
       "markets": [
         "Kenya"
@@ -3683,8 +3334,19 @@
       "url": "https://news.google.com/search?q=kairat"
     },
     {
+      "title": "currency",
+      "volume": "100+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 100
+      },
+      "marketCount": 1,
+      "url": "https://news.google.com/search?q=currency"
+    },
+    {
       "title": "uebert angel",
-      "category": "World",
       "volume": "100+ searches",
       "markets": [
         "Ghana"
@@ -3696,8 +3358,7 @@
       "url": "https://news.google.com/search?q=uebert%20angel"
     },
     {
-      "title": "benfica fc",
-      "category": "Sport",
+      "title": "getafe",
       "volume": "100+ searches",
       "markets": [
         "South Africa"
@@ -3706,11 +3367,10 @@
         "South Africa": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=benfica%20fc"
+      "url": "https://news.google.com/search?q=getafe"
     },
     {
-      "title": "pafos vs midtjylland",
-      "category": "Sport",
+      "title": "ajax",
       "volume": "100+ searches",
       "markets": [
         "South Africa"
@@ -3719,7 +3379,7 @@
         "South Africa": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=pafos%20vs%20midtjylland"
+      "url": "https://news.google.com/search?q=ajax"
     }
   ]
 }

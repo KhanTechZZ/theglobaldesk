@@ -1,9 +1,6 @@
 <div class="gd-topbar">
   <div class="gd-container gd-topbar__inner">
-    <div class="gd-topbar__live-stack">
-      <span class="gd-topbar__edition">Global Edition</span>
-    </div>
-    <div class="gd-topbar__date" id="gd-topbar-date">Loading...</div>
+    <div class="gd-topbar__date" id="gd-topbar-date" aria-label="Publication date"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.5" width="12" height="10" rx="1.5"/><path d="M5 2v3M11 2v3M2 6.5h12"/></svg><span id="gd-topbar-date-text">{{ siteEditionDate }}</span></div>
   </div>
 </div>
 
@@ -92,8 +89,6 @@
 </header>
 <script>
 (function () {
-  var dateEl = document.getElementById('gd-topbar-date');
-  if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   var button = document.getElementById('gd-menu-btn');
   var nav = document.getElementById('gd-nav');
   if (!button || !nav || document.body.dataset.localMenuInit === 'true') return;

@@ -8163,4 +8163,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   opacity: 1 !important;
   flex: 0 0 auto;
   white-space: nowrap;
+  display: inline-flex !important;
+  align-items: center;
+  gap: .45rem;
+  color: #536174;
+  font-size: .68rem;
+  font-weight: 650;
+  letter-spacing: .015em;
+}
+.gd-topbar__date svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; opacity: .75; }
+.gd-topbar__inner { justify-content: flex-end; padding-top: .42rem; padding-bottom: .42rem; }
+@media (max-width: 768px) {
+  .gd-topbar__inner { justify-content: flex-end; padding: .38rem .85rem !important; }
+  .gd-topbar__date { font-size: .65rem; }
 }

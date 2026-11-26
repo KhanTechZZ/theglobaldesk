@@ -23,10 +23,7 @@
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
 <div class="gd-topbar">
   <div class="gd-container gd-topbar__inner">
-    <div class="gd-topbar__live-stack">
-      <span class="gd-topbar__edition">Global Edition</span>
-    </div>
-    <div class="gd-topbar__date" id="gd-topbar-date">{{ siteEditionDate }}</div>
+    <div class="gd-topbar__date" id="gd-topbar-date" aria-label="Publication date"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.5" width="12" height="10" rx="1.5"/><path d="M5 2v3M11 2v3M2 6.5h12"/></svg><span id="gd-topbar-date-text">{{ siteEditionDate }}</span></div>
   </div>
 </div>
 
@@ -371,14 +368,8 @@
 <script>
   // 1. Live Date
   (function() {
-    const dateEl = document.getElementById('gd-topbar-date');
     const yearEl = document.getElementById('gd-footer-year');
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-    if (dateEl) {
-      const d = new Date();
-      const opts = { day: 'numeric', month: 'long', year: 'numeric' };
-      dateEl.textContent = d.toLocaleDateString('en-GB', opts);
-    }
   })();
 
   // 2. Reliable Mobile Navigation

@@ -40,9 +40,9 @@ jobs:
             { geo: 'SA', name: 'Saudi Arabia' }, { geo: 'AE', name: 'United Arab Emirates' }, { geo: 'EG', name: 'Egypt' },
             { geo: 'NG', name: 'Nigeria' }, { geo: 'KE', name: 'Kenya' }, { geo: 'GH', name: 'Ghana' }, { geo: 'ZA', name: 'South Africa' }
           ];
-          const excluded = /\b(song|songs|album|lyrics|singer|concert|music video|celebrity|celebrities|actor|actress|movie|movies|film|films|reality show|tv show|gossip|influencer|viral challenge|meme|horoscope|astrology|grammy|oscar|emmy)\b/i;
+          const excluded = /\b(song|songs|album|lyrics|singer|concert|music video|celebrity|celebrities|actor|actress|movie|movies|film|films|reality show|tv show|television|streaming|series|episode|gossip|influencer|viral challenge|meme|horoscope|astrology|grammy|oscar|emmy|tabii|trt1|netflix|hulu|telenovela)\b/i;
           const categoryRules = [
-            ['Sport', /\b(cricket|football|soccer|basketball|tennis|olympics?|world cup|champions league|grand slam|nba|nfl|ipl)\b/i],
+            ['Sport', /\b(cricket|football|soccer|basketball|tennis|olympics?|world cup|champions league|grand slam|nba|nfl|ipl|vs\.?|match|tournament|cup|\w+\s+fc)\b/i],
             ['Climate', /climate|weather|storm|hurricane|cyclone|flood|wildfire|earthquake|environment/i],
             ['Health', /health|virus|disease|hospital|vaccine|outbreak|epidemic|pandemic|medical/i],
             ['Economy', /econom|inflation|stocks?|shares|market|currency|trade|jobs|tariff|oil price|interest rate/i],

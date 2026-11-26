@@ -41,6 +41,8 @@ jobs:
             { geo: 'NG', name: 'Nigeria' }, { geo: 'KE', name: 'Kenya' }, { geo: 'GH', name: 'Ghana' }, { geo: 'ZA', name: 'South Africa' }
           ];
           const excluded = /\b(song|songs|album|lyrics|singer|concert|music video|celebrity|celebrities|actor|actress|movie|movies|film|films|reality show|tv show|television|streaming|series|episode|gossip|influencer|viral challenge|meme|horoscope|astrology|grammy|oscar|emmy|tabii|trt1|netflix|hulu|telenovela)\b/i;
+          const sportSearch = /\b(sport|sports|football|soccer|basketball|cricket|tennis|rugby|baseball|hockey|volleyball|golf|boxing|wrestling|olympics?|world cup|champions league|premier league|grand slam|nba|nfl|ipl|fifa|uefa|fixture|fixtures|score|scores|standings|matchday|goal|goals|transfer)\b/i;
+          const importantSearch = /\b(war|conflict|climate|election|president|government|economy|inflation|health|disease|earthquake|flood|storm|refugee|attack|ceasefire|tariff|trade|oil price|gold price|cyberattack|sanction|nuclear|protest|human rights|palestin|gaza|ukraine|russia|iran|israel|sudan|myanmar|congo|yemen|haiti)\b/i;
           const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
           const decode = value => String(value || '')
             .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
@@ -75,6 +77,8 @@ jobs:
                 const signals = [title, ...newsTitles].join(' ');
                 const volume = trafficNumber(tag(item, 'approx_traffic'));
                 if (!title || !volume || !newsTitles.length || excluded.test(signals)) continue;
+                const isMatchQuery = /\bvs\.?\b|\bversus\b|\s[-–—]\s/i.test(title);
+                if (sportSearch.test(signals) || (isMatchQuery && !importantSearch.test(signals))) continue;
                 const key = title.normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
                 if (!key) continue;
                 if (!candidates.has(key)) candidates.set(key, { title, markets: new Map(), url: `https://news.google.com/search?q=${encodeURIComponent(title)}` });
@@ -101,7 +105,7 @@ jobs:
           }).filter(topic => topic.sortVolume > 0).sort((a, b) => b.sortVolume - a.sortVolume).map(({ sortVolume, ...topic }) => topic);
           const data = {
             scope: 'Global news search activity',
-            metric: 'Approximate Google Trends traffic summed across 37 markets over the past 24 hours; entertainment searches filtered',
+            metric: 'Approximate Google Trends traffic summed across 37 markets over the past 24 hours; sports and entertainment searches filtered',
             sourcesAvailable: markets.map(market => market.name),
             updatedAt: new Date().toISOString(),
             refreshAfterSeconds: 43200,

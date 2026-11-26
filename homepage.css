@@ -8444,3 +8444,28 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-trending-panel__topics > .gd-trending-topic { min-height:78px; }
   .gd-trending-page__list > .gd-trending-topic { min-height:86px; padding:.65rem; }
 }
+/* Editorial trend list: plain rows, no cards or surrounding box. */
+.gd-trending-panel { padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+.gd-trending-panel__intro { align-items:center; gap:.75rem; margin:0 0 .45rem; padding:0 0 .58rem; border-bottom:1px solid #dfe4e8; }
+.gd-trending-panel__intro > .gd-trending-panel__heading > h2 { margin:0; color:#17304b; font-size:clamp(1.25rem,2vw,1.5rem); }
+.gd-trending-panel__intro > .gd-trending-panel__heading > p { margin:.18rem 0 0; color:#687788; font-size:.72rem; }
+.gd-trending-more { flex:0 0 auto; margin:0; padding:.25rem 0; border:0; border-bottom:1px solid #c49632; border-radius:0; background:transparent; color:#806116; font-size:.72rem; }
+.gd-trending-more:hover { transform:none; border-color:#806116; background:transparent; color:#17304b; }
+.gd-trending-panel__topics { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 .85rem; }
+.gd-trending-panel__topics > .gd-trending-topic { grid-template-columns:1.4rem minmax(0,1fr) auto; grid-template-rows:auto auto; min-height:78px; padding:.5rem 0; border:0; border-bottom:1px solid #e6e9ec; border-radius:0; background:transparent; box-shadow:none; }
+.gd-trending-panel__topics > .gd-trending-topic:hover { transform:none; border-color:#d8c894; border-bottom-color:#c49632; background:transparent; box-shadow:none; }
+.gd-trending-panel__topics .gd-trending-topic__rank { width:auto; height:auto; border-radius:0; background:transparent; color:#9a741f; font-size:.7rem; }
+.gd-trending-panel__topics .gd-trending-topic__title { color:#17304b; font-size:.92rem; font-weight:750; line-height:1.32; }
+.gd-trending-panel__topics .gd-trending-topic__volume { padding:0; border:0; border-radius:0; background:transparent; color:#8a6617; font-size:.91rem; }
+.gd-trending-panel__topics .gd-trending-topic__regions { color:#687788; font-size:.66rem; }
+.gd-trending-page__summary { margin:.1rem 0 .55rem; color:#516278; font-size:.8rem; }
+.gd-trending-filters { margin:0 0 .65rem; padding:0 0 .65rem; border:0; border-bottom:1px solid #dfe4e8; border-radius:0; background:transparent; }
+.gd-trending-filter { max-width:300px; color:#42546a; }
+.gd-trending-filter select { min-height:40px; border:1px solid #cfd8e2; border-radius:4px; background:#fff; }
+.gd-trending-page__list { gap:0 1.2rem; }
+.gd-trending-page__list > .gd-trending-topic { min-height:90px; padding:.65rem 0; border:0; border-bottom:1px solid #e2e7eb; border-radius:0; background:transparent; box-shadow:none; }
+.gd-trending-page__list > .gd-trending-topic:hover { transform:none; border-color:#c49632; background:#fbfaf6; box-shadow:none; }
+.gd-trending-page__list .gd-trending-topic__rank { width:auto; height:auto; border-radius:0; background:transparent; color:#98711d; }
+.gd-trending-page__list .gd-trending-topic__title { color:#17304b; font-size:1.04rem; font-weight:750; }
+.gd-trending-page__list .gd-trending-topic__volume { padding:0; border:0; border-radius:0; background:transparent; color:#806116; font-size:1.05rem; }
+.gd-trending-page__list .gd-trending-topic__regions { color:#687788; font-size:.72rem; }

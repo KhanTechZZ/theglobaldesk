@@ -51,7 +51,7 @@ jobs:
             } catch (error) {
               console.error(`${issue.title}: ${error.message}`);
             }
-            if (i < issues.length - 1) await sleep(5500);
+            if (i < issues.length - 1) await sleep(12000);
           }
           if (!topics.length) throw new Error('No global issue coverage data was returned; keeping the existing feed.');
           const data = {

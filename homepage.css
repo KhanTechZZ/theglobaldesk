@@ -8227,3 +8227,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__link { grid-template-columns: minmax(0,1fr); }
   .gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__media { aspect-ratio: 16 / 10; }
 }
+
+/* Keep story card typography consistent across the homepage, categories and sections. */
+.gd-news-card__body h3 { font-size: 1.15rem !important; line-height: 1.27 !important; }
+.gd-news-card__body p { font-size: .9rem !important; line-height: 1.5 !important; }

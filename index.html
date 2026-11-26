@@ -194,10 +194,10 @@
       <div class="gd-trending-panel__intro">
         <span class="gd-trending-panel__eyebrow">Global issues</span>
         <h2 id="gd-trending-title">Trending today</h2>
-        <p>Global coverage of major issues · past 24 hours</p>
+        <p>Major global issues · approximate search volume across 10 markets</p>
       </div>
       <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
-      <div class="gd-trending-panel__meta"><span data-trending-status>Volume means tracked news articles worldwide · refreshes every 12 hours</span></div>
+      <div class="gd-trending-panel__meta"><span data-trending-status>Approximate search volume · country-by-country · refreshes every 12 hours</span></div>
     </section>
   </section>
 
@@ -570,7 +570,7 @@ document.addEventListener('click', function(e) {
       list.replaceChildren();
       var message = document.createElement('p');
       message.className = 'gd-trending-loading';
-      message.textContent = 'Global issue coverage is being collected. Check back shortly.';
+      message.textContent = 'Major issue search volumes are being collected. Check back shortly.';
       list.appendChild(message);
       list.setAttribute('aria-busy', 'false');
       status.textContent = 'Try again in a few minutes';
@@ -590,13 +590,13 @@ document.addEventListener('click', function(e) {
         title.textContent = topic.title;
         var regions = document.createElement('span');
         regions.className = 'gd-trending-topic__regions';
-        regions.textContent = [topic.source, topic.volume || topic.detail].filter(Boolean).join(' · ');
+        regions.textContent = [topic.volume, (topic.markets || []).join(' · ')].filter(Boolean).join(' · ');
         link.append(title, regions);
         list.appendChild(link);
       });
       list.setAttribute('aria-busy', 'false');
       var updated = data.updatedAt ? new Date(data.updatedAt) : new Date();
-      status.textContent = 'Global news coverage · Updated ' + timeFormat.format(updated) + ' BDT · refreshes every 12 hours';
+      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · approximate search volume across 10 markets · refreshes every 12 hours';
     }
 
     function update() {

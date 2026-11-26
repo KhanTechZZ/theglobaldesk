@@ -1,18 +1,8 @@
 {
-  "scope": "Global news coverage",
-  "metric": "Distinct monitored news articles mentioning each issue, worldwide, over the past 24 hours",
-  "sourcesAvailable": [
-    "GDELT global news monitoring"
-  ],
-  "updatedAt": "2026-11-26T17:42:36.152Z",
+  "scope": "Global issue search activity",
+  "metric": "Approximate search traffic summed across 10 markets; bucket values are lower bounds, over the past 24 hours",
+  "sourcesAvailable": ["Bangladesh", "India", "United States", "United Kingdom", "Brazil", "Japan", "Australia", "Germany", "South Africa", "Nigeria"],
+  "updatedAt": null,
   "refreshAfterSeconds": 43200,
-  "topics": [
-    {
-      "title": "Israel–Palestine war",
-      "source": "Global news coverage",
-      "volume": "119 articles",
-      "detail": "Worldwide · past 24 hours",
-      "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28Palestine+OR+Gaza+OR+%22Israel-Hamas%22%29&mode=TimelineVolRaw&format=html&timespan=24h"
-    }
-  ]
+  "topics": []
 }

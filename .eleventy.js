@@ -74,6 +74,22 @@ module.exports = function (eleventyConfig) {
     }).format(parsed);
   });
 
+  // Show a relative timestamp for fresh stories, then switch to a calendar date.
+  eleventyConfig.addFilter("relativeDate", (date) => {
+    if (!date) return "";
+    const publishedAt = new Date(date);
+    if (Number.isNaN(publishedAt.getTime())) return "";
+    const minutes = Math.floor((Date.now() - publishedAt.getTime()) / 60000);
+    if (minutes < 0) return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" }).format(publishedAt);
+    if (minutes < 1) return "Just now";
+    if (minutes < 60) return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days} ${days === 1 ? "day" : "days"} ago`;
+    return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" }).format(publishedAt);
+  });
+
   eleventyConfig.addFilter("isoDate", (date) => {
     if (!date) return "";
     return new Date(date).toISOString();
@@ -153,6 +169,19 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("publishedNews", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")
       .filter(item => item.data.published === true && item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" && !String(item.data.title || "").startsWith("[DEMO]") && !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug))
+      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+  });
+
+  // Homepage lead/latest are reserved for standard news; editorial formats
+  // appear only in their own dedicated homepage sections.
+  eleventyConfig.addCollection("homepageNews", (collectionApi) => {
+    const reservedCategories = new Set(["explainer", "editorial", "perspectives", "z desk", "alpha desk", "featured voices"]);
+    return collectionApi.getFilteredByGlob("./news/*.md")
+      .filter(item => item.data.published === true &&
+        item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" &&
+        !String(item.data.title || "").startsWith("[DEMO]") &&
+        !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug) &&
+        !reservedCategories.has(String(item.data.category || "").trim().toLowerCase()))
       .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
   });
 

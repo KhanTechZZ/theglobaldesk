@@ -17,7 +17,7 @@ jobs:
         with:
           ref: main
 
-      - name: Collect global news coverage
+      - name: Collect serious issue search volumes
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs/promises';

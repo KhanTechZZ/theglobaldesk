@@ -577,8 +577,18 @@ document.addEventListener('click', function(e) {
     }
 
     function render(data) {
-      if (!Array.isArray(data.topics) || !data.topics.length) throw new Error('No trends returned');
+      if (!Array.isArray(data.topics)) throw new Error('No trends returned');
       list.replaceChildren();
+      if (!data.topics.length) {
+        var empty = document.createElement('p');
+        empty.className = 'gd-trending-loading';
+        empty.textContent = 'No major issue search trends were found across the monitored countries in the past 24 hours.';
+        list.appendChild(empty);
+        list.setAttribute('aria-busy', 'false');
+        var checkedAt = data.updatedAt ? new Date(data.updatedAt) : new Date();
+        status.textContent = 'Checked ' + timeFormat.format(checkedAt) + ' BDT · refreshes every 12 hours';
+        return;
+      }
       data.topics.slice(0, 4).forEach(function (topic) {
         var link = document.createElement('a');
         link.className = 'gd-trending-topic';

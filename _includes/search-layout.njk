@@ -40,10 +40,11 @@
             </div>
         </div>
 
-        <div class="search-box-wrap">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search stories, countries, topics..." autocomplete="off">
-            <button class="search-clear" id="searchClear" aria-label="Clear">×</button>
-        </div>
+        <form class="search-box-wrap" id="storySearchForm" action="/search/" method="get" role="search">
+            <input type="search" id="searchInput" name="q" class="search-input" placeholder="Search stories, countries, topics..." autocomplete="off" aria-label="Search stories, countries and topics">
+            <button class="search-clear" id="searchClear" type="button" aria-label="Clear search" hidden>×</button>
+            <button class="story-search-submit" type="submit">Search</button>
+        </form>
 
         <div id="searchStats" class="search-stats"></div>
         <div id="searchResults" class="news-list"></div>
@@ -54,6 +55,74 @@
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
 
-<script src="/app.js"></script>
+<script type="application/json" id="storySearchIndex">[{% for post in collections.publishedNews %}{% if not loop.first %},{% endif %}{"title":{{ post.data.title | jsonify | safe }},"description":{{ (post.data.description or post.data.excerpt or "") | jsonify | safe }},"category":{{ (post.data.category or "News") | jsonify | safe }},"url":{{ post.url | jsonify | safe }},"date":{{ post.data.date | readableDate | jsonify | safe }}}{% endfor %}]</script>
+<script>
+(function () {
+  var form = document.getElementById('storySearchForm');
+  var input = document.getElementById('searchInput');
+  var clear = document.getElementById('searchClear');
+  var stats = document.getElementById('searchStats');
+  var results = document.getElementById('searchResults');
+  var index = document.getElementById('storySearchIndex');
+  if (!form || !input || !results || !index) return;
+
+  var stories = [];
+  try { stories = JSON.parse(index.textContent); } catch (error) { stories = []; }
+  var params = new URLSearchParams(window.location.search);
+  input.value = params.get('q') || '';
+
+  function addText(parent, tag, className, value) {
+    var element = document.createElement(tag);
+    if (className) element.className = className;
+    element.textContent = value || '';
+    parent.appendChild(element);
+    return element;
+  }
+
+  function render() {
+    var query = input.value.trim().toLocaleLowerCase();
+    clear.hidden = !query;
+    results.replaceChildren();
+    if (!query) {
+      stats.textContent = 'Search published stories by headline, topic or country.';
+      return;
+    }
+    var terms = query.split(/\\s+/).filter(Boolean);
+    var matches = stories.filter(function (story) {
+      var text = [story.title, story.description, story.category].join(' ').toLocaleLowerCase();
+      return terms.every(function (term) { return text.includes(term); });
+    }).slice(0, 50);
+    stats.textContent = matches.length ? matches.length + (matches.length === 1 ? ' story found' : ' stories found') : 'No stories found. Try another keyword.';
+    matches.forEach(function (story) {
+      var card = document.createElement('article');
+      card.className = 'search-result-card';
+      var category = addText(card, 'span', 'search-result-card__category', story.category);
+      var link = document.createElement('a');
+      link.href = story.url;
+      link.className = 'search-result-card__title';
+      link.textContent = story.title;
+      card.appendChild(link);
+      if (story.date) addText(card, 'time', 'search-result-card__date', story.date);
+      if (story.description) addText(card, 'p', 'search-result-card__description', story.description);
+      results.appendChild(card);
+    });
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var query = input.value.trim();
+    window.history.replaceState({}, '', query ? '/search/?q=' + encodeURIComponent(query) : '/search/');
+    render();
+  });
+  input.addEventListener('input', render);
+  clear.addEventListener('click', function () {
+    input.value = '';
+    window.history.replaceState({}, '', '/search/');
+    render();
+    input.focus();
+  });
+  render();
+})();
+</script>
 </body>
 </html>

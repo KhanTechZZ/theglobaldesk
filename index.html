@@ -116,9 +116,9 @@
 
 <div class="gd-breaking">
   <div class="gd-breaking__label">
-    <span class="gd-breaking__dot"></span><span class="gd-breaking__text">Latest headlines</span>
+    <span class="gd-breaking__dot"></span><span class="gd-breaking__text">Just In</span>
   </div>
-  <div class="gd-breaking__slider" role="region" aria-label="Latest headlines" aria-live="off">
+  <div class="gd-breaking__slider" role="region" aria-label="Just In headlines" aria-live="off">
     {% for post in collections.headlineNews | take(4) %}
     <a href="{{ post.url }}" class="gd-breaking__item{% if loop.index0 == 0 %} is-active{% endif %}">{{ post.data.title }}</a>
     {% endfor %}

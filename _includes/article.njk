@@ -424,26 +424,33 @@
   .gd-related-stories a:focus-visible { outline: 3px solid #c49632; outline-offset: 3px; }
   body[data-article-slug] .gd-article-page { width: 100%; max-width: 840px; }
   body[data-article-slug] .gd-article-body { max-width: 660px; }
-  .gd-related-stories { margin: 3rem auto 0; padding-top: 1.65rem; border-top: 1px solid #dce2e8; }
+  .gd-related-stories { margin: 3.25rem auto 0; padding-top: 1.5rem; border-top: 1px solid #dce2e8; }
   .gd-related-stories__heading > span { color: #8c6617; font: 800 .72rem/1.3 'Inter',sans-serif; letter-spacing: .1em; text-transform: uppercase; }
-  .gd-related-stories__heading h2 { margin: .35rem 0 1rem; color: #17304b; font: 750 clamp(1.5rem,3vw,2rem)/1.2 Georgia,serif; }
-  .gd-related-stories__grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
-  .gd-related-story { min-width: 0; border: 1px solid #dce2e8; background: #fff; }
+  .gd-related-stories__heading h2 { margin: .35rem 0 1.2rem; color: #17304b; font: 750 clamp(1.5rem,3vw,2rem)/1.2 Georgia,serif; }
+  .gd-related-stories__grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.5rem; }
+  .gd-related-story { min-width: 0; border: 0; background: transparent; }
   .gd-related-story > a { display: flex; height: 100%; flex-direction: column; color: inherit; text-decoration: none; }
   .gd-related-story__media { width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: #e8edf1; }
   .gd-related-story__media img, .gd-related-story__media .gd-image-placeholder { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform .25s ease; }
   .gd-related-story > a:hover .gd-related-story__media img { transform: scale(1.035); }
-  .gd-related-story__body { display: flex; min-height: 170px; flex: 1; flex-direction: column; align-items: flex-start; padding: 1rem; }
-  .gd-related-story > a:hover .gd-related-story__body { background: #f6f8fa; }
+  .gd-related-story__body { display: flex; min-height: 150px; flex: 1; flex-direction: column; align-items: flex-start; padding: .75rem 0 0; }
+  .gd-related-story > a:hover h3 { color: #8c6617; }
   .gd-related-story__category { color: #8c6617; font: 800 .7rem/1.3 'Inter',sans-serif; letter-spacing: .07em; text-transform: uppercase; }
   .gd-related-story h3 { margin: .45rem 0; color: #17304b; font: 700 1.15rem/1.27 Georgia,serif; }
-  .gd-related-story p { display: -webkit-box; overflow: hidden; margin: 0 0 .65rem; color: #526273; font: .9rem/1.5 'Inter',sans-serif; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+  .gd-related-story p { display: -webkit-box; overflow: hidden; margin: 0 0 .65rem; color: #526273; font: .875rem/1.5 'Inter',sans-serif; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
   .gd-related-story__date { margin-top: auto; color: #758292; font: 650 .72rem/1.4 'Inter',sans-serif; }
   .gd-related-stories__empty { color: #526273; line-height: 1.6; }
   .gd-related-stories__empty a { color: #12375f; font-weight: 750; }
+  @media (max-width: 1000px) { .gd-related-stories__grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.25rem; } }
   @media (max-width: 760px) {
     .gd-reader-tools { gap: .55rem; }
-    .gd-related-stories__grid { grid-template-columns: minmax(0,1fr); }
+    .gd-related-stories__grid { grid-template-columns: minmax(0,1fr); gap: 1.25rem; }
+    .gd-related-story { padding-bottom: 1rem; border-bottom: 1px solid #e2e7ec; }
+    .gd-related-story:last-child { padding-bottom: 0; border-bottom: 0; }
+    .gd-related-story > a { display: grid; grid-template-columns: minmax(105px,.85fr) minmax(0,1fr); gap: .85rem; align-items: start; }
+    .gd-related-story__media { grid-column: 1; grid-row: 1; aspect-ratio: 4 / 3; }
+    .gd-related-story__media img, .gd-related-story__media .gd-image-placeholder { aspect-ratio: 4 / 3; }
+    .gd-related-story__body { grid-column: 2; grid-row: 1; min-height: 0; padding: 0; }
   }
 
   .gd-article-category { display: inline-block; margin: 0 0 .65rem; color: #b8871a; font: 800 1rem/1.3 'Inter',sans-serif; letter-spacing: .08em; text-transform: uppercase; }
@@ -493,7 +500,7 @@
       </div>
 
       {% if image %}
-      <img class="gd-article-image" src="{{ image }}" alt="{{ imageAlt or title }}">
+      <img class="gd-article-image" src="{{ image }}" alt="{{ imageAlt or title }}" loading="eager" fetchpriority="high" decoding="async">
       {% if imageCaption or imageCredit %}
       <div class="gd-article-image-caption">
         {% if imageCaption %}
@@ -527,7 +534,7 @@
         {% for item in relatedItems %}
         <article class="gd-related-story">
           <a href="{{ item.url }}">
-            <div class="gd-related-story__media">{% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</div>
+            <div class="gd-related-story__media">{% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}" loading="lazy" decoding="async">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</div>
             <div class="gd-related-story__body">
               <span class="gd-related-story__category">{{ item.data.category or "News" }}</span>
               <h3>{{ item.data.title }}</h3>
@@ -543,7 +550,7 @@
       {% endif %}
     </section>
 
-    <a class="gd-article-back" href="/">‹ Back</a>
+    <a class="gd-article-back" href="/">← More news</a>
   </main>
 
   {% include 'global-footer.njk' %}

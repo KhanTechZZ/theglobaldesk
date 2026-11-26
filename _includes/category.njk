@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -46,152 +46,14 @@
     @media(max-width:700px){.gd-article-page{padding-top:1.4rem}.gd-article-title{font-size:2.15rem}.gd-article-description{font-size:1rem}.gd-article-body{font-size:1.08rem}}
   </style>
 </head>
-<body>
-  <div class="gd-topbar">
-    <div class="gd-container gd-topbar__inner">
-      <div class="gd-topbar__live-stack">
-        <span class="gd-topbar__live">
-          <span class="gd-topbar__green-dot"></span> Live
-        </span>
-        <span class="gd-topbar__edition">Global Edition</span>
-      </div>
-      <div class="gd-topbar__date" id="gd-topbar-date">Loading...</div>
-    </div>
-  </div>
+<body data-local-menu-init="true">
 
-  <header class="gd-header">
-    <div class="gd-container gd-header__inner">
-      <button class="gd-menu-btn" aria-label="Open menu" id="gd-menu-btn">
-        <svg viewBox="0 0 34 24" width="34" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <g class="gd-menu-btn__search">
-            <path d="M1.8 6H9.8M1.8 12H11.5M1.8 18H13.5" stroke-width="2.1"/>
-            <circle cx="22" cy="9" r="6.8" stroke-width="1.9"/>
-            <path d="m26.8 13.8 4.7 4.7" stroke-width="2"/>
-          </g>
-          <g class="gd-menu-btn__close">
-            <path d="m11 6 12 12M23 6 11 18" stroke-width="2.3"/>
-          </g>
-        </svg>
-      </button>
+{% include 'global-header.njk' %}
 
-      <a href="/" class="gd-logo">
-        <img src="/images/Logo-header.png" alt="The Global Desk" class="gd-logo__img">
-        <span class="gd-logo__text">The Global Desk</span>
-      </a>
-
-      <nav class="gd-nav" id="gd-nav">
-        <form class="gd-mobile-search" action="/search/" method="get" role="search">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.3-4.3"/>
-          </svg>
-          <input type="search" name="q" placeholder="Search global news..." aria-label="Search global news">
-          <button type="submit">Search</button>
-        </form>
-        <a href="/reader/sign-in/" class="gd-mobile-signin">Sign In</a>
-
-        <a href="/">Home</a>
-
-        <div class="gd-nav__dropdown">
-          <span class="gd-nav__dropdown-toggle">World<span class="caret"></span></span>
-          <div class="gd-nav__dropdown-menu gd-nav__dropdown-menu--world">
-            <div class="gd-nav__group">
-              <span class="gd-nav__group-label">Regions</span>
-              <a href="/category/asia/">Asia</a>
-              <a href="/category/europe/">Europe</a>
-              <a href="/category/middle-east/">Middle East</a>
-              <a href="/category/africa/">Africa</a>
-              <a href="/category/americas/">Americas</a>
-              <a href="/category/asia-pacific/">Asia-Pacific</a>
-            </div>
-            <div class="gd-nav__group">
-              <span class="gd-nav__group-label">Global Affairs</span>
-              <a href="/category/united-nations/">United Nations</a>
-              <a href="/category/global-conflicts/">Global Conflicts</a>
-              <a href="/category/climate-crisis/">Climate &amp; Environment</a>
-              <a href="/category/global-health/">Global Health</a>
-              <a href="/category/diplomacy/">Diplomacy</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="gd-nav__dropdown">
-          <span class="gd-nav__dropdown-toggle">Explainer<span class="caret"></span></span>
-          <div class="gd-nav__dropdown-menu">
-            <a href="/explainer/why-it-matters/">Why It Matters</a>
-            <a href="/explainer/1-minute/">1-minute explainers</a>
-          </div>
-        </div>
-
-        <div class="gd-nav__dropdown">
-          <span class="gd-nav__dropdown-toggle">Opinion<span class="caret"></span></span>
-          <div class="gd-nav__dropdown-menu">
-            <a href="/opinion/editorials/">Editorials</a>
-            <a href="/opinion/perspectives/">Perspectives</a>
-          </div>
-        </div>
-
-        <div class="gd-nav__dropdown">
-          <span class="gd-nav__dropdown-toggle">Explore<span class="caret"></span></span>
-          <div class="gd-nav__dropdown-menu">
-            <a href="/category/economy/">Economy</a>
-            <a href="/category/politics/">Politics</a>
-            <a href="/category/innovation/">Innovation</a>
-            <a href="/category/earth/">Earth</a>
-            <a href="/category/research/">Research</a>
-            <a href="/category/feature-voices/">Featured Voices</a>
-          </div>
-        </div>
-      </nav>
-
-      <div class="gd-header__actions">
-        <a href="/search/" class="gd-icon-btn" aria-label="Search">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.3-4.3"/>
-          </svg>
-        </a>
-        <a href="/reader/sign-in/" class="gd-signin">Sign In</a>
-      </div>
-    </div>
-  </header>
 
   {{ content | safe }}
 
-  <footer class="gd-footer">
-    <div class="gd-container">
-      <div class="gd-footer__grid">
-        <div class="gd-footer__brand">
-          <img src="/images/Logo-header.png" alt="The Global Desk" class="gd-footer__logo">
-          <p class="gd-footer__tagline">Interactive Global Intelligence &amp; News Platform</p>
-        </div>
-        <div>
-          <h3 class="gd-footer__heading">Sections</h3>
-          <ul class="gd-footer__list">
-            <li><a href="/">Home</a></li><li><a href="/category/world/">World</a></li>
-            <li><a href="/category/asia/">Asia</a></li><li><a href="/search/">Search</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="gd-footer__heading">Discover</h3>
-          <ul class="gd-footer__list">
-            <li><a href="/category/explainer/">Explainers</a></li>
-            <li><a href="/category/environment/">Environment</a></li>
-            <li><a href="/category/research/">Research</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="gd-footer__heading">About</h3>
-          <ul class="gd-footer__list">
-            <li><a href="/about/">About us</a></li>
-            <li><a href="/contact/">Contact</a></li>
-            <li><a href="/privacy/">Privacy</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="gd-footer__bottom"><span>&copy; 2026 The Global Desk. All rights reserved.</span></div>
-    </div>
-  </footer>
+  {% include 'global-footer.njk' %}
 
   <script>
     // Homepage-style date

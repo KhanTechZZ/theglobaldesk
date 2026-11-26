@@ -8231,3 +8231,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Keep story card typography consistent across the homepage, categories and sections. */
 .gd-news-card__body h3 { font-size: 1.15rem !important; line-height: 1.27 !important; }
 .gd-news-card__body p { font-size: .9rem !important; line-height: 1.5 !important; }
+
+/* Section landing pages share the same story card type scale. */
+.gd-section-page .gd-news-card__body h3 { font-size: 1.15rem !important; line-height: 1.27 !important; }
+.gd-section-page .gd-news-card__body p { font-size: .9rem !important; line-height: 1.5 !important; }

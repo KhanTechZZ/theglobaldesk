@@ -8402,3 +8402,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width:560px) {
   .gd-trending-page__list { grid-template-columns:minmax(0,1fr); gap:.45rem; }
 }
+.gd-trending-panel__intro > .gd-trending-panel__heading > h2 { font-size:clamp(1.28rem,2vw,1.58rem); }
+.gd-trending-panel__topics > .gd-trending-topic { grid-template-rows:auto auto auto auto; min-height:96px; padding:.7rem .72rem; }
+.gd-trending-topic__rank { grid-row:1 / 5; width:1.9rem; height:1.9rem; font-size:.72rem; }
+.gd-trending-topic__category { justify-self:start; padding:.2rem .42rem; border-radius:99px; background:#f6f1e5; color:#806116; font-size:.61rem; letter-spacing:.07em; }
+.gd-trending-panel__topics .gd-trending-topic__title { grid-row:2; font-size:.91rem; line-height:1.32; }
+.gd-trending-panel__topics .gd-trending-topic__volume { grid-column:2; grid-row:3; color:#9a741f; font:850 1rem/1.1 'Inter',sans-serif; letter-spacing:-.025em; }
+.gd-trending-panel__topics .gd-trending-topic__regions { grid-row:4; color:#687788; font-size:.68rem; }
+.gd-trending-filters { display:flex; flex-wrap:wrap; gap:.7rem; margin:0 0 .85rem; padding:.85rem; border:1px solid #e1e6eb; border-radius:9px; background:#f8fafc; }
+.gd-trending-filter { display:grid; min-width:190px; flex:1 1 190px; gap:.28rem; color:#42546a; font:750 .72rem/1.3 'Inter',sans-serif; }
+.gd-trending-filter select { width:100%; min-height:42px; padding:.55rem .7rem; border:1px solid #cfd8e2; border-radius:7px; background:#fff; color:#17304b; font:600 .88rem/1.2 'Inter',sans-serif; }
+.gd-trending-filter select:focus-visible { outline:2px solid #b88a2d; outline-offset:2px; }
+.gd-trending-page__summary { margin:0 0 .85rem; color:#516278; font:700 .82rem/1.4 'Inter',sans-serif; }
+.gd-trending-page__list > .gd-trending-topic { grid-template-rows:auto auto auto auto; min-height:112px; padding:.8rem .9rem; }
+.gd-trending-page__list .gd-trending-topic__rank { width:2rem; height:2rem; font-size:.78rem; }
+.gd-trending-page__list .gd-trending-topic__category { font-size:.65rem; }
+.gd-trending-page__list .gd-trending-topic__title { font-size:1.08rem; line-height:1.35; }
+.gd-trending-page__list .gd-trending-topic__volume { grid-column:2; grid-row:3; color:#9a741f; font:850 1.12rem/1.1 'Inter',sans-serif; letter-spacing:-.025em; }
+.gd-trending-page__list .gd-trending-topic__regions { grid-row:4; color:#687788; font-size:.73rem; }

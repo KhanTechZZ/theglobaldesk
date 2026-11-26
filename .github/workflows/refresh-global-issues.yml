@@ -104,6 +104,7 @@ jobs:
               category,
               volume: `${compact.format(total)}+ searches`,
               markets: [...candidate.markets.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name),
+              marketVolumes: Object.fromEntries(candidate.markets),
               marketCount: candidate.markets.size,
               url: candidate.url,
               sortVolume: total

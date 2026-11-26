@@ -7962,6 +7962,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-home .gd-explainers .gd-explainer-card__action { margin-bottom: 1rem !important; }
 }
 
+/* Balanced homepage headline scale and opinion feature hierarchy. */
+.gd-home .gd-lead-story__content h1 { font-size: clamp(1.65rem, 3vw, 2.15rem) !important; line-height: 1.1 !important; }
+.gd-home .gd-opinion-grid > article.gd-opinion-feature .gd-opinion-feature__body > h3 { font-size: clamp(1.42rem, 1.8vw, 1.7rem) !important; line-height: 1.2 !important; }
+@media (max-width: 1000px) {
+  .gd-home .gd-opinion-grid > article.gd-opinion-feature .gd-opinion-feature__body > h3 { font-size: 1.45rem !important; }
+}
+@media (max-width: 760px) {
+  .gd-home .gd-lead-story__content h1 { font-size: clamp(1.4rem, 5.5vw, 1.8rem) !important; }
+  .gd-home .gd-opinion-grid > article.gd-opinion-feature .gd-opinion-feature__body > h3 { font-size: 1.35rem !important; }
+}
+@media (max-width: 380px) {
+  .gd-home .gd-lead-story__content h1 { font-size: 1.35rem !important; }
+}
+
 @media (max-width: 760px) {
   .gd-home .gd-explainers .gd-explainer-grid {
     grid-template-columns: minmax(0, 1fr) !important;

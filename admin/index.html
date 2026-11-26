@@ -45,11 +45,19 @@ th{background:#f7f8fb;font-size:13px}
 .cms-btn.red{background:#b42318}
 .cms-btn.gray{background:#475467}
 .small-btn{padding:8px 12px}
+#editor{margin:20px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#editor[hidden]{display:none}
+#editor label{display:grid;gap:6px;color:#344054;font-weight:600}
+#editor .wide{grid-column:1/-1}
+#editor textarea{min-height:210px;resize:vertical;font:14px/1.55 Arial,sans-serif}
+#editor .editor-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 @media(max-width:600px){
  .stats{grid-template-columns:1fr}
  .card{padding:15px}
  header{padding:16px}
  main{margin:20px auto}
+ #editor{grid-template-columns:1fr}
+ #editor .wide{grid-column:auto}
 }
 </style>
 </head>
@@ -58,7 +66,6 @@ th{background:#f7f8fb;font-size:13px}
 <header>
   <strong>The Global Desk <span style="color:#e6b65c">/ Admin</span></strong>
   <nav>
-    <a href="/desk-9c41b7e2/cms.html" id="openCMS" style="margin-right:16px" hidden>Open CMS</a>
     <button id="logout" hidden>Logout</button>
   </nav>
 </header>
@@ -77,25 +84,29 @@ th{background:#f7f8fb;font-size:13px}
 
 <main id="app" hidden>
   <h1>Dashboard</h1>
-  <p class="muted">Manage your news through the connected CMS.</p>
+  <p class="muted">Create drafts, edit stories, and publish approved articles.</p>
 
   <div class="cms-actions">
-    <a class="cms-btn" href="/desk-9c41b7e2/cms.html#/collections/news_drafts/new">
+    <button class="cms-btn" id="newArticle">
       + Add News / Draft
-    </a>
-    <a class="cms-btn green" href="/desk-9c41b7e2/cms.html#/collections/news_published">
-      Published News
-    </a>
-    <a class="cms-btn gray" href="/desk-9c41b7e2/cms.html#/collections/news_drafts">
-      Manage Drafts
-    </a>
-    <a class="cms-btn red" href="/desk-9c41b7e2/cms.html#/collections/breaking">
-      Breaking News
-    </a>
-    <a class="cms-btn" href="/desk-9c41b7e2/cms.html">
-      Open Full CMS
-    </a>
+    </button>
   </div>
+
+  <section class="panel" id="editorPanel" hidden>
+    <h2 id="editorHeading">New article</h2>
+    <p class="muted">Drafts stay private. Publishing updates the site after the automatic build completes.</p>
+    <form id="editor">
+      <input type="hidden" id="articlePath"><input type="hidden" id="articleSha">
+      <label>Headline<input id="articleTitle" maxlength="180" required></label>
+      <label>Category<select id="articleCategory" required><option>World</option><option>Asia</option><option>Explainer</option><option>Editorial</option><option>Perspectives</option><option>Politics</option><option>Economy</option><option>Tech and AI</option><option>Science</option><option>Environment</option><option>Geography</option><option>Oceans</option><option>Research</option><option>Human Rights</option><option>Z Desk</option><option>Alpha Desk</option></select></label>
+      <label>Publication date<input id="articleDate" type="date" required></label>
+      <label>Author<input id="articleAuthor" value="The Global Desk" maxlength="100"></label>
+      <label class="wide">Short summary<textarea id="articleDescription" rows="2" maxlength="360" required></textarea></label>
+      <label class="wide">Image URL (optional)<input id="articleImage" placeholder="https://… or /images/…"></label>
+      <label class="wide">Article text (Markdown)<textarea id="articleBody" required minlength="20" maxlength="100000" placeholder="Write the article here…"></textarea></label>
+      <div class="editor-actions wide"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="articlePublished"> Publish this article</label><button type="submit" id="saveArticle">Save article</button><button type="button" class="cms-btn gray" id="cancelEdit">Cancel</button><span class="muted" id="editorMessage" role="status"></span></div>
+    </form>
+  </section>
 
   <div class="stats">
     <div class="card">
@@ -119,8 +130,7 @@ th{background:#f7f8fb;font-size:13px}
   <section class="panel">
     <h2>News Management</h2>
     <p class="muted">
-      Search articles below. Use Edit in CMS to change an article,
-      publish it, or manage its status.
+      Search your articles below. Use Edit to update an article or change its publication status.
     </p>
 
     <div class="toolbar">
@@ -135,7 +145,6 @@ th{background:#f7f8fb;font-size:13px}
         <option value="all">All statuses</option>
         <option value="Published">Published</option>
         <option value="Draft">Draft</option>
-        <option value="Breaking">Breaking</option>
       </select>
     </div>
 
@@ -146,7 +155,6 @@ th{background:#f7f8fb;font-size:13px}
         <thead>
           <tr>
             <th>Article</th>
-            <th>Views</th>
             <th>Date</th>
             <th>Status</th>
             <th>Manage</th>
@@ -158,7 +166,7 @@ th{background:#f7f8fb;font-size:13px}
 
     <p class="muted">
       Article statistics depend on the Dashboard API.
-      Page views are connected to the live view counter.
+      View counts are collected from article visits.
     </p>
   </section>
 </main>
@@ -192,14 +200,12 @@ function showApp() {
   $("login").hidden = true;
   $("app").hidden = false;
   $("logout").hidden = false;
-  openCMS.hidden = false;
 }
 
 function showLogin() {
   $("app").hidden = true;
   $("login").hidden = false;
   $("logout").hidden = true;
-  openCMS.hidden = true;
 }
 
 function dateValue(value) {
@@ -208,35 +214,41 @@ function dateValue(value) {
   return match ? match[0] : "";
 }
 
-
-function formatDate(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return String(value);
-
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true
-  }).format(date);
-}
-function cmsCollection(article) {
-  if (article.published || article.status === "Published") {
-    return "news_published";
+function openEditor(article) {
+  const panel = $("editorPanel");
+  panel.hidden = false;
+  $("editorHeading").textContent = article ? "Edit article" : "New article";
+  $("editorMessage").textContent = article ? "Loading article…" : "";
+  $("editor").reset();
+  $("articlePath").value = article?.path || "";
+  $("articleSha").value = article?.sha || "";
+  $("articleDate").value = dateValue(article?.date) || new Date().toISOString().slice(0, 10);
+  $("articleAuthor").value = "The Global Desk";
+  $("articlePublished").checked = !!article?.published;
+  if (article) {
+    const draftId = String(article.path).startsWith("draft:") ? String(article.path).slice(6) : "";
+    const endpoint = draftId ? `/api/dashboard?draft=${encodeURIComponent(draftId)}` : `/api/dashboard?path=${encodeURIComponent(article.path)}`;
+    api(endpoint).then(data => {
+      const match = data.content.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/);
+      if (!match) throw new Error("This article has an unsupported format.");
+      const field = name => {
+        const row = match[1].match(new RegExp(`^${name}:\\s*(.*)$`, "mi"));
+        if (!row) return "";
+        try { return JSON.parse(row[1]); } catch { return row[1].replace(/^['"]|['"]$/g, ""); }
+      };
+      $("articleTitle").value = field("title") || article.title || "";
+      $("articleCategory").value = field("category") || "World";
+      $("articleDate").value = dateValue(field("date") || article.date);
+      $("articleDescription").value = field("description");
+      $("articleImage").value = field("image");
+      $("articleAuthor").value = field("author") || "The Global Desk";
+      $("articlePublished").checked = field("published").toLowerCase() === "true";
+      $("articleBody").value = match[2].trim();
+      $("articleSha").value = data.sha;
+      $("editorMessage").textContent = "";
+    }).catch(error => $("editorMessage").textContent = error.message);
   }
-  if (article.status === "Breaking") {
-    return "breaking";
-  }
-  return "news_drafts";
-}
-
-function cmsEntryUrl(article) {
-  const file = String(article.path || "").split("/").pop();
-  const slug = file.replace(/\.md$/i, "");
-  return `/desk-9c41b7e2/cms.html#/collections/${cmsCollection(article)}/entries/${encodeURIComponent(slug)}`;
+  panel.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 function render() {
@@ -261,7 +273,7 @@ function render() {
   if (!filtered.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 5;
+    td.colSpan = 4;
     td.textContent = articles.length
       ? "No articles match your filters."
       : "No news articles found. Use Add News / Draft to create one.";
@@ -275,10 +287,8 @@ function render() {
     const title = document.createElement("td");
     title.textContent = a.title || "Untitled";
 
-    const viewsCell = document.createElement("td");
-    viewsCell.textContent = Number(a.views ?? 0).toLocaleString();
     const date = document.createElement("td");
-    date.textContent = formatDate(a.date) || "—";
+    date.textContent = a.date || "ΓÇö";
 
     const statusCell = document.createElement("td");
     const badge = document.createElement("span");
@@ -290,12 +300,13 @@ function render() {
 
     const manage = document.createElement("td");
     const edit = document.createElement("a");
-    edit.href = cmsEntryUrl(a);
+    edit.href = "#editor";
     edit.className = "cms-btn small-btn";
-    edit.textContent = "Edit in CMS";
+    edit.textContent = "Edit";
+    edit.onclick = event => { event.preventDefault(); openEditor(a); };
     manage.append(edit);
 
-    tr.append(title, viewsCell, date, statusCell, manage);
+    tr.append(title, date, statusCell, manage);
     $("rows").append(tr);
   }
 
@@ -316,9 +327,9 @@ async function loadArticles() {
     $("total").textContent = data.total ?? articles.length;
     $("published").textContent =
       data.published ?? articles.filter(a => a.published).length;
+    $("views").textContent = data.views ?? "—";
     $("drafts").textContent =
       data.drafts ?? articles.filter(a => !a.published).length;
-    $("views").textContent = data.views ?? "—";
 
     render();
 
@@ -377,6 +388,38 @@ $("logout").onclick = async () => {
 };
 
 $("refresh").onclick = loadArticles;
+$("newArticle").onclick = () => openEditor();
+$("cancelEdit").onclick = () => { $("editorPanel").hidden = true; };
+$("editor").onsubmit = async event => {
+  event.preventDefault();
+  const button = $("saveArticle");
+  const message = $("editorMessage");
+  button.disabled = true;
+  message.textContent = "Saving article…";
+  const payload = {
+    path: $("articlePath").value,
+    sha: $("articleSha").value,
+    title: $("articleTitle").value,
+    category: $("articleCategory").value,
+    date: $("articleDate").value,
+    author: $("articleAuthor").value,
+    description: $("articleDescription").value,
+    image: $("articleImage").value,
+    body: $("articleBody").value,
+    published: $("articlePublished").checked
+  };
+  try {
+    const result = await api("/api/dashboard", {method:"POST", body:JSON.stringify(payload)});
+    message.textContent = result.message;
+    if (result.path) $("articlePath").value = result.path;
+    if (result.sha) $("articleSha").value = result.sha;
+    await loadArticles();
+  } catch (error) {
+    message.textContent = error.message;
+  } finally {
+    button.disabled = false;
+  }
+};
 $("search").oninput = render;
 $("from").onchange = render;
 $("to").onchange = render;
@@ -391,8 +434,8 @@ $("statusFilter").onchange = render;
     articles = Array.isArray(data.articles) ? data.articles : [];
     $("total").textContent = data.total ?? articles.length;
     $("published").textContent = data.published ?? 0;
-    $("drafts").textContent = data.drafts ?? 0;
     $("views").textContent = data.views ?? "—";
+    $("drafts").textContent = data.drafts ?? 0;
 
     render();
 

@@ -126,6 +126,7 @@ module.exports = function (eleventyConfig) {
   // News collection
   eleventyConfig.addCollection("news", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")
+      .filter(item => item.data.published === true && item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" && !String(item.data.title || "").startsWith("[DEMO]"))
       .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
   });
 

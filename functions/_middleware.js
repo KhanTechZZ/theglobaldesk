@@ -65,13 +65,8 @@ export async function onRequest(context) {
 
   const target = new URL(request.url);
 
-  if (isLogin) {
-    target.pathname = "/admin/";
-  } else if (isCms) {
-    target.pathname = "/_private-cms/editor.txt";
-  } else {
-    target.pathname = "/admin/config.yml";
-  }
+  if (isConfig) return notFound();
+  target.pathname = "/admin/index.html";
 
   const assetResponse = await env.ASSETS.fetch(new Request(target.toString(), request));
 

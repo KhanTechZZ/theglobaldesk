@@ -8304,3 +8304,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-category-link-grid a:hover { color: #8c6617; }
 @media (max-width: 760px) { .gd-category-link-grid { grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 1rem; } }
 @media (max-width: 420px) { .gd-category-link-grid { grid-template-columns: minmax(0,1fr); } }
+.gd-static-page--about .gd-static-header { max-width: 900px; margin-bottom: 1.8rem; }
+.gd-about-intro { max-width: 900px; margin: 0 0 2.1rem; padding: 1.35rem 1.55rem; border-left: 4px solid #c49632; background: linear-gradient(110deg,#f3f6f8,#fafbfc); }
+.gd-about-intro p { max-width: 78ch; margin: 0; color: #4e5c6b; font: 400 1rem/1.7 'Inter',sans-serif; }
+.gd-about-intro .gd-about-intro__statement { margin-bottom: .45rem; color: #17304b; font: 700 clamp(1.18rem,1.8vw,1.42rem)/1.45 'Inter',sans-serif; }
+.gd-about-intro__statement strong { color: #17304b; }
+.gd-static-page--about .gd-about-mission { max-width: 900px; }
+@media (max-width: 640px) { .gd-about-intro { margin-bottom: 1.7rem; padding: 1.1rem 1rem; } }

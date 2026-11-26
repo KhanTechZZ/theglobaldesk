@@ -2,8 +2,7 @@ const CACHE_TTL_SECONDS = 12 * 60 * 60;
 const ISSUES = [
   { title: "Climate crisis", query: '("climate change" OR "global warming" OR climate crisis)' },
   { title: "Israel–Palestine war", query: '(Palestine OR Gaza OR "Israel-Hamas")' },
-  { title: "Russia–Ukraine war", query: '("Russia-Ukraine" OR "Ukraine war" OR "Russian invasion")' },
-  { title: "Sudan conflict", query: '(Sudan OR "Sudan conflict" OR "Sudan war")' }
+  { title: "Russia–Ukraine war", query: '("Russia-Ukraine" OR "Ukraine war" OR "Russian invasion")' }
 ];
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -12,7 +11,7 @@ async function fetchCoverage(issue) {
   const params = new URLSearchParams({ query: issue.query, mode: "TimelineVolRaw", format: "json", timespan: "24h" });
   const response = await fetch(`https://api.gdeltproject.org/api/v2/doc/doc?${params}`, {
     headers: { Accept: "application/json", "User-Agent": "TheGlobalDesk/1.0 (+https://thegdesk.com/)" },
-    signal: AbortSignal.timeout(9000)
+    signal: AbortSignal.timeout(4000)
   });
   if (!response.ok) throw new Error(`GDELT returned ${response.status}`);
   const result = await response.json();
@@ -34,7 +33,7 @@ function json(data, status = 200, cacheControl = "no-store") {
 
 export async function onRequestGet(context) {
   const origin = new URL(context.request.url).origin;
-  const cacheKey = new Request(`${origin}/api/trending?cache=serious-world-issues-v2`);
+  const cacheKey = new Request(`${origin}/api/trending?cache=serious-world-issues-v3`);
   const cache = caches.default;
   const cached = await cache.match(cacheKey);
   if (cached) {

@@ -460,11 +460,12 @@
     .gd-related-stories__grid { grid-template-columns: minmax(0,1fr); }
   }
 
-  .gd-article-breadcrumb { margin-bottom: 1rem; color: #67778a; font: 600 .78rem/1.45 'Inter',sans-serif; }
+  .gd-article-breadcrumb { margin: -.2rem 0 1rem; color: #67778a; font: 500 1rem/1.45 'Inter',sans-serif; }
   .gd-article-breadcrumb a { color: #12375f; text-decoration: none; }
   .gd-article-breadcrumb a:hover { text-decoration: underline; }
-  .gd-article-title { max-width: 780px; font-size: clamp(2.25rem,5vw,3.65rem); }
-  .gd-article-description { max-width: 720px; margin-bottom: 1.15rem; color: #4e5b69; font-size: clamp(1.03rem,2vw,1.18rem); font-style: italic; line-height: 1.65; }
+  .gd-article-category { margin-bottom: .55rem; color: #59616a; font-size: clamp(1.1rem,2vw,1.35rem); letter-spacing: .025em; }
+  .gd-article-title { max-width: 780px; margin-bottom: .75rem; font-size: clamp(2rem,4vw,2.8rem); line-height: 1.14; letter-spacing: -.025em; }
+  .gd-article-description { max-width: 720px; margin-bottom: 1.15rem; color: #5b6269; font-size: clamp(1.08rem,2vw,1.4rem); font-style: italic; line-height: 1.55; }
   .gd-reader-tools { max-width: 660px; margin: .8rem auto 1.5rem; padding: .65rem 0; border-bottom: 0; }
   .gd-reader-tools button { min-height: 40px; padding: .4rem .65rem; }
   .gd-article-image { margin-bottom: 0; }
@@ -483,11 +484,10 @@
 
 
   <main class="gd-container gd-article-page">
-    <div class="gd-article-breadcrumb"><a href="/">News</a> / <a href="/category/{{ category | slug }}/">{{ category or "News" }}</a></div>
-
     <article>
       <header>
         <span class="gd-article-category">{{ (category or "News") | upper }}</span>
+        <div class="gd-article-breadcrumb"><a href="/">News</a><span aria-hidden="true"> | </span><a href="/category/{{ category | slug }}/">{{ category or "News" }}</a></div>
         <h1 class="gd-article-title">{{ title }}</h1>
         {% if description %}
         <p class="gd-article-description">{{ description }}</p>
@@ -744,6 +744,21 @@
       if (!synth || !window.SpeechSynthesisUtterance) {
         if (listenButton) listenButton.hidden = true;
       } else {
+        const chooseEnglishVoice = function () {
+          const voices = synth.getVoices().filter(function (voice) { return /^en(?:-|$)/i.test(voice.lang || ''); });
+          const score = function (voice) {
+            const lang = (voice.lang || '').toLowerCase();
+            const name = (voice.name || '').toLowerCase();
+            let value = lang.startsWith('en-in') ? 35 : lang.startsWith('en-gb') ? 30 : lang.startsWith('en-us') ? 25 : 20;
+            if (/natural|neural|online/.test(name)) value += 100;
+            if (/google/.test(name)) value += 55;
+            if (/microsoft/.test(name)) value += 45;
+            if (/jenny|aria|sonia|ava|guy|samantha/.test(name)) value += 25;
+            if (voice.default) value += 5;
+            return value;
+          };
+          return voices.sort(function (a, b) { return score(b) - score(a); })[0] || null;
+        };
         const resetAudioControls = function () {
           setListenLabel('Listen');
         };
@@ -761,8 +776,15 @@
             return;
           }
           const utterance = new SpeechSynthesisUtterance(articleBody.innerText || articleBody.textContent || '');
-          utterance.lang = document.documentElement.lang || 'en';
-          utterance.rate = 1;
+          const englishVoice = chooseEnglishVoice();
+          if (englishVoice) {
+            utterance.voice = englishVoice;
+            utterance.lang = englishVoice.lang;
+          } else {
+            utterance.lang = 'en-IN';
+          }
+          utterance.rate = 0.94;
+          utterance.pitch = 1;
           utterance.onstart = function () {
             setListenLabel('Pause');
             showStatus('Reading the article aloud.');

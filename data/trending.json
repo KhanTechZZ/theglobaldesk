@@ -1,8 +1,31 @@
 {
   "scope": "Global issue search activity",
-  "metric": "Approximate search traffic summed across 10 markets; bucket values are lower bounds, over the past 24 hours",
-  "sourcesAvailable": ["Bangladesh", "India", "United States", "United Kingdom", "Brazil", "Japan", "Australia", "Germany", "South Africa", "Nigeria"],
-  "updatedAt": null,
+  "metric": "Approximate Google search traffic summed across 10 markets; bucket values are lower bounds, over the past 24 hours",
+  "sourcesAvailable": [
+    "Bangladesh",
+    "India",
+    "United States",
+    "United Kingdom",
+    "Brazil",
+    "Japan",
+    "Australia",
+    "Germany",
+    "South Africa",
+    "Nigeria"
+  ],
+  "updatedAt": "2026-11-26T17:53:28.246Z",
   "refreshAfterSeconds": 43200,
-  "topics": []
+  "topics": [
+    {
+      "title": "Israel–Palestine war",
+      "source": "Approximate search volume",
+      "volume": "300+ searches",
+      "detail": "Past 24 hours · lower bound across monitored countries",
+      "markets": [
+        "United Kingdom",
+        "Brazil"
+      ],
+      "url": "https://news.google.com/search?q=Israel%E2%80%93Palestine%20war"
+    }
+  ]
 }

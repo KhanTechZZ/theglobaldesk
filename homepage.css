@@ -8421,19 +8421,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-trending-page__list .gd-trending-topic__volume { grid-column:2; grid-row:3; color:#9a741f; font:850 1.12rem/1.1 'Inter',sans-serif; letter-spacing:-.025em; }
 .gd-trending-page__list .gd-trending-topic__regions { grid-row:4; color:#687788; font-size:.73rem; }
 /* Compact ranked trend list: stronger contrast, larger titles and clearer search counts. */
-.gd-trending-panel { padding:.95rem 1rem .8rem; border:1px solid #173456; border-top:3px solid #c49632; border-radius:10px; background:linear-gradient(145deg,#0b2340 0%,#071a33 100%); box-shadow:0 8px 24px rgba(8,24,44,.16); }
-.gd-trending-panel__intro { margin-bottom:.65rem; padding-bottom:.62rem; border-color:rgba(255,255,255,.15); }
-.gd-trending-panel__eyebrow { color:#e1c16f; }
-.gd-trending-panel__intro > .gd-trending-panel__heading > h2 { color:#fff; font-size:clamp(1.25rem,2vw,1.52rem); }
-.gd-trending-panel__intro > .gd-trending-panel__heading > p { color:#c2cfdd; }
-.gd-trending-panel__scope { border-color:rgba(224,193,111,.38); background:rgba(224,193,111,.1); color:#f0d98f; }
+.gd-trending-panel { padding:.95rem 1rem .8rem; border:1px solid #e1e5e9; border-top:3px solid #c49632; border-radius:10px; background:linear-gradient(145deg,#fff 0%,#f6f8fa 100%); box-shadow:0 6px 18px rgba(20,40,64,.06); }
+.gd-trending-panel__intro { margin-bottom:.65rem; padding-bottom:.62rem; border-color:#e2e6ea; }
+.gd-trending-panel__intro > .gd-trending-panel__heading > h2 { color:#17304b; font-size:clamp(1.25rem,2vw,1.52rem); }
+.gd-trending-panel__intro > .gd-trending-panel__heading > p { color:#687788; }
+.gd-trending-panel__scope { border-color:#e8dfc8; background:#fbf8f0; color:#806116; }
 .gd-trending-panel__topics { gap:.48rem; }
-.gd-trending-panel__topics > .gd-trending-topic { grid-template-columns:1.6rem minmax(0,1fr) auto; grid-template-rows:auto auto; column-gap:.42rem; row-gap:.22rem; min-height:82px; padding:.62rem .58rem; border:1px solid rgba(255,255,255,.13); border-left:2px solid #d8b453; border-radius:7px; background:rgba(255,255,255,.055); box-shadow:none; }
-.gd-trending-panel__topics > .gd-trending-topic:hover { transform:translateY(-1px); border-color:rgba(224,193,111,.55); border-left-color:#e6c86f; background:rgba(255,255,255,.1); box-shadow:0 5px 14px rgba(0,0,0,.12); }
-.gd-trending-panel__topics .gd-trending-topic__rank { grid-column:1; grid-row:1 / 3; width:1.45rem; height:1.45rem; background:rgba(224,193,111,.14); color:#efd687; font-size:.65rem; }
-.gd-trending-panel__topics .gd-trending-topic__title { grid-column:2; grid-row:1; align-self:center; color:#fff; font-size:.91rem; line-height:1.28; }
-.gd-trending-panel__topics .gd-trending-topic__volume { grid-column:3; grid-row:1; align-self:center; padding:.22rem .34rem; border:1px solid rgba(224,193,111,.26); border-radius:5px; background:rgba(224,193,111,.1); color:#f1d575; font:850 .86rem/1.1 'Inter',sans-serif; white-space:nowrap; }
-.gd-trending-panel__topics .gd-trending-topic__regions { grid-column:2 / 4; grid-row:2; color:#b9c7d5; font-size:.67rem; }
+.gd-trending-panel__topics > .gd-trending-topic { grid-template-columns:1.6rem minmax(0,1fr) auto; grid-template-rows:auto auto; column-gap:.42rem; row-gap:.22rem; min-height:82px; padding:.62rem .58rem; border:1px solid #e2e7ec; border-left:2px solid #c49632; border-radius:7px; background:#fff; box-shadow:0 2px 7px rgba(20,40,64,.035); }
+.gd-trending-panel__topics > .gd-trending-topic:hover { transform:translateY(-1px); border-color:#d9c99f; border-left-color:#c49632; background:#fffdf8; box-shadow:0 5px 14px rgba(20,40,64,.09); }
+.gd-trending-panel__topics .gd-trending-topic__rank { grid-column:1; grid-row:1 / 3; width:1.45rem; height:1.45rem; background:#f5f1e6; color:#98711d; font-size:.65rem; }
+.gd-trending-panel__topics .gd-trending-topic__title { grid-column:2; grid-row:1; align-self:center; color:#17304b; font-size:.91rem; line-height:1.28; }
+.gd-trending-panel__topics .gd-trending-topic__volume { grid-column:3; grid-row:1; align-self:center; padding:.22rem .34rem; border:1px solid #e8dfc8; border-radius:5px; background:#fbf8f0; color:#806116; font:850 .86rem/1.1 'Inter',sans-serif; white-space:nowrap; }
+.gd-trending-panel__topics .gd-trending-topic__regions { grid-column:2 / 4; grid-row:2; color:#687788; font-size:.67rem; }
 .gd-trending-page__list > .gd-trending-topic { grid-template-columns:1.8rem minmax(0,1fr) auto; grid-template-rows:auto auto; min-height:96px; padding:.72rem .8rem; border:1px solid #e2e8ef; border-left:3px solid #c49632; border-radius:8px; background:#fff; }
 .gd-trending-page__list .gd-trending-topic__rank { grid-column:1; grid-row:1 / 3; width:1.7rem; height:1.7rem; background:#f5f1e6; color:#98711d; font-size:.7rem; }
 .gd-trending-page__list .gd-trending-topic__title { grid-column:2; grid-row:1; align-self:center; color:#17304b; font-size:1.05rem; line-height:1.35; }

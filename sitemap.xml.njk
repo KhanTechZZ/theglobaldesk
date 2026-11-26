@@ -9,9 +9,10 @@ eleventyExcludeFromCollections: true
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
-    {% for path in ["/about/", "/contact/", "/editorial-policy/", "/privacy/", "/archive/", "/z-desk/", "/alpha-desk/"] %}
+    {% for item in [{path:"/about/", lastmod:"2026-11-26"}, {path:"/contact/", lastmod:"2026-11-26"}, {path:"/editorial-policy/", lastmod:"2026-11-26"}, {path:"/privacy/"}, {path:"/archive/"}, {path:"/category/z-desk/"}, {path:"/category/alpha-desk/"}] %}
     <url>
-        <loc>https://thegdesk.com{{ path }}</loc>
+        <loc>https://thegdesk.com{{ item.path }}</loc>
+        {% if item.lastmod %}<lastmod>{{ item.lastmod }}</lastmod>{% endif %}
     </url>
     {% endfor %}
     {% for story in collections.news | reverse %}

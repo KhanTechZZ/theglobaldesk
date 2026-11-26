@@ -35,7 +35,7 @@ eleventyExcludeFromCollections: true
           <img src="{{ post.data.image or '/images/Logo-header.png' }}" alt="{{ post.data.title }}" loading="lazy">
         </div>
         <div class="gd-news-card__body">
-          <span class="gd-story-meta">{{ post.data.category }} | {{ post.date | readableDate }}</span><h3>{{ post.data.title }}</h3>
+          <span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time></span><h3>{{ post.data.title }}</h3>
           <p>{{ post.data.description }}</p>
           
         </div>

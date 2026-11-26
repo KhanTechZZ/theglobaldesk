@@ -8191,3 +8191,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-topbar__inner { justify-content: flex-start !important; gap: 0; padding: .38rem .85rem !important; }
   .gd-topbar__date { font-size: .68rem; }
 }
+
+/* Use the article category scale consistently in every section and news card. */
+.gd-story-category { color: #b8871a !important; font-size: 1rem !important; font-weight: 800 !important; letter-spacing: .04em !important; }
+.gd-story-separator { margin: 0 .32rem; color: #9aa3ad; font-size: .78rem; }
+.gd-related-story__category { font-size: 1rem; letter-spacing: .05em; }
+.gd-home .gd-hero-category { font-size: 1rem !important; letter-spacing: .08em !important; }

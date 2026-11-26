@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261126-headline-related-images">
+  <link rel="stylesheet" href="homepage.css?v=20261126-section-category-scale">
 </head>
 <body>
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
@@ -162,7 +162,7 @@
       {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
     </div>
     <div class="gd-news-card__body">
-      <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3>
+      <span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3>
       <p>{{ post.data.description }}</p>
       
     </div>
@@ -220,7 +220,7 @@
       {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
     </div>
     <div class="gd-news-card__body">
-      <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
+      <span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
       <h3>{{ post.data.title }}</h3>
       <p>{{ post.data.description }}</p>
       
@@ -245,7 +245,7 @@
         {% if asiaLead.data.image %}<img src="{{ asiaLead.data.image }}" alt="{{ asiaLead.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
       </div>
       <div class="gd-news-card__body">
-        <span class="gd-story-meta">{{ asiaLead.data.category }} | <time datetime="{{ asiaLead.date | isoDate }}" data-relative-time>{{ asiaLead.date | relativeDate }}</time></span><h3>{{ asiaLead.data.title }}</h3>
+        <span class="gd-story-meta"><span class="gd-story-category">{{ asiaLead.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ asiaLead.date | isoDate }}" data-relative-time>{{ asiaLead.date | relativeDate }}</time></span><h3>{{ asiaLead.data.title }}</h3>
         <p>{{ asiaLead.data.description }}</p>
         
       </div>
@@ -254,7 +254,7 @@
   {% for post in collections.asiaNews | skip(1) | take(2) %}
   <article class="gd-brief-story gd-asia-bottom-story">
     {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
-    <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+    <span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
     <p>{{ post.data.description }}</p>
   </article>
   {% endfor %}
@@ -283,7 +283,7 @@
   <a href="{{ post.url }}">
     {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
     <span class="gd-explainer-card__label">{% if post.data.format == '1-minute' %}1-minute explainer{% else %}Why it matters{% endif %}</span>
-    <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
+    <span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
     <h3>{{ post.data.title }}</h3>
     <p>{{ post.data.description }}</p>
     <span class="gd-explainer-card__action">{% if post.data.format == '1-minute' %}Quick Read{% else %}Explore the Context{% endif %}</span>
@@ -302,14 +302,14 @@
       {% set editorial = collections.editorialNews[0] %}
       <article class="gd-opinion-feature">
         <a class="gd-opinion-feature__image" href="{{ editorial.url }}" aria-label="Read the editorial: {{ editorial.data.title }}">{% if editorial.data.image %}<img src="{{ editorial.data.image }}" alt="{{ editorial.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</a>
-        <div class="gd-opinion-feature__body"><span class="gd-opinion-feature__label">Editorial</span><div class="gd-editor-profile"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=85" alt="Editorial board representative" loading="lazy"><div class="gd-editor-profile__info"><strong>Global Desk Editorial Board</strong><small>Editorial team</small></div></div><span class="gd-story-meta">{{ editorial.data.category }} | <time datetime="{{ editorial.date | isoDate }}" data-relative-time>{{ editorial.date | relativeDate }}</time></span><h3><a href="{{ editorial.url }}">{{ editorial.data.title }}</a></h3></div>
+        <div class="gd-opinion-feature__body"><span class="gd-opinion-feature__label">Editorial</span><div class="gd-editor-profile"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=85" alt="Editorial board representative" loading="lazy"><div class="gd-editor-profile__info"><strong>Global Desk Editorial Board</strong><small>Editorial team</small></div></div><span class="gd-story-meta"><span class="gd-story-category">{{ editorial.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ editorial.date | isoDate }}" data-relative-time>{{ editorial.date | relativeDate }}</time></span><h3><a href="{{ editorial.url }}">{{ editorial.data.title }}</a></h3></div>
         <p class="gd-opinion-feature__caption">{{ editorial.data.description }}</p>
       </article>
       {% endif %}
       <div class="gd-perspectives"><h3>Perspectives</h3>
         {% if collections.perspectivesNews.length > 0 %}
         {% for post in collections.perspectivesNews | take(3) %}
-        <article>{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<div><span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><a href="{{ post.url }}">{{ post.data.title }}</a></div></article>
+        <article>{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<div><span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><a href="{{ post.url }}">{{ post.data.title }}</a></div></article>
         {% endfor %}
         {% endif %}
       </div>
@@ -319,7 +319,7 @@
   <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-earth-title">Earth</h2><a href="/category/earth/" class="gd-home-heading__link">View more</a></header>
   <div class="gd-latest__grid gd-world-news-grid gd-earth-news-grid">
     {% for post in collections.earthNews | take(4) %}
-    <article class="gd-news-card"><a href="{{ post.url }}" class="gd-news-card__link"><div class="gd-news-card__media">{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</div><div class="gd-news-card__body"><span class="gd-story-meta">Earth | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3><p>{{ post.data.description }}</p></div></a></article>
+    <article class="gd-news-card"><a href="{{ post.url }}" class="gd-news-card__link"><div class="gd-news-card__media">{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</div><div class="gd-news-card__body"><span class="gd-story-meta"><span class="gd-story-category">Earth</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3><p>{{ post.data.description }}</p></div></a></article>
     {% endfor %}
   </div>
 </section>

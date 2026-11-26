@@ -8208,24 +8208,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-category-page .gd-latest__grid { grid-template-columns: repeat(4,minmax(0,1fr)) !important; gap: 1.4rem; }
 .gd-category-page .gd-news-card__body h3 { margin: .4rem 0 .55rem; font-size: 1.15rem !important; line-height: 1.27 !important; }
 .gd-category-page .gd-news-card__body p { font-size: .9rem !important; line-height: 1.5 !important; }
-.gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) { grid-template-columns: minmax(0,780px) !important; justify-content: start; }
-.gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__link { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); border: 1px solid #dce2e8; background: #fff; }
-.gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__media { height: 100%; aspect-ratio: auto; }
-.gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__body { display: flex; flex-direction: column; justify-content: center; padding: 1.25rem; }
-.gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__body h3 { font-size: 1.15rem !important; line-height: 1.27 !important; }
-.gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__body p { font-size: .9rem !important; line-height: 1.5 !important; }
 @media (max-width: 1000px) {
   .gd-category-page .gd-latest__grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
-  .gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) { grid-template-columns: minmax(0,780px) !important; }
 }
 @media (max-width: 640px) {
   .gd-category-page.gd-article-page { padding: 1.4rem 1rem 3rem !important; }
   .gd-category-page .gd-category-heading .gd-article-title { font-size: 2.15rem !important; }
   .gd-category-page .gd-category-heading .gd-article-description { font-size: .95rem !important; }
   .gd-category-page .gd-latest__grid { grid-template-columns: minmax(0,1fr) !important; gap: 1.4rem; }
-  .gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) { grid-template-columns: minmax(0,1fr) !important; }
-  .gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__link { grid-template-columns: minmax(0,1fr); }
-  .gd-category-page .gd-latest__grid:has(> .gd-news-card:only-child) .gd-news-card__media { aspect-ratio: 16 / 10; }
 }
 
 /* Keep story card typography consistent across the homepage, categories and sections. */

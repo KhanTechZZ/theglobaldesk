@@ -1,0 +1,56 @@
+﻿---
+layout: category.njk
+pagination:
+  data: sectionPages
+  size: 1
+  alias: sectionPage
+permalink: "/{{ sectionPage.base }}/{{ sectionPage.slug }}/"
+eleventyExcludeFromCollections: true
+---
+
+{% set sectionTitle = sectionPage.title %}
+{% if sectionPage.category %}
+  {% set sectionPosts = collections.publishedNews | byCategory(sectionPage.category) %}
+{% else %}
+  {% set sectionPosts = collections.publishedNews | byFormat(sectionPage.format) %}
+{% endif %}
+
+<main class="gd-container gd-article-page gd-category-page">
+  <div class="gd-article-breadcrumb">
+    <a href="/">Home</a> / <span>{{ sectionTitle }}</span>
+  </div>
+
+  <header class="gd-category-heading">
+    <span class="gd-article-category">The Global Desk / Section</span>
+    <h1 class="gd-article-title">{{ sectionTitle }}</h1>
+    <p class="gd-article-description">Latest stories and coverage from {{ sectionTitle }}.</p>
+  </header>
+
+  {% if sectionPosts.length %}
+  <div class="gd-latest__grid">
+    {% for post in sectionPosts %}
+    <article class="gd-news-card">
+      <a href="{{ post.url }}" class="gd-news-card__link">
+        <div class="gd-news-card__media">
+          <img src="{{ post.data.image or '/images/Logo-header.png' }}" alt="{{ post.data.title }}" loading="lazy">
+        </div>
+        <div class="gd-news-card__body">
+          <span class="gd-story-meta">{{ post.data.category }} | {{ post.date | readableDate }}</span><h3>{{ post.data.title }}</h3>
+          <p>{{ post.data.description }}</p>
+          
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="gd-category-empty">
+    <h2>No stories published yet</h2>
+    <p>New coverage in this section will appear here.</p>
+  </div>
+  {% endif %}
+
+  <a class="gd-article-back" href="/">‹ Back</a>
+</main>
+
+

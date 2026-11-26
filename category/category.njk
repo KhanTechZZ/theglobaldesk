@@ -1,0 +1,56 @@
+﻿---
+layout: category.njk
+pagination:
+  data: categoryPages
+  size: 1
+  alias: categoryPage
+permalink: "/category/{{ categoryPage.slug }}/"
+title: "{{ categoryPage.title }}"
+description: "Latest news, reports and developments from {{ categoryPage.title }}."
+eleventyExcludeFromCollections: true
+---
+{% set categoryTitle = categoryPage.title %}
+{% set categoryPosts = collections.publishedNews | byCategory(categoryPage.category) %}
+
+<main class="gd-container gd-article-page gd-category-page">
+  <div class="gd-article-breadcrumb">
+    <a href="/">Home</a> / <span>{{ categoryTitle }}</span>
+  </div>
+
+  <header class="gd-category-heading">
+    <span class="gd-article-category">The Global Desk / Category</span>
+    <h1 class="gd-article-title">{{ categoryTitle }}</h1>
+    <p class="gd-article-description">Latest news, reports and developments from {{ categoryTitle }}.</p>
+  </header>
+
+  {% if categoryPosts.length %}
+  <div class="gd-latest__grid">
+    {% for post in categoryPosts %}
+    <article class="gd-news-card">
+      <a href="{{ post.url }}" class="gd-news-card__link">
+        <div class="gd-news-card__media">
+          {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
+        </div>
+        <div class="gd-news-card__body">
+          <span class="gd-story-meta">{{ post.data.category }} | {{ post.date | readableDate }}</span><h3>{{ post.data.title }}</h3>
+          <p>{{ post.data.description }}</p>
+          
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="gd-category-empty">
+    <h2>No stories published yet</h2>
+    <p>New coverage in this category will appear here.</p>
+  </div>
+  {% endif %}
+
+  <a class="gd-article-back" href="/">‹ Back</a>
+</main>
+
+
+
+
+

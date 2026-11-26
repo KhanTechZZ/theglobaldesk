@@ -58,7 +58,25 @@ async function ensureArticle(env, slug) {
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
+  const requestedSlugs = url.searchParams.get("slugs");
   const requestedSlug = url.searchParams.get("slug");
+
+  // Return view totals for a homepage ranking in one request.
+  if (requestedSlugs) {
+    if (!env.DB) return json({ error: "D1 binding DB is missing" }, 500);
+    const slugs = [...new Set(requestedSlugs.split(",").map(normalizeSlug).filter(Boolean))].slice(0, 100);
+    if (!slugs.length) return json({ articles: [] });
+    try {
+      const placeholders = slugs.map(() => "?").join(", ");
+      const result = await env.DB.prepare(
+        `SELECT slug, views FROM article_views WHERE slug IN (${placeholders})`
+      ).bind(...slugs).all();
+      const viewsBySlug = new Map((result.results || []).map(row => [row.slug, Number(row.views) || 0]));
+      return json({ articles: slugs.map(slug => ({ slug, views: viewsBySlug.get(slug) || 0 })) });
+    } catch (error) {
+      return json({ error: "Could not read article views", details: error.message }, 500);
+    }
+  }
 
   // No slug means the legacy global counter.
   if (!requestedSlug) {

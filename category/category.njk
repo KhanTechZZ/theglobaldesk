@@ -18,7 +18,6 @@ eleventyExcludeFromCollections: true
   </div>
 
   <header class="gd-category-heading">
-    <span class="gd-article-category">The Global Desk / Category</span>
     <h1 class="gd-article-title">{{ categoryTitle }}</h1>
     <p class="gd-article-description">Latest news, reports and developments from {{ categoryTitle }}.</p>
   </header>
@@ -29,10 +28,10 @@ eleventyExcludeFromCollections: true
     <article class="gd-news-card">
       <a href="{{ post.url }}" class="gd-news-card__link">
         <div class="gd-news-card__media">
-          {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
+          {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder gd-category-image-placeholder" data-label="{{ categoryTitle | upper }}" aria-hidden="true"></span>{% endif %}
         </div>
         <div class="gd-news-card__body">
-          <span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time></span><h3>{{ post.data.title }}</h3>
+          <span class="gd-story-meta"><span class="gd-story-category">{{ post.data.category }}</span><span class="gd-story-separator">|</span><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3>
           <p>{{ post.data.description }}</p>
           
         </div>

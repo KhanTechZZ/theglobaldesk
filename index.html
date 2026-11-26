@@ -192,7 +192,12 @@
     </section>
     <section class="gd-trending-panel" aria-labelledby="gd-trending-title" data-trending-panel>
       <div class="gd-trending-panel__intro">
-        <h2 id="gd-trending-title">Trending today</h2>
+        <div class="gd-trending-panel__heading">
+          <span class="gd-trending-panel__eyebrow">The global pulse</span>
+          <h2 id="gd-trending-title">What the world is searching</h2>
+          <p>News, sport, health, science and more — ranked by search activity.</p>
+        </div>
+        <span class="gd-trending-panel__scope">Around the world</span>
       </div>
       <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
     </section>
@@ -581,19 +586,27 @@ document.addEventListener('click', function(e) {
         list.setAttribute('aria-busy', 'false');
         return;
       }
-      data.topics.slice(0, 8).forEach(function (topic) {
+      data.topics.slice(0, 8).forEach(function (topic, index) {
         var link = document.createElement('a');
         link.className = 'gd-trending-topic';
         link.href = topic.url || '#gd-trending-title';
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
+        var rank = document.createElement('span');
+        rank.className = 'gd-trending-topic__rank';
+        rank.textContent = String(index + 1).padStart(2, '0');
+        var category = document.createElement('span');
+        category.className = 'gd-trending-topic__category';
+        category.textContent = topic.category || 'World';
         var title = document.createElement('span');
         title.className = 'gd-trending-topic__title';
         title.textContent = topic.title;
-        var regions = document.createElement('span');
-        regions.className = 'gd-trending-topic__regions';
-        regions.textContent = [topic.volume, (topic.markets || []).join(' · ')].filter(Boolean).join(' · ');
-        link.append(title, regions);
+        var meta = document.createElement('span');
+        meta.className = 'gd-trending-topic__regions';
+        var marketCount = topic.marketCount || (topic.markets || []).length;
+        var marketLabel = marketCount === 1 ? (topic.markets || ['1 country'])[0] : marketCount + ' countries';
+        meta.textContent = [topic.volume, marketLabel].filter(Boolean).join(' · ');
+        link.append(rank, category, title, meta);
         list.appendChild(link);
       });
       list.setAttribute('aria-busy', 'false');

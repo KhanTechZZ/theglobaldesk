@@ -22,7 +22,7 @@ jobs:
         with:
           ref: main
 
-      - name: Collect serious issue search volumes
+      - name: Collect global news search trends
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs/promises';
@@ -40,19 +40,14 @@ jobs:
             { geo: 'SA', name: 'Saudi Arabia' }, { geo: 'AE', name: 'United Arab Emirates' }, { geo: 'EG', name: 'Egypt' },
             { geo: 'NG', name: 'Nigeria' }, { geo: 'KE', name: 'Kenya' }, { geo: 'GH', name: 'Ghana' }, { geo: 'ZA', name: 'South Africa' }
           ];
-          const issues = [
-            { title: 'Climate crisis', pattern: /climate change|global warming|climate crisis|carbon emissions|cop\d{2}/i },
-            { title: 'Israel–Palestine conflict', pattern: /palestin|gaza|hamas|west bank|israel-hamas/i },
-            { title: 'Russia–Ukraine war', pattern: /ukraine|russia.{0,24}ukraine|russian invasion|zelensky|kyiv/i },
-            { title: 'Sudan conflict', pattern: /sudan|khartoum|darfur|rapid support forces/i },
-            { title: 'Myanmar conflict', pattern: /myanmar|burma|rohingya|junta.{0,20}myanmar/i },
-            { title: 'Congo conflict', pattern: /democratic republic of the congo|\bdr congo\b|\bdrc\b|m23 rebels|goma.{0,20}congo/i },
-            { title: 'Yemen conflict', pattern: /yemen|houthi|red sea.{0,30}attack/i },
-            { title: 'Iran tensions', pattern: /iran.{0,30}(israel|nuclear|sanction|missile)|israel.{0,30}iran/i },
-            { title: 'Haiti crisis', pattern: /haiti|port-au-prince|haitian gang/i },
-            { title: 'Global hunger', pattern: /global hunger|famine|food insecurity|food crisis/i },
-            { title: 'Displacement and refugees', pattern: /refugee|displaced people|forced displacement|asylum seeker/i },
-            { title: 'Disease outbreaks', pattern: /outbreak|epidemic|pandemic|mpox|ebola|dengue/i }
+          const excluded = /\b(song|songs|album|lyrics|singer|concert|music video|celebrity|celebrities|actor|actress|movie|movies|film|films|reality show|tv show|gossip|influencer|viral challenge|meme|horoscope|astrology|grammy|oscar|emmy)\b/i;
+          const categoryRules = [
+            ['Sport', /\b(cricket|football|soccer|basketball|tennis|olympics?|world cup|champions league|grand slam|nba|nfl|ipl)\b/i],
+            ['Climate', /climate|weather|storm|hurricane|cyclone|flood|wildfire|earthquake|environment/i],
+            ['Health', /health|virus|disease|hospital|vaccine|outbreak|epidemic|pandemic|medical/i],
+            ['Economy', /econom|inflation|stocks?|shares|market|currency|trade|jobs|tariff|oil price|interest rate/i],
+            ['Science & tech', /technology|\btech\b|\bai\b|artificial intelligence|space| nasa|scientist|research|robot|cyber/i],
+            ['Politics', /election|president|prime minister|parliament|government|minister|diplomat|sanction|war|conflict|attack|ceasefire/i]
           ];
           const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
           const decode = value => String(value || '')
@@ -71,7 +66,7 @@ jobs:
             const multiplier = { K: 1e3, M: 1e6, B: 1e9 }[String(match[2] || '').toUpperCase()] || 1;
             return Math.floor(Number(match[1]) * multiplier);
           };
-          const byIssue = new Map(issues.map(issue => [issue.title, new Map()]));
+          const candidates = new Map();
           for (let marketIndex = 0; marketIndex < markets.length; marketIndex++) {
             const market = markets[marketIndex];
             try {
@@ -84,14 +79,16 @@ jobs:
               const items = [...xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)];
               for (const [, item] of items) {
                 const title = tag(item, 'title');
-                const signals = [title, ...[...item.matchAll(/<(?:\w+:)?news_item\b[^>]*>([\s\S]*?)<\/(?:\w+:)?news_item>/gi)].map(match => tag(match[1], 'news_item_title'))].join(' ');
+                const newsTitles = [...item.matchAll(/<(?:\w+:)?news_item\b[^>]*>([\s\S]*?)<\/(?:\w+:)?news_item>/gi)].map(match => tag(match[1], 'news_item_title'));
+                const signals = [title, ...newsTitles].join(' ');
                 const volume = trafficNumber(tag(item, 'approx_traffic'));
-                if (!volume) continue;
-                for (const issue of issues) {
-                  if (!issue.pattern.test(signals)) continue;
-                  const countryValues = byIssue.get(issue.title);
-                  countryValues.set(market.name, Math.max(countryValues.get(market.name) || 0, volume));
-                }
+                if (!title || !volume || !newsTitles.length || excluded.test(signals)) continue;
+                const key = title.normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+                if (!key) continue;
+                if (!candidates.has(key)) candidates.set(key, { title, signals, markets: new Map(), url: `https://news.google.com/search?q=${encodeURIComponent(title)}` });
+                const candidate = candidates.get(key);
+                candidate.markets.set(market.name, Math.max(candidate.markets.get(market.name) || 0, volume));
+                candidate.signals += ` ${signals}`;
               }
             } catch (error) {
               console.error(`${market.name} feed: ${error.message}`);
@@ -99,30 +96,22 @@ jobs:
             if (marketIndex < markets.length - 1) await sleep(1200);
           }
           const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
-          const topics = issues.map(issue => {
-            const countryValues = byIssue.get(issue.title);
-            const total = [...countryValues.values()].reduce((sum, value) => sum + value, 0);
-            if (!total) return null;
+          const topics = [...candidates.values()].map(candidate => {
+            const total = [...candidate.markets.values()].reduce((sum, value) => sum + value, 0);
+            const category = categoryRules.find(([, pattern]) => pattern.test(candidate.signals))?.[0] || 'World';
             return {
-              title: issue.title,
-              source: 'Approximate search volume',
+              title: candidate.title,
+              category,
               volume: `${compact.format(total)}+ searches`,
-              detail: 'Past 24 hours · lower bound across monitored countries',
-              markets: [...countryValues.keys()],
-              url: `https://news.google.com/search?q=${encodeURIComponent(issue.title)}`
+              markets: [...candidate.markets.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name),
+              marketCount: candidate.markets.size,
+              url: candidate.url,
+              sortVolume: total
             };
-          }).filter(Boolean).sort((a, b) => {
-            const volume = value => {
-              const match = String(value).match(/[\d.]+/);
-              const suffix = String(value).match(/[KMB]/i);
-              const factor = { K: 1e3, M: 1e6, B: 1e9 }[(suffix && suffix[0] || '').toUpperCase()] || 1;
-              return (match ? Number(match[0]) : 0) * factor;
-            };
-            return volume(b.volume) - volume(a.volume);
-          });
+          }).filter(topic => topic.sortVolume > 0).sort((a, b) => b.sortVolume - a.sortVolume).map(({ sortVolume, ...topic }) => topic);
           const data = {
-            scope: 'Global issue search activity',
-            metric: 'Approximate Google search traffic summed across 37 markets; bucket values are lower bounds, over the past 24 hours',
+            scope: 'Global news search activity',
+            metric: 'Approximate Google Trends traffic summed across 37 markets over the past 24 hours; entertainment searches filtered',
             sourcesAvailable: markets.map(market => market.name),
             updatedAt: new Date().toISOString(),
             refreshAfterSeconds: 43200,

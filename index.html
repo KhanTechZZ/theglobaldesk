@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261126-worldwide-trending-signals">
+  <link rel="stylesheet" href="homepage.css?v=20261126-serious-global-issues">
 </head>
 <body>
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
@@ -192,12 +192,12 @@
     </section>
     <section class="gd-trending-panel" aria-labelledby="gd-trending-title" data-trending-panel>
       <div class="gd-trending-panel__intro">
-        <span class="gd-trending-panel__eyebrow">Worldwide signals</span>
+        <span class="gd-trending-panel__eyebrow">Global issues</span>
         <h2 id="gd-trending-title">Trending today</h2>
-        <p>News coverage, social conversations and community activity worldwide</p>
+        <p>Global coverage of major issues · past 24 hours</p>
       </div>
       <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
-      <div class="gd-trending-panel__meta"><span data-trending-status>Worldwide sources · refreshes every 12 hours</span></div>
+      <div class="gd-trending-panel__meta"><span data-trending-status>Volume means tracked news articles worldwide · refreshes every 12 hours</span></div>
     </section>
   </section>
 
@@ -570,7 +570,7 @@ document.addEventListener('click', function(e) {
       list.replaceChildren();
       var message = document.createElement('p');
       message.className = 'gd-trending-loading';
-      message.textContent = 'Worldwide trend signals are temporarily unavailable.';
+      message.textContent = 'Global issue coverage is temporarily unavailable.';
       list.appendChild(message);
       list.setAttribute('aria-busy', 'false');
       status.textContent = 'Try again in a few minutes';
@@ -579,7 +579,7 @@ document.addEventListener('click', function(e) {
     function render(data) {
       if (!Array.isArray(data.topics) || !data.topics.length) throw new Error('No trends returned');
       list.replaceChildren();
-      data.topics.slice(0, 9).forEach(function (topic) {
+      data.topics.slice(0, 4).forEach(function (topic) {
         var link = document.createElement('a');
         link.className = 'gd-trending-topic';
         link.href = topic.url || '#gd-trending-title';
@@ -596,8 +596,7 @@ document.addEventListener('click', function(e) {
       });
       list.setAttribute('aria-busy', 'false');
       var updated = data.updatedAt ? new Date(data.updatedAt) : new Date();
-      var sources = Array.isArray(data.sourcesAvailable) ? data.sourcesAvailable.join(' · ') : 'Worldwide sources';
-      status.textContent = 'Updated ' + timeFormat.format(updated) + ' BDT · ' + sources + ' · refreshes every 12 hours';
+      status.textContent = 'Global news coverage · Updated ' + timeFormat.format(updated) + ' BDT · refreshes every 12 hours';
     }
 
     function update() {

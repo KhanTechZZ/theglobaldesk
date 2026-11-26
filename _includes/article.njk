@@ -445,16 +445,6 @@
   .gd-reader-tools button[aria-pressed="true"] { border-color: #12375f; background: #12375f; color: #fff; }
   .gd-reader-tools :focus-visible,
   .gd-related-stories a:focus-visible { outline: 3px solid #c49632; outline-offset: 3px; }
-  body.gd-reader-high-contrast { background: #fff !important; }
-  body.gd-reader-high-contrast .gd-article-page,
-  body.gd-reader-high-contrast .gd-article-body,
-  body.gd-reader-high-contrast .gd-article-body h2,
-  body.gd-reader-high-contrast .gd-article-body h3,
-  body.gd-reader-high-contrast .gd-article-body blockquote { color: #000 !important; }
-  body.gd-reader-high-contrast .gd-reader-tools { border-color: #000; background: #fff; }
-  body.gd-reader-high-contrast .gd-reader-tools button,
-  body.gd-reader-high-contrast .gd-reader-tools select,
-  body.gd-reader-high-contrast .gd-reader-tools__saved-link { border: 2px solid #000; color: #000; }
   body[data-article-slug] .gd-article-page { width: 100%; max-width: 840px; }
   body[data-article-slug] .gd-article-body { max-width: 660px; }
   .gd-related-stories { margin: 3rem auto 0; padding-top: 1.65rem; border-top: 1px solid #dce2e8; }
@@ -517,14 +507,12 @@
       {% endif %}
 
       <div class="gd-reader-tools" role="toolbar" aria-label="Article reading tools">
+        <button type="button" data-reader-share aria-label="Share article" title="Share article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v7h14v-7"/></svg></button>
         <div class="gd-reader-tools__group" role="group" aria-label="Text size">
-          <span class="gd-reader-tools__label">Text size</span>
           <button type="button" data-reader-font="down" aria-label="Decrease article text size" title="Decrease text size">A−</button>
           <button type="button" data-reader-font="up" aria-label="Increase article text size" title="Increase text size">A+</button>
         </div>
-        <button type="button" data-reader-contrast aria-label="Toggle high contrast" title="High contrast" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z"/></svg></button>
         <button type="button" data-reader-listen aria-label="Listen to article" title="Listen to article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg></button>
-        <button type="button" data-reader-stop aria-label="Stop audio" title="Stop audio" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1"/></svg></button>
         <button type="button" data-reader-save aria-label="Save for later" title="Save for later" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v16l-6-4-6 4z"/></svg></button>
         <label class="gd-reader-tools__translate" for="gd-translate-language" aria-label="Translate article">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17M12 3c2.4 2.4 3.5 5.4 3.5 9s-1.1 6.6-3.5 9c-2.4-2.4-3.5-5.4-3.5-9S9.6 5.4 12 3z"/></svg>
@@ -693,7 +681,6 @@
       const status = document.querySelector('[data-reader-status]');
       const savedKey = 'tgd-saved-stories-v1';
       const fontKey = 'tgd-reader-font-size-v1';
-      const contrastKey = 'tgd-reader-high-contrast-v1';
       const showStatus = function (message) {
         if (status) status.textContent = message;
       };
@@ -733,23 +720,7 @@
         });
       });
 
-      const contrastButton = document.querySelector('[data-reader-contrast]');
-      let highContrast = false;
-      try { highContrast = localStorage.getItem(contrastKey) === 'true'; } catch (error) {}
-      const applyContrast = function () {
-        document.body.classList.toggle('gd-reader-high-contrast', highContrast);
-        if (contrastButton) contrastButton.setAttribute('aria-pressed', String(highContrast));
-      };
-      applyContrast();
-      if (contrastButton) contrastButton.addEventListener('click', function () {
-        highContrast = !highContrast;
-        applyContrast();
-        store(contrastKey, String(highContrast));
-        showStatus(highContrast ? 'High contrast is on.' : 'High contrast is off.');
-      });
-
       const saveButton = document.querySelector('[data-reader-save]');
-      const article = document.querySelector('article');
       const articleUrl = new URL(document.body.dataset.articleUrl || window.location.pathname, window.location.origin).pathname;
       const articleItem = {
         url: articleUrl,
@@ -781,11 +752,9 @@
       });
 
       const listenButton = document.querySelector('[data-reader-listen]');
-      const stopButton = document.querySelector('[data-reader-stop]');
       const synth = window.speechSynthesis;
       if (!synth || !window.SpeechSynthesisUtterance) {
         if (listenButton) listenButton.hidden = true;
-        if (stopButton) stopButton.hidden = true;
       } else {
         const resetAudioControls = function () {
           if (listenButton) {
@@ -793,7 +762,6 @@
             listenButton.title = 'Listen to article';
             listenButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a5 5 0 0 1 0 6M19.5 6.5a9 9 0 0 1 0 11"/></svg>';
           }
-          if (stopButton) stopButton.hidden = true;
         };
         if (listenButton) listenButton.addEventListener('click', function () {
           if (synth.speaking && synth.paused) {
@@ -813,7 +781,6 @@
           utterance.rate = 1;
           utterance.onstart = function () {
             listenButton.setAttribute('aria-label', 'Pause audio'); listenButton.title = 'Pause audio';
-            if (stopButton) stopButton.hidden = false;
             showStatus('Reading the article aloud.');
           };
           utterance.onend = function () { resetAudioControls(); showStatus('Audio finished.'); };
@@ -821,13 +788,22 @@
           synth.cancel();
           synth.speak(utterance);
         });
-        if (stopButton) stopButton.addEventListener('click', function () {
-          synth.cancel();
-          resetAudioControls();
-          showStatus('Audio stopped.');
-        });
         window.addEventListener('beforeunload', function () { synth.cancel(); });
       }
+
+      const shareButton = document.querySelector('[data-reader-share]');
+      if (shareButton) shareButton.addEventListener('click', async function () {
+        const shareData = { title: articleItem.title, url: window.location.href };
+        try {
+          if (navigator.share) await navigator.share(shareData);
+          else if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(shareData.url);
+            showStatus('Article link copied.');
+          } else showStatus('Sharing is not available in this browser.');
+        } catch (error) {
+          if (error && error.name !== 'AbortError') showStatus('Could not share this article.');
+        }
+      });
 
       const translateButton = document.querySelector('[data-reader-translate]');
       const languageSelect = document.querySelector('[data-translate-language]');

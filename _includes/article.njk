@@ -453,7 +453,6 @@
   .gd-more-desk__media { position:relative; width:100%; aspect-ratio:16 / 10; overflow:hidden; background:#dce4e5; }
   .gd-more-desk__media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .35s ease; }
   .gd-more-desk__link:hover .gd-more-desk__media img { transform:scale(1.035); }
-  .gd-more-desk__number { position:absolute; top:.7rem; left:.7rem; display:grid; width:2rem; height:2rem; place-items:center; border:1px solid rgba(255,255,255,.65); border-radius:50%; background:rgba(13,35,53,.82); color:#fff; font:750 .76rem/1 'Inter',sans-serif; }
   .gd-more-desk__image-note { position:absolute; right:.55rem; bottom:.55rem; padding:.25rem .42rem; background:rgba(13,35,53,.78); color:#fff; font:650 .58rem/1.2 'Inter',sans-serif; }
   .gd-more-desk__body { display:flex; min-width:0; flex-direction:column; align-items:flex-start; padding:.25rem 0; }
   .gd-more-desk__meta { color:#866b35; font:800 .64rem/1.35 'Inter',sans-serif; letter-spacing:.07em; text-transform:uppercase; }
@@ -588,7 +587,6 @@
           <a class="gd-more-desk__link" href="{{ item.url }}">
             <div class="gd-more-desk__media">
               <img src="{{ item.moreFromDeskImage }}" alt="{% if item.moreFromDeskIllustrative %}Illustrative image for {% else %}Photo for {% endif %}{{ item.data.title | escape }}" loading="lazy" decoding="async">
-              <span class="gd-more-desk__number" aria-hidden="true">{{ loop.index }}</span>
               {% if item.moreFromDeskIllustrative %}<span class="gd-more-desk__image-note">Illustrative image</span>{% endif %}
             </div>
             <div class="gd-more-desk__body">

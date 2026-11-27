@@ -161,9 +161,25 @@ module.exports = function (eleventyConfig) {
   });
   eleventyConfig.addNunjucksFilter("moreFromDesk", (items, currentUrl, excludedItems, limit = 5) => {
     const excludedUrls = new Set((Array.isArray(excludedItems) ? excludedItems : []).map(item => item.url));
+    const fallbackPhoto = category => {
+      const value = String(category || "").toLowerCase();
+      if (/asia|south asia|asia-pacific/.test(value)) return "/images/more-from/asia-city.jpg";
+      if (/environment|earth|climate|nature/.test(value)) return "/images/more-from/environment.jpg";
+      if (/economy|business|finance/.test(value)) return "/images/more-from/economy.jpg";
+      if (/technology|tech|innovation/.test(value)) return "/images/more-from/technology.jpg";
+      if (/science|research|explainer/.test(value)) return "/images/more-from/science.jpg";
+      if (/culture|heritage|travel/.test(value)) return "/images/more-from/asia-culture.jpg";
+      if (/politic|conflict|diplomacy|world|united nations|human rights/.test(value)) return "/images/more-from/global-politics.jpg";
+      return "/images/more-from/science.jpg";
+    };
     return (Array.isArray(items) ? items : [])
       .filter(item => item.url !== currentUrl && !excludedUrls.has(item.url) && !isPlaceholderHeadline(item))
-      .slice(0, Math.max(0, Number(limit) || 0));
+      .slice(0, Math.max(0, Number(limit) || 0))
+      .map(item => ({
+        ...item,
+        moreFromDeskImage: item.data.image || fallbackPhoto(item.data.category),
+        moreFromDeskIllustrative: !item.data.image
+      }));
   });
   // News collection
   eleventyConfig.addCollection("news", (collectionApi) => {

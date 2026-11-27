@@ -52,6 +52,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("_private-cms");
   eleventyConfig.addPassthroughCopy("robots.txt");
+  eleventyConfig.addPassthroughCopy("7a8bbf3b065b4db7eea761edc2092299.txt");
   eleventyConfig.addPassthroughCopy("_routes.json");
 
   // Date filters

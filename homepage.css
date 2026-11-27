@@ -8495,3 +8495,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-trending-toolbar .gd-trending-filter { max-width:none; flex:1 1 calc(50% - .4rem); min-width:140px; }
   .gd-trending-updated { width:100%; margin:.1rem 0 0; }
 }
+
+/* Fresh, bright trend treatment for the homepage rail and the full topic page. */
+.gd-lead-grid > .gd-trending-panel { padding:.95rem 0 0; border-top:2px solid #17869a; }
+.gd-trending-panel__intro { align-items:center; margin-bottom:.5rem; padding-bottom:.55rem; border-bottom:1px solid #d9e7e9; }
+.gd-trending-panel__heading > h2 { color:#145c69 !important; font-size:1.26rem !important; letter-spacing:-.025em; }
+.gd-trending-panel__heading > [data-trending-updated] { color:#75868e; font-size:.68rem; }
+.gd-trending-more { color:#147587; border-color:#72b6bf; font-size:.76rem; font-weight:800; }
+.gd-trending-more:hover { color:#0b5664; border-color:#147587; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics > .gd-trending-topic { display:flex; align-items:baseline; justify-content:space-between; gap:.7rem; min-height:0; padding:.55rem 0; border-bottom:1px solid #e2eaec; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__title { color:#263b4c; font-size:.9rem; font-weight:700; line-height:1.4; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__volume { color:#cf6841; font-size:.88rem; font-weight:850; white-space:nowrap; }
+.gd-trending-page__list .gd-trending-topic__title { color:#223a4e; }
+.gd-trending-page__list .gd-trending-topic__volume { color:#c95f3b; }
+.gd-trending-page__list > .gd-trending-topic:hover { background:#f3f8f8; }
+.gd-trending-toolbar .gd-trending-filter select:focus-visible { outline:2px solid #17869a; outline-offset:2px; }
+@media (max-width:640px) {
+  .gd-lead-grid > .gd-trending-panel { padding-top:.8rem; }
+  .gd-trending-panel__intro { align-items:flex-start; }
+  .gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__title { font-size:.88rem; }
+}

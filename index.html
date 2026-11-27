@@ -564,7 +564,7 @@ document.addEventListener('click', function(e) {
     var list = document.querySelector('[data-trending-list]');
     var updated = document.querySelector('[data-trending-updated]');
     if (!list) return;
-    var refreshMs = 12 * 60 * 60 * 1000;
+    var refreshMs = 60 * 60 * 1000;
     var allTopics = [];
 
     function showUnavailable() {

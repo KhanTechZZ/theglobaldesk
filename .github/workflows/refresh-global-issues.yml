@@ -7,7 +7,7 @@ on:
     paths:
       - .github/workflows/refresh-global-issues.yml
   schedule:
-    - cron: "17 */12 * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -22,10 +22,11 @@ jobs:
         with:
           ref: main
 
-      - name: Collect global news search trends
+      - name: Collect all live Google Trends topics
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs/promises';
+
           const markets = [
             { geo: 'BD', name: 'Bangladesh' }, { geo: 'IN', name: 'India' }, { geo: 'PK', name: 'Pakistan' },
             { geo: 'ID', name: 'Indonesia' }, { geo: 'SG', name: 'Singapore' }, { geo: 'TH', name: 'Thailand' },
@@ -40,87 +41,94 @@ jobs:
             { geo: 'SA', name: 'Saudi Arabia' }, { geo: 'AE', name: 'United Arab Emirates' }, { geo: 'EG', name: 'Egypt' },
             { geo: 'NG', name: 'Nigeria' }, { geo: 'KE', name: 'Kenya' }, { geo: 'GH', name: 'Ghana' }, { geo: 'ZA', name: 'South Africa' }
           ];
-          const excluded = /\b(song|songs|album|lyrics|singer|concert|music video|celebrity|celebrities|actor|actress|movie|movies|film|films|reality show|tv show|television|streaming|series|episode|gossip|influencer|viral challenge|meme|horoscope|astrology|grammy|oscar|emmy|tabii|trt1|netflix|hulu|telenovela)\b/i;
-          const sportSearch = /\b(sport|sports|esportes|deporte|football|soccer|futbol|fútbol|futebol|basketball|basket|cricket|tendulkar|tennis|tênis|rugby|baseball|hockey|volleyball|voleibol|golf|boxing|wrestling|olympics?|mundial|copa|liga|ligue|calcio|handball|handebol|world cup|championship|champions league|premier league|grand slam|nba|nfl|ipl|wta|atp|fifa|uefa|fixture|fixtures|score|scores|standings|matchday|goal|goals|team|teams|club|transfer|athlete|biathlon|skiing|formula one|grand prix|versus|vs|sub[- ]?\d{2})\b/i;
-          const relevantSearch = /\b(war|conflict|invasion|climate|global warming|weather|heatwave|election|debate|president|government|parliament|prime minister|economy|inflation|stock market|stocks|bull market|currency|debt|deuda|gold|silver|oil|trade|tariff|health|disease|virus|coronavirus|covid|outbreak|vaccine|earthquake|flood|storm|cyclone|hurricane|wildfire|drought|refugee|attack|ceasefire|cyberattack|sanction|nuclear|protest|human rights|energy crisis|interest rate|jobs|artificial intelligence|cybersecurity|space mission|palestin|gaza|ukraine|russia|iran|israel|sudan|myanmar|congo|yemen|haiti|lebanon|syria|afghanistan|taiwan|china|hamas|hezbollah|houthi|taliban|trump|putin|zelensky|netanyahu|biden|xi jinping|mark rutte|united nations|diplomacy|treaty|resign|resignation|arrest|court|minister|sanction|energy|food crisis|migration|humanitarian|ceo|company|technology|artificial intelligence|space|science|research)\b/i;
-          const categoryRules = [
-            ['Global conflicts', /\b(war|conflict|invasion|attack|airstrike|ceasefire|hostage|military|armed forces|refugee|sanction|nuclear|palestin|gaza|ukraine|russia|iran|israel|sudan|myanmar|congo|yemen|haiti|lebanon|syria|afghanistan|taiwan|hamas|hezbollah|houthi|taliban)\b/i],
+          const categories = [
+            ['Global conflicts', /\b(war|conflict|invasion|attack|airstrike|ceasefire|hostage|military|refugee|sanction|nuclear|palestin|gaza|ukraine|russia|iran|israel|sudan|myanmar|congo|yemen|haiti|lebanon|syria|afghanistan|taiwan|hamas|hezbollah|houthi|taliban)\b/i],
             ['Politics', /\b(election|president|government|parliament|prime minister|vote|voting|politic|senate|congress|minister|court|policy|trump|putin|zelensky|netanyahu|biden|xi jinping|united nations)\b/i],
-            ['Economy', /\b(economy|inflation|stock market|stocks|bull market|currency|debt|deuda|gold|silver|oil|trade|tariff|interest rate|jobs|bank|business|price|market|bitcoin)\b/i],
+            ['Economy', /\b(economy|inflation|stock market|stocks|bull market|currency|debt|gold|silver|oil|trade|tariff|interest rate|jobs|bank|business|price|market|bitcoin|nasdaq)\b/i],
             ['Climate & disasters', /\b(climate|global warming|weather|heatwave|earthquake|flood|storm|cyclone|hurricane|wildfire|drought|typhoon|tsunami|disaster)\b/i],
             ['Health', /\b(health|disease|virus|coronavirus|covid|outbreak|vaccine|hospital|epidemic|pandemic)\b/i],
-            ['Science & technology', /\b(artificial intelligence|\bai\b|cyberattack|cybersecurity|technology|tech|space mission|spaceX| nasa |scientist|science|robot)\b/i]
+            ['Science & technology', /\b(artificial intelligence|\bai\b|cyberattack|cybersecurity|technology|tech|space|spacex|nasa|scientist|science|robot)\b/i],
+            ['Sports', /\b(sport|football|soccer|cricket|basketball|tennis|rugby|baseball|hockey|volleyball|golf|boxing|wrestling|olympics?|fifa|uefa|nba|nfl|ipl)\b/i],
+            ['Entertainment', /\b(music|song|film|movie|actor|actress|singer|celebrity|tv show|series|concert|grammy|oscar|netflix)\b/i]
           ];
           const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-          const decode = value => String(value || '')
-            .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-            .replace(/&#x([\da-f]+);/gi, (_, code) => String.fromCodePoint(parseInt(code, 16)))
-            .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(parseInt(code, 10)))
-            .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
-            .replace(/&apos;/g, "'").replace(/&amp;/g, '&').replace(/<[^>]*>/g, '').trim();
-          const tag = (xml, name) => {
-            const match = xml.match(new RegExp(`<(?:(?:\\w+):)?${name}\\b[^>]*>([\\s\\S]*?)<\\/(?:(?:\\w+):)?${name}\\s*>`, 'i'));
-            return match ? decode(match[1]) : '';
-          };
-          const trafficNumber = value => {
-            const match = value.replace(/,/g, '').match(/([\d.]+)\s*([KMB])?\+?/i);
-            if (!match) return 0;
-            const multiplier = { K: 1e3, M: 1e6, B: 1e9 }[String(match[2] || '').toUpperCase()] || 1;
-            return Math.floor(Number(match[1]) * multiplier);
-          };
           const candidates = new Map();
-          for (let marketIndex = 0; marketIndex < markets.length; marketIndex++) {
-            const market = markets[marketIndex];
-            try {
-              const response = await fetch(`https://trends.google.com/trending/rss?geo=${market.geo}`, {
-                headers: { Accept: 'application/rss+xml, application/xml, text/xml', 'User-Agent': 'TheGlobalDesk/1.0 (+https://thegdesk.com/)' },
-                signal: AbortSignal.timeout(12000)
-              });
-              if (!response.ok) throw new Error(`Search trend feed returned ${response.status}`);
-              const xml = await response.text();
-              const items = [...xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)];
-              for (const [, item] of items) {
-                const title = tag(item, 'title');
-                const newsTitles = [...item.matchAll(/<(?:\w+:)?news_item\b[^>]*>([\s\S]*?)<\/(?:\w+:)?news_item>/gi)].map(match => tag(match[1], 'news_item_title'));
-                const signals = [title, ...newsTitles].join(' ');
-                const volume = trafficNumber(tag(item, 'approx_traffic'));
-                if (!title || !volume || !newsTitles.length || excluded.test(signals)) continue;
-                if (sportSearch.test(signals) || !relevantSearch.test(signals)) continue;
-                const key = title.normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
-                if (!key) continue;
-                if (!candidates.has(key)) candidates.set(key, { title, signals: '', markets: new Map() });
-                const candidate = candidates.get(key);
-                candidate.signals += ` ${signals}`;
-                candidate.markets.set(market.name, Math.max(candidate.markets.get(market.name) || 0, volume));
+
+          async function fetchMarket(market) {
+            let response;
+            for (let attempt = 0; attempt < 3; attempt++) {
+              try {
+                response = await fetch(`https://trends.google.com/trending?geo=${market.geo}&hours=24`, {
+                  headers: { Accept: 'text/html', 'User-Agent': 'Mozilla/5.0 (compatible; TheGlobalDesk/1.0; +https://thegdesk.com/)' },
+                  signal: AbortSignal.timeout(30000)
+                });
+                if (response.ok) break;
+                throw new Error(`Google Trends returned ${response.status}`);
+              } catch (error) {
+                if (attempt === 2) throw error;
+                await sleep(800 * (attempt + 1));
               }
-            } catch (error) {
-              console.error(`${market.name} feed: ${error.message}`);
             }
-            if (marketIndex < markets.length - 1) await sleep(1200);
+            const html = await response.text();
+            const payloadMatch = html.match(/AF_initDataCallback\(\{key: 'ds:0', hash: '[^']+', data:(.*?), sideChannel: \{\}\}\);/s);
+            if (!payloadMatch) throw new Error('Google Trends topic data was not found on the page');
+            const payload = JSON.parse(payloadMatch[1]);
+            const rows = Array.isArray(payload?.[1]) ? payload[1] : [];
+            if (!rows.length) throw new Error('Google Trends returned no topics');
+
+            for (const row of rows) {
+              const title = String(row?.[0] || '').trim();
+              const volume = Number(row?.[6]) || 0;
+              if (!title || !volume) continue;
+              const key = title.normalize('NFKC').toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+              if (!key) continue;
+              if (!candidates.has(key)) candidates.set(key, { title, markets: new Map() });
+              const candidate = candidates.get(key);
+              candidate.markets.set(market.name, Math.max(candidate.markets.get(market.name) || 0, volume));
+            }
+            console.log(`${market.name}: indexed ${rows.length} Google Trends topics`);
           }
+
+          let nextMarket = 0;
+          const workers = Array.from({ length: 5 }, async () => {
+            while (nextMarket < markets.length) {
+              const market = markets[nextMarket++];
+              try {
+                await fetchMarket(market);
+              } catch (error) {
+                console.error(`${market.name}: ${error.message}`);
+              }
+              await sleep(500);
+            }
+          });
+          await Promise.all(workers);
+
           const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
           const topics = [...candidates.values()].map(candidate => {
             const total = [...candidate.markets.values()].reduce((sum, value) => sum + value, 0);
-            const category = (categoryRules.find(([, pattern]) => pattern.test(`${candidate.title} ${candidate.signals}`)) || ['Other current affairs'])[0];
+            const category = (categories.find(([, pattern]) => pattern.test(candidate.title)) || ['Other current affairs'])[0];
             return {
               title: candidate.title,
               category,
               volume: `${compact.format(total)}+ searches`,
+              volumeValue: total,
               markets: [...candidate.markets.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name),
               marketVolumes: Object.fromEntries(candidate.markets),
               marketCount: candidate.markets.size,
               sortVolume: total
             };
-          }).filter(topic => topic.sortVolume > 0).sort((a, b) => b.sortVolume - a.sortVolume).map(({ sortVolume, ...topic }) => topic);
+          }).sort((a, b) => b.sortVolume - a.sortVolume).map(({ sortVolume, ...topic }) => topic);
+
           const data = {
-            scope: 'Global news search activity',
-            metric: 'Approximate Google Trends traffic summed across 37 markets over the past 24 hours; sports and entertainment searches filtered',
+            scope: 'Google Trends Trending Now · past 24 hours',
+            metric: 'All available trending topics from Google Trends across 37 country pages. Search volumes are Google estimates summed for topics appearing in multiple markets.',
             sourcesAvailable: markets.map(market => market.name),
             updatedAt: new Date().toISOString(),
-            refreshAfterSeconds: 43200,
+            refreshAfterSeconds: 3600,
             topics
           };
           await fs.writeFile('data/trending.json', JSON.stringify(data, null, 2) + '\n');
+          console.log(`Published ${topics.length} unique live search topics`);
           NODE
 
       - name: Publish updated trend data

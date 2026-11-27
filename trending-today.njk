@@ -28,7 +28,7 @@ description: "Explore the searches drawing the most attention around the world, 
     if (!list || !summary || !countryFilter || !categoryFilter) return;
     var allTopics = [];
     var compactNumber = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
-    var categories = ['Global conflicts', 'Politics', 'Economy', 'Climate & disasters', 'Health', 'Science & technology', 'Other current affairs'];
+    var categories = ['Global conflicts', 'Politics', 'Economy', 'Climate & disasters', 'Health', 'Science & technology', 'Sports', 'Entertainment', 'Other current affairs'];
 
     function addOptions(select, values) {
       values.forEach(function (value) {
@@ -97,10 +97,14 @@ description: "Explore the searches drawing the most attention around the world, 
       list.setAttribute('aria-busy', 'false');
     }
 
-    fetch('/trending.json?refresh=' + Date.now(), { cache: 'no-store' })
-      .then(function (response) { if (!response.ok) throw new Error('Trends unavailable'); return response.json(); })
-      .then(render)
-      .catch(showUnavailable);
+    function update() {
+      fetch('/trending.json?refresh=' + Date.now(), { cache: 'no-store' })
+        .then(function (response) { if (!response.ok) throw new Error('Trends unavailable'); return response.json(); })
+        .then(render)
+        .catch(showUnavailable);
+    }
+    update();
+    window.setInterval(update, 60 * 60 * 1000);
     countryFilter.addEventListener('change', drawTopics);
     categoryFilter.addEventListener('change', drawTopics);
   })();

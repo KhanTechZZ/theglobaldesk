@@ -8050,6 +8050,33 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__summary { font-size:1rem !important; }
 }
 
+/* Quiet editorial pairing for the homepage Explainer section. */
+.gd-home .gd-explainers > .gd-home-heading { border:0 !important; box-shadow:none !important; }
+.gd-home .gd-explainers > .gd-home-heading h2 { border:0 !important; padding-left:0 !important; }
+.gd-home .gd-explainers .gd-explainer-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:2rem !important; }
+.gd-home .gd-explainers .gd-explainer-unit,
+.gd-home .gd-explainers .gd-explainer-unit + .gd-explainer-unit { padding:1rem 0 !important; border:0 !important; background:transparent !important; box-shadow:none !important; }
+.gd-home .gd-explainers .gd-explainer-unit__header { margin:0 0 .85rem !important; }
+.gd-home .gd-explainers .gd-explainer-unit__header h3 { width:auto !important; max-width:100%; margin:0 !important; padding:0 !important; border:0 !important; color:#DFA321 !important; font:750 1.18rem/1.25 'Inter',sans-serif !important; letter-spacing:-.015em; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link { display:flex !important; flex-direction:row !important; align-items:center !important; gap:1.05rem !important; padding:0 !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media { display:block !important; flex:0 0 40% !important; width:40% !important; height:190px !important; max-height:190px !important; aspect-ratio:4/3 !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media > img { width:100% !important; height:100% !important; object-fit:cover !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit--why .gd-explainer-feature__link { flex-direction:row-reverse !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy { flex:1 1 0 !important; width:auto !important; min-width:0; margin:0 !important; padding:0 !important; border:0 !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__meta { margin:0 0 .5rem !important; color:#7a838b !important; font:600 .72rem/1.4 'Inter',sans-serif !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__title { margin:0 0 .55rem !important; color:#122d49 !important; font:750 clamp(1.28rem,1.65vw,1.52rem)/1.22 'Source Serif 4',Georgia,serif !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__summary { color:#4e5c69 !important; font:400 clamp(.94rem,1.05vw,1rem)/1.55 'Inter',sans-serif !important; }
+@media (max-width:760px) {
+  .gd-home .gd-explainers .gd-explainer-grid { grid-template-columns:minmax(0,1fr) !important; gap:.85rem !important; }
+  .gd-home .gd-explainers .gd-explainer-unit,
+  .gd-home .gd-explainers .gd-explainer-unit + .gd-explainer-unit { margin:0 !important; padding:.8rem 0 !important; border:0 !important; }
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link,
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit--why .gd-explainer-feature__link { flex-direction:row !important; gap:.8rem !important; }
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media { flex-basis:36% !important; width:36% !important; height:150px !important; max-height:150px !important; aspect-ratio:4/3 !important; }
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__title { font-size:1.13rem !important; }
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__summary { font-size:.86rem !important; line-height:1.45 !important; }
+}
+
 /* Swap the desktop and mobile header controls with a short, non-overlapping fade. */
 @keyframes gd-header-icon-enter {
   from { opacity: 0; transform: translateY(2px) scale(.9); }

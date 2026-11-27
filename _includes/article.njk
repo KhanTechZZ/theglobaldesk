@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }} | The Global Desk</title>
   <meta name="description" content="{{ description or title }}">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#08295f">
   <meta property="og:site_name" content="The Global Desk">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -13,12 +14,41 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="canonical" href="https://thegdesk.com{{ page.url }}">
-  {% if image %}
-  <meta property="og:image" content="https://thegdesk.com{{ image }}">
-  {% endif %}
+  <meta property="og:url" content="https://thegdesk.com{{ page.url }}">
+  <meta property="og:image" content="{{ (image or '/Logo.png') | absoluteUrl('https://thegdesk.com') }}">
   <meta property="og:title" content="{{ title }}">
   <meta property="og:description" content="{{ description or title }}">
   <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }} | The Global Desk">
+  <meta name="twitter:description" content="{{ description or title }}">
+  <meta name="twitter:image" content="{{ (image or '/Logo.png') | absoluteUrl('https://thegdesk.com') }}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://thegdesk.com{{ page.url }}" },
+    "headline": {{ title | jsonify | safe }},
+    "description": {{ (description or title) | jsonify | safe }},
+    "datePublished": {{ date | dateToRfc3339 | jsonify | safe }},
+    "author": {
+      "@type": "Organization",
+      "name": {{ (author or 'The Global Desk') | jsonify | safe }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://thegdesk.com/#organization",
+      "name": "The Global Desk",
+      "url": "https://thegdesk.com/",
+      "logo": { "@type": "ImageObject", "url": "https://thegdesk.com/favicon.png", "width": 512, "height": 512 }
+    },
+    "articleSection": {{ (category or 'News') | jsonify | safe }},
+    "inLanguage": "en",
+    "isAccessibleForFree": true{% if image %},
+    "image": [{{ image | absoluteUrl('https://thegdesk.com') | jsonify | safe }}]{% endif %}{% if lastModified %},
+    "dateModified": {{ lastModified | dateToRfc3339 | jsonify | safe }}{% endif %}
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">

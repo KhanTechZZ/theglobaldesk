@@ -6,24 +6,22 @@ eleventyExcludeFromCollections: true
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://thegdesk.com/</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
     </url>
-    {% for item in [{path:"/about/", lastmod:"2026-11-26"}, {path:"/contact/", lastmod:"2026-11-26"}, {path:"/editorial-policy/", lastmod:"2026-11-26"}, {path:"/trending-today/", lastmod:"2026-11-27"}, {path:"/privacy/"}, {path:"/archive/"}] %}
+    {% for item in [{path:"/about/"}, {path:"/contact/"}, {path:"/editorial-policy/"}, {path:"/trending-today/"}] %}
     <url>
         <loc>https://thegdesk.com{{ item.path }}</loc>
-        {% if item.lastmod %}<lastmod>{{ item.lastmod }}</lastmod>{% endif %}
     </url>
+    {% endfor %}
+    {% for item in sectionPages %}
+    <url><loc>https://thegdesk.com/{{ item.base }}/{{ item.slug }}/</loc></url>
     {% endfor %}
     {% for item in categoryPages %}
     <url><loc>https://thegdesk.com/category/{{ item.slug }}/</loc></url>
     {% endfor %}
-    {% for story in collections.news | reverse %}
-    {% if story.data.published %}
+    {% for story in collections.publishedNews | reverse %}
     <url>
         <loc>{{ story.url | absoluteUrl("https://thegdesk.com") }}</loc>
-        <lastmod>{{ story.date | isoDate }}</lastmod>
+        {% if story.data.lastModified %}<lastmod>{{ story.data.lastModified | dateToRfc3339 }}</lastmod>{% endif %}
     </url>
-    {% endif %}
     {% endfor %}
 </urlset>

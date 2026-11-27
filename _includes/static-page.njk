@@ -11,7 +11,7 @@
     <title>{% if title == "About The Global Desk" %}{{ title }}{% else %}{{ title }} | The Global Desk{% endif %}</title>
     <meta name="description" content="{{ description or 'Explore The Global Desk for independent news, research and analysis covering South Asia, Asia and global affairs.' }}">
     <meta name="author" content="The Global Desk">
-    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="robots" content="{% if page.url == '/saved/' or page.url == '/reader/sign-in/' %}noindex, follow{% else %}index, follow, max-image-preview:large{% endif %}">
     <meta name="theme-color" content="#071a33">
     <link rel="canonical" href="https://thegdesk.com{{ page.url }}">
 

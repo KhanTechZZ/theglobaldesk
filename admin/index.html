@@ -133,15 +133,7 @@ const $ = id => document.getElementById(id);
 let articles = [];
 const categoryNames = ["World","Asia","Europe","Middle East","Africa","Americas","Asia-Pacific","United Nations","Global Conflicts","Environment","Global Health","Diplomacy","Economy","Politics","Tech and AI","Research","Featured Voices","Explainer","Editorial","Perspectives","Human Rights","Science","Geography","Oceans"];
 for (const name of categoryNames) { const option = document.createElement("option"); option.value = name; option.textContent = name; $("articleCategory").append(option); }
-const richEditor = window.toastui?.Editor ? new toastui.Editor({
-  el: $("richEditor"), height: "430px", initialEditType: "wysiwyg", previewStyle: "vertical",
-  usageStatistics: false, placeholder: "Write the story. Use headings to structure longer articles.",
-  toolbarItems: ["heading", "bold", "italic", "strike", "hr", "quote", "ul", "ol", "task", "table", "link", "image", "code", "codeblock"],
-  hooks: { addImageBlobHook: async (blob, callback) => {
-    try { const data = await uploadImage(blob); callback(data.path, blob.name || "Article image"); }
-    catch (e) { alert(e.message); }
-  } }
-}) : null;
+let richEditor = null;
 
 async function uploadImage(file) {
   let upload = file;
@@ -164,6 +156,24 @@ async function uploadImage(file) {
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(data.error || `Upload failed (${response.status})`);
   return data;
+}
+
+// Rich editor is optional for sign-in. If the CDN or editor fails, the rest of
+// the dashboard still initializes and a plain article field remains available.
+try {
+  if (window.toastui?.Editor) {
+    richEditor = new toastui.Editor({
+      el: $("richEditor"), height: "430px", initialEditType: "wysiwyg", previewStyle: "vertical",
+      usageStatistics: false, placeholder: "Write the story. Use headings to structure longer articles.",
+      toolbarItems: [["heading", "bold", "italic", "strike"], ["hr", "quote"], ["ul", "ol", "task"], ["table", "link", "image"], ["code", "codeblock"]],
+      hooks: { addImageBlobHook: async (blob, callback) => {
+        try { const data = await uploadImage(blob); callback(data.path, blob.name || "Article image"); }
+        catch (e) { alert(e.message); }
+      } }
+    });
+  }
+} catch (error) {
+  console.error("Rich editor did not initialize:", error);
 }
 
 async function api(url, options = {}) {

@@ -8078,6 +8078,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .gd-home .gd-explainers > .gd-home-heading { margin-bottom:.72rem !important; padding-bottom:.5rem !important; border-bottom:1px solid #cbd2da !important; }
 .gd-home .gd-explainers > .gd-home-heading h2 { padding-left:.55rem !important; border-left:3px solid var(--gd-gold) !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__meta { font-size:.82rem !important; line-height:1.5 !important; }
+.gd-home .gd-explainers .gd-explainer-feature__title { transition:color .18s ease; }
+.gd-home .gd-explainers .gd-explainer-feature__link:hover .gd-explainer-feature__title,
+.gd-home .gd-explainers .gd-explainer-feature__link:focus-visible .gd-explainer-feature__title { color:var(--gd-navy) !important; }
 
 /* Swap the desktop and mobile header controls with a short, non-overlapping fade. */
 @keyframes gd-header-icon-enter {

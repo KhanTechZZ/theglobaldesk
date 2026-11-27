@@ -66,6 +66,7 @@
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
 {% include 'global-header.njk' %}
 
+{% if collections.headlineNews.length > 0 %}
 <div class="gd-breaking">
   <div class="gd-breaking__label">
     <span class="gd-breaking__dot"></span><span class="gd-breaking__text">Just In</span>
@@ -74,7 +75,6 @@
     {% for post in collections.headlineNews | take(4) %}
     <a href="{{ post.url }}" class="gd-breaking__item{% if loop.index0 == 0 %} is-active{% endif %}">{{ post.data.title }}</a>
     {% endfor %}
-    {% if collections.headlineNews.length == 0 %}<span class="gd-breaking__item is-active">No new headlines yet. Browse the latest stories below.</span>{% endif %}
   </div>
   <div class="gd-breaking__controls" aria-label="Headline controls">
     <button class="gd-breaking__control" type="button" data-ticker-prev aria-label="Previous headline" title="Previous headline">
@@ -85,8 +85,11 @@
     </button>
   </div>
 </div>
+{% endif %}
 
-<main id="gd-main-content" class="gd-main gd-container gd-home" tabindex="-1">  <section class="gd-lead-grid" aria-label="Top news">
+<main id="gd-main-content" class="gd-main gd-container gd-home" tabindex="-1">
+{% if collections.publishedNews.length > 0 %}
+  <section class="gd-lead-grid" aria-label="Top news">
     <div class="gd-lead-left">
     <article class="gd-lead-story">
       {% if collections.homepageNews.length > 0 %}
@@ -309,6 +312,22 @@
     {% endfor %}
   </div>
 </section>
+{% else %}
+  <section class="gd-category-empty gd-newsroom-empty" aria-labelledby="gd-newsroom-empty-title">
+    <h1 id="gd-newsroom-empty-title">The newsroom is getting ready</h1>
+    <p>Our original reporting, analysis and explainers will appear here once they are ready.</p>
+  </section>
+  <section class="gd-home-block gd-trending-panel" aria-labelledby="gd-trending-title" data-trending-panel>
+    <div class="gd-trending-panel__intro">
+      <div class="gd-trending-panel__heading">
+        <h2 id="gd-trending-title">Trending Today</h2>
+        <div class="gd-home-trending-live"><span class="gd-trending-live__status"><i aria-hidden="true"></i>Live trends</span></div>
+      </div>
+      <a class="gd-trending-more" href="/trending-today/">View more <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="gd-trending-panel__topics" data-trending-list aria-live="polite" aria-busy="true"><p class="gd-trending-loading">Loading current trends…</p></div>
+  </section>
+{% endif %}
 </main>
 {% include 'global-footer.njk' %}
 

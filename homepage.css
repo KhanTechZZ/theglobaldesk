@@ -8269,6 +8269,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: #f6f8fa;
 }
 .gd-category-empty h2 { margin: 0 0 .5rem; color: #17304b; font-family: var(--gd-font-serif); font-size: clamp(1.35rem, 3vw, 1.75rem); }
+.gd-newsroom-empty h1 { margin: 0 0 .6rem; color: #17304b; font-family: var(--gd-font-serif); font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.15; }
 .gd-category-empty p { max-width: 55ch; margin: 0 0 1rem; color: #526273; line-height: 1.6; }
 .gd-category-empty__link { display: inline-flex; min-height: 44px; align-items: center; padding: 0 .9rem; background: #12375f; color: #fff; font-weight: 750; text-decoration: none; }
 .gd-category-empty__link:hover { background: #1b4a7c; }

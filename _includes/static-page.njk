@@ -62,7 +62,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/homepage.css?v=20261127-globaldesk-topics-v6">
+  <link rel="stylesheet" href="/homepage.css?v=20261127-trending-live-v7">
 </head>
 <body>
 
@@ -73,9 +73,8 @@
 <main class="gd-static-page gd-static-page--{{ page.fileSlug }}">
   <div class="gd-static-container">
     <nav class="gd-static-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{{ title | replace("The Global Desk", "") | trim }}</span></nav>
-    <header class="gd-static-header"><span class="gd-static-eyebrow">The Global Desk</span><h1>{{ title }}</h1><p>{{ description }}</p></header>
+    <header class="gd-static-header"><span class="gd-static-eyebrow">The Global Desk</span><h1>{{ title }}</h1>{% if page.fileSlug == 'trending-today' %}<span class="gd-trending-live__status gd-trending-live__status--header"><i aria-hidden="true"></i>Live trends</span>{% else %}<p>{{ description }}</p>{% endif %}</header>
     <div class="gd-static-content">{{ content | safe }}</div>
-    <nav class="gd-static-related-links" aria-label="More about The Global Desk"><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/editorial-policy/">Editorial Policy</a></nav>
     <a href="/" class="gd-static-back">← Back to homepage</a>
   </div>
 </main>

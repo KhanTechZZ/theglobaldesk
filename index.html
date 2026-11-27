@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261127-trending-plain-editorial">
+  <link rel="stylesheet" href="homepage.css?v=20261127-trending-live-grid">
 </head>
 <body>
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
@@ -194,7 +194,7 @@
       <div class="gd-trending-panel__intro">
         <div class="gd-trending-panel__heading">
           <h2 id="gd-trending-title">Trending Today</h2>
-          <p>Searches drawing attention around the world.</p>
+          <time data-trending-updated>Updated —</time>
         </div>
         <a class="gd-trending-more" href="/trending-today/">More <span aria-hidden="true">→</span></a>
       </div>
@@ -562,6 +562,7 @@ document.addEventListener('click', function(e) {
 <script>
   (function () {
     var list = document.querySelector('[data-trending-list]');
+    var updated = document.querySelector('[data-trending-updated]');
     if (!list) return;
     var refreshMs = 12 * 60 * 60 * 1000;
     var allTopics = [];
@@ -577,44 +578,37 @@ document.addEventListener('click', function(e) {
 
     function render(data) {
       if (!Array.isArray(data.topics)) throw new Error('No trends returned');
-      list.replaceChildren();
-      if (!data.topics.length) {
-        var empty = document.createElement('p');
-        empty.className = 'gd-trending-loading';
-        empty.textContent = 'No trending topics are available right now.';
-        list.appendChild(empty);
-        list.setAttribute('aria-busy', 'false');
-        return;
-      }
       allTopics = data.topics;
+      if (updated && data.updatedAt) {
+        var date = new Date(data.updatedAt);
+        if (!isNaN(date.getTime())) {
+          updated.textContent = 'Updated ' + new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dhaka', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).format(date) + ' BDT';
+          updated.setAttribute('datetime', date.toISOString());
+        }
+      }
       renderTopics();
     }
 
     function renderTopics() {
       list.replaceChildren();
       var visibleTopics = allTopics.slice(0, 4);
-      visibleTopics.forEach(function (topic, index) {
-        var link = document.createElement('a');
-        link.className = 'gd-trending-topic';
-        link.href = topic.url || '#gd-trending-title';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        var rank = document.createElement('span');
-        rank.className = 'gd-trending-topic__rank';
-        rank.textContent = String(index + 1).padStart(2, '0');
+      if (!visibleTopics.length) {
+        var empty = document.createElement('p');
+        empty.className = 'gd-trending-loading';
+        empty.textContent = 'No trending topics are available right now.';
+        list.appendChild(empty);
+      }
+      visibleTopics.forEach(function (topic) {
+        var item = document.createElement('div');
+        item.className = 'gd-trending-topic';
         var title = document.createElement('span');
         title.className = 'gd-trending-topic__title';
         title.textContent = topic.title;
         var volume = document.createElement('span');
         volume.className = 'gd-trending-topic__volume';
         volume.textContent = String(topic.volume || '').replace(/\s+searches?$/i, '');
-        var meta = document.createElement('span');
-        meta.className = 'gd-trending-topic__regions';
-        var marketCount = topic.marketCount || (topic.markets || []).length;
-        var marketLabel = marketCount === 1 ? (topic.markets || ['1 country'])[0] : marketCount + ' countries';
-        meta.textContent = ['searches', marketLabel].filter(Boolean).join(' · ');
-        link.append(rank, title, volume, meta);
-        list.appendChild(link);
+        item.append(title, volume);
+        list.appendChild(item);
       });
       list.setAttribute('aria-busy', 'false');
     }

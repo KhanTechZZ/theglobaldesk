@@ -40,61 +40,1570 @@
     "Ghana",
     "South Africa"
   ],
-  "updatedAt": "2026-11-27T08:33:09.081Z",
+  "updatedAt": "2026-11-27T15:29:02.852Z",
   "refreshAfterSeconds": 43200,
   "topics": [
     {
-      "title": "iran attacks kuwait",
+      "title": "flash flooding",
+      "category": "Climate & disasters",
       "volume": "20K+ searches",
+      "markets": [
+        "Australia"
+      ],
+      "marketVolumes": {
+        "Australia": 20000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "shamyl hussain",
+      "category": "Other current affairs",
+      "volume": "15K+ searches",
+      "markets": [
+        "India",
+        "Pakistan",
+        "Bangladesh",
+        "United Arab Emirates",
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 2000,
+        "India": 5000,
+        "Pakistan": 5000,
+        "Saudi Arabia": 1000,
+        "United Arab Emirates": 2000
+      },
+      "marketCount": 5
+    },
+    {
+      "title": "mundial sub-17",
+      "category": "Other current affairs",
+      "volume": "10.5K+ searches",
+      "markets": [
+        "Colombia",
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 500,
+        "Colombia": 10000
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "hunting",
+      "category": "Other current affairs",
+      "volume": "10K+ searches",
       "markets": [
         "United States"
       ],
       "marketVolumes": {
-        "United States": 20000
+        "United States": 10000
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=iran%20attacks%20kuwait"
+      "marketCount": 1
     },
     {
-      "title": "oil price update",
-      "volume": "500+ searches",
+      "title": "selección de fútbol sub-17 de montenegro - chile sub-17",
+      "category": "Other current affairs",
+      "volume": "10K+ searches",
       "markets": [
-        "Philippines"
+        "Chile"
       ],
       "marketVolumes": {
-        "Philippines": 500
+        "Chile": 10000
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=oil%20price%20update"
+      "marketCount": 1
     },
     {
-      "title": "thanksgiving storm weather forecast",
-      "volume": "500+ searches",
+      "title": "demre paes",
+      "category": "Other current affairs",
+      "volume": "10K+ searches",
       "markets": [
-        "Philippines"
+        "Chile"
       ],
       "marketVolumes": {
-        "Philippines": 500
+        "Chile": 10000
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=thanksgiving%20storm%20weather%20forecast"
+      "marketCount": 1
     },
     {
-      "title": "storm",
-      "volume": "300+ searches",
+      "title": "tf1",
+      "category": "Science & technology",
+      "volume": "10K+ searches",
       "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 10000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "bally bagayoko",
+      "category": "Other current affairs",
+      "volume": "10K+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 10000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "michał oksiński",
+      "category": "Other current affairs",
+      "volume": "10K+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 10000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "dubai capitals vs sharjah warriors",
+      "category": "Other current affairs",
+      "volume": "7K+ searches",
+      "markets": [
+        "Pakistan",
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 2000,
+        "Pakistan": 5000
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "hackers breach air force",
+      "category": "Other current affairs",
+      "volume": "5K+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "supreme court of canada",
+      "category": "Politics",
+      "volume": "5K+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "venezuela sub-17 - méxico sub-17",
+      "category": "Other current affairs",
+      "volume": "5K+ searches",
+      "markets": [
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "adios apache",
+      "category": "Other current affairs",
+      "volume": "5K+ searches",
+      "markets": [
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "zandra parisi fernández",
+      "category": "Other current affairs",
+      "volume": "5K+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "escroquerie",
+      "category": "Other current affairs",
+      "volume": "5K+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "waldemar żurek",
+      "category": "Other current affairs",
+      "volume": "5K+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "зима",
+      "category": "Other current affairs",
+      "volume": "5K+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 5000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "marc marquez",
+      "category": "Other current affairs",
+      "volume": "2.7K+ searches",
+      "markets": [
+        "Philippines",
         "Singapore",
+        "Chile",
+        "Colombia",
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Singapore": 500,
+        "Philippines": 1000,
+        "Mexico": 200,
+        "Chile": 500,
+        "Colombia": 500
+      },
+      "marketCount": 5
+    },
+    {
+      "title": "sss 13th month pension total",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "leandro leviste",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "jyp엔터테인먼트",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "농협은행",
+      "category": "Science & technology",
+      "volume": "2K+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "law",
+      "category": "Politics",
+      "volume": "2K+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "écoles fermées",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "prince",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "parrilla festival de viña 2027",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "dia",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "carlos caicedo",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Colombia": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "mel giedroyc lost jacket found",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "United Kingdom"
+      ],
+      "marketVolumes": {
+        "United Kingdom": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ingvar jonsson",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "furgone portavalori",
+      "category": "Science & technology",
+      "volume": "2K+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "motorrijder",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ceny paliw 28.11 2026",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "górnik zabrze",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "luleå hf",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ведомости",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "yeidep",
+      "category": "Other current affairs",
+      "volume": "2K+ searches",
+      "markets": [
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Nigeria": 2000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ronnie o sullivan",
+      "category": "Other current affairs",
+      "volume": "1.2K+ searches",
+      "markets": [
+        "United Kingdom",
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "United Kingdom": 1000,
+        "Ireland": 200
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "সহকারী শিক্ষক",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "al kholood vs al-khaleej",
+      "category": "Global conflicts",
+      "volume": "1K+ searches",
+      "markets": [
+        "Bangladesh",
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 500,
+        "Nigeria": 500
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "werder bremen",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "พิมพิมล",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "scandal",
+      "category": "Politics",
+      "volume": "1K+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "bpi down",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "gta 6 black friday",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "la lotería de bogotá último sorteo",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Colombia": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "hanna öberg",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "sandra flunger",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "esperanza aguirre",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "salmonella",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "sywert van lienden",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "strażak",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "unia europejska",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "polis",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "emma ribom",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "крымский полуостров",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "лада – локомотив",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "бомбардировщик",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "türk hava yolları",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "مباريات الدوري السعودي اليوم",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "الاسماعيلي",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "al qadsiah vs al-fayha",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Nigeria",
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "Nigeria": 500,
+        "South Africa": 500
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "national defence university - kenya",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Kenya": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "work permit",
+      "category": "Other current affairs",
+      "volume": "1K+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "marc márquez",
+      "category": "Other current affairs",
+      "volume": "900+ searches",
+      "markets": [
+        "Colombia",
+        "Mexico",
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Mexico": 200,
+        "Colombia": 500,
+        "Ireland": 200
+      },
+      "marketCount": 3
+    },
+    {
+      "title": "নিয়োগ",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "trump tariffs",
+      "category": "Politics",
+      "volume": "500+ searches",
+      "markets": [
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "moon",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "বেতন",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "tear gas",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Pakistan",
+        "Singapore",
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Pakistan": 200,
+        "Singapore": 200,
+        "Nigeria": 100
+      },
+      "marketCount": 3
+    },
+    {
+      "title": "miley cyrus",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Pakistan"
+      ],
+      "marketVolumes": {
+        "Pakistan": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "toyota innova hycross facelift",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Pakistan"
+      ],
+      "marketVolumes": {
+        "Pakistan": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "imprisonment",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Pakistan"
+      ],
+      "marketVolumes": {
+        "Pakistan": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "southampton",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "madrid vs alavés",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "blackrock singapore pension fund proposal",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Singapore"
+      ],
+      "marketVolumes": {
+        "Singapore": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ตรวจหวยลาว27/11/69",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "amazing thailand marathon เส้นทาง",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "drag race philippines season 4",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ハイゲ",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "박서진",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "굿파트너2",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "박정수",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "canberra raiders nrlw",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Australia"
+      ],
+      "marketVolumes": {
+        "Australia": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "libby birch",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Australia"
+      ],
+      "marketVolumes": {
+        "Australia": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "cold front",
+      "category": "Climate & disasters",
+      "volume": "500+ searches",
+      "markets": [
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "New Zealand": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "winston peters",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "New Zealand": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "highway",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "New Zealand": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "nasdaq composite",
+      "category": "Politics",
+      "volume": "500+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "kelly ripa",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "copa do mundo sub 17",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
         "Brazil"
       ],
       "marketVolumes": {
-        "Singapore": 200,
-        "Brazil": 100
+        "Brazil": 500
       },
-      "marketCount": 2,
-      "url": "https://news.google.com/search?q=storm"
+      "marketCount": 1
     },
     {
-      "title": "brisbane weather",
+      "title": "fraude",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "auditoria",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "condena",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "samsung",
+      "category": "Economy",
+      "volume": "500+ searches",
+      "markets": [
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Colombia": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "irish rail",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Ireland": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "béziers",
+      "category": "Global conflicts",
+      "volume": "500+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "evan fournier",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "dorothea wierer",
+      "category": "Global conflicts",
+      "volume": "500+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "polizei mayen",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "beatriz biedma",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "mensik",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "jasmine trinca",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "brabants dagblad",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "but",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "johan larsson",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "skidskytte idag",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "moderaterna",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "cv90",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "лех качинський",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "валютный курс",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "зодиак",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "антон силуанов",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "максим борисович егоров",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "مقاتلات الجيل الخامس",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "academic staff union of universities",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Nigeria": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "paul pogba",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Nigeria",
+        "South Africa",
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Nigeria": 200,
+        "Kenya": 100,
+        "South Africa": 200
+      },
+      "marketCount": 3
+    },
+    {
+      "title": "zuba",
+      "category": "Economy",
+      "volume": "500+ searches",
+      "markets": [
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Nigeria": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "somalia",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Kenya": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "cardinal peter poreku dery ghana banknote",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "jamal musiala",
+      "category": "Other current affairs",
+      "volume": "500+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "sts",
+      "category": "Global conflicts",
+      "volume": "500+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 500
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "benjamin netanyahu",
+      "category": "Global conflicts",
+      "volume": "400+ searches",
+      "markets": [
+        "Canada",
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Canada": 200,
+        "Ireland": 200
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "meghan, duquesa de sussex",
+      "category": "Other current affairs",
+      "volume": "400+ searches",
+      "markets": [
+        "Chile",
+        "Argentina",
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Argentina": 100,
+        "Chile": 200,
+        "Colombia": 100
+      },
+      "marketCount": 3
+    },
+    {
+      "title": "grandchild",
+      "category": "Other current affairs",
+      "volume": "300+ searches",
+      "markets": [
+        "Kenya",
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Nigeria": 100,
+        "Kenya": 200
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "himalayan 750",
+      "category": "Other current affairs",
       "volume": "200+ searches",
       "markets": [
         "India"
@@ -102,11 +1611,1213 @@
       "marketVolumes": {
         "India": 200
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=brisbane%20weather"
+      "marketCount": 1
     },
     {
-      "title": "interest rate",
+      "title": "ವಾಹನ ವಿಮೆ",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "syed modi badminton tournament",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "arjun tendulkar",
+      "category": "Global conflicts",
+      "volume": "200+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "মোহাম্মদ সিরাজ",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "faf du plessis",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "India"
+      ],
+      "marketVolumes": {
+        "India": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "kaviya maran",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Pakistan"
+      ],
+      "marketVolumes": {
+        "Pakistan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "farmer",
+      "category": "Economy",
+      "volume": "200+ searches",
+      "markets": [
+        "Pakistan"
+      ],
+      "marketVolumes": {
+        "Pakistan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "perth scorchers vs hobart hurricanes",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Pakistan"
+      ],
+      "marketVolumes": {
+        "Pakistan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "honduras u-17 vs jepang u-17",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "cremation",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Singapore"
+      ],
+      "marketVolumes": {
+        "Singapore": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "comfortdelgro zig driver agreements singapore",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Singapore"
+      ],
+      "marketVolumes": {
+        "Singapore": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ศาลปกครอง",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "สุกรี เจริญสุข",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "claire danes",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "joe zaldarriaga",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Philippines"
+      ],
+      "marketVolumes": {
+        "Philippines": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "行方不明 中学生",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "北島三郎",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "エリック ワガマン",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "探偵ナイトスクープ",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "わたなべ 牧場 倒産",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "速報",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "강지영",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "명서현",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "멸망전",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "pga tour",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Australia"
+      ],
+      "marketVolumes": {
+        "Australia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "chaz mostert",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Australia"
+      ],
+      "marketVolumes": {
+        "Australia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "new jersey",
+      "category": "Climate & disasters",
+      "volume": "200+ searches",
+      "markets": [
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "New Zealand": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "david warner",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "New Zealand": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "mstr stock",
+      "category": "Economy",
+      "volume": "200+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "matt damon",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "is today black friday",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "primera división de arabia saudita",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "al qadisiya",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "costa rica sub-17 - brasil sub-17",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "piso nacional professores",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "contrabando",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "palmas",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "mirante",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "banco do brasil ações",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Brazil": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "f1 qatar",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "claudio borghi",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ditu",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Colombia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "stefan-pierre tomlin",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "United Kingdom"
+      ],
+      "marketVolumes": {
+        "United Kingdom": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "john francome",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "United Kingdom"
+      ],
+      "marketVolumes": {
+        "United Kingdom": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "search and rescue dog",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "United Kingdom",
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "United Kingdom": 100,
+        "South Africa": 100
+      },
+      "marketCount": 2
+    },
+    {
+      "title": "dairy",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Ireland": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "emmanuel macron",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Ireland": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "darragh o'brien",
+      "category": "Politics",
+      "volume": "200+ searches",
+      "markets": [
+        "Ireland"
+      ],
+      "marketVolumes": {
+        "Ireland": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "nicolas depoortere",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "sonzay",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "franck azéma",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "„u” cluj - sepsi",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "afghanistan",
+      "category": "Global conflicts",
+      "volume": "200+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "vice city",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "rande gerber",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Germany"
+      ],
+      "marketVolumes": {
+        "Germany": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "caza furtiva",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "egipto",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "josé mourinho",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "expansión",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "street view mickey",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "sittard",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "sander duits",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "bondgenoten",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "boyan slat",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "okx",
+      "category": "Economy",
+      "volume": "200+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "vinterstudion",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "starlink",
+      "category": "Global conflicts",
+      "volume": "200+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ахмат",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "прохор шаляпин",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "doğum yardımı",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "eskişehir elektrik kesintisi",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "bakırköy adliyesi",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "zuhal topal",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "vatandaşlık",
+      "category": "Politics",
+      "volume": "200+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "النادي الأهلي",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "dubai capitals vs sharjah warriors match scorecard",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "tamm",
+      "category": "Politics",
+      "volume": "200+ searches",
+      "markets": [
+        "United Arab Emirates"
+      ],
+      "marketVolumes": {
+        "United Arab Emirates": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "بنك دبي الإسلامي",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "United Arab Emirates"
+      ],
+      "marketVolumes": {
+        "United Arab Emirates": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "طحنون بن زايد آل نهيان",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "United Arab Emirates"
+      ],
+      "marketVolumes": {
+        "United Arab Emirates": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "محمد رمضان",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "بوندسليغا",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "مالية",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "زيت",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "تمثال",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "managing madrid",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Nigeria"
+      ],
+      "marketVolumes": {
+        "Nigeria": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "luis enrique",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Kenya": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "pieter engelbrecht shoprite share sale",
+      "category": "Other current affairs",
+      "volume": "200+ searches",
+      "markets": [
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "South Africa": 200
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "georgia waddington",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "খুলনা",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Bangladesh"
+      ],
+      "marketVolumes": {
+        "Bangladesh": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "kementerian hukum",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Indonesia"
+      ],
+      "marketVolumes": {
+        "Indonesia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "airasia",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Singapore"
+      ],
+      "marketVolumes": {
+        "Singapore": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "stock",
+      "category": "Economy",
+      "volume": "100+ searches",
+      "markets": [
+        "Singapore"
+      ],
+      "marketVolumes": {
+        "Singapore": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "饮料瓶罐退费制",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Singapore"
+      ],
+      "marketVolumes": {
+        "Singapore": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "มาร์คมาร์เกซ",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "pattaya fireworks festival 2026",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Thailand"
+      ],
+      "marketVolumes": {
+        "Thailand": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "レーザー兵器",
+      "category": "Science & technology",
+      "volume": "100+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "エアアジア",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "bz",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Japan"
+      ],
+      "marketVolumes": {
+        "Japan": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "신지아",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "금새록",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "South Korea"
+      ],
+      "marketVolumes": {
+        "South Korea": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "leapmotor b10 v2g amber electric",
+      "category": "Other current affairs",
       "volume": "100+ searches",
       "markets": [
         "Australia"
@@ -114,32 +2825,595 @@
       "marketVolumes": {
         "Australia": 100
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=interest%20rate"
+      "marketCount": 1
     },
     {
-      "title": "new zealand election results",
+      "title": "macarthur vs melbourne city fc",
+      "category": "Other current affairs",
       "volume": "100+ searches",
       "markets": [
-        "United Kingdom"
+        "New Zealand"
       ],
       "marketVolumes": {
-        "United Kingdom": 100
+        "New Zealand": 100
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=new%20zealand%20election%20results"
+      "marketCount": 1
     },
     {
-      "title": "weather ireland",
+      "title": "tfsa contribution limit 2027",
+      "category": "Economy",
       "volume": "100+ searches",
       "markets": [
-        "Ireland"
+        "Canada"
       ],
       "marketVolumes": {
-        "Ireland": 100
+        "Canada": 100
       },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=weather%20ireland"
+      "marketCount": 1
+    },
+    {
+      "title": "uniqlo black friday",
+      "category": "Economy",
+      "volume": "100+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "is the stock market open today",
+      "category": "Economy",
+      "volume": "100+ searches",
+      "markets": [
+        "Canada"
+      ],
+      "marketVolumes": {
+        "Canada": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "clima acapulco",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "consejo tecnico noviembre 2026",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Mexico"
+      ],
+      "marketVolumes": {
+        "Mexico": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "cataratas del iguazú",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "league of legends",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "belgrano cargas",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Argentina"
+      ],
+      "marketVolumes": {
+        "Argentina": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "jordan 4 bred",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ine",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Chile"
+      ],
+      "marketVolumes": {
+        "Chile": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "francesca albanese",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Colombia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "al-kholood club - al khaleej",
+      "category": "Global conflicts",
+      "volume": "100+ searches",
+      "markets": [
+        "Colombia"
+      ],
+      "marketVolumes": {
+        "Colombia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "grenade assourdissante",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "zoo des 3 vallées",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "France"
+      ],
+      "marketVolumes": {
+        "France": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "decroly colegio",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "hasta cuando es el black friday",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Spain"
+      ],
+      "marketVolumes": {
+        "Spain": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "opas intesa mps",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ponte san michele",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Italy"
+      ],
+      "marketVolumes": {
+        "Italy": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "omrop fryslân",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "john de bever",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Netherlands"
+      ],
+      "marketVolumes": {
+        "Netherlands": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "ilia malinin",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "hasim rahman",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Poland"
+      ],
+      "marketVolumes": {
+        "Poland": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "liberalerna",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Sweden"
+      ],
+      "marketVolumes": {
+        "Sweden": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "европейский союз",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "завод синтетического каучука",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Ukraine"
+      ],
+      "marketVolumes": {
+        "Ukraine": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "мороз",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "suzuki ignis",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "евгений миронов",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Russia"
+      ],
+      "marketVolumes": {
+        "Russia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "test",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "yusuf tekin",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "derya şensoy",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Türkiye"
+      ],
+      "marketVolumes": {
+        "Türkiye": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "النادي الإسماعيلي",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "مباريات الدوري السعودي",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "مسيرة",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Saudi Arabia"
+      ],
+      "marketVolumes": {
+        "Saudi Arabia": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "sheikh hasina",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "United Arab Emirates"
+      ],
+      "marketVolumes": {
+        "United Arab Emirates": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "كأس الكونفيدرالية الإفريقية",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "أحمد فتوح",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Egypt"
+      ],
+      "marketVolumes": {
+        "Egypt": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "brest vs paris fc",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Kenya": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "norse atlantic airways",
+      "category": "Global conflicts",
+      "volume": "100+ searches",
+      "markets": [
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Kenya": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "rwanda",
+      "category": "Economy",
+      "volume": "100+ searches",
+      "markets": [
+        "Kenya"
+      ],
+      "marketVolumes": {
+        "Kenya": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "thanksgiving storm weather forecast",
+      "category": "Climate & disasters",
+      "volume": "100+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "yan diomande",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "basic education certificate examination",
+      "category": "Politics",
+      "volume": "100+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "jennifer barreto",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "Ghana"
+      ],
+      "marketVolumes": {
+        "Ghana": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "impeachment",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "South Africa": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "coca-cola",
+      "category": "Economy",
+      "volume": "100+ searches",
+      "markets": [
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "South Africa": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "fabien galthié",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "South Africa": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "virgil van dijk",
+      "category": "Other current affairs",
+      "volume": "100+ searches",
+      "markets": [
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "South Africa": 100
+      },
+      "marketCount": 1
     }
   ]
 }

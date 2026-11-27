@@ -8579,3 +8579,52 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @keyframes gd-live-pulse { 0% { box-shadow:0 0 0 0 rgba(70,174,115,.28); } 100% { box-shadow:0 0 0 7px rgba(70,174,115,0); } }
 @media (prefers-reduced-motion:reduce) { .gd-trending-live__status i { animation:none; } }
 @media (max-width:700px) { .gd-trending-live { width:100%; justify-content:flex-start; margin:.25rem 0 0; } }
+
+/* The Global Desk signature: warm paper, ink blue, and brass highlights. */
+.gd-trending-panel__intro { border-color:#e5ddca; }
+.gd-lead-grid > .gd-trending-panel { border-top-color:#b68b3c; }
+.gd-trending-panel__heading > h2 { color:#18344f !important; }
+.gd-trending-panel__heading > [data-trending-updated] { color:#78818a; text-decoration:none !important; border:0 !important; }
+.gd-trending-panel__topics > .gd-trending-topic { border-bottom-color:#e9e2d4; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__title { color:#25384b; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__volume { color:#a66b33; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__started { color:#858078; }
+.gd-trending-mini-graph__line { stroke:#64876c; }
+.gd-trending-more { border:1px solid #e2d7bd !important; border-bottom:1px solid #e2d7bd !important; border-radius:999px; background:#faf6eb; color:#805e22; text-decoration:none !important; box-shadow:none; }
+.gd-trending-more:hover { border-color:#c6a45f !important; background:#f3ecd9; color:#18344f; text-decoration:none !important; }
+.gd-trending-more:focus-visible { outline-color:#b68b3c; }
+.gd-home-trending-live [data-trending-updated] { color:#7c8184; text-decoration:none !important; border:0 !important; }
+
+.gd-trending-toolbar { display:grid; grid-template-columns:minmax(145px,1.2fr) minmax(150px,1.15fr) minmax(130px,.9fr) minmax(145px,1fr) auto; align-items:end; gap:.7rem; margin:0 0 .9rem; padding:.85rem .9rem; border:1px solid #ebe5d8; border-radius:12px; background:linear-gradient(110deg,#fbf8f0 0%,#f4f7f4 100%); }
+.gd-trending-toolbar .gd-trending-filter { display:grid; min-width:0; max-width:none; gap:.34rem; color:#68747b; }
+.gd-trending-toolbar .gd-trending-filter > span { color:#647078; font:750 .65rem/1.25 'Inter',sans-serif; letter-spacing:.08em; text-transform:uppercase; }
+.gd-trending-toolbar .gd-trending-filter select { min-height:43px; padding:.55rem 2rem .55rem .72rem; border:1px solid #e0d9ca; border-radius:8px; background:#fff; color:#20384d; font:650 .82rem/1.2 'Inter',sans-serif; box-shadow:0 1px 2px rgba(35,48,59,.035); }
+.gd-trending-toolbar .gd-trending-filter select:hover { border-color:#cbb987; }
+.gd-trending-toolbar .gd-trending-filter select:focus-visible { outline:2px solid #bd974a; outline-offset:2px; }
+.gd-trending-live { grid-column:5; display:flex; flex-direction:column; align-items:flex-start; gap:.34rem; min-width:145px; margin:0 0 .3rem; }
+.gd-trending-live__status { color:#52785e; }
+.gd-trending-updated { margin:0; color:#58656b; font:650 .74rem/1.3 'Inter',sans-serif; letter-spacing:.01em; text-decoration:none !important; border:0 !important; white-space:nowrap; }
+.gd-trending-page__summary { color:#6f7a7c; font:600 .77rem/1.45 'Inter',sans-serif; }
+.gd-trending-table__head { border-top-color:#b68b3c; border-bottom-color:#e4ddce; background:#f6f1e5; color:#647078; }
+.gd-trending-row { border-bottom-color:#ece6d9; }
+.gd-trending-row:hover { background:#fcf9f2; }
+.gd-trending-row__rank { color:#b1793b; }
+.gd-trending-row__title { color:#1e3b52; }
+.gd-trending-row__volume { color:#94642c; }
+.gd-trending-row__growth { color:#64806b; }
+.gd-trending-row__reach strong { color:#496c5d; }
+.gd-trending-reach-bar { background:#e9e3d4; }
+.gd-trending-reach-bar i { background:linear-gradient(90deg,#487a68,#c09a4f); }
+.gd-trending-sparkline__line { stroke:#4b8a66; }
+.gd-trending-sparkline__fill { fill:#4b8a66; }
+.gd-trending-query { color:#455e68; text-decoration-color:#c7bfae; }
+@media (max-width:900px) {
+  .gd-trending-toolbar { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .gd-trending-live { grid-column:1 / -1; flex-direction:row; align-items:center; min-width:0; margin:.1rem 0 0; }
+}
+@media (max-width:560px) {
+  .gd-trending-toolbar { gap:.6rem; padding:.72rem; border-radius:10px; }
+  .gd-trending-toolbar .gd-trending-filter { min-width:0; }
+  .gd-trending-toolbar .gd-trending-filter select { min-height:42px; font-size:.78rem; }
+  .gd-trending-live { flex-wrap:wrap; gap:.45rem .7rem; }
+}

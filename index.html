@@ -184,13 +184,11 @@
   
 
   <section class="gd-home-block gd-explainers" aria-labelledby="gd-explainers-title">
-    <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-explainers-title">Understand the Story</h2><span class="gd-explainers__tagline">Clear context, quickly</span><a href="/category/explainer/" class="gd-home-heading__link">View more</a></header>
+    <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-explainers-title">Explainer</h2><a href="/category/explainer/" class="gd-home-heading__link">View more</a></header>
     <div class="gd-explainer-grid">
       <section class="gd-explainer-unit gd-explainer-unit--minute" aria-labelledby="gd-minute-title">
         <header class="gd-explainer-unit__header">
-          <span class="gd-explainer-unit__eyebrow">01 · A quick briefing</span>
           <h3 id="gd-minute-title">1-minute explainer</h3>
-          <p>One clear idea, in a minute.</p>
         </header>
         {% for post in collections.explainerNews | byFormat('1-minute') | take(1) %}
         <article class="gd-explainer-feature gd-explainer-feature--minute">
@@ -209,9 +207,7 @@
 
       <section class="gd-explainer-unit gd-explainer-unit--why" aria-labelledby="gd-why-title">
         <header class="gd-explainer-unit__header">
-          <span class="gd-explainer-unit__eyebrow">02 · Beyond the headline</span>
           <h3 id="gd-why-title">Why It Matters</h3>
-          <p>The context behind the story.</p>
         </header>
         {% for post in collections.explainerNews | byFormat('why-it-matters') | take(1) %}
         <article class="gd-explainer-feature gd-explainer-feature--why">

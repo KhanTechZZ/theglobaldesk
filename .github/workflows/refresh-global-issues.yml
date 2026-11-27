@@ -91,7 +91,8 @@ jobs:
                 marketStartedAt: new Map(),
                 marketEndedAt: new Map(),
                 marketGrowth: new Map(),
-                breakdown: new Set()
+                breakdown: new Set(),
+                marketBreakdown: new Map()
               });
               const candidate = candidates.get(key);
               candidate.markets.set(market.name, Math.max(candidate.markets.get(market.name) || 0, volume));
@@ -99,10 +100,15 @@ jobs:
               if (end) candidate.marketEndedAt.set(market.name, end * 1000);
               else candidate.marketEndedAt.delete(market.name);
               candidate.marketGrowth.set(market.name, Math.max(candidate.marketGrowth.get(market.name) || 0, growth));
+              const marketBreakdown = [];
               for (const related of Array.isArray(row?.[9]) ? row[9] : []) {
                 const value = String(related || '').trim();
-                if (value && value.normalize('NFKC').toLowerCase() !== title.normalize('NFKC').toLowerCase()) candidate.breakdown.add(value);
+                if (value && value.normalize('NFKC').toLowerCase() !== title.normalize('NFKC').toLowerCase()) {
+                  candidate.breakdown.add(value);
+                  if (!marketBreakdown.some(item => item.normalize('NFKC').toLowerCase() === value.normalize('NFKC').toLowerCase())) marketBreakdown.push(value);
+                }
               }
+              candidate.marketBreakdown.set(market.name, marketBreakdown);
             }
             console.log(`${market.name}: indexed ${rows.length} Google Trends topics`);
           }
@@ -139,6 +145,7 @@ jobs:
               marketEndedAt: Object.fromEntries([...candidate.marketEndedAt].map(([name, value]) => [name, new Date(value).toISOString()])),
               marketGrowth: Object.fromEntries(candidate.marketGrowth),
               breakdown: [...candidate.breakdown],
+              marketBreakdown: Object.fromEntries(candidate.marketBreakdown),
               markets: [...candidate.markets.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name),
               marketVolumes: Object.fromEntries(candidate.markets),
               marketCount: candidate.markets.size,

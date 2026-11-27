@@ -140,14 +140,15 @@ description: "Live Google Trends searches and rising topics from 37 markets."
       var breakdownCell = document.createElement('div');
       breakdownCell.className = 'gd-trending-row__breakdown';
       breakdownCell.setAttribute('role', 'cell');
-      var breakdown = (topic.breakdown || []).slice(0, 2);
+      var breakdownItems = country ? ((topic.marketBreakdown || {})[country] || []) : (topic.breakdown || []);
+      var breakdown = breakdownItems.slice(0, 2);
       breakdown.forEach(function (query) {
         var chip = document.createElement('span');
         chip.className = 'gd-trending-query';
         chip.textContent = query;
         breakdownCell.appendChild(chip);
       });
-      var extra = (topic.breakdown || []).length - breakdown.length;
+      var extra = breakdownItems.length - breakdown.length;
       if (extra > 0) {
         var more = document.createElement('span');
         more.className = 'gd-trending-query-more';

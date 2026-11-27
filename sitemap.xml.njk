@@ -16,9 +16,7 @@ eleventyExcludeFromCollections: true
     </url>
     {% endfor %}
     {% for item in categoryPages %}
-    {% if item.slug != "z-desk" and item.slug != "alpha-desk" %}
     <url><loc>https://thegdesk.com/category/{{ item.slug }}/</loc></url>
-    {% endif %}
     {% endfor %}
     {% for story in collections.news | reverse %}
     {% if story.data.published %}

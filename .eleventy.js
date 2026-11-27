@@ -198,7 +198,7 @@ module.exports = function (eleventyConfig) {
   // Homepage lead/latest are reserved for standard news; editorial formats
   // appear only in their own dedicated homepage sections.
   eleventyConfig.addCollection("homepageNews", (collectionApi) => {
-    const reservedCategories = new Set(["explainer", "editorial", "perspectives", "z desk", "alpha desk", "featured voices"]);
+    const reservedCategories = new Set(["explainer", "editorial", "perspectives", "featured voices"]);
     return collectionApi.getFilteredByGlob("./news/*.md")
       .filter(item => item.data.published === true &&
         item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" &&
@@ -286,7 +286,7 @@ module.exports = function (eleventyConfig) {
     return collectionApi.getFilteredByGlob("./news/*.md")
       .filter(item =>
         item.data.published === true &&
-        ["z desk", "alpha desk"].includes(String(item.data.category || "").toLowerCase()) &&
+        String(item.data.category || "").toLowerCase() === "featured voices" &&
         item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" &&
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug)

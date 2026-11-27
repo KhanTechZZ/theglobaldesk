@@ -56,7 +56,7 @@ function getField(frontmatter, name) {
 const ARTICLE_CATEGORIES = new Set([
   "World", "Asia", "Explainer", "Editorial", "Perspectives", "Politics",
   "Economy", "Tech and AI", "Science", "Environment", "Geography", "Oceans",
-  "Research", "Human Rights", "Z Desk", "Alpha Desk"
+  "Research", "Human Rights", "Featured Voices"
 ]);
 
 function isArticlePath(value) {

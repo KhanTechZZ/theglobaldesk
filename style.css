@@ -628,7 +628,7 @@ body.dark-mode .article-body p > em:only-child { color: #94a3b8; }
 .hp-stat .bar { flex: 1; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
 .hp-stat .fill { height: 100%; background: #2563eb; border-radius: 3px; }
 
-/* Z-Desk / Alphadesk Widget Stories */
+/* Featured Voices widget stories */
 .hp-widget-story { display: flex; gap: 15px; text-decoration: none; color: #102235; align-items: center; }
 .hp-widget-story img { width: 100px; height: 80px; object-fit: cover; border-radius: 6px; }
 .hp-widget-story h4 { font-family: Georgia, serif; font-size: 14px; margin: 0 0 5px; line-height: 1.3; }

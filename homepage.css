@@ -8508,6 +8508,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__volume { color:#cf6841; font-size:.88rem; font-weight:850; white-space:nowrap; }
 .gd-trending-page__list .gd-trending-topic__title { color:#223a4e; }
 .gd-trending-page__list .gd-trending-topic__volume { color:#c95f3b; }
+.gd-trending-page__list > .gd-trending-topic { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; }
 .gd-trending-page__list > .gd-trending-topic:hover { background:#f3f8f8; }
 .gd-trending-toolbar .gd-trending-filter select:focus-visible { outline:2px solid #17869a; outline-offset:2px; }
 @media (max-width:640px) {

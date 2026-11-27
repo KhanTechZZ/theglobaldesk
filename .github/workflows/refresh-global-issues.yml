@@ -79,12 +79,30 @@ jobs:
             for (const row of rows) {
               const title = String(row?.[0] || '').trim();
               const volume = Number(row?.[6]) || 0;
+              const start = Number(row?.[3]?.[0]) || 0;
+              const end = Number(row?.[4]?.[0]) || 0;
+              const growth = Number(row?.[8]) || 0;
               if (!title || !volume) continue;
               const key = title.normalize('NFKC').toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
               if (!key) continue;
-              if (!candidates.has(key)) candidates.set(key, { title, markets: new Map() });
+              if (!candidates.has(key)) candidates.set(key, {
+                title,
+                markets: new Map(),
+                marketStartedAt: new Map(),
+                marketEndedAt: new Map(),
+                marketGrowth: new Map(),
+                breakdown: new Set()
+              });
               const candidate = candidates.get(key);
               candidate.markets.set(market.name, Math.max(candidate.markets.get(market.name) || 0, volume));
+              if (start) candidate.marketStartedAt.set(market.name, Math.min(candidate.marketStartedAt.get(market.name) || Infinity, start * 1000));
+              if (end) candidate.marketEndedAt.set(market.name, end * 1000);
+              else candidate.marketEndedAt.delete(market.name);
+              candidate.marketGrowth.set(market.name, Math.max(candidate.marketGrowth.get(market.name) || 0, growth));
+              for (const related of Array.isArray(row?.[9]) ? row[9] : []) {
+                const value = String(related || '').trim();
+                if (value && value.normalize('NFKC').toLowerCase() !== title.normalize('NFKC').toLowerCase()) candidate.breakdown.add(value);
+              }
             }
             console.log(`${market.name}: indexed ${rows.length} Google Trends topics`);
           }
@@ -107,11 +125,20 @@ jobs:
           const topics = [...candidates.values()].map(candidate => {
             const total = [...candidate.markets.values()].reduce((sum, value) => sum + value, 0);
             const category = (categories.find(([, pattern]) => pattern.test(candidate.title)) || ['Other current affairs'])[0];
+            const starts = [...candidate.marketStartedAt.values()];
+            const active = candidate.markets.size > [...candidate.marketEndedAt.keys()].length;
             return {
               title: candidate.title,
               category,
               volume: `${compact.format(total)}+ searches`,
               volumeValue: total,
+              startedAt: starts.length ? new Date(Math.min(...starts)).toISOString() : null,
+              active,
+              growth: Math.max(0, ...candidate.marketGrowth.values()),
+              marketStartedAt: Object.fromEntries([...candidate.marketStartedAt].map(([name, value]) => [name, new Date(value).toISOString()])),
+              marketEndedAt: Object.fromEntries([...candidate.marketEndedAt].map(([name, value]) => [name, new Date(value).toISOString()])),
+              marketGrowth: Object.fromEntries(candidate.marketGrowth),
+              breakdown: [...candidate.breakdown],
               markets: [...candidate.markets.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name),
               marketVolumes: Object.fromEntries(candidate.markets),
               marketCount: candidate.markets.size,

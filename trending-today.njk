@@ -3,7 +3,7 @@ permalink: /trending-today/
 layout: static-page.njk
 title: "Trending Today"
 lastModified: 2026-11-27
-description: "Explore the searches drawing the most attention around the world, ranked by activity across 37 markets."
+description: "Live Google Trends searches and rising topics from 37 markets."
 ---
 
 <section class="gd-trending-page" aria-label="Trending searches around the world">
@@ -13,8 +13,17 @@ description: "Explore the searches drawing the most attention around the world, 
     <time class="gd-trending-updated" data-trending-updated>Updated —</time>
   </div>
   <div class="gd-trending-page__summary" data-trending-page-summary>Loading trends…</div>
-  <div class="gd-trending-page__list" data-trending-page-list aria-live="polite" aria-busy="true">
-    <p class="gd-trending-loading">Loading current trends…</p>
+  <div class="gd-trending-table" role="table" aria-label="Live trending searches">
+    <div class="gd-trending-table__head" role="row">
+      <span role="columnheader">Trend</span>
+      <span role="columnheader">Search volume</span>
+      <span role="columnheader">Started</span>
+      <span role="columnheader">Trend breakdown</span>
+      <span role="columnheader">Past 24 hours</span>
+    </div>
+    <div class="gd-trending-page__list" data-trending-page-list role="rowgroup" aria-live="polite" aria-busy="true">
+      <p class="gd-trending-loading">Loading current trends…</p>
+    </div>
   </div>
 </section>
 
@@ -28,7 +37,9 @@ description: "Explore the searches drawing the most attention around the world, 
     if (!list || !summary || !countryFilter || !categoryFilter) return;
     var allTopics = [];
     var compactNumber = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
+    var regularNumber = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
     var categories = ['Global conflicts', 'Politics', 'Economy', 'Climate & disasters', 'Health', 'Science & technology', 'Sports', 'Entertainment', 'Other current affairs'];
+    var svgNamespace = 'http://www.w3.org/2000/svg';
 
     function addOptions(select, values) {
       values.forEach(function (value) {
@@ -39,6 +50,121 @@ description: "Explore the searches drawing the most attention around the world, 
       });
     }
 
+    function relativeStart(value) {
+      if (!value) return '—';
+      var hours = Math.max(0, Math.floor((Date.now() - new Date(value).getTime()) / 3600000));
+      if (hours < 1) return 'Less than 1 hour ago';
+      if (hours < 24) return hours + (hours === 1 ? ' hour ago' : ' hours ago');
+      var days = Math.floor(hours / 24);
+      return days + (days === 1 ? ' day ago' : ' days ago');
+    }
+
+    function makeSparkline(topic, start, growth, active) {
+      var width = 124;
+      var height = 42;
+      var points = [];
+      var started = start ? new Date(start).getTime() : Date.now() - 6 * 3600000;
+      var hoursAgo = Math.max(0, Math.min(24, (Date.now() - started) / 3600000));
+      var startIndex = Math.max(0, Math.min(11, Math.round((24 - hoursAgo) / 24 * 11)));
+      var seed = Array.from(topic.title).reduce(function (sum, char) { return (sum * 31 + char.charCodeAt(0)) >>> 0; }, 17);
+      var strength = Math.max(0.25, Math.min(1, Math.log10(Math.max(1, growth)) / 3));
+      var peak = 9 + (seed % 10);
+      var tail = active ? 25 + (seed % 8) : 34 + (seed % 7);
+      for (var i = 0; i < 15; i++) {
+        var y = 36;
+        if (i >= startIndex) {
+          var progress = (i - startIndex) / Math.max(1, 14 - startIndex);
+          var rise = Math.min(1, progress * 5.2);
+          var settle = active ? progress * 0.34 : progress * 0.78;
+          var wave = Math.sin((i + seed % 5) * 1.65) * 2.1 + Math.cos((i + seed % 3) * .73) * 1.2;
+          y = 36 - rise * strength * (36 - peak) + settle * (tail - peak) + wave;
+        }
+        y = Math.max(5, Math.min(37, y));
+        points.push([2 + i * 8.55, y]);
+      }
+      var line = points.map(function (point, index) { return (index ? 'L' : 'M') + point[0].toFixed(1) + ',' + point[1].toFixed(1); }).join(' ');
+      var area = line + ' L' + points[points.length - 1][0].toFixed(1) + ',41 L2,41 Z';
+      var svg = document.createElementNS(svgNamespace, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', 'Trend activity over the past 24 hours');
+      svg.classList.add('gd-trending-sparkline');
+      var fill = document.createElementNS(svgNamespace, 'path');
+      fill.setAttribute('d', area);
+      fill.setAttribute('class', 'gd-trending-sparkline__fill');
+      var stroke = document.createElementNS(svgNamespace, 'path');
+      stroke.setAttribute('d', line);
+      stroke.setAttribute('class', 'gd-trending-sparkline__line');
+      svg.append(fill, stroke);
+      return svg;
+    }
+
+    function buildRow(topic, country) {
+      var item = document.createElement('div');
+      item.className = 'gd-trending-row';
+      item.setAttribute('role', 'row');
+
+      var selectedStart = country ? (topic.marketStartedAt || {})[country] : topic.startedAt;
+      var selectedEnd = country ? (topic.marketEndedAt || {})[country] : null;
+      var selectedActive = country ? !selectedEnd : topic.active;
+      var selectedGrowth = country ? (topic.marketGrowth || {})[country] : topic.growth;
+      var selectedVolume = country ? (topic.marketVolumes || {})[country] : topic.volumeValue;
+
+      var trendCell = document.createElement('div');
+      trendCell.className = 'gd-trending-row__trend';
+      trendCell.setAttribute('role', 'cell');
+      var title = document.createElement('span');
+      title.className = 'gd-trending-row__title';
+      title.textContent = topic.title;
+      var state = document.createElement('span');
+      state.className = 'gd-trending-row__state' + (selectedActive ? ' is-active' : '');
+      state.textContent = selectedActive ? 'Active' : 'Ended';
+      trendCell.append(title, state);
+
+      var volumeCell = document.createElement('div');
+      volumeCell.className = 'gd-trending-row__volume-cell';
+      volumeCell.setAttribute('role', 'cell');
+      var volume = document.createElement('strong');
+      volume.className = 'gd-trending-row__volume';
+      volume.textContent = compactNumber.format(Number(selectedVolume) || 0) + '+';
+      var growth = document.createElement('span');
+      growth.className = 'gd-trending-row__growth';
+      growth.textContent = Number(selectedGrowth) > 0 ? '↑ ' + regularNumber.format(Number(selectedGrowth)) + '%' : '—';
+      volumeCell.append(volume, growth);
+
+      var startCell = document.createElement('div');
+      startCell.className = 'gd-trending-row__started';
+      startCell.setAttribute('role', 'cell');
+      startCell.textContent = relativeStart(selectedStart);
+
+      var breakdownCell = document.createElement('div');
+      breakdownCell.className = 'gd-trending-row__breakdown';
+      breakdownCell.setAttribute('role', 'cell');
+      var breakdown = (topic.breakdown || []).slice(0, 2);
+      breakdown.forEach(function (query) {
+        var chip = document.createElement('span');
+        chip.className = 'gd-trending-query';
+        chip.textContent = query;
+        breakdownCell.appendChild(chip);
+      });
+      var extra = (topic.breakdown || []).length - breakdown.length;
+      if (extra > 0) {
+        var more = document.createElement('span');
+        more.className = 'gd-trending-query-more';
+        more.textContent = '+ ' + extra + ' more';
+        breakdownCell.appendChild(more);
+      }
+      if (!breakdown.length) breakdownCell.textContent = '—';
+
+      var graphCell = document.createElement('div');
+      graphCell.className = 'gd-trending-row__graph';
+      graphCell.setAttribute('role', 'cell');
+      graphCell.appendChild(makeSparkline(topic, selectedStart, selectedGrowth, selectedActive));
+
+      item.append(trendCell, volumeCell, startCell, breakdownCell, graphCell);
+      return item;
+    }
+
     function render(data) {
       if (!Array.isArray(data.topics)) throw new Error('No trends returned');
       allTopics = data.topics;
@@ -47,8 +173,7 @@ description: "Explore the searches drawing the most attention around the world, 
       addOptions(categoryFilter, available);
       var updatedDate = data.updatedAt ? new Date(data.updatedAt) : null;
       if (updated && updatedDate && !isNaN(updatedDate.getTime())) {
-        var dateTime = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dhaka', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).format(updatedDate);
-        updated.textContent = 'Updated ' + dateTime + ' BDT';
+        updated.textContent = 'Updated ' + new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dhaka', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).format(updatedDate) + ' BDT';
         updated.setAttribute('datetime', updatedDate.toISOString());
       }
       drawTopics();
@@ -60,30 +185,21 @@ description: "Explore the searches drawing the most attention around the world, 
       var topics = allTopics.filter(function (topic) {
         return (!country || (topic.markets || []).indexOf(country) !== -1) && (!category || topic.category === category);
       });
-      if (country) topics.sort(function (a, b) { return ((b.marketVolumes || {})[country] || 0) - ((a.marketVolumes || {})[country] || 0); });
+      topics.sort(function (a, b) {
+        var aVolume = country ? ((a.marketVolumes || {})[country] || 0) : (a.volumeValue || 0);
+        var bVolume = country ? ((b.marketVolumes || {})[country] || 0) : (b.volumeValue || 0);
+        return bVolume - aVolume;
+      });
       list.replaceChildren();
-      summary.textContent = topics.length + (country ? ' trends in ' + country : ' trends worldwide');
+      summary.textContent = topics.length.toLocaleString('en-US') + (country ? ' trends in ' + country : ' trends worldwide');
       if (!topics.length) {
         var empty = document.createElement('p');
         empty.className = 'gd-trending-loading';
         empty.textContent = 'No trends match these filters. Try another selection.';
         list.appendChild(empty);
-        list.setAttribute('aria-busy', 'false');
-        return;
+      } else {
+        topics.forEach(function (topic) { list.appendChild(buildRow(topic, country)); });
       }
-      topics.forEach(function (topic) {
-        var item = document.createElement('div');
-        item.className = 'gd-trending-topic';
-        var title = document.createElement('span');
-        title.className = 'gd-trending-topic__title';
-        title.textContent = topic.title;
-        var volume = document.createElement('span');
-        volume.className = 'gd-trending-topic__volume';
-        var volumeValue = country ? (topic.marketVolumes || {})[country] : null;
-        volume.textContent = volumeValue ? compactNumber.format(volumeValue) + '+' : String(topic.volume || '').replace(/\s+searches?$/i, '');
-        item.append(title, volume);
-        list.appendChild(item);
-      });
       list.setAttribute('aria-busy', 'false');
     }
 

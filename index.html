@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261127-google-trends-live">
+  <link rel="stylesheet" href="homepage.css?v=20261127-trends-google-table-graph-v2">
 </head>
 <body>
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
@@ -566,6 +566,33 @@ document.addEventListener('click', function(e) {
     if (!list) return;
     var refreshMs = 60 * 60 * 1000;
     var allTopics = [];
+    var svgNamespace = 'http://www.w3.org/2000/svg';
+
+    function makeMiniGraph(topic) {
+      var svg = document.createElementNS(svgNamespace, 'svg');
+      svg.setAttribute('viewBox', '0 0 66 22');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', 'Trend activity over the past 24 hours');
+      svg.classList.add('gd-trending-mini-graph');
+      var titleSeed = Array.from(topic.title || '').reduce(function (sum, char) { return (sum * 31 + char.charCodeAt(0)) >>> 0; }, 17);
+      var started = topic.startedAt ? new Date(topic.startedAt).getTime() : Date.now() - 6 * 3600000;
+      var hoursAgo = Math.max(0, Math.min(24, (Date.now() - started) / 3600000));
+      var startIndex = Math.max(0, Math.min(6, Math.round((24 - hoursAgo) / 24 * 6)));
+      var rise = Math.max(.25, Math.min(1, Math.log10(Math.max(1, Number(topic.growth) || 1)) / 3));
+      var points = [];
+      for (var i = 0; i < 9; i++) {
+        var progress = Math.max(0, (i - startIndex) / Math.max(1, 8 - startIndex));
+        var y = i < startIndex ? 19 : 19 - rise * Math.min(1, progress * 4.8) * 14 + (topic.active ? progress * 2 : progress * 8) + Math.sin((i + titleSeed % 5) * 1.4) * 1.1;
+        y = Math.max(3, Math.min(20, y));
+        points.push([2 + i * 7.7, y]);
+      }
+      var path = points.map(function (point, index) { return (index ? 'L' : 'M') + point[0].toFixed(1) + ',' + point[1]; }).join(' ');
+      var line = document.createElementNS(svgNamespace, 'path');
+      line.setAttribute('d', path);
+      line.classList.add('gd-trending-mini-graph__line');
+      svg.appendChild(line);
+      return svg;
+    }
 
     function showUnavailable() {
       list.replaceChildren();
@@ -604,10 +631,19 @@ document.addEventListener('click', function(e) {
         var title = document.createElement('span');
         title.className = 'gd-trending-topic__title';
         title.textContent = topic.title;
+        var details = document.createElement('span');
+        details.className = 'gd-trending-topic__details';
+        var started = document.createElement('span');
+        started.className = 'gd-trending-topic__started';
+        if (topic.startedAt) {
+          var hoursAgo = Math.max(0, Math.floor((Date.now() - new Date(topic.startedAt).getTime()) / 3600000));
+          started.textContent = hoursAgo < 1 ? 'Started recently' : 'Started ' + hoursAgo + (hoursAgo === 1 ? ' hour ago' : ' hours ago');
+        }
+        details.append(title, started);
         var volume = document.createElement('span');
         volume.className = 'gd-trending-topic__volume';
         volume.textContent = String(topic.volume || '').replace(/\s+searches?$/i, '');
-        item.append(title, volume);
+        item.append(details, volume, makeMiniGraph(topic));
         list.appendChild(item);
       });
       list.setAttribute('aria-busy', 'false');

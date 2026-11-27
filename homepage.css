@@ -8516,3 +8516,49 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-trending-panel__intro { align-items:flex-start; }
   .gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__title { font-size:.88rem; }
 }
+.gd-trending-table { width:100%; }
+.gd-trending-table__head,
+.gd-trending-row { display:grid; grid-template-columns:minmax(220px,2fr) minmax(120px,.95fr) minmax(125px,.9fr) minmax(160px,1.45fr) 124px; gap:.8rem; align-items:center; }
+.gd-trending-table__head { min-height:52px; padding:.55rem .65rem; border-bottom:1px solid #d6dde2; color:#536171; font:700 .78rem/1.35 'Inter',sans-serif; }
+.gd-trending-table__head > span:last-child { text-align:right; }
+.gd-trending-page__list { display:block; }
+.gd-trending-row { min-height:88px; padding:.7rem .65rem; border-bottom:1px solid #e5e9ec; }
+.gd-trending-row:hover { background:#f6faf9; }
+.gd-trending-row__trend { display:flex; min-width:0; flex-direction:column; gap:.38rem; }
+.gd-trending-row__title { color:#283b4d; font:650 1rem/1.4 'Inter',sans-serif; overflow-wrap:anywhere; }
+.gd-trending-row__state { display:flex; align-items:center; gap:.32rem; color:#7b8792; font:600 .72rem/1.3 'Inter',sans-serif; }
+.gd-trending-row__state::before { width:7px; height:7px; border-radius:50%; background:#9aa5ae; content:""; }
+.gd-trending-row__state.is-active { color:#568064; }
+.gd-trending-row__state.is-active::before { background:#4dbd76; }
+.gd-trending-row__volume-cell { display:flex; flex-direction:column; gap:.18rem; }
+.gd-trending-row__volume { color:#263748; font:700 1.13rem/1.15 'Inter',sans-serif; letter-spacing:-.025em; }
+.gd-trending-row__growth { color:#668273; font:600 .76rem/1.3 'Inter',sans-serif; }
+.gd-trending-row__started { color:#364351; font:600 .9rem/1.45 'Inter',sans-serif; }
+.gd-trending-row__breakdown { display:flex; min-width:0; flex-wrap:wrap; gap:.2rem .65rem; align-items:center; }
+.gd-trending-query { color:#314b5b; font:500 .78rem/1.45 'Inter',sans-serif; text-decoration:underline; text-decoration-color:#a5b2bb; text-underline-offset:2px; overflow-wrap:anywhere; }
+.gd-trending-query-more { color:#73808b; font:500 .75rem/1.4 'Inter',sans-serif; white-space:nowrap; }
+.gd-trending-row__graph { display:flex; justify-content:flex-end; }
+.gd-trending-sparkline { display:block; width:124px; height:42px; overflow:visible; }
+.gd-trending-sparkline__fill { fill:#36b775; fill-opacity:.08; stroke:none; }
+.gd-trending-sparkline__line { fill:none; stroke:#19a85e; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.gd-trending-panel__topics .gd-trending-topic__details { display:flex; min-width:0; flex-direction:column; gap:.12rem; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__started { color:#7c898f; font:500 .67rem/1.3 'Inter',sans-serif; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics > .gd-trending-topic { display:grid; grid-template-columns:minmax(0,1fr) 72px; grid-template-rows:auto auto; align-items:center; gap:.1rem .55rem; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-topic__details { grid-column:1; grid-row:1 / 3; }
+.gd-lead-grid > .gd-trending-panel .gd-trending-panel__topics .gd-trending-topic__volume { grid-column:2; grid-row:1; justify-self:end; }
+.gd-trending-mini-graph { grid-column:2; grid-row:2; width:66px; height:22px; justify-self:end; }
+.gd-trending-mini-graph__line { fill:none; stroke:#19a85e; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+@media (max-width:1000px) {
+  .gd-trending-table__head,.gd-trending-row { grid-template-columns:minmax(190px,1.6fr) minmax(110px,.85fr) minmax(115px,.9fr) minmax(140px,1.2fr) 100px; gap:.55rem; }
+  .gd-trending-sparkline { width:100px; }
+}
+@media (max-width:700px) {
+  .gd-trending-table__head { display:none; }
+  .gd-trending-row { grid-template-columns:minmax(0,1fr) auto; gap:.35rem .8rem; min-height:0; padding:.82rem .25rem; }
+  .gd-trending-row__trend { grid-column:1; grid-row:1; }
+  .gd-trending-row__volume-cell { grid-column:2; grid-row:1; align-items:flex-end; text-align:right; }
+  .gd-trending-row__started { grid-column:1; grid-row:2; font-size:.78rem; }
+  .gd-trending-row__breakdown { grid-column:1; grid-row:3; }
+  .gd-trending-row__graph { grid-column:2; grid-row:2 / 4; align-items:center; }
+  .gd-trending-sparkline { width:94px; height:36px; }
+}

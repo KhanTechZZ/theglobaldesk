@@ -8035,6 +8035,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media { height:clamp(145px,43vw,205px) !important; max-height:205px !important; }
 }
 
+/* Editorial explainer diptych: warm category titles, unboxed photography, and roomy reading text. */
+.gd-home .gd-explainers .gd-explainer-unit__header { margin:0 0 .8rem !important; }
+.gd-home .gd-explainers .gd-explainer-unit__header h3 { width:max-content; max-width:100%; padding:0 0 .42rem; border-bottom:2px solid #c79a3b; color:#a87912 !important; font:750 clamp(1.35rem,1.8vw,1.65rem)/1.2 'Source Serif 4',Georgia,serif !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media { height:clamp(230px,22vw,285px) !important; max-height:285px !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy { margin-top:.25rem; padding-left:1rem; border-left:2px solid #c79a3b; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__meta { margin:0 0 .42rem !important; color:#7d8790 !important; font:600 .76rem/1.4 'Inter',sans-serif !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__title { margin:0 0 .55rem !important; color:#122d49 !important; font:750 clamp(1.3rem,1.8vw,1.6rem)/1.24 'Source Serif 4',Georgia,serif !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__summary { color:#465765 !important; font:400 clamp(.98rem,1.15vw,1.08rem)/1.62 'Inter',sans-serif !important; }
+@media (max-width:760px) {
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media { height:clamp(205px,62vw,255px) !important; max-height:255px !important; }
+  .gd-home .gd-explainers .gd-explainer-unit__header h3 { font-size:1.45rem !important; }
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__title { font-size:1.35rem !important; }
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__summary { font-size:1rem !important; }
+}
+
 /* Swap the desktop and mobile header controls with a short, non-overlapping fade. */
 @keyframes gd-header-icon-enter {
   from { opacity: 0; transform: translateY(2px) scale(.9); }

@@ -8018,6 +8018,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .gd-home .gd-explainer-feature__link:hover .gd-explainer-feature__media img { transform:scale(1.035); }
 
+/* Final homepage explainer layout: compact image, distinct metadata and story text. */
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link { display:flex !important; flex-direction:column !important; align-items:stretch !important; gap:.65rem !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media { display:block !important; width:100% !important; height:clamp(132px,15vw,190px) !important; min-height:0 !important; max-height:190px !important; aspect-ratio:auto !important; flex:none !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media > img { display:block !important; width:100% !important; height:100% !important; object-fit:cover !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media > .gd-explainer-feature__stamp { display:block !important; position:absolute !important; right:.65rem !important; bottom:.65rem !important; width:max-content !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy { display:flex !important; width:100% !important; flex-direction:column !important; align-items:flex-start !important; gap:0 !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__meta,
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__title,
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__summary,
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__action { display:block !important; width:100% !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__meta { margin:0 0 .3rem !important; font:600 .68rem/1.4 'Inter',sans-serif !important; color:#687684 !important; text-transform:none !important; letter-spacing:0 !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__title { margin:0 0 .38rem !important; font:750 clamp(1.05rem,1.35vw,1.22rem)/1.28 'Source Serif 4',Georgia,serif !important; color:#18344f !important; }
+.gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__summary { font:400 .82rem/1.5 'Inter',sans-serif !important; color:#626e77 !important; }
+@media (max-width:760px) {
+  .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__media { height:clamp(145px,43vw,205px) !important; max-height:205px !important; }
+}
+
 /* Swap the desktop and mobile header controls with a short, non-overlapping fade. */
 @keyframes gd-header-icon-enter {
   from { opacity: 0; transform: translateY(2px) scale(.9); }

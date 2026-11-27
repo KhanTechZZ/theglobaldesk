@@ -8087,6 +8087,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__meta,
   .gd-home .gd-explainers .gd-explainer-grid .gd-explainer-unit .gd-explainer-feature .gd-explainer-feature__link > .gd-explainer-feature__copy > .gd-explainer-feature__meta time { font-size:12px !important; }
 }
+#gd-explainer-home .gd-explainer-feature__link:hover .gd-explainer-feature__title,
+#gd-explainer-home .gd-explainer-feature__link:focus-visible .gd-explainer-feature__title { color:#9b6b12 !important; }
+#gd-explainer-home .gd-explainer-feature__meta time { font-size:13px !important; line-height:1.5 !important; font-weight:600 !important; }
 
 /* Swap the desktop and mobile header controls with a short, non-overlapping fade. */
 @keyframes gd-header-icon-enter {

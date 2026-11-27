@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261128-explainer-hover-gold-v14">
+  <link rel="stylesheet" href="homepage.css?v=20261128-explainer-force-v15">
 </head>
 <body data-local-menu-init="true">
 <a class="gd-skip-link" href="#gd-main-content">Skip to main content</a>
@@ -183,7 +183,7 @@
 
   
 
-  <section class="gd-home-block gd-explainers" aria-labelledby="gd-explainers-title">
+  <section id="gd-explainer-home" class="gd-home-block gd-explainers" aria-labelledby="gd-explainers-title">
     <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-explainers-title">Explainer</h2><a href="/category/explainer/" class="gd-home-heading__link">View more</a></header>
     <div class="gd-explainer-grid">
       <section class="gd-explainer-unit gd-explainer-unit--minute" aria-labelledby="gd-minute-title">
@@ -195,7 +195,7 @@
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
             <span class="gd-explainer-feature__media"><img src="/images/explainer/eez-briefing.jpg" alt="Illustrative aerial photograph of a cargo ship at sea" loading="lazy" decoding="async"></span>
             <span class="gd-explainer-feature__copy">
-              <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
+              <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time style="font-size:13px !important;line-height:1.5 !important;font-weight:600 !important">{{ post.date | relativeDate }}</time></span>
               <span class="gd-explainer-feature__title">{{ post.data.title }}</span>
               <span class="gd-explainer-feature__summary">{{ post.data.description }}</span>
             </span>
@@ -213,7 +213,7 @@
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
             <span class="gd-explainer-feature__media gd-explainer-feature__media--why"><img src="/images/explainer/ocean-context.jpg" alt="Illustrative photograph of ocean waves along a coast" loading="lazy" decoding="async"></span>
             <span class="gd-explainer-feature__copy">
-              <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
+              <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time style="font-size:13px !important;line-height:1.5 !important;font-weight:600 !important">{{ post.date | relativeDate }}</time></span>
               <span class="gd-explainer-feature__title">{{ post.data.title }}</span>
               <span class="gd-explainer-feature__summary">{{ post.data.description }}</span>
             </span>

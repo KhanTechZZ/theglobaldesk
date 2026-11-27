@@ -8233,6 +8233,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-static-breadcrumb a { color: #12375f; font-weight: 700; text-decoration: none; }
 .gd-static-breadcrumb a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .gd-static-header { max-width: 820px; margin: 0 0 2.5rem; padding-bottom: 1.7rem; border-bottom: 1px solid #dce2e8; }
+.gd-main.gd-home > .gd-lead-grid .gd-lead-rail { gap:1rem; }
+.gd-main.gd-home > .gd-world-section { margin-top:-.3rem; }
 .gd-static-page--trending-today .gd-static-header { margin-bottom: 1rem; padding-bottom: 0; border-bottom: 0; }
 .gd-static-eyebrow { display: block; margin: 0 0 .65rem; color: #98711d; font: 800 .7rem/1.4 'Inter',sans-serif; letter-spacing: .12em; text-transform: uppercase; }
 .gd-static-header h1 { margin: 0 0 .7rem; color: #12243a; font: 800 clamp(2rem,3vw,2.6rem)/1.12 'Source Serif 4',Georgia,serif; letter-spacing: -.035em; }

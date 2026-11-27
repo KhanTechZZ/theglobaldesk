@@ -2,6 +2,7 @@
 published: true
 title: "Young People Should Help Shape the Cities They Will Inherit"
 category: Featured Voices
+urlSlug: youth-cities
 description: "Youth participation in urban planning can bring local knowledge, fresh ideas and stronger accountability to the development of cities."
 image: ""
 date: 2026-11-24T17:00:00.000+06:00

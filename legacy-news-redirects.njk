@@ -1,0 +1,7 @@
+---
+permalink: /_redirects
+eleventyExcludeFromCollections: true
+---
+{% for post in collections.publishedNews -%}
+/news/{{ post.inputPath | replace("./news/", "") | replace(".md", "") }}/ {{ post.url }} 301
+{% endfor %}

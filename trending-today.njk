@@ -10,7 +10,11 @@ description: "Live Google Trends searches and rising topics from 37 markets."
   <div class="gd-trending-toolbar" aria-label="Filter trending topics">
     <label class="gd-trending-filter"><span>Country</span><select data-trending-country><option value="">Worldwide</option></select></label>
     <label class="gd-trending-filter"><span>Topic</span><select data-trending-category><option value="">All topics</option></select></label>
-    <time class="gd-trending-updated" data-trending-updated>Updated —</time>
+    <div class="gd-trending-live">
+      <span class="gd-trending-live__status"><i aria-hidden="true"></i>Live</span>
+      <time class="gd-trending-updated" data-trending-updated>Updated —</time>
+      <span class="gd-trending-live__zone" data-trending-time-zone>Your local time</span>
+    </div>
   </div>
   <div class="gd-trending-page__summary" data-trending-page-summary>Loading trends…</div>
   <div class="gd-trending-table" role="table" aria-label="Live trending searches">
@@ -18,6 +22,7 @@ description: "Live Google Trends searches and rising topics from 37 markets."
       <span role="columnheader">Trend</span>
       <span role="columnheader">Search volume</span>
       <span role="columnheader">Started</span>
+      <span role="columnheader">Cross-border reach</span>
       <span role="columnheader">Trend breakdown</span>
       <span role="columnheader">Past 24 hours</span>
     </div>
@@ -34,12 +39,25 @@ description: "Live Google Trends searches and rising topics from 37 markets."
     var countryFilter = document.querySelector('[data-trending-country]');
     var categoryFilter = document.querySelector('[data-trending-category]');
     var updated = document.querySelector('[data-trending-updated]');
+    var timeZoneNote = document.querySelector('[data-trending-time-zone]');
     if (!list || !summary || !countryFilter || !categoryFilter) return;
     var allTopics = [];
+    var totalMarkets = 37;
     var compactNumber = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
     var regularNumber = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
     var categories = ['Global conflicts', 'Politics', 'Economy', 'Climate & disasters', 'Health', 'Science & technology', 'Sports', 'Entertainment', 'Other current affairs'];
     var svgNamespace = 'http://www.w3.org/2000/svg';
+    var latestUpdate = null;
+    var countryTimeZones = {
+      'Bangladesh':'Asia/Dhaka','India':'Asia/Kolkata','Pakistan':'Asia/Karachi','Indonesia':'Asia/Jakarta','Singapore':'Asia/Singapore',
+      'Thailand':'Asia/Bangkok','Philippines':'Asia/Manila','Japan':'Asia/Tokyo','South Korea':'Asia/Seoul','Australia':'Australia/Sydney',
+      'New Zealand':'Pacific/Auckland','United States':'America/New_York','Canada':'America/Toronto','Mexico':'America/Mexico_City',
+      'Brazil':'America/Sao_Paulo','Argentina':'America/Argentina/Buenos_Aires','Chile':'America/Santiago','Colombia':'America/Bogota',
+      'United Kingdom':'Europe/London','Ireland':'Europe/Dublin','France':'Europe/Paris','Germany':'Europe/Berlin','Spain':'Europe/Madrid',
+      'Italy':'Europe/Rome','Netherlands':'Europe/Amsterdam','Poland':'Europe/Warsaw','Sweden':'Europe/Stockholm','Ukraine':'Europe/Kyiv',
+      'Russia':'Europe/Moscow','Türkiye':'Europe/Istanbul','Saudi Arabia':'Asia/Riyadh','United Arab Emirates':'Asia/Dubai',
+      'Egypt':'Africa/Cairo','Nigeria':'Africa/Lagos','Kenya':'Africa/Nairobi','Ghana':'Africa/Accra','South Africa':'Africa/Johannesburg'
+    };
 
     function addOptions(select, values) {
       values.forEach(function (value) {
@@ -57,6 +75,24 @@ description: "Live Google Trends searches and rising topics from 37 markets."
       if (hours < 24) return hours + (hours === 1 ? ' hour ago' : ' hours ago');
       var days = Math.floor(hours / 24);
       return days + (days === 1 ? ' day ago' : ' days ago');
+    }
+
+    function selectedTimeZone() {
+      return countryFilter.value ? countryTimeZones[countryFilter.value] : Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+
+    function localDateTime(value, timeZone) {
+      if (!value) return '—';
+      return new Intl.DateTimeFormat('en-GB', { timeZone: timeZone, day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(value));
+    }
+
+    function updateLocalTime() {
+      if (timeZoneNote) timeZoneNote.textContent = countryFilter.value ? countryFilter.value + ' local time' : 'Your local time';
+      if (updated && latestUpdate && !isNaN(latestUpdate.getTime())) {
+        var zone = selectedTimeZone();
+        updated.textContent = 'Updated ' + localDateTime(latestUpdate, zone);
+        updated.setAttribute('datetime', latestUpdate.toISOString());
+      }
     }
 
     function makeSparkline(topic, start, growth, active) {
@@ -99,7 +135,7 @@ description: "Live Google Trends searches and rising topics from 37 markets."
       return svg;
     }
 
-    function buildRow(topic, country) {
+    function buildRow(topic, country, rank) {
       var item = document.createElement('div');
       item.className = 'gd-trending-row';
       item.setAttribute('role', 'row');
@@ -113,13 +149,16 @@ description: "Live Google Trends searches and rising topics from 37 markets."
       var trendCell = document.createElement('div');
       trendCell.className = 'gd-trending-row__trend';
       trendCell.setAttribute('role', 'cell');
+      var rankLabel = document.createElement('span');
+      rankLabel.className = 'gd-trending-row__rank';
+      rankLabel.textContent = String(rank).padStart(2, '0');
       var title = document.createElement('span');
       title.className = 'gd-trending-row__title';
       title.textContent = topic.title;
       var state = document.createElement('span');
       state.className = 'gd-trending-row__state' + (selectedActive ? ' is-active' : '');
       state.textContent = selectedActive ? 'Active' : 'Ended';
-      trendCell.append(title, state);
+      trendCell.append(rankLabel, title, state);
 
       var volumeCell = document.createElement('div');
       volumeCell.className = 'gd-trending-row__volume-cell';
@@ -135,7 +174,25 @@ description: "Live Google Trends searches and rising topics from 37 markets."
       var startCell = document.createElement('div');
       startCell.className = 'gd-trending-row__started';
       startCell.setAttribute('role', 'cell');
-      startCell.textContent = relativeStart(selectedStart);
+      var since = document.createElement('strong');
+      since.textContent = relativeStart(selectedStart);
+      var localStart = document.createElement('small');
+      localStart.textContent = localDateTime(selectedStart, selectedTimeZone()) + ' local';
+      startCell.append(since, localStart);
+
+      var reachCell = document.createElement('div');
+      reachCell.className = 'gd-trending-row__reach';
+      reachCell.setAttribute('role', 'cell');
+      var reachLabel = document.createElement('strong');
+      var reached = Number(topic.marketCount || (topic.markets || []).length);
+      reachLabel.textContent = reached + (reached === 1 ? ' country' : ' countries');
+      var reachBar = document.createElement('span');
+      reachBar.className = 'gd-trending-reach-bar';
+      reachBar.setAttribute('aria-label', reached + ' of ' + totalMarkets + ' countries');
+      var reachFill = document.createElement('i');
+      reachFill.style.width = Math.max(4, Math.min(100, reached / totalMarkets * 100)) + '%';
+      reachBar.appendChild(reachFill);
+      reachCell.append(reachLabel, reachBar);
 
       var breakdownCell = document.createElement('div');
       breakdownCell.className = 'gd-trending-row__breakdown';
@@ -162,21 +219,20 @@ description: "Live Google Trends searches and rising topics from 37 markets."
       graphCell.setAttribute('role', 'cell');
       graphCell.appendChild(makeSparkline(topic, selectedStart, selectedGrowth, selectedActive));
 
-      item.append(trendCell, volumeCell, startCell, breakdownCell, graphCell);
+      item.append(trendCell, volumeCell, startCell, reachCell, breakdownCell, graphCell);
       return item;
     }
 
     function render(data) {
       if (!Array.isArray(data.topics)) throw new Error('No trends returned');
       allTopics = data.topics;
+      totalMarkets = (data.sourcesAvailable || []).length || 37;
       addOptions(countryFilter, (data.sourcesAvailable || []).slice().sort(function (a, b) { return a.localeCompare(b); }));
       var available = categories.filter(function (category) { return allTopics.some(function (topic) { return topic.category === category; }); });
       addOptions(categoryFilter, available);
       var updatedDate = data.updatedAt ? new Date(data.updatedAt) : null;
-      if (updated && updatedDate && !isNaN(updatedDate.getTime())) {
-        updated.textContent = 'Updated ' + new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dhaka', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).format(updatedDate) + ' BDT';
-        updated.setAttribute('datetime', updatedDate.toISOString());
-      }
+      latestUpdate = updatedDate;
+      updateLocalTime();
       drawTopics();
     }
 
@@ -192,14 +248,15 @@ description: "Live Google Trends searches and rising topics from 37 markets."
         return bVolume - aVolume;
       });
       list.replaceChildren();
-      summary.textContent = topics.length.toLocaleString('en-US') + (country ? ' trends in ' + country : ' trends worldwide');
+      var crossBorder = topics.filter(function (topic) { return Number(topic.marketCount || (topic.markets || []).length) > 1; }).length;
+      summary.textContent = topics.length.toLocaleString('en-US') + (country ? ' trends in ' + country : ' worldwide trends') + ' · ' + crossBorder.toLocaleString('en-US') + ' crossing borders';
       if (!topics.length) {
         var empty = document.createElement('p');
         empty.className = 'gd-trending-loading';
         empty.textContent = 'No trends match these filters. Try another selection.';
         list.appendChild(empty);
       } else {
-        topics.forEach(function (topic) { list.appendChild(buildRow(topic, country)); });
+        topics.forEach(function (topic, index) { list.appendChild(buildRow(topic, country, index + 1)); });
       }
       list.setAttribute('aria-busy', 'false');
     }
@@ -223,6 +280,7 @@ description: "Live Google Trends searches and rising topics from 37 markets."
     update();
     window.setInterval(update, 60 * 60 * 1000);
     countryFilter.addEventListener('change', drawTopics);
+    countryFilter.addEventListener('change', updateLocalTime);
     categoryFilter.addEventListener('change', drawTopics);
   })();
 </script>

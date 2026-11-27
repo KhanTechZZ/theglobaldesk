@@ -189,13 +189,13 @@
       <section class="gd-explainer-unit gd-explainer-unit--minute" aria-labelledby="gd-minute-title">
         <header class="gd-explainer-unit__header">
           <span class="gd-explainer-unit__eyebrow">01 · A quick briefing</span>
-          <h3 id="gd-minute-title">1-minute</h3>
+          <h3 id="gd-minute-title">1-minute explainer</h3>
           <p>One clear idea, in a minute.</p>
         </header>
         {% for post in collections.explainerNews | byFormat('1-minute') | take(1) %}
         <article class="gd-explainer-feature gd-explainer-feature--minute">
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
-            <span class="gd-explainer-feature__visual" aria-hidden="true"><strong>60</strong><small>SEC</small><i></i></span>
+            <span class="gd-explainer-feature__media"><img src="/images/explainer/eez-briefing.jpg" alt="Illustrative aerial photograph of a cargo ship at sea" loading="lazy" decoding="async"><span class="gd-explainer-feature__stamp">60 sec <i>briefing</i></span></span>
             <span class="gd-explainer-feature__copy">
               <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time> · Quick read</span>
               <span class="gd-explainer-feature__title">{{ post.data.title }}</span>
@@ -216,7 +216,7 @@
         {% for post in collections.explainerNews | byFormat('why-it-matters') | take(1) %}
         <article class="gd-explainer-feature gd-explainer-feature--why">
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
-            <span class="gd-explainer-feature__visual gd-explainer-feature__visual--why" aria-hidden="true"><span>WHY</span><i></i></span>
+            <span class="gd-explainer-feature__media gd-explainer-feature__media--why"><img src="/images/explainer/ocean-context.jpg" alt="Illustrative photograph of ocean waves along a coast" loading="lazy" decoding="async"><span class="gd-explainer-feature__stamp">The wider view</span></span>
             <span class="gd-explainer-feature__copy">
               <span class="gd-explainer-feature__meta">Context · <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
               <span class="gd-explainer-feature__title">{{ post.data.title }}</span>

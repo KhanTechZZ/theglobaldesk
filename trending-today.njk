@@ -10,6 +10,8 @@ description: "Live Google Trends searches and rising topics from 37 markets."
   <div class="gd-trending-toolbar" aria-label="Filter trending topics">
     <label class="gd-trending-filter"><span>Country</span><select data-trending-country><option value="">Worldwide</option></select></label>
     <label class="gd-trending-filter"><span>Topic</span><select data-trending-category><option value="">All topics</option></select></label>
+    <label class="gd-trending-filter"><span>Status</span><select data-trending-status><option value="">All trends</option><option value="active">Active now</option><option value="ended">Recently ended</option></select></label>
+    <label class="gd-trending-filter"><span>Sort by</span><select data-trending-sort><option value="volume">Search volume</option><option value="recent">Recently started</option><option value="reach">Most countries</option></select></label>
     <div class="gd-trending-live">
       <span class="gd-trending-live__status"><i aria-hidden="true"></i>Live trends</span>
     </div>
@@ -35,12 +37,14 @@ description: "Live Google Trends searches and rising topics from 37 markets."
     var summary = document.querySelector('[data-trending-page-summary]');
     var countryFilter = document.querySelector('[data-trending-country]');
     var categoryFilter = document.querySelector('[data-trending-category]');
-    if (!list || !summary || !countryFilter || !categoryFilter) return;
+    var statusFilter = document.querySelector('[data-trending-status]');
+    var sortFilter = document.querySelector('[data-trending-sort]');
+    if (!list || !summary || !countryFilter || !categoryFilter || !statusFilter || !sortFilter) return;
     var allTopics = [];
     var totalMarkets = 37;
     var compactNumber = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
     var regularNumber = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
-    var categories = ['Global conflicts', 'Politics', 'Economy', 'Climate & disasters', 'Health', 'Science & technology', 'Sports', 'Entertainment', 'Other current affairs'];
+    var categories = ['Global conflicts', 'Politics & elections', 'Economy & business', 'Weather & disasters', 'Health & medicine', 'Technology & AI', 'Science & space', 'Sports', 'Entertainment & culture', 'Education & exams', 'Law & justice', 'Public figures', 'Companies & products', 'Travel & places', 'Food & lifestyle', 'Religion & faith', 'Social issues', 'Other trending searches'];
     var svgNamespace = 'http://www.w3.org/2000/svg';
     var filteredTopics = [];
     var renderedCount = 0;
@@ -215,12 +219,20 @@ description: "Live Google Trends searches and rising topics from 37 markets."
     function drawTopics() {
       var country = countryFilter.value;
       var category = categoryFilter.value;
+      var status = statusFilter.value;
+      var sort = sortFilter.value;
       filteredTopics = allTopics.filter(function (topic) {
-        return (!country || (topic.markets || []).indexOf(country) !== -1) && (!category || topic.category === category);
+        var active = country ? !(topic.marketEndedAt || {})[country] : topic.active !== false;
+        return (!country || (topic.markets || []).indexOf(country) !== -1) && (!category || topic.category === category) && (!status || (status === 'active' ? active : !active));
       });
       filteredTopics.sort(function (a, b) {
         var aVolume = country ? ((a.marketVolumes || {})[country] || 0) : (a.volumeValue || 0);
         var bVolume = country ? ((b.marketVolumes || {})[country] || 0) : (b.volumeValue || 0);
+        var aStart = new Date(country ? ((a.marketStartedAt || {})[country] || 0) : (a.startedAt || 0)).getTime();
+        var bStart = new Date(country ? ((b.marketStartedAt || {})[country] || 0) : (b.startedAt || 0)).getTime();
+        var reachDifference = Number(b.marketCount || (b.markets || []).length) - Number(a.marketCount || (a.markets || []).length);
+        if (sort === 'recent') return bStart - aStart || bVolume - aVolume;
+        if (sort === 'reach') return reachDifference || bVolume - aVolume;
         return bVolume - aVolume;
       });
       if (renderObserver && sentinel) renderObserver.unobserve(sentinel);
@@ -277,5 +289,7 @@ description: "Live Google Trends searches and rising topics from 37 markets."
     window.setInterval(update, 60 * 60 * 1000);
     countryFilter.addEventListener('change', drawTopics);
     categoryFilter.addEventListener('change', drawTopics);
+    statusFilter.addEventListener('change', drawTopics);
+    sortFilter.addEventListener('change', drawTopics);
   })();
 </script>

@@ -43,13 +43,22 @@ jobs:
           ];
           const categories = [
             ['Global conflicts', /\b(war|conflict|invasion|attack|airstrike|ceasefire|hostage|military|refugee|sanction|nuclear|palestin|gaza|ukraine|russia|iran|israel|sudan|myanmar|congo|yemen|haiti|lebanon|syria|afghanistan|taiwan|hamas|hezbollah|houthi|taliban)\b/i],
-            ['Politics', /\b(election|president|government|parliament|prime minister|vote|voting|politic|senate|congress|minister|court|policy|trump|putin|zelensky|netanyahu|biden|xi jinping|united nations)\b/i],
-            ['Economy', /\b(economy|inflation|stock market|stocks|bull market|currency|debt|gold|silver|oil|trade|tariff|interest rate|jobs|bank|business|price|market|bitcoin|nasdaq)\b/i],
-            ['Climate & disasters', /\b(climate|global warming|weather|heatwave|earthquake|flood|storm|cyclone|hurricane|wildfire|drought|typhoon|tsunami|disaster)\b/i],
-            ['Health', /\b(health|disease|virus|coronavirus|covid|outbreak|vaccine|hospital|epidemic|pandemic)\b/i],
-            ['Science & technology', /\b(artificial intelligence|\bai\b|cyberattack|cybersecurity|technology|tech|space|spacex|nasa|scientist|science|robot)\b/i],
-            ['Sports', /\b(sport|football|soccer|cricket|basketball|tennis|rugby|baseball|hockey|volleyball|golf|boxing|wrestling|olympics?|fifa|uefa|nba|nfl|ipl)\b/i],
-            ['Entertainment', /\b(music|song|film|movie|actor|actress|singer|celebrity|tv show|series|concert|grammy|oscar|netflix)\b/i]
+            ['Politics & elections', /\b(election|president|government|parliament|prime minister|vote|voting|politic|senate|congress|minister|policy|trump|putin|zelensky|netanyahu|biden|xi jinping|united nations|campaign|ballot|political party)\b/i],
+            ['Economy & business', /\b(economy|inflation|stock market|stocks|bull market|currency|debt|gold|silver|oil|trade|tariff|interest rate|jobs|bank|business|price|market|bitcoin|nasdaq|shares|finance|company|earnings|crypto)\b/i],
+            ['Weather & disasters', /\b(climate|global warming|weather|heatwave|earthquake|flood|storm|cyclone|hurricane|wildfire|drought|typhoon|tsunami|disaster|rainfall|monsoon|tornado|volcano)\b/i],
+            ['Health & medicine', /\b(health|disease|virus|coronavirus|covid|outbreak|vaccine|hospital|epidemic|pandemic|medicine|symptom|cancer|flu|medical)\b/i],
+            ['Technology & AI', /\b(artificial intelligence|\bai\b|cyberattack|cybersecurity|technology|tech|iphone|android|smartphone|software|app|chatgpt|google|microsoft|apple|samsung|openai|gaming)\b/i],
+            ['Science & space', /\b(space|spacex|nasa|scientist|science|robot|research|mission|telescope|astronomy|satellite|mars|moon landing)\b/i],
+            ['Sports', /\b(sport|football|soccer|cricket|basketball|tennis|rugby|baseball|hockey|volleyball|golf|boxing|wrestling|olympics?|fifa|uefa|nba|nfl|ipl|league|cup|score|match|club|tournament| vs )\b/i],
+            ['Entertainment & culture', /\b(music|song|film|movie|actor|actress|singer|celebrity|tv show|series|concert|grammy|oscar|netflix|artist|book|festival|album|drama|streaming)\b/i],
+            ['Education & exams', /\b(education|school|university|college|exam|test results|admission|scholarship|curriculum|teacher|student|graduation|semester)\b/i],
+            ['Law & justice', /\b(court|judge|law|legal|crime|arrest|trial|verdict|case|justice|police|lawsuit|sentence|prosecutor)\b/i],
+            ['Public figures', /\b(king charles|pope francis|elon musk|taylor swift|kim kardashian|cristiano ronaldo|lionel messi|lebron james|mrbeast)\b/i],
+            ['Companies & products', /\b(brand|product|launch|release date|tesla|toyota|amazon|walmart|playstation|xbox|nintendo|airline|fashion|sale)\b/i],
+            ['Travel & places', /\b(travel|flight|airport|visa|tourism|hotel|holiday|vacation|travel advisory|train strike|destination)\b/i],
+            ['Food & lifestyle', /\b(food|recipe|restaurant|diet|cooking|fashion|beauty|fitness|relationship|horoscope|lifestyle|wedding)\b/i],
+            ['Religion & faith', /\b(religion|prayer|church|mosque|bible|quran|ramadan|eid|faith|pope|pilgrimage|christmas|diwali)\b/i],
+            ['Social issues', /\b(immigration|housing|poverty|human rights|strike|protest|community|minimum wage|social security|homelessness)\b/i]
           ];
           const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
           const candidates = new Map();
@@ -130,7 +139,7 @@ jobs:
           const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
           const topics = [...candidates.values()].map(candidate => {
             const total = [...candidate.markets.values()].reduce((sum, value) => sum + value, 0);
-            const category = (categories.find(([, pattern]) => pattern.test(candidate.title)) || ['Other current affairs'])[0];
+            const category = (categories.find(([, pattern]) => pattern.test(candidate.title)) || ['Other trending searches'])[0];
             const starts = [...candidate.marketStartedAt.values()];
             const active = candidate.markets.size > [...candidate.marketEndedAt.keys()].length;
             return {

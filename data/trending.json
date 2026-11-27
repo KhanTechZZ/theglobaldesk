@@ -40,47 +40,23 @@
     "Ghana",
     "South Africa"
   ],
-  "updatedAt": "2026-11-26T19:52:56.989Z",
+  "updatedAt": "2026-11-27T08:33:09.081Z",
   "refreshAfterSeconds": 43200,
   "topics": [
     {
-      "title": "gold silver prices",
-      "volume": "10K+ searches",
-      "markets": [
-        "India"
-      ],
-      "marketVolumes": {
-        "India": 10000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=gold%20silver%20prices"
-    },
-    {
-      "title": "election results",
-      "volume": "1K+ searches",
-      "markets": [
-        "New Zealand"
-      ],
-      "marketVolumes": {
-        "New Zealand": 1000
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=election%20results"
-    },
-    {
-      "title": "joe biden",
-      "volume": "1K+ searches",
+      "title": "iran attacks kuwait",
+      "volume": "20K+ searches",
       "markets": [
         "United States"
       ],
       "marketVolumes": {
-        "United States": 1000
+        "United States": 20000
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=joe%20biden"
+      "url": "https://news.google.com/search?q=iran%20attacks%20kuwait"
     },
     {
-      "title": "saudi arabia vs china",
+      "title": "oil price update",
       "volume": "500+ searches",
       "markets": [
         "Philippines"
@@ -89,34 +65,48 @@
         "Philippines": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=saudi%20arabia%20vs%20china"
+      "url": "https://news.google.com/search?q=oil%20price%20update"
     },
     {
-      "title": "mark rutte",
+      "title": "thanksgiving storm weather forecast",
       "volume": "500+ searches",
       "markets": [
-        "Poland"
+        "Philippines"
       ],
       "marketVolumes": {
-        "Poland": 500
+        "Philippines": 500
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=mark%20rutte"
+      "url": "https://news.google.com/search?q=thanksgiving%20storm%20weather%20forecast"
     },
     {
-      "title": "weather hyderabad",
-      "volume": "100+ searches",
+      "title": "storm",
+      "volume": "300+ searches",
+      "markets": [
+        "Singapore",
+        "Brazil"
+      ],
+      "marketVolumes": {
+        "Singapore": 200,
+        "Brazil": 100
+      },
+      "marketCount": 2,
+      "url": "https://news.google.com/search?q=storm"
+    },
+    {
+      "title": "brisbane weather",
+      "volume": "200+ searches",
       "markets": [
         "India"
       ],
       "marketVolumes": {
-        "India": 100
+        "India": 200
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=weather%20hyderabad"
+      "url": "https://news.google.com/search?q=brisbane%20weather"
     },
     {
-      "title": "weather radar",
+      "title": "interest rate",
       "volume": "100+ searches",
       "markets": [
         "Australia"
@@ -125,43 +115,31 @@
         "Australia": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=weather%20radar"
+      "url": "https://news.google.com/search?q=interest%20rate"
     },
     {
-      "title": "bull market",
+      "title": "new zealand election results",
       "volume": "100+ searches",
       "markets": [
-        "Argentina"
+        "United Kingdom"
       ],
       "marketVolumes": {
-        "Argentina": 100
+        "United Kingdom": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=bull%20market"
+      "url": "https://news.google.com/search?q=new%20zealand%20election%20results"
     },
     {
-      "title": "deuda",
+      "title": "weather ireland",
       "volume": "100+ searches",
       "markets": [
-        "Argentina"
+        "Ireland"
       ],
       "marketVolumes": {
-        "Argentina": 100
+        "Ireland": 100
       },
       "marketCount": 1,
-      "url": "https://news.google.com/search?q=deuda"
-    },
-    {
-      "title": "currency",
-      "volume": "100+ searches",
-      "markets": [
-        "Ghana"
-      ],
-      "marketVolumes": {
-        "Ghana": 100
-      },
-      "marketCount": 1,
-      "url": "https://news.google.com/search?q=currency"
+      "url": "https://news.google.com/search?q=weather%20ireland"
     }
   ]
 }

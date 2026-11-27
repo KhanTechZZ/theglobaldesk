@@ -602,6 +602,57 @@
     </section>
     {% endif %}
 
+    <script>
+      (function () {
+        var heading = document.querySelector('.gd-article-body > h1:first-child');
+        if (!heading) return;
+        var original = heading.textContent.trim().replace(/\s+/g, ' ');
+        var words = original.split(' ');
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        var resizeTimer;
+
+        function balanceHeadline() {
+          heading.textContent = original;
+          if (!context || words.length < 3) return;
+          var style = window.getComputedStyle(heading);
+          context.font = style.fontWeight + ' ' + style.fontSize + ' ' + style.fontFamily;
+          var width = heading.clientWidth;
+          if (context.measureText(original).width <= width) return;
+
+          var bestIndex = -1;
+          var bestDifference = Infinity;
+          for (var index = 1; index < words.length; index++) {
+            var firstLine = words.slice(0, index).join(' ');
+            var secondLine = words.slice(index).join(' ');
+            var firstWidth = context.measureText(firstLine).width;
+            var secondWidth = context.measureText(secondLine).width;
+            if (firstWidth <= width && secondWidth <= width) {
+              var difference = Math.abs(firstWidth - secondWidth);
+              if (difference < bestDifference) {
+                bestDifference = difference;
+                bestIndex = index;
+              }
+            }
+          }
+          if (bestIndex > 0) {
+            heading.replaceChildren(
+              document.createTextNode(words.slice(0, bestIndex).join(' ')),
+              document.createElement('br'),
+              document.createTextNode(words.slice(bestIndex).join(' '))
+            );
+          }
+        }
+
+        balanceHeadline();
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(balanceHeadline);
+        window.addEventListener('resize', function () {
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(balanceHeadline, 120);
+        });
+      })();
+    </script>
+
     <a class="gd-article-back" href="/">← More news</a>
   </main>
 

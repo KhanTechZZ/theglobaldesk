@@ -186,20 +186,47 @@
   <section class="gd-home-block gd-explainers" aria-labelledby="gd-explainers-title">
     <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-explainers-title">Understand the Story</h2><span class="gd-explainers__tagline">Clear context, quickly</span><a href="/category/explainer/" class="gd-home-heading__link">View more</a></header>
     <div class="gd-explainer-grid">
-{% if collections.explainerNews.length > 0 %}
-{% for post in collections.explainerNews | take(2) %}
-<article class="gd-explainer-card {% if post.data.format == '1-minute' %}gd-explainer-card--minute{% else %}gd-explainer-card--why{% endif %}">
-  <a href="{{ post.url }}">
-    {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
-    <span class="gd-explainer-card__label">{% if post.data.format == '1-minute' %}1-minute explainer{% else %}Why it matters{% endif %}</span>
-    <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
-    <h3>{{ post.data.title }}</h3>
-    <p>{{ post.data.description }}</p>
-    <span class="gd-explainer-card__action">{% if post.data.format == '1-minute' %}Quick Read{% else %}Explore the Context{% endif %}</span>
-  </a>
-</article>
-{% endfor %}
-{% endif %}
+      <section class="gd-explainer-unit gd-explainer-unit--minute" aria-labelledby="gd-minute-title">
+        <header class="gd-explainer-unit__header">
+          <span class="gd-explainer-unit__eyebrow">01 · A quick briefing</span>
+          <h3 id="gd-minute-title">1-minute</h3>
+          <p>One clear idea, in a minute.</p>
+        </header>
+        {% for post in collections.explainerNews | byFormat('1-minute') | take(1) %}
+        <article class="gd-explainer-feature gd-explainer-feature--minute">
+          <a href="{{ post.url }}" class="gd-explainer-feature__link">
+            <span class="gd-explainer-feature__visual" aria-hidden="true"><strong>60</strong><small>SEC</small><i></i></span>
+            <span class="gd-explainer-feature__copy">
+              <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time> · Quick read</span>
+              <span class="gd-explainer-feature__title">{{ post.data.title }}</span>
+              <span class="gd-explainer-feature__summary">{{ post.data.description }}</span>
+              <span class="gd-explainer-feature__action">Read in a minute <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </article>
+        {% endfor %}
+      </section>
+
+      <section class="gd-explainer-unit gd-explainer-unit--why" aria-labelledby="gd-why-title">
+        <header class="gd-explainer-unit__header">
+          <span class="gd-explainer-unit__eyebrow">02 · Beyond the headline</span>
+          <h3 id="gd-why-title">Why It Matters</h3>
+          <p>The context behind the story.</p>
+        </header>
+        {% for post in collections.explainerNews | byFormat('why-it-matters') | take(1) %}
+        <article class="gd-explainer-feature gd-explainer-feature--why">
+          <a href="{{ post.url }}" class="gd-explainer-feature__link">
+            <span class="gd-explainer-feature__visual gd-explainer-feature__visual--why" aria-hidden="true"><span>WHY</span><i></i></span>
+            <span class="gd-explainer-feature__copy">
+              <span class="gd-explainer-feature__meta">Context · <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
+              <span class="gd-explainer-feature__title">{{ post.data.title }}</span>
+              <span class="gd-explainer-feature__summary">{{ post.data.description }}</span>
+              <span class="gd-explainer-feature__action">Explore the context <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </article>
+        {% endfor %}
+      </section>
 
     </div>
   </section>

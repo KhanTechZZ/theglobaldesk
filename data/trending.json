@@ -40,7 +40,7 @@
     "Ghana",
     "South Africa"
   ],
-  "updatedAt": "2026-11-27T15:31:33.688Z",
+  "updatedAt": "2026-11-27T15:33:36.767Z",
   "refreshAfterSeconds": 43200,
   "topics": [
     {
@@ -52,6 +52,18 @@
       ],
       "marketVolumes": {
         "Australia": 20000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "law",
+      "category": "Politics",
+      "volume": "5K+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 5000
       },
       "marketCount": 1
     },
@@ -68,32 +80,6 @@
       "marketCount": 1
     },
     {
-      "title": "law",
-      "category": "Politics",
-      "volume": "2K+ searches",
-      "markets": [
-        "United States"
-      ],
-      "marketVolumes": {
-        "United States": 2000
-      },
-      "marketCount": 1
-    },
-    {
-      "title": "al kholood vs al-khaleej",
-      "category": "Global conflicts",
-      "volume": "1K+ searches",
-      "markets": [
-        "Bangladesh",
-        "Nigeria"
-      ],
-      "marketVolumes": {
-        "Bangladesh": 500,
-        "Nigeria": 500
-      },
-      "marketCount": 2
-    },
-    {
       "title": "scandal",
       "category": "Politics",
       "volume": "1K+ searches",
@@ -102,6 +88,18 @@
       ],
       "marketVolumes": {
         "Philippines": 1000
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "nasdaq today",
+      "category": "Health",
+      "volume": "1K+ searches",
+      "markets": [
+        "United States"
+      ],
+      "marketVolumes": {
+        "United States": 1000
       },
       "marketCount": 1
     },
@@ -131,25 +129,13 @@
     },
     {
       "title": "nasdaq composite",
-      "category": "Politics",
+      "category": "Economy",
       "volume": "500+ searches",
       "markets": [
         "United States"
       ],
       "marketVolumes": {
         "United States": 500
-      },
-      "marketCount": 1
-    },
-    {
-      "title": "dorothea wierer",
-      "category": "Global conflicts",
-      "volume": "500+ searches",
-      "markets": [
-        "Germany"
-      ],
-      "marketVolumes": {
-        "Germany": 500
       },
       "marketCount": 1
     },
@@ -190,30 +176,6 @@
         "Ireland": 200
       },
       "marketCount": 2
-    },
-    {
-      "title": "arjun tendulkar",
-      "category": "Global conflicts",
-      "volume": "200+ searches",
-      "markets": [
-        "India"
-      ],
-      "marketVolumes": {
-        "India": 200
-      },
-      "marketCount": 1
-    },
-    {
-      "title": "new jersey",
-      "category": "Climate & disasters",
-      "volume": "200+ searches",
-      "markets": [
-        "New Zealand"
-      ],
-      "marketVolumes": {
-        "New Zealand": 200
-      },
-      "marketCount": 1
     },
     {
       "title": "contrabando",
@@ -312,6 +274,18 @@
       "marketCount": 1
     },
     {
+      "title": "coca-cola",
+      "category": "Economy",
+      "volume": "200+ searches",
+      "markets": [
+        "South Africa"
+      ],
+      "marketVolumes": {
+        "South Africa": 200
+      },
+      "marketCount": 1
+    },
+    {
       "title": "stock",
       "category": "Economy",
       "volume": "100+ searches",
@@ -332,6 +306,18 @@
       ],
       "marketVolumes": {
         "Japan": 100
+      },
+      "marketCount": 1
+    },
+    {
+      "title": "new jersey",
+      "category": "Climate & disasters",
+      "volume": "100+ searches",
+      "markets": [
+        "New Zealand"
+      ],
+      "marketVolumes": {
+        "New Zealand": 100
       },
       "marketCount": 1
     },
@@ -408,8 +394,8 @@
       "marketCount": 1
     },
     {
-      "title": "coca-cola",
-      "category": "Economy",
+      "title": "simandou iron ore europe shipment",
+      "category": "Other current affairs",
       "volume": "100+ searches",
       "markets": [
         "South Africa"

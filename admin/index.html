@@ -13,8 +13,9 @@
 <title>Admin Dashboard | The Global Desk</title>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.2.2/toastui-editor.min.css">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f4f6f9;color:#152238;font:15px/1.5 Inter,Arial,sans-serif}header{height:68px;background:#102238;color:#fff;padding:0 max(22px,calc((100vw - 1320px)/2));display:flex;justify-content:space-between;align-items:center}header strong{font-size:19px;letter-spacing:-.3px}header strong span{color:#f4c65e}main{max-width:1320px;margin:34px auto;padding:0 24px}h1{font-size:30px;margin:0 0 4px;letter-spacing:-.7px}h2{font-size:20px;margin:0 0 5px}button,input,select,textarea{font:inherit;border-radius:8px;border:1px solid #d8dee8;padding:11px 12px;color:#152238;background:#fff}button{cursor:pointer;background:#102b48;color:white;border:0;font-weight:650}button:disabled{opacity:.5;cursor:not-allowed}button:hover{filter:brightness(1.12)}.muted{color:#738096;font-size:13px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:24px 0}.card,.panel,#login{background:#fff;border:1px solid #e3e8ef;border-radius:13px;padding:20px;box-shadow:0 2px 8px #172b4408}.stat{font-size:28px;font-weight:750;margin-top:6px}.toolbar,.cms-actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.toolbar input,.toolbar select{flex:1;min-width:150px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;padding:14px;border-bottom:1px solid #e9edf2}th{background:#f7f9fb;color:#5a6679;font-size:12px;text-transform:uppercase;letter-spacing:.05em}.status{padding:5px 9px;border-radius:20px;background:#eef2f7;font-size:12px}.status.published{background:#dcfae6;color:#067647}.status.draft{background:#f2f4f7;color:#344054}#message{margin:14px 0;color:#475467;overflow-wrap:anywhere}#login{max-width:430px;margin:80px auto;padding:30px}#login input{width:100%;margin:12px 0}#login button{width:100%}.cms-btn{display:inline-block;background:#102b48;color:white;padding:11px 15px;border-radius:8px;font-weight:700}.cms-btn:hover{opacity:.9;text-decoration:none}.cms-btn.gray{background:#64748b}.small-btn{padding:8px 12px}#editorPanel{margin:22px 0}#editor{margin:20px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#editor[hidden]{display:none}#editor label{display:grid;gap:6px;color:#344054;font-weight:650}#editor .wide{grid-column:1/-1}#editor .editor-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}#articleDescription{resize:vertical}.image-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.image-row input[type=text]{flex:1;min-width:220px}.image-preview{width:150px;height:95px;object-fit:cover;border-radius:8px;background:#eef2f6;border:1px solid #e0e5ec}.help{font-size:12px;color:#738096;font-weight:400}.toolbar button{white-space:nowrap}#editorBody{grid-column:1/-1}#editorBody .toastui-editor-defaultUI{border-radius:9px;overflow:hidden}#editorBody .toastui-editor-ww-container{min-height:340px}#editorBody .toastui-editor-md-container{min-height:340px}@media(max-width:720px){header{height:60px;padding:0 16px}main{margin:22px auto;padding:0 14px}h1{font-size:25px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:14px}.stat{font-size:24px}#editor{grid-template-columns:1fr}#editor .wide{grid-column:auto}#editorBody{grid-column:auto}th,td{padding:11px 9px}#editorBody .toastui-editor-ww-container,#editorBody .toastui-editor-md-container{min-height:260px}}
+*{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#172434;font:14px/1.45 Inter,Arial,sans-serif}header{height:58px;background:#102238;color:#fff;padding:0 max(20px,calc((100vw - 1240px)/2));display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #26394d}header strong{font-size:17px;letter-spacing:-.2px}header strong span{color:#e6bd67}main{max-width:1240px;margin:25px auto;padding:0 22px}h1{font-size:26px;margin:0 0 3px;letter-spacing:-.5px}h2{font-size:18px;margin:0 0 4px}button,input,select,textarea{font:inherit;border-radius:6px;border:1px solid #d7dde5;padding:8px 10px;color:#172434;background:#fff}button{cursor:pointer;background:#102b48;color:white;border:0;font-weight:650}button:disabled{opacity:.5;cursor:not-allowed}button:hover{filter:brightness(1.1)}.muted{color:#718095;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.card,.panel,#login{background:#fff;border:1px solid #e0e5eb;border-radius:8px;padding:14px;box-shadow:0 1px 3px #172b4408}.stat{font-size:23px;font-weight:750;margin-top:2px}.toolbar,.cms-actions{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.toolbar input,.toolbar select{flex:1;min-width:140px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #e9edf2}th{background:#f7f8fa;color:#5c6979;font-size:11px;text-transform:uppercase;letter-spacing:.05em}.status{padding:4px 8px;border-radius:12px;background:#eef2f7;font-size:11px}.status.published{background:#dcfae6;color:#067647}.status.draft{background:#f2f4f7;color:#344054}#message{margin:10px 0;color:#475467;overflow-wrap:anywhere}#login{max-width:390px;margin:70px auto;padding:26px}#login input{width:100%;margin:8px 0}#login form>button{width:100%;font-size:13px;padding:10px}.password-wrap{display:flex;align-items:stretch;position:relative;margin:10px 0 12px}.password-wrap input{margin:0!important;padding-right:44px!important}.eye-toggle{position:absolute;right:4px;top:4px;width:34px;height:34px;padding:7px;background:transparent;color:#526176;border-radius:5px}.eye-toggle:hover{background:#eef2f6}.eye-toggle svg{width:19px;height:19px;display:block}.cms-btn{display:inline-block;background:#102b48;color:white;padding:8px 12px;border-radius:6px;font-weight:700}.cms-btn:hover{opacity:.9;text-decoration:none}.cms-btn.gray{background:#64748b}.small-btn{padding:6px 10px;font-size:12px}#editorPanel{margin:14px 0}#editor{margin:14px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#editor[hidden]{display:none}#editor label{display:grid;gap:4px;color:#344054;font-weight:650;font-size:13px}#editor .wide{grid-column:1/-1}#editor .editor-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}#articleDescription{resize:vertical}.image-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.image-row input[type=text]{flex:1;min-width:180px}.image-preview{width:156px;height:88px;object-fit:cover;border-radius:5px;background:#eef2f6;border:1px solid #dce2e9}.help{font-size:11px;color:#738096;font-weight:400}.toolbar button{white-space:nowrap}#editorBody{grid-column:1/-1}#editorBody .toastui-editor-defaultUI{border-radius:6px;overflow:hidden}#editorBody .toastui-editor-toolbar{padding:4px 7px}#editorBody .toastui-editor-ww-container{min-height:280px}#editorBody .toastui-editor-md-container{min-height:280px}.editor-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.preview-box{border:1px solid #dfe4eb;border-radius:7px;overflow:hidden;background:#fff;margin:10px 0}.preview-head{padding:10px 13px;border-bottom:1px solid #e5e9ef;background:#f7f8fa;font-weight:700}.preview-content{padding:16px;max-height:680px;overflow:auto}.preview-content h1{font:700 28px/1.18 Georgia,serif;margin:8px 0}.preview-content .preview-meta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#7b2637;font-weight:700}.preview-content .preview-summary{font:17px/1.5 Georgia,serif;color:#4c5967;margin:8px 0 16px}.preview-content img{max-width:100%;height:auto}.preview-content .preview-story{max-width:760px;margin:auto;font:17px/1.7 Georgia,serif}.preview-content .preview-story h2{font:700 22px/1.3 Georgia,serif;margin:22px 0 8px}.preview-frame{width:100%;height:580px;border:0;display:block}.mobile-article{display:none}@media(max-width:720px){header{height:54px;padding:0 13px}main{margin:18px auto;padding:0 12px}h1{font-size:22px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.card{padding:10px}.stat{font-size:21px}#editor{grid-template-columns:1fr;gap:9px}#editor .wide,#editorBody{grid-column:auto}th,td{padding:9px 7px}#editorBody .toastui-editor-ww-container,#editorBody .toastui-editor-md-container{min-height:230px}#editorBody .toastui-editor-defaultUI{font-size:12px}.preview-frame{height:70vh}.tablewrap table{min-width:0}.tablewrap th:nth-child(3),.tablewrap td:nth-child(3){display:none}.cms-actions{margin:10px 0}}
 </style>
+<style>.table-category{display:block;color:#7c8796;font-size:11px;margin-top:2px}</style>
 </head>
 <body>
 
@@ -29,9 +30,9 @@
   <h2>Admin Login</h2>
   <p class="muted">Sign in to manage website articles.</p>
   <form id="loginForm">
-    <input id="password" type="password"
+    <div class="password-wrap"><input id="password" type="password"
       placeholder="Admin password" required
-      autocomplete="current-password">
+      autocomplete="current-password"><button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password" title="Show password"><svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg id="eyeOffIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.9 10.9 0 0 1 12 5c6.4 0 10 7 10 7a15 15 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1.1 0 2.1-.2 3-.5"/></svg></button></div>
     <button type="submit" id="loginButton">Sign in</button>
   </form>
   <p id="loginMessage" role="status"></p>
@@ -48,7 +49,7 @@
   </div>
 
   <section class="panel" id="editorPanel" hidden>
-    <h2 id="editorHeading">New article</h2>
+    <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Save a private draft or publish when it is ready.</p></div><button type="button" class="cms-btn gray" id="previewArticle">Preview story</button></div>
     <p class="muted">Drafts stay private. Publishing updates the site after the automatic build completes.</p>
     <form id="editor">
       <input type="hidden" id="articlePath"><input type="hidden" id="articleSha">
@@ -62,6 +63,7 @@
       <div class="wide" id="editorBody"><label>Article body <span class="help">Use the toolbar for headings, bold, italic, lists, quotes and links.</span></label><div id="richEditor"></div><textarea id="articleBody" hidden></textarea></div>
       <div class="editor-actions wide"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="articlePublished"> Publish this article</label><button type="submit" id="saveArticle">Save article</button><button type="button" class="cms-btn gray" id="cancelEdit">Cancel</button><span class="muted" id="editorMessage" role="status"></span></div>
     </form>
+    <section id="articlePreview" class="preview-box" hidden><div class="preview-head">Article preview <button type="button" class="cms-btn gray small-btn" id="closePreview" style="float:right">Close preview</button></div><iframe class="preview-frame" id="previewFrame" title="Article preview" sandbox=""></iframe></section>
   </section>
 
   <div class="stats">
@@ -131,7 +133,8 @@
 <script>
 const $ = id => document.getElementById(id);
 let articles = [];
-const categoryNames = ["World","Asia","Europe","Middle East","Africa","Americas","Asia-Pacific","United Nations","Global Conflicts","Environment","Global Health","Diplomacy","Economy","Politics","Tech and AI","Research","Featured Voices","Explainer","Editorial","Perspectives","Human Rights","Science","Geography","Oceans"];
+let localCoverPreviewUrl = "";
+const categoryNames = ["World","Asia","Europe","Middle East","Africa","Americas","Asia-Pacific","United Nations","Global Conflicts","Environment","Global Health","Diplomacy","Economy","Politics","Tech and AI","Research","Featured Voices","Explainer","Editorial","Perspectives","Human Rights","Science"];
 for (const name of categoryNames) { const option = document.createElement("option"); option.value = name; option.textContent = name; $("articleCategory").append(option); }
 let richEditor = null;
 
@@ -163,7 +166,7 @@ async function uploadImage(file) {
 try {
   if (window.toastui?.Editor) {
     richEditor = new toastui.Editor({
-      el: $("richEditor"), height: "430px", initialEditType: "wysiwyg", previewStyle: "vertical",
+      el: $("richEditor"), height: window.innerWidth <= 720 ? "285px" : "350px", initialEditType: "wysiwyg", previewStyle: "vertical",
       usageStatistics: false, placeholder: "Write the story. Use headings to structure longer articles.",
       toolbarItems: [["heading", "bold", "italic", "strike"], ["hr", "quote"], ["ul", "ol", "task"], ["table", "link", "image"], ["code", "codeblock"]],
       hooks: { addImageBlobHook: async (blob, callback) => {
@@ -228,6 +231,8 @@ function openEditor(article) {
   $("articlePublished").checked = !!article?.published;
   $("articleFormat").value = ""; $("formatWrap").hidden = true;
   $("articleImage").value = ""; $("imagePreview").hidden = true;
+  if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl);
+  localCoverPreviewUrl = "";
   if (richEditor) richEditor.setMarkdown("");
   else $("articleBody").hidden = false;
   if (article) {
@@ -293,7 +298,12 @@ function render() {
     const tr = document.createElement("tr");
 
     const title = document.createElement("td");
-    title.textContent = a.title || "Untitled";
+    const titleText = document.createElement("strong");
+    titleText.textContent = a.title || "Untitled";
+    const categoryText = document.createElement("span");
+    categoryText.className = "table-category";
+    categoryText.textContent = a.category || "Uncategorised";
+    title.append(titleText, categoryText);
 
     const date = document.createElement("td");
     date.textContent = a.date || "ΓÇö";
@@ -433,11 +443,36 @@ $("search").oninput = render;
 $("from").onchange = render;
 $("to").onchange = render;
 $("statusFilter").onchange = render;
+$("togglePassword").onclick = () => {
+  const visible = $("password").type === "password";
+  $("password").type = visible ? "text" : "password";
+  $("eyeIcon").hidden = visible;
+  $("eyeOffIcon").hidden = !visible;
+  $("togglePassword").setAttribute("aria-label", visible ? "Hide password" : "Show password");
+  $("togglePassword").title = visible ? "Hide password" : "Show password";
+};
 $("articleCategory").onchange = () => { $("formatWrap").hidden = $("articleCategory").value !== "Explainer"; if ($( "formatWrap").hidden) $("articleFormat").value = ""; };
-function updateImagePreview() { const value = $("articleImage").value.trim(); const preview = $("imagePreview"); if (value) { preview.src = value; preview.hidden = false; } else { preview.removeAttribute("src"); preview.hidden = true; } }
-$("articleImage").oninput = updateImagePreview;
+function updateImagePreview() { const value = localCoverPreviewUrl || $("articleImage").value.trim(); const preview = $("imagePreview"); if (value) { preview.src = value; preview.hidden = false; } else { preview.removeAttribute("src"); preview.hidden = true; } }
+$("articleImage").oninput = () => { if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl); localCoverPreviewUrl = ""; updateImagePreview(); };
+function escapePreview(value) { return String(value || "").replace(/[&<>\"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[ch])); }
+$("previewArticle").onclick = () => {
+  const title = $("articleTitle").value.trim() || "Untitled story";
+  const category = $("articleCategory").value || "News";
+  const date = $("articleDate").value || "";
+  const summary = $("articleDescription").value.trim();
+  const image = localCoverPreviewUrl || $("articleImage").value.trim();
+  const body = richEditor ? richEditor.getHTML() : `<p>${escapePreview($("articleBody").value).replace(/\n/g,"<br>")}</p>`;
+  const content = `<main><div class="meta">${escapePreview(category)}${date ? ` · ${escapePreview(date)}` : ""}</div><h1>${escapePreview(title)}</h1>${summary ? `<p class="summary">${escapePreview(summary)}</p>` : ""}${image ? `<figure><img src="${escapePreview(image)}" alt=""></figure>` : ""}<article>${body}</article></main>`;
+  $("previewFrame").srcdoc = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{margin:0;color:#172434;background:#fff;font:17px/1.7 Georgia,serif}main{max-width:780px;margin:0 auto;padding:28px 22px}.meta{font:700 11px/1.4 Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#8d263b}h1{font:700 clamp(28px,5vw,42px)/1.12 Georgia,serif;letter-spacing:-.5px;margin:11px 0}.summary{font-size:20px;line-height:1.45;color:#566272;margin:12px 0 20px}figure{margin:20px 0}figure img{width:100%;max-height:440px;object-fit:cover}article p{margin:0 0 1.25em}article h2{font:700 25px/1.3 Georgia,serif;margin:1.5em 0 .4em}article img{max-width:100%;height:auto}blockquote{border-left:3px solid #8d263b;margin:1.3em 0;padding:.3em 1em;color:#596575}</style></head><body>${content}</body></html>`;
+  $("articlePreview").hidden = false;
+  $("articlePreview").scrollIntoView({behavior:"smooth",block:"start"});
+};
+$("closePreview").onclick = () => { $("articlePreview").hidden = true; $("previewFrame").srcdoc = ""; };
 $("imageFile").onchange = async () => {
   const file = $("imageFile").files?.[0]; if (!file) return;
+  if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl);
+  localCoverPreviewUrl = URL.createObjectURL(file);
+  updateImagePreview();
   $("editorMessage").textContent = "Uploading image…";
   try { const data = await uploadImage(file); $("articleImage").value = data.path; updateImagePreview(); $("editorMessage").textContent = "Image uploaded and ready."; }
   catch (e) { $("editorMessage").textContent = e.message; }

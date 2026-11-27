@@ -57,7 +57,7 @@ const ARTICLE_CATEGORIES = new Set([
   "World", "Asia", "Europe", "Middle East", "Africa", "Americas", "Asia-Pacific",
   "United Nations", "Global Conflicts", "Environment", "Global Health", "Diplomacy",
   "Economy", "Politics", "Tech and AI", "Research", "Featured Voices", "Explainer",
-  "Editorial", "Perspectives", "Human Rights", "Science", "Geography", "Oceans"
+  "Editorial", "Perspectives", "Human Rights", "Science"
 ]);
 
 const ARTICLE_FORMATS = new Set(["", "why-it-matters", "1-minute"]);

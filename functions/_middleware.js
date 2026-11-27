@@ -1,5 +1,3 @@
-import { isAdmin } from "./_utils/admin.js";
-
 const PRIVATE_BASE = "/desk-9c41b7e2";
 
 function notFound() {
@@ -45,11 +43,11 @@ export async function onRequest(context) {
   const isLogin =
     path === PRIVATE_BASE || path === `${PRIVATE_BASE}/`;
 
-  const isCms = path === `${PRIVATE_BASE}/cms.html`;
-  const isConfig = path === `${PRIVATE_BASE}/config.yml`;
+  const isLegacyCms = path === `${PRIVATE_BASE}/cms.html` || path === `${PRIVATE_BASE}/config.yml`;
 
   // Allow unrelated routes to continue normally.
-  if (!isLogin && !isCms && !isConfig) {
+  if (isLegacyCms) return notFound();
+  if (!isLogin) {
     return context.next();
   }
 
@@ -58,29 +56,10 @@ export async function onRequest(context) {
     return notFound();
   }
 
-  // Login page is public; CMS and its config require a valid session.
-  if (!isLogin && !(await isAdmin(request, env))) {
-    return notFound();
-  }
-
   const target = new URL(request.url);
-
-  if (isConfig) return notFound();
   target.pathname = "/admin/";
 
   const assetResponse = await env.ASSETS.fetch(new Request(target.toString(), request));
-
-  if (isCms) {
-    const headers = new Headers(assetResponse.headers);
-    headers.set("Content-Type", "text/html; charset=utf-8");
-    headers.set("Cache-Control", "no-store");
-
-    return new Response(assetResponse.body, {
-      status: assetResponse.status,
-      statusText: assetResponse.statusText,
-      headers
-    });
-  }
 
   return assetResponse;
 }

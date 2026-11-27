@@ -4,61 +4,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <title>Admin Dashboard | The Global Desk</title>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/3.2.2/toastui-editor.min.css">
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f3f5f9;color:#172033;font:15px Arial,sans-serif}
-header{background:#101c33;color:white;padding:20px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-header strong{font-size:21px}
-main{max-width:1200px;margin:30px auto;padding:0 18px}
-button,input,select{font:inherit;padding:11px;border-radius:7px;border:1px solid #d5dbe5}
-button{cursor:pointer;background:#14233d;color:white;border:0}
-button:disabled{opacity:.5;cursor:not-allowed}
-a{color:#a77822;text-decoration:none}
-a:hover{text-decoration:underline}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:20px 0}
-.card,.panel,#login{background:white;border:1px solid #e2e7ef;border-radius:12px;padding:22px}
-.stat{font-size:30px;font-weight:bold;margin-top:10px}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.toolbar input,.toolbar select{flex:1;min-width:150px}
-.tablewrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;background:white}
-th,td{text-align:left;padding:14px;border-bottom:1px solid #e8ebf1;white-space:nowrap}
-th{background:#f7f8fb;font-size:13px}
-.status{padding:5px 9px;border-radius:20px;background:#eef2f7;font-size:12px}
-.status.published{background:#dcfae6;color:#067647}
-.status.draft{background:#f2f4f7;color:#344054}
-#message{margin:15px 0;color:#475467;overflow-wrap:anywhere}
-#login{max-width:420px;margin:70px auto}
-#login input{width:100%;margin:12px 0}
-#login button{width:100%}
-.muted{color:#667085;font-size:13px}
-.cms-actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-.cms-btn{display:inline-block;background:#14233d;color:white;padding:12px 16px;border-radius:8px;font-weight:bold}
-.cms-btn:hover{opacity:.9;text-decoration:none}
-.cms-btn.green{background:#16865b}
-.cms-btn.red{background:#b42318}
-.cms-btn.gray{background:#475467}
-.small-btn{padding:8px 12px}
-#editor{margin:20px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-#editor[hidden]{display:none}
-#editor label{display:grid;gap:6px;color:#344054;font-weight:600}
-#editor .wide{grid-column:1/-1}
-#editor textarea{min-height:210px;resize:vertical;font:14px/1.55 Arial,sans-serif}
-#editor .editor-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-@media(max-width:600px){
- .stats{grid-template-columns:1fr}
- .card{padding:15px}
- header{padding:16px}
- main{margin:20px auto}
- #editor{grid-template-columns:1fr}
- #editor .wide{grid-column:auto}
-}
+*{box-sizing:border-box}body{margin:0;background:#f4f6f9;color:#152238;font:15px/1.5 Inter,Arial,sans-serif}header{height:68px;background:#102238;color:#fff;padding:0 max(22px,calc((100vw - 1320px)/2));display:flex;justify-content:space-between;align-items:center}header strong{font-size:19px;letter-spacing:-.3px}header strong span{color:#f4c65e}main{max-width:1320px;margin:34px auto;padding:0 24px}h1{font-size:30px;margin:0 0 4px;letter-spacing:-.7px}h2{font-size:20px;margin:0 0 5px}button,input,select,textarea{font:inherit;border-radius:8px;border:1px solid #d8dee8;padding:11px 12px;color:#152238;background:#fff}button{cursor:pointer;background:#102b48;color:white;border:0;font-weight:650}button:disabled{opacity:.5;cursor:not-allowed}button:hover{filter:brightness(1.12)}.muted{color:#738096;font-size:13px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:24px 0}.card,.panel,#login{background:#fff;border:1px solid #e3e8ef;border-radius:13px;padding:20px;box-shadow:0 2px 8px #172b4408}.stat{font-size:28px;font-weight:750;margin-top:6px}.toolbar,.cms-actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.toolbar input,.toolbar select{flex:1;min-width:150px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;padding:14px;border-bottom:1px solid #e9edf2}th{background:#f7f9fb;color:#5a6679;font-size:12px;text-transform:uppercase;letter-spacing:.05em}.status{padding:5px 9px;border-radius:20px;background:#eef2f7;font-size:12px}.status.published{background:#dcfae6;color:#067647}.status.draft{background:#f2f4f7;color:#344054}#message{margin:14px 0;color:#475467;overflow-wrap:anywhere}#login{max-width:430px;margin:80px auto;padding:30px}#login input{width:100%;margin:12px 0}#login button{width:100%}.cms-btn{display:inline-block;background:#102b48;color:white;padding:11px 15px;border-radius:8px;font-weight:700}.cms-btn:hover{opacity:.9;text-decoration:none}.cms-btn.gray{background:#64748b}.small-btn{padding:8px 12px}#editorPanel{margin:22px 0}#editor{margin:20px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#editor[hidden]{display:none}#editor label{display:grid;gap:6px;color:#344054;font-weight:650}#editor .wide{grid-column:1/-1}#editor .editor-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}#articleDescription{resize:vertical}.image-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.image-row input[type=text]{flex:1;min-width:220px}.image-preview{width:150px;height:95px;object-fit:cover;border-radius:8px;background:#eef2f6;border:1px solid #e0e5ec}.help{font-size:12px;color:#738096;font-weight:400}.toolbar button{white-space:nowrap}#editorBody{grid-column:1/-1}#editorBody .toastui-editor-defaultUI{border-radius:9px;overflow:hidden}#editorBody .toastui-editor-ww-container{min-height:340px}#editorBody .toastui-editor-md-container{min-height:340px}@media(max-width:720px){header{height:60px;padding:0 16px}main{margin:22px auto;padding:0 14px}h1{font-size:25px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:14px}.stat{font-size:24px}#editor{grid-template-columns:1fr}#editor .wide{grid-column:auto}#editorBody{grid-column:auto}th,td{padding:11px 9px}#editorBody .toastui-editor-ww-container,#editorBody .toastui-editor-md-container{min-height:260px}}
 </style>
 </head>
 <body>
@@ -98,12 +53,13 @@ th{background:#f7f8fb;font-size:13px}
     <form id="editor">
       <input type="hidden" id="articlePath"><input type="hidden" id="articleSha">
       <label>Headline<input id="articleTitle" maxlength="180" required></label>
-      <label>Category<select id="articleCategory" required><option>World</option><option>Asia</option><option>Explainer</option><option>Editorial</option><option>Perspectives</option><option>Featured Voices</option><option>Politics</option><option>Economy</option><option>Tech and AI</option><option>Science</option><option>Environment</option><option>Geography</option><option>Oceans</option><option>Research</option><option>Human Rights</option></select></label>
+      <label>Category<select id="articleCategory" required></select></label>
+      <label id="formatWrap" hidden>Explainer format<select id="articleFormat"><option value="">Standard explainer</option><option value="why-it-matters">Why It Matters</option><option value="1-minute">1-minute explainer</option></select></label>
       <label>Publication date<input id="articleDate" type="date" required></label>
       <label>Author<input id="articleAuthor" value="The Global Desk" maxlength="100"></label>
       <label class="wide">Short summary<textarea id="articleDescription" rows="2" maxlength="360" required></textarea></label>
-      <label class="wide">Image URL (optional)<input id="articleImage" placeholder="https://… or /images/…"></label>
-      <label class="wide">Article text (Markdown)<textarea id="articleBody" required minlength="20" maxlength="100000" placeholder="Write the article here…"></textarea></label>
+      <label class="wide">Cover image <span class="help">Choose a file from this computer or phone, or paste an image URL.</span><span class="image-row"><input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp"><input id="articleImage" type="text" placeholder="/images/news/... or https://..."><img class="image-preview" id="imagePreview" alt="Cover preview" hidden></span></label>
+      <div class="wide" id="editorBody"><label>Article body <span class="help">Use the toolbar for headings, bold, italic, lists, quotes and links.</span></label><div id="richEditor"></div><textarea id="articleBody" hidden></textarea></div>
       <div class="editor-actions wide"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="articlePublished"> Publish this article</label><button type="submit" id="saveArticle">Save article</button><button type="button" class="cms-btn gray" id="cancelEdit">Cancel</button><span class="muted" id="editorMessage" role="status"></span></div>
     </form>
   </section>
@@ -171,9 +127,44 @@ th{background:#f7f8fb;font-size:13px}
   </section>
 </main>
 
+<script src="https://uicdn.toast.com/editor/3.2.2/toastui-editor-all.min.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 let articles = [];
+const categoryNames = ["World","Asia","Europe","Middle East","Africa","Americas","Asia-Pacific","United Nations","Global Conflicts","Environment","Global Health","Diplomacy","Economy","Politics","Tech and AI","Research","Featured Voices","Explainer","Editorial","Perspectives","Human Rights","Science","Geography","Oceans"];
+for (const name of categoryNames) { const option = document.createElement("option"); option.value = name; option.textContent = name; $("articleCategory").append(option); }
+const richEditor = window.toastui?.Editor ? new toastui.Editor({
+  el: $("richEditor"), height: "430px", initialEditType: "wysiwyg", previewStyle: "vertical",
+  usageStatistics: false, placeholder: "Write the story. Use headings to structure longer articles.",
+  toolbarItems: ["heading", "bold", "italic", "strike", "hr", "quote", "ul", "ol", "task", "table", "link", "image", "code", "codeblock"],
+  hooks: { addImageBlobHook: async (blob, callback) => {
+    try { const data = await uploadImage(blob); callback(data.path, blob.name || "Article image"); }
+    catch (e) { alert(e.message); }
+  } }
+}) : null;
+
+async function uploadImage(file) {
+  let upload = file;
+  if (window.createImageBitmap && file.type.startsWith("image/")) {
+    try {
+      const bitmap = await createImageBitmap(file);
+      const scale = Math.min(1, 1800 / Math.max(bitmap.width, bitmap.height));
+      if (scale < 1 || file.size > 1200000) {
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(bitmap.width * scale); canvas.height = Math.round(bitmap.height * scale);
+        canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/webp", .84));
+        if (blob) upload = new File([blob], "cover.webp", {type:"image/webp"});
+      }
+      bitmap.close();
+    } catch { /* Keep the original image if this browser cannot resize it. */ }
+  }
+  const form = new FormData(); form.append("image", upload, upload.name || "article-image.webp");
+  const response = await fetch("/api/dashboard-upload", {method:"POST", credentials:"same-origin", body:form});
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || `Upload failed (${response.status})`);
+  return data;
+}
 
 async function api(url, options = {}) {
   const response = await fetch(url, {
@@ -225,6 +216,10 @@ function openEditor(article) {
   $("articleDate").value = dateValue(article?.date) || new Date().toISOString().slice(0, 10);
   $("articleAuthor").value = "The Global Desk";
   $("articlePublished").checked = !!article?.published;
+  $("articleFormat").value = ""; $("formatWrap").hidden = true;
+  $("articleImage").value = ""; $("imagePreview").hidden = true;
+  if (richEditor) richEditor.setMarkdown("");
+  else $("articleBody").hidden = false;
   if (article) {
     const draftId = String(article.path).startsWith("draft:") ? String(article.path).slice(6) : "";
     const endpoint = draftId ? `/api/dashboard?draft=${encodeURIComponent(draftId)}` : `/api/dashboard?path=${encodeURIComponent(article.path)}`;
@@ -238,12 +233,15 @@ function openEditor(article) {
       };
       $("articleTitle").value = field("title") || article.title || "";
       $("articleCategory").value = field("category") || "World";
+      $("articleFormat").value = field("format");
+      $("formatWrap").hidden = $("articleCategory").value !== "Explainer";
       $("articleDate").value = dateValue(field("date") || article.date);
       $("articleDescription").value = field("description");
       $("articleImage").value = field("image");
       $("articleAuthor").value = field("author") || "The Global Desk";
       $("articlePublished").checked = field("published").toLowerCase() === "true";
-      $("articleBody").value = match[2].trim();
+      if (richEditor) richEditor.setMarkdown(match[2].trim()); else $("articleBody").value = match[2].trim();
+      updateImagePreview();
       $("articleSha").value = data.sha;
       $("editorMessage").textContent = "";
     }).catch(error => $("editorMessage").textContent = error.message);
@@ -405,7 +403,8 @@ $("editor").onsubmit = async event => {
     author: $("articleAuthor").value,
     description: $("articleDescription").value,
     image: $("articleImage").value,
-    body: $("articleBody").value,
+    body: richEditor ? richEditor.getMarkdown() : $("articleBody").value,
+    format: $("articleFormat").value,
     published: $("articlePublished").checked
   };
   try {
@@ -424,6 +423,15 @@ $("search").oninput = render;
 $("from").onchange = render;
 $("to").onchange = render;
 $("statusFilter").onchange = render;
+$("articleCategory").onchange = () => { $("formatWrap").hidden = $("articleCategory").value !== "Explainer"; if ($( "formatWrap").hidden) $("articleFormat").value = ""; };
+function updateImagePreview() { const value = $("articleImage").value.trim(); const preview = $("imagePreview"); if (value) { preview.src = value; preview.hidden = false; } else { preview.removeAttribute("src"); preview.hidden = true; } }
+$("articleImage").oninput = updateImagePreview;
+$("imageFile").onchange = async () => {
+  const file = $("imageFile").files?.[0]; if (!file) return;
+  $("editorMessage").textContent = "Uploading image…";
+  try { const data = await uploadImage(file); $("articleImage").value = data.path; updateImagePreview(); $("editorMessage").textContent = "Image uploaded and ready."; }
+  catch (e) { $("editorMessage").textContent = e.message; }
+};
 
 // Check whether an existing admin session is valid.
 (async () => {

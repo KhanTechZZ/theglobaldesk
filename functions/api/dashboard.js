@@ -54,10 +54,13 @@ function getField(frontmatter, name) {
 }
 
 const ARTICLE_CATEGORIES = new Set([
-  "World", "Asia", "Explainer", "Editorial", "Perspectives", "Politics",
-  "Economy", "Tech and AI", "Science", "Environment", "Geography", "Oceans",
-  "Research", "Human Rights", "Featured Voices"
+  "World", "Asia", "Europe", "Middle East", "Africa", "Americas", "Asia-Pacific",
+  "United Nations", "Global Conflicts", "Environment", "Global Health", "Diplomacy",
+  "Economy", "Politics", "Tech and AI", "Research", "Featured Voices", "Explainer",
+  "Editorial", "Perspectives", "Human Rights", "Science", "Geography", "Oceans"
 ]);
+
+const ARTICLE_FORMATS = new Set(["", "why-it-matters", "1-minute"]);
 
 function isArticlePath(value) {
   return typeof value === "string" &&
@@ -328,8 +331,9 @@ export async function onRequestPost({ request, env }) {
     const image = safeImage(input.image);
     const author = String(input.author || "The Global Desk").trim();
     const body = String(input.body || "").trim();
+    const format = String(input.format || "").trim();
     const published = input.published === true;
-    if (!title || title.length > 180 || !ARTICLE_CATEGORIES.has(category) || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !description || description.length > 360 || image === null || author.length > 100 || body.length < 20 || body.length > 100000) {
+    if (!title || title.length > 180 || !ARTICLE_CATEGORIES.has(category) || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !description || description.length > 360 || image === null || author.length > 100 || body.length < 20 || body.length > 100000 || !ARTICLE_FORMATS.has(format) || (format && category !== "Explainer")) {
       return json({ error: "Please check the title, category, date, summary, image URL, author, and article text." }, 400);
     }
 
@@ -345,6 +349,7 @@ export async function onRequestPost({ request, env }) {
       `image: ${JSON.stringify(image)}`,
       `author: ${JSON.stringify(author)}`,
       `published: ${published ? "true" : "false"}`,
+      ...(format ? [`format: ${JSON.stringify(format)}`] : []),
       "layout: article.njk"
     ].join("\n");
     const content = `---\n${metadata}\n---\n\n${body}\n`;

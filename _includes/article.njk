@@ -604,8 +604,18 @@
 
     <script>
       (function () {
-        var heading = document.querySelector('.gd-article-body > h1:first-child');
-        if (!heading) return;
+        var body = document.querySelector('.gd-article-body');
+        if (!body) return;
+        var firstBodyElement = body.firstElementChild;
+        var heading = firstBodyElement && firstBodyElement.tagName === 'H1' ? firstBodyElement : null;
+        if (!heading) {
+          heading = document.createElement('h1');
+          heading.className = 'gd-article-secondary-title';
+          var mainTitle = document.querySelector('.gd-article-title');
+          heading.textContent = mainTitle ? mainTitle.textContent.trim() : document.body.dataset.articleTitle || '';
+          body.insertBefore(heading, body.firstChild);
+        }
+        heading.classList.add('gd-article-secondary-title');
         var original = heading.textContent.trim().replace(/\s+/g, ' ');
         var words = original.split(' ');
         var canvas = document.createElement('canvas');

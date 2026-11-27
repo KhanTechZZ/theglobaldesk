@@ -159,6 +159,12 @@ module.exports = function (eleventyConfig) {
     );
     return [...sameCategory, ...otherCategories].slice(0, Math.max(0, Number(limit) || 0));
   });
+  eleventyConfig.addNunjucksFilter("moreFromDesk", (items, currentUrl, excludedItems, limit = 5) => {
+    const excludedUrls = new Set((Array.isArray(excludedItems) ? excludedItems : []).map(item => item.url));
+    return (Array.isArray(items) ? items : [])
+      .filter(item => item.url !== currentUrl && !excludedUrls.has(item.url) && !isPlaceholderHeadline(item))
+      .slice(0, Math.max(0, Number(limit) || 0));
+  });
   // News collection
   eleventyConfig.addCollection("news", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")

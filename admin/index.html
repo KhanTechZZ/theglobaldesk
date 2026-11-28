@@ -113,7 +113,7 @@ body.auth-view header{display:none}body.auth-view{background:#edf0f4}
   <section class="panel" id="editorPanel" hidden>
     <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Drafts stay private. Published stories appear on the site after the newsroom build.</p></div><div class="editor-top-actions"><button type="button" class="cms-btn small-btn delete-btn" id="deleteCurrentArticle" hidden>Delete story</button><button type="button" class="cms-btn gray small-btn" id="backToDesk">← Back to desk</button></div></div>
     <form id="editor" class="composer-grid">
-      <input type="hidden" id="articlePath"><input type="hidden" id="articleSha"><input type="checkbox" id="articlePublished" hidden>
+      <input type="hidden" id="articlePath"><input type="hidden" id="articleSha"><input type="hidden" id="articlePublishedAt"><input type="checkbox" id="articlePublished" hidden>
       <section class="composer-meta">
         <label>Headline<input id="articleTitle" maxlength="180" required placeholder="Write a clear, specific headline"><span class="field-foot"><span>Search-friendly headline</span><span id="titleCount">0 / 180</span></span></label>
         <div class="field-group"><label for="articleCategory">Section</label><div class="quick-categories" aria-label="Quick section choices"><button type="button" data-category="World">World</button><button type="button" data-category="Asia">Asia</button><button type="button" data-category="Europe">Europe</button><button type="button" data-category="Editorial">Editorials</button><button type="button" data-category="Explainer">Explainer</button><button type="button" data-category="Featured Voices">Featured Voices</button><button type="button" data-category="Perspectives">Perspectives</button></div><select id="articleCategory" required aria-label="All sections"></select></div>
@@ -330,6 +330,7 @@ function openEditor(article) {
   $("articlePath").value = article?.path || "";
   $("articleSha").value = article?.sha || "";
   $("articleDate").value = dateValue(article?.date) || new Date().toISOString().slice(0, 10);
+  $("articlePublishedAt").value = "";
   $("articleAuthor").value = "The Global Desk";
   $("articlePublished").checked = !!article?.published;
   $("articleJustIn").checked = !!article?.justIn;
@@ -354,6 +355,7 @@ function openEditor(article) {
       $("articleFormat").value = field("format");
       $("formatWrap").hidden = $("articleCategory").value !== "Explainer";
       $("articleDate").value = dateValue(field("date") || article.date);
+      $("articlePublishedAt").value = field("publishedAt");
       $("articleDescription").value = field("description");
       $("articleImage").value = field("image");
       $("articleImageAlt").value = field("imageAlt");
@@ -601,6 +603,7 @@ $("editor").onsubmit = async event => {
     title: $("articleTitle").value,
     category: $("articleCategory").value,
     date: $("articleDate").value,
+    publishedAt: $("articlePublishedAt").value,
     author: $("articleAuthor").value,
     description: $("articleDescription").value,
     image: $("articleImage").value,

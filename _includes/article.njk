@@ -30,11 +30,16 @@
     "mainEntityOfPage": { "@type": "WebPage", "@id": "https://thegdesk.com{{ page.url }}" },
     "headline": {{ title | jsonify | safe }},
     "description": {{ (description or title) | jsonify | safe }},
-    "datePublished": {{ date | dateToRfc3339 | jsonify | safe }},
-    "author": {
+    "datePublished": {{ (publishedAt or date) | dateToRfc3339 | jsonify | safe }},
+    "author": {% if profileName %}{
+      "@type": "Person",
+      "name": {{ profileName | jsonify | safe }}{% if profileTitle %},
+      "jobTitle": {{ profileTitle | jsonify | safe }}{% endif %}{% if profileImage %},
+      "image": {{ profileImage | absoluteUrl('https://thegdesk.com') | jsonify | safe }}{% endif %}
+    }{% else %}{
       "@type": "Organization",
       "name": {{ (author or 'The Global Desk') | jsonify | safe }}
-    },
+    }{% endif %},
     "publisher": {
       "@type": "Organization",
       "@id": "https://thegdesk.com/#organization",
@@ -44,15 +49,15 @@
     },
     "articleSection": {{ (category or 'News') | jsonify | safe }},
     "inLanguage": "en",
-    "isAccessibleForFree": true{% if image %},
-    "image": [{{ image | absoluteUrl('https://thegdesk.com') | jsonify | safe }}]{% endif %}{% if lastModified %},
-    "dateModified": {{ lastModified | dateToRfc3339 | jsonify | safe }}{% endif %}
+    "isAccessibleForFree": true,
+    "dateModified": {{ (dateModified or lastModified or publishedAt or date) | dateToRfc3339 | jsonify | safe }}{% if image %},
+    "image": [{{ image | absoluteUrl('https://thegdesk.com') | jsonify | safe }}]{% endif %}
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/homepage.css?v=20261128-profile-photo-time-v2">
+  <link rel="stylesheet" href="/homepage.css?v=20261128-publish-time-profile-byline-v3">
   <style>
     .gd-article-page{padding-top:2rem;padding-bottom:4rem;max-width:900px}
     .gd-article-category{display:inline-block;color:#B8871A;font-size:.75rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.7rem}
@@ -60,6 +65,10 @@
     .gd-article-description{font-size:1.12rem;line-height:1.65;color:#555;margin:0 0 1.3rem;max-width:780px}
     .gd-article-meta{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;padding:.9rem 0;margin:1.3rem 0 1.6rem;font-size:.78rem;color:#767676}
     .gd-article-meta strong{color:#222}
+    .gd-article-meta .gd-article-author-byline{display:inline-flex;align-items:center;gap:.55rem}
+    .gd-article-meta .gd-article-author-byline img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 28%}
+    .gd-article-meta .gd-article-author-byline>span{display:grid;gap:.12rem}
+    .gd-article-meta .gd-article-author-byline small{font-size:.7rem;color:#697787}
     .gd-article-image{width:100%;max-height:560px;object-fit:cover;margin:0 0 2rem;background:#f4f4f4}
     .gd-article-body{font-family:var(--gd-font-serif);font-size:1.16rem;line-height:1.85;color:#252525;max-width:760px;margin:0 auto}
     .gd-article-body p{margin:0 0 1.35em}
@@ -572,8 +581,8 @@
       {% endif %}
 
       <div class="gd-article-meta">
-        <span>By <strong>{{ author or "The Global Desk" }}</strong></span>
-        {% if date %}<time datetime="{{ date | isoDate }}">Published {{ date | readableDate }}</time>{% endif %}
+        <span class="gd-article-author-byline"><img src="{{ profileImage or '/favicon.png' }}" alt="{{ profileName or author or 'The Global Desk' }}" loading="lazy"><span><strong>{{ profileName or author or 'The Global Desk' }}</strong>{% if profileTitle %}<small>{{ profileTitle }}</small>{% endif %}</span></span>
+        {% if date %}<time datetime="{{ (publishedAt or date) | isoDate }}" data-relative-time data-date-only="{% if not publishedAt %}true{% else %}false{% endif %}">Published {{ (publishedAt or date) | relativeDate }}</time>{% endif %}
       </div>
 
       <div class="gd-article-body">
@@ -597,7 +606,7 @@
               <span class="gd-related-story__category">{{ item.data.category or "News" }}</span>
               <h3>{{ item.data.title }}</h3>
               {% if item.data.description %}<p>{{ item.data.description }}</p>{% endif %}
-              <span class="gd-related-story__date">{{ item.date | readableDate }}</span>
+              <span class="gd-related-story__date">{{ (item.data.publishedAt or item.date) | relativeDate }}</span>
             </div>
           </a>
         </article>
@@ -621,7 +630,7 @@
               {% if item.moreFromDeskIllustrative %}<span class="gd-more-desk__image-note">Illustrative image</span>{% endif %}
             </div>
             <div class="gd-more-desk__body">
-              <span class="gd-more-desk__meta">{{ item.data.category or "News" }} · {{ item.date | readableDate }}</span>
+              <span class="gd-more-desk__meta">{{ item.data.category or "News" }} · {{ (item.data.publishedAt or item.date) | relativeDate }}</span>
               <h3>{{ item.data.title }}</h3>
               {% if item.data.description %}<p>{{ item.data.description }}</p>{% endif %}
             </div>

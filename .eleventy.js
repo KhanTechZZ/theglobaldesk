@@ -76,25 +76,15 @@ module.exports = function (eleventyConfig) {
     }).format(parsed);
   });
 
-  // Show a relative timestamp for fresh stories, then switch to a calendar date.
+  // Show an exact relative time when the CMS has a publication timestamp.
   eleventyConfig.addFilter("relativeDate", (date) => {
     if (!date) return "";
     const publishedAt = new Date(date);
     if (Number.isNaN(publishedAt.getTime())) return "";
-    const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(String(date)) ||
-      (publishedAt.getUTCHours() === 0 && publishedAt.getUTCMinutes() === 0 && publishedAt.getUTCSeconds() === 0 && publishedAt.getUTCMilliseconds() === 0);
+    const dateOnly = (typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date)) ||
+      (date instanceof Date && publishedAt.getUTCHours() === 0 && publishedAt.getUTCMinutes() === 0 && publishedAt.getUTCSeconds() === 0 && publishedAt.getUTCMilliseconds() === 0);
     if (dateOnly) {
-      const dhakaDay = (value) => {
-        const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", {
-          timeZone: "Asia/Dhaka", year: "numeric", month: "2-digit", day: "2-digit"
-        }).formatToParts(value).map(part => [part.type, part.value]));
-        return Math.floor(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)) / 86400000);
-      };
-      const ageInDays = dhakaDay(new Date()) - dhakaDay(publishedAt);
-      if (ageInDays === 0) return "Today";
-      if (ageInDays === 1) return "Yesterday";
-      if (ageInDays > 1 && ageInDays < 7) return `${ageInDays} days ago`;
-      return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "Asia/Dhaka" }).format(publishedAt);
+      return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" }).format(publishedAt);
     }
     const minutes = Math.floor((Date.now() - publishedAt.getTime()) / 60000);
     if (minutes < 0) return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" }).format(publishedAt);

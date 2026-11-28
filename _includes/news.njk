@@ -29,12 +29,12 @@
     {% if image %}<meta property="twitter:image" content="{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}https://thegdesk.com/{{ image }}{% elif image.slice(0, 4) === 'http' %}{{ image }}{% else %}https://thegdesk.com{{ image }}{% endif %}">{% else %}<meta property="twitter:image" content="https://thegdesk.com/Logo.png">{% endif %}
 
     <script type="application/ld+json">
-    { "@context": "https://schema.org", "@type": "NewsArticle", "headline": {{ title | jsonify | safe }}, "image": [{% if image %}"{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}https://thegdesk.com/{{ image }}{% elif image.slice(0, 4) === 'http' %}{{ image }}{% else %}https://thegdesk.com{{ image }}{% endif %}"{% else %}"https://thegdesk.com/Logo.png"{% endif %}], "datePublished": {{ date | isoDate | jsonify | safe }}, "dateModified": {{ date | isoDate | jsonify | safe }}, "author": { "@type": "Organization", "name": "The Global Desk", "url": "https://thegdesk.com/" }, "publisher": { "@type": "Organization", "@id": "https://thegdesk.com/#organization", "name": "The Global Desk", "url": "https://thegdesk.com/", "logo": { "@type": "ImageObject", "url": "https://thegdesk.com/Logo.png" } }, "description": {{ (description or 'Read the latest international news on The Global Desk.') | jsonify | safe }} }
+    { "@context": "https://schema.org", "@type": "NewsArticle", "headline": {{ title | jsonify | safe }}, "image": [{% if image %}"{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}https://thegdesk.com/{{ image }}{% elif image.slice(0, 4) === 'http' %}{{ image }}{% else %}https://thegdesk.com{{ image }}{% endif %}"{% else %}"https://thegdesk.com/Logo.png"{% endif %}], "datePublished": {{ (publishedAt or date) | isoDate | jsonify | safe }}, "dateModified": {{ (dateModified or publishedAt or date) | isoDate | jsonify | safe }}, "author": {% if profileName %}{ "@type": "Person", "name": {{ profileName | jsonify | safe }}{% if profileTitle %}, "jobTitle": {{ profileTitle | jsonify | safe }}{% endif %} }{% else %}{ "@type": "Organization", "name": "The Global Desk", "url": "https://thegdesk.com/" }{% endif %}, "publisher": { "@type": "Organization", "@id": "https://thegdesk.com/#organization", "name": "The Global Desk", "url": "https://thegdesk.com/", "logo": { "@type": "ImageObject", "url": "https://thegdesk.com/Logo.png" } }, "description": {{ (description or 'Read the latest international news on The Global Desk.') | jsonify | safe }} }
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/homepage.css?v=20261128-profile-photo-time-v2">
+  <link rel="stylesheet" href="/homepage.css?v=20261128-publish-time-profile-byline-v3">
 </head>
 <body>
 
@@ -48,16 +48,12 @@
         {% if category %}<span class="category-label">{{ category | upper }}</span>{% endif %}
         <h1 class="article-title">{{ title }}</h1>
         <div class="article-meta">
-            <span class="author-byline"><i class="fa-regular fa-user"></i> By <strong>{{ author or 'The Global Desk' }}</strong>{% if profileTitle %}<small class="author-role"> · {{ profileTitle }}</small>{% endif %}</span>
+            <span class="author-byline gd-article-author-byline"><img src="{{ profileImage or '/favicon.png' }}" alt="{{ profileName or author or 'The Global Desk' }}" loading="lazy"><span><strong>{{ profileName or author or 'The Global Desk' }}</strong>{% if profileTitle %}<small>{{ profileTitle }}</small>{% endif %}</span></span>
             <span class="meta-divider">|</span>
-            <span class="time-ago" data-published="{{ date | isoDate }}">{{ date | readableDate }}</span>
+            <time class="time-ago" datetime="{{ (publishedAt or date) | isoDate }}" data-relative-time data-date-only="{% if not publishedAt %}true{% else %}false{% endif %}">{{ (publishedAt or date) | relativeDate }}</time>
             <span class="meta-divider">|</span>
             <span id="readingTime">2 min read</span>
         </div>
-
-        {% if profileName or profileImage %}
-        <aside class="gd-article-author-profile"><img src="{{ profileImage or '/favicon.png' }}" alt="{{ profileName or author or 'The Global Desk' }}" loading="lazy"><div><strong>{{ profileName or author or 'The Global Desk' }}</strong>{% if profileTitle %}<small>{{ profileTitle }}</small>{% endif %}</div></aside>
-        {% endif %}
 
         <div class="share-buttons">
             <span class="share-label">Share:</span>
@@ -97,6 +93,32 @@
 {% include 'global-footer.njk' %}
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
+<script>
+(function () {
+  const time = document.querySelector('.article-meta [data-relative-time][datetime]');
+  if (!time) return;
+  const absoluteDate = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  function update() {
+    const publishedDate = new Date(time.dateTime);
+    const published = publishedDate.getTime();
+    if (!Number.isFinite(published)) return;
+    if (time.dataset.dateOnly === 'true') {
+      time.textContent = absoluteDate.format(publishedDate);
+      return;
+    }
+    const minutes = Math.floor((Date.now() - published) / 60000);
+    if (minutes < 0) { time.textContent = absoluteDate.format(publishedDate); return; }
+    if (minutes < 1) { time.textContent = 'Just now'; return; }
+    if (minutes < 60) { time.textContent = minutes + (minutes === 1 ? ' minute ago' : ' minutes ago'); return; }
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) { time.textContent = hours + (hours === 1 ? ' hour ago' : ' hours ago'); return; }
+    const days = Math.floor(hours / 24);
+    time.textContent = days < 7 ? days + (days === 1 ? ' day ago' : ' days ago') : absoluteDate.format(publishedDate);
+  }
+  update();
+  window.setInterval(update, 60000);
+})();
+</script>
 <script src="/app.js"></script>
 
 <script>

@@ -346,11 +346,20 @@ export async function onRequestPost({ request, env }) {
 
     const existingPath = input.path ? String(input.path) : "";
     if (existingPath && !isArticlePath(existingPath) && !/^draft:[A-Za-z0-9-]{8,80}$/.test(existingPath)) return json({ error: "Invalid article path" }, 400);
+    const isExistingDraft = existingPath.startsWith("draft:");
+    const suppliedPublishedAt = typeof input.publishedAt === "string" ? input.publishedAt : "";
+    const parsedPublishedAt = suppliedPublishedAt ? Date.parse(suppliedPublishedAt) : NaN;
+    if (suppliedPublishedAt && (!Number.isFinite(parsedPublishedAt) || suppliedPublishedAt.length > 40)) return json({ error: "Invalid publication time" }, 400);
+    const now = new Date().toISOString();
+    const publishedAt = published
+      ? (isExistingDraft || !existingPath ? now : (Number.isFinite(parsedPublishedAt) ? new Date(parsedPublishedAt).toISOString() : now))
+      : (Number.isFinite(parsedPublishedAt) ? new Date(parsedPublishedAt).toISOString() : "");
     const slug = slugify(title);
     if (!slug) return json({ error: "The title needs at least one English letter or number." }, 400);
     const metadata = [
       `title: ${JSON.stringify(title)}`,
       `date: ${date}`,
+      ...(publishedAt ? [`publishedAt: ${JSON.stringify(publishedAt)}`, `dateModified: ${JSON.stringify(published ? now : publishedAt)}`] : []),
       `category: ${JSON.stringify(category)}`,
       `description: ${JSON.stringify(description)}`,
       `image: ${JSON.stringify(image)}`,
@@ -367,7 +376,6 @@ export async function onRequestPost({ request, env }) {
     ].join("\n");
     const content = `---\n${metadata}\n---\n\n${body}\n`;
     await ensureDraftStore(env);
-    const isExistingDraft = existingPath.startsWith("draft:");
     if (isExistingDraft && !/^draft:[A-Za-z0-9-]{8,80}$/.test(existingPath)) return json({ error: "Invalid draft id" }, 400);
 
     if (!published) {

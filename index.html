@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261128-profile-photo-time-v2">
+  <link rel="stylesheet" href="homepage.css?v=20261128-publish-time-profile-byline-v3">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -100,7 +100,7 @@
         <div class="gd-lead-story__content">
           <span class="gd-hero-category">{{ lead.data.category }}</span>
           <h1>{{ lead.data.title }}</h1>
-          <time class="gd-story-meta gd-hero-date" datetime="{{ lead.date | isoDate }}" data-relative-time>{{ lead.date | relativeDate }}</time>
+          <time class="gd-story-meta gd-hero-date" datetime="{{ (lead.data.publishedAt or lead.date) | isoDate }}" data-relative-time data-date-only="{% if not lead.data.publishedAt %}true{% else %}false{% endif %}">{{ (lead.data.publishedAt or lead.date) | relativeDate }}</time>
           <p>{{ lead.data.description }}</p>
         </div>
       </a>
@@ -120,7 +120,7 @@
       {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
     </div>
     <div class="gd-news-card__body">
-      <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3>
+      <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span><h3>{{ post.data.title }}</h3>
       <p>{{ post.data.description }}</p>
       
     </div>
@@ -175,7 +175,7 @@
       {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
     </div>
     <div class="gd-news-card__body">
-      <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span>
+      <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span>
       <h3>{{ post.data.title }}</h3>
       <p>{{ post.data.description }}</p>
       
@@ -200,7 +200,7 @@
         {% if asiaLead.data.image %}<img src="{{ asiaLead.data.image }}" alt="{{ asiaLead.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
       </div>
       <div class="gd-news-card__body">
-        <span class="gd-story-meta">{{ asiaLead.data.category }} | <time datetime="{{ asiaLead.date | isoDate }}" data-relative-time>{{ asiaLead.date | relativeDate }}</time></span><h3>{{ asiaLead.data.title }}</h3>
+        <span class="gd-story-meta">{{ asiaLead.data.category }} | <time datetime="{{ (asiaLead.data.publishedAt or asiaLead.date) | isoDate }}" data-relative-time data-date-only="{% if not asiaLead.data.publishedAt %}true{% else %}false{% endif %}">{{ (asiaLead.data.publishedAt or asiaLead.date) | relativeDate }}</time></span><h3>{{ asiaLead.data.title }}</h3>
         <p>{{ asiaLead.data.description }}</p>
         
       </div>
@@ -209,7 +209,7 @@
   {% for post in collections.asiaNews | skip(1) | take(2) %}
   <article class="gd-brief-story gd-asia-bottom-story">
     {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}
-    <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+    <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span><h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
     <p>{{ post.data.description }}</p>
   </article>
   {% endfor %}
@@ -241,7 +241,7 @@
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
             <span class="gd-explainer-feature__media"><img src="/images/explainer/eez-briefing.jpg" alt="Illustrative aerial photograph of a cargo ship at sea" loading="lazy" decoding="async"></span>
             <span class="gd-explainer-feature__copy">
-              <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time style="font-size:13px !important;line-height:1.5 !important;font-weight:600 !important">{{ post.date | relativeDate }}</time></span>
+              <span class="gd-explainer-feature__meta"><time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}" style="font-size:13px !important;line-height:1.5 !important;font-weight:600 !important">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span>
               <span class="gd-explainer-feature__title">{{ post.data.title }}</span>
               <span class="gd-explainer-feature__summary">{{ post.data.description }}</span>
             </span>
@@ -259,7 +259,7 @@
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
             <span class="gd-explainer-feature__media gd-explainer-feature__media--why"><img src="/images/explainer/ocean-context.jpg" alt="Illustrative photograph of ocean waves along a coast" loading="lazy" decoding="async"></span>
             <span class="gd-explainer-feature__copy">
-              <span class="gd-explainer-feature__meta"><time datetime="{{ post.date | isoDate }}" data-relative-time style="font-size:13px !important;line-height:1.5 !important;font-weight:600 !important">{{ post.date | relativeDate }}</time></span>
+              <span class="gd-explainer-feature__meta"><time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}" style="font-size:13px !important;line-height:1.5 !important;font-weight:600 !important">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span>
               <span class="gd-explainer-feature__title">{{ post.data.title }}</span>
               <span class="gd-explainer-feature__summary">{{ post.data.description }}</span>
             </span>
@@ -278,14 +278,14 @@
       {% set editorial = collections.editorialNews[0] %}
       <article class="gd-opinion-feature">
         <a class="gd-opinion-feature__image" href="{{ editorial.url }}" aria-label="Read the editorial: {{ editorial.data.title }}">{% if editorial.data.image %}<img src="{{ editorial.data.image }}" alt="{{ editorial.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</a>
-        <div class="gd-opinion-feature__body"><span class="gd-opinion-feature__label">Editorial</span><div class="gd-editor-profile"><img src="{{ editorial.data.profileImage or '/favicon.png' }}" alt="{{ editorial.data.profileName or 'Global Desk Editorial Board' }}" loading="lazy"><div class="gd-editor-profile__info"><strong>{{ editorial.data.profileName or 'Global Desk Editorial Board' }}</strong><small>{{ editorial.data.profileTitle or 'Editorial team' }}</small></div></div><span class="gd-story-meta">{{ editorial.data.category }} | <time datetime="{{ editorial.date | isoDate }}" data-relative-time>{{ editorial.date | relativeDate }}</time></span><h3><a href="{{ editorial.url }}">{{ editorial.data.title }}</a></h3></div>
+        <div class="gd-opinion-feature__body"><span class="gd-opinion-feature__label">Editorial</span><div class="gd-editor-profile"><img src="{{ editorial.data.profileImage or '/favicon.png' }}" alt="{{ editorial.data.profileName or 'Global Desk Editorial Board' }}" loading="lazy"><div class="gd-editor-profile__info"><strong>{{ editorial.data.profileName or 'Global Desk Editorial Board' }}</strong><small>{{ editorial.data.profileTitle or 'Editorial team' }}</small></div></div><span class="gd-story-meta">{{ editorial.data.category }} | <time datetime="{{ (editorial.data.publishedAt or editorial.date) | isoDate }}" data-relative-time data-date-only="{% if not editorial.data.publishedAt %}true{% else %}false{% endif %}">{{ (editorial.data.publishedAt or editorial.date) | relativeDate }}</time></span><h3><a href="{{ editorial.url }}">{{ editorial.data.title }}</a></h3></div>
         <p class="gd-opinion-feature__caption">{{ editorial.data.description }}</p>
       </article>
       {% endif %}
       <div class="gd-perspectives"><h3>Perspectives</h3>
         {% if collections.perspectivesNews.length > 0 %}
         {% for post in collections.perspectivesNews | take(3) %}
-        <article>{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<div><span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><a href="{{ post.url }}">{{ post.data.title }}</a></div></article>
+        <article>{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<div><span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span><a href="{{ post.url }}">{{ post.data.title }}</a></div></article>
         {% endfor %}
         {% endif %}
       </div>
@@ -295,7 +295,7 @@
   <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-earth-title">Earth</h2><a href="/category/earth/" class="gd-home-heading__link">View more</a></header>
   <div class="gd-latest__grid gd-world-news-grid gd-earth-news-grid">
     {% for post in collections.earthNews | take(4) %}
-    <article class="gd-news-card"><a href="{{ post.url }}" class="gd-news-card__link"><div class="gd-news-card__media">{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</div><div class="gd-news-card__body"><span class="gd-story-meta">Earth | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3><p>{{ post.data.description }}</p></div></a></article>
+    <article class="gd-news-card"><a href="{{ post.url }}" class="gd-news-card__link"><div class="gd-news-card__media">{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</div><div class="gd-news-card__body"><span class="gd-story-meta">Earth | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span><h3>{{ post.data.title }}</h3><p>{{ post.data.description }}</p></div></a></article>
     {% endfor %}
   </div>
 </section>
@@ -305,9 +305,9 @@
   <div class="gd-voices-grid gd-generation-grid">
     {% for post in collections.featuredVoices | take(3) %}
       {% if loop.index0 == 0 %}
-      <article class="gd-voice-feature"><a href="{{ post.url }}">{% if post.data.profileImage or post.data.image %}<img src="{{ post.data.profileImage or post.data.image }}" alt="{{ post.data.profileName or post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a>{% if post.data.profileName or post.data.profileTitle %}<p class="gd-voice-byline"><strong>{{ post.data.profileName }}</strong>{% if post.data.profileTitle %}<small>{{ post.data.profileTitle }}</small>{% endif %}</p>{% endif %}<time class="gd-story-meta" datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></article>
+      <article class="gd-voice-feature"><a href="{{ post.url }}">{% if post.data.profileImage or post.data.image %}<img src="{{ post.data.profileImage or post.data.image }}" alt="{{ post.data.profileName or post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a>{% if post.data.profileName or post.data.profileTitle %}<p class="gd-voice-byline"><strong>{{ post.data.profileName }}</strong>{% if post.data.profileTitle %}<small>{{ post.data.profileTitle }}</small>{% endif %}</p>{% endif %}<time class="gd-story-meta" datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></article>
       {% else %}
-      <article class="gd-voice-story"><a href="{{ post.url }}">{% if post.data.profileImage or post.data.image %}<img src="{{ post.data.profileImage or post.data.image }}" alt="{{ post.data.profileName or post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a>{% if post.data.profileName or post.data.profileTitle %}<p class="gd-voice-byline"><strong>{{ post.data.profileName }}</strong>{% if post.data.profileTitle %}<small>{{ post.data.profileTitle }}</small>{% endif %}</p>{% endif %}<time class="gd-story-meta" datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></article>
+      <article class="gd-voice-story"><a href="{{ post.url }}">{% if post.data.profileImage or post.data.image %}<img src="{{ post.data.profileImage or post.data.image }}" alt="{{ post.data.profileName or post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a>{% if post.data.profileName or post.data.profileTitle %}<p class="gd-voice-byline"><strong>{{ post.data.profileName }}</strong>{% if post.data.profileTitle %}<small>{{ post.data.profileTitle }}</small>{% endif %}</p>{% endif %}<time class="gd-story-meta" datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></article>
       {% endif %}
     {% endfor %}
   </div>
@@ -504,22 +504,13 @@ document.addEventListener('click', function(e) {
   (function () {
     const timestamps = Array.from(document.querySelectorAll('[data-relative-time][datetime]'));
     const absoluteDate = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
-    const dhakaDay = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' });
-    function dayNumber(date) {
-      const parts = Object.fromEntries(dhakaDay.formatToParts(date).map(part => [part.type, part.value]));
-      return Math.floor(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)) / 86400000);
-    }
     function refreshStoryTimes() {
       const now = Date.now();
       timestamps.forEach(function (element) {
         const publishedDate = new Date(element.dateTime);
         const published = publishedDate.getTime();
         if (!Number.isFinite(published)) return;
-        if (publishedDate.getUTCHours() === 0 && publishedDate.getUTCMinutes() === 0 && publishedDate.getUTCSeconds() === 0 && publishedDate.getUTCMilliseconds() === 0) {
-          const ageInDays = dayNumber(new Date(now)) - dayNumber(publishedDate);
-          if (ageInDays === 0) { element.textContent = 'Today'; return; }
-          if (ageInDays === 1) { element.textContent = 'Yesterday'; return; }
-          if (ageInDays > 1 && ageInDays < 7) { element.textContent = ageInDays + ' days ago'; return; }
+        if (element.dataset.dateOnly === 'true') {
           element.textContent = absoluteDate.format(publishedDate);
           return;
         }

@@ -31,7 +31,7 @@ eleventyExcludeFromCollections: true
           {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder gd-category-image-placeholder" data-label="{{ categoryTitle | upper }}" aria-hidden="true"></span>{% endif %}
         </div>
         <div class="gd-news-card__body">
-          <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></span><h3>{{ post.data.title }}</h3>
+          <span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span><h3>{{ post.data.title }}</h3>
           <p>{{ post.data.description }}</p>
           
         </div>

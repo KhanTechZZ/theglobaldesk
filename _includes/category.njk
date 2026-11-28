@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/homepage.css?v=20261128-profile-photo-time-v2">
+  <link rel="stylesheet" href="/homepage.css?v=20261128-publish-time-profile-byline-v3">
   <style>
     .gd-article-page{padding-top:2rem;padding-bottom:4rem;max-width:900px}
     .gd-article-breadcrumb{font-family:'Inter',sans-serif;font-size:1rem;line-height:1.5;color:#64748b;margin:0 0 1.6rem}
@@ -179,22 +179,13 @@
     (function () {
       const items = document.querySelectorAll('[data-relative-time][datetime]');
       const dateFormat = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
-      const dhakaDay = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' });
-      function dayNumber(date) {
-        const parts = Object.fromEntries(dhakaDay.formatToParts(date).map(part => [part.type, part.value]));
-        return Math.floor(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)) / 86400000);
-      }
       function updateTimes() {
         const now = Date.now();
         items.forEach(function (item) {
           const publishedDate = new Date(item.dateTime);
           const published = publishedDate.getTime();
           if (!Number.isFinite(published)) return;
-          if (publishedDate.getUTCHours() === 0 && publishedDate.getUTCMinutes() === 0 && publishedDate.getUTCSeconds() === 0 && publishedDate.getUTCMilliseconds() === 0) {
-            const ageInDays = dayNumber(new Date(now)) - dayNumber(publishedDate);
-            if (ageInDays === 0) { item.textContent = 'Today'; return; }
-            if (ageInDays === 1) { item.textContent = 'Yesterday'; return; }
-            if (ageInDays > 1 && ageInDays < 7) { item.textContent = ageInDays + ' days ago'; return; }
+          if (item.dataset.dateOnly === 'true') {
             item.textContent = dateFormat.format(publishedDate);
             return;
           }

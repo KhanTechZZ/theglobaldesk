@@ -1,6 +1,8 @@
 ---
 title: "Concrete Can’t Cool a Warming Neighborhood"
 date: 2026-11-28
+publishedAt: "2026-11-28T09:43:38.000Z"
+dateModified: "2026-11-28T09:43:38.000Z"
 category: "Editorial"
 description: "Unchecked concrete development and shrinking green spaces are turning neighborhoods into dangerous heat traps. Reversing rising temperatures and health risks requires prioritizing trees, cool roofs, and sustainable urban planning over gray infrastructure."
 image: "/images/news/20261128-a8122764.jpg"

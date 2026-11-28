@@ -14,7 +14,7 @@
   { title: "Economy", slug: "economy", category: "Economy" },
   { title: "Politics", slug: "politics", category: "Politics" },
   { title: "Innovation", slug: "innovation", category: "Tech and AI" },
-  { title: "Earth", slug: "earth", category: "Environment" },
+  { title: "Earth", slug: "earth", category: "Earth" },
   { title: "Research", slug: "research", category: "Research" },
   { title: "Featured Voices", slug: "feature-voices", category: "Featured Voices" },
   { title: "Explainers", slug: "explainer", category: "Explainer" },

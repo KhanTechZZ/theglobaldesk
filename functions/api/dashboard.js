@@ -54,10 +54,10 @@ function getField(frontmatter, name) {
 }
 
 const ARTICLE_CATEGORIES = new Set([
-  "World", "Asia", "Europe", "Middle East", "Africa", "Americas", "Asia-Pacific",
+  "World", "Asia", "Europe", "Middle East", "Africa", "Americas", "Asia-Pacific", "Earth",
   "United Nations", "Global Conflicts", "Environment", "Global Health", "Diplomacy",
   "Economy", "Politics", "Tech and AI", "Research", "Featured Voices", "Explainer",
-  "Editorial", "Perspectives", "Human Rights", "Science"
+  "Editorial", "Perspectives"
 ]);
 
 const ARTICLE_FORMATS = new Set(["", "why-it-matters", "1-minute"]);
@@ -331,12 +331,16 @@ export async function onRequestPost({ request, env }) {
     const description = String(input.description || "").trim();
     const image = safeImage(input.image);
     const imageAlt = String(input.imageAlt || "").trim();
+    const imageCaption = String(input.imageCaption || "").trim();
+    const profileName = String(input.profileName || "").trim();
+    const profileTitle = String(input.profileTitle || "").trim();
+    const profileImage = safeImage(input.profileImage);
     const author = String(input.author || "The Global Desk").trim();
     const body = String(input.body || "").trim();
     const format = String(input.format || "").trim();
     const justIn = input.justIn === true;
     const published = input.published === true;
-    if (!title || title.length > 180 || !ARTICLE_CATEGORIES.has(category) || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !description || description.length > 360 || image === null || imageAlt.length > 180 || author.length > 100 || body.length < 20 || body.length > 100000 || !ARTICLE_FORMATS.has(format) || (format && category !== "Explainer")) {
+    if (!title || title.length > 180 || !ARTICLE_CATEGORIES.has(category) || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !description || description.length > 360 || image === null || imageAlt.length > 180 || imageCaption.length > 240 || profileName.length > 100 || profileTitle.length > 120 || profileImage === null || author.length > 100 || body.length < 20 || body.length > 100000 || !ARTICLE_FORMATS.has(format) || (format && category !== "Explainer")) {
       return json({ error: "Please check the title, category, date, summary, image URL, author, and article text." }, 400);
     }
 
@@ -351,7 +355,11 @@ export async function onRequestPost({ request, env }) {
       `description: ${JSON.stringify(description)}`,
       `image: ${JSON.stringify(image)}`,
       `imageAlt: ${JSON.stringify(imageAlt || title)}`,
+      `imageCaption: ${JSON.stringify(imageCaption)}`,
       `author: ${JSON.stringify(author)}`,
+      `profileName: ${JSON.stringify(profileName)}`,
+      `profileTitle: ${JSON.stringify(profileTitle)}`,
+      `profileImage: ${JSON.stringify(profileImage)}`,
       `published: ${published ? "true" : "false"}`,
       `justIn: ${justIn ? "true" : "false"}`,
       ...(format ? [`format: ${JSON.stringify(format)}`] : []),
@@ -407,5 +415,38 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: true, path, sha: saved.content?.sha || "", published, message: "Article saved and queued for publishing." });
   } catch (error) {
     return json({ error: "Could not save article", details: error.message }, 500);
+  }
+}
+
+export async function onRequestDelete({ request, env }) {
+  if (!(await isAdmin(request, env))) return json({ error: "Unauthorized" }, 401);
+  if (!sameOrigin(request)) return json({ error: "Request origin could not be verified" }, 403);
+
+  try {
+    const input = await request.json();
+    const path = typeof input.path === "string" ? input.path : "";
+    if (/^draft:[A-Za-z0-9-]{8,80}$/.test(path)) {
+      if (!env.DB) return json({ error: "D1 binding DB is missing" }, 500);
+      await ensureDraftStore(env);
+      const id = path.slice(6);
+      const result = await env.DB.prepare("DELETE FROM cms_drafts WHERE id = ?").bind(id).run();
+      if (!result.meta?.changes) return json({ error: "Draft not found" }, 404);
+      return json({ ok: true, message: "Draft deleted." });
+    }
+
+    if (!isArticlePath(path)) return json({ error: "Invalid article path" }, 400);
+    if (!input.sha || typeof input.sha !== "string" || input.sha.length > 80) return json({ error: "Article version is missing. Reload and try again." }, 409);
+    if (!env.GITHUB_TOKEN) return json({ error: "GITHUB_TOKEN is missing" }, 500);
+    const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+    const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
+      method: "DELETE",
+      headers: { ...githubHeaders(env), "Content-Type": "application/json" },
+      body: JSON.stringify({ message: `Delete article: ${String(input.title || "Untitled").slice(0, 180)}`, sha: input.sha, branch: BRANCH })
+    });
+    if (response.status === 404 || response.status === 409) return json({ error: "Article changed or is already deleted. Refresh the newsroom and try again." }, 409);
+    if (!response.ok) return json({ error: "GitHub could not delete this article." }, 502);
+    return json({ ok: true, message: "Article deleted from the newsroom." });
+  } catch (error) {
+    return json({ error: "Could not delete article", details: error.message }, 500);
   }
 }

@@ -34,7 +34,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/homepage.css?v=20261126-category-grid-consistency">
+  <link rel="stylesheet" href="/homepage.css?v=20261128-profile-author-card-v1">
 </head>
 <body>
 
@@ -48,12 +48,16 @@
         {% if category %}<span class="category-label">{{ category | upper }}</span>{% endif %}
         <h1 class="article-title">{{ title }}</h1>
         <div class="article-meta">
-            <span class="author-byline"><i class="fa-regular fa-user"></i> By <strong>The Global Desk</strong></span>
+            <span class="author-byline"><i class="fa-regular fa-user"></i> By <strong>{{ author or 'The Global Desk' }}</strong>{% if profileTitle %}<small class="author-role"> · {{ profileTitle }}</small>{% endif %}</span>
             <span class="meta-divider">|</span>
             <span class="time-ago" data-published="{{ date | isoDate }}">{{ date | readableDate }}</span>
             <span class="meta-divider">|</span>
             <span id="readingTime">2 min read</span>
         </div>
+
+        {% if profileName or profileImage %}
+        <aside class="gd-article-author-profile"><img src="{{ profileImage or '/favicon.png' }}" alt="{{ profileName or author or 'The Global Desk' }}" loading="lazy"><div><strong>{{ profileName or author or 'The Global Desk' }}</strong>{% if profileTitle %}<small>{{ profileTitle }}</small>{% endif %}</div></aside>
+        {% endif %}
 
         <div class="share-buttons">
             <span class="share-label">Share:</span>
@@ -64,7 +68,7 @@
         </div>
 
         {% if image %}
-        <img src="{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}/{{ image }}{% else %}{{ image }}{% endif %}" alt="{{ title }}" class="article-image">
+        <figure class="article-hero"><img src="{% if image[0] !== '/' and image.slice(0, 4) !== 'http' %}/{{ image }}{% else %}{{ image }}{% endif %}" alt="{{ imageAlt or title }}" class="article-image">{% if imageCaption %}<figcaption>{{ imageCaption }}</figcaption>{% endif %}</figure>
         {% endif %}
 
         <div class="article-body">{{ content | safe }}</div>

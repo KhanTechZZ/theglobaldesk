@@ -60,6 +60,15 @@ export async function onRequest(context) {
   target.pathname = "/admin/";
 
   const assetResponse = await env.ASSETS.fetch(new Request(target.toString(), request));
-
-  return assetResponse;
+  const headers = new Headers(assetResponse.headers);
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("X-Frame-Options", "DENY");
+  headers.set("Referrer-Policy", "same-origin");
+  return new Response(assetResponse.body, {
+    status: assetResponse.status,
+    statusText: assetResponse.statusText,
+    headers
+  });
 }

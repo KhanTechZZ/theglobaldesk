@@ -77,7 +77,9 @@ body.auth-view header{display:none}body.auth-view{background:#edf0f4}
 .eye-toggle svg{width:18px;height:18px}
 .login-form-panel #loginButton{height:43px;border-radius:5px;background:#a6253b;font-size:12px}
 #loginMessage{min-height:18px;margin:9px 0 0;font-size:11px}
+.editor-top-actions{display:flex;align-items:center;gap:6px}
 @media(max-width:720px){ #login{width:calc(100% - 24px);margin:12px auto;grid-template-columns:1fr}.login-story{padding:22px 24px!important}.login-logo-wrap{width:min(100%,250px);margin-bottom:18px}.login-story h2{font-size:26px;margin:8px 0 5px}.login-form-panel{padding:25px!important}}
+.profile-fields[hidden]{display:none!important}.profile-fields{display:grid;gap:7px;padding:9px;border:1px solid #e5e8ec;border-radius:5px;background:#fafbfc}.profile-fields-heading{display:grid;gap:1px;font-size:11px}.profile-fields>label{display:grid;gap:4px;font-size:11px!important}.profile-fields input[type=file]{width:100%;font-size:10px;padding:5px}.meta-pair{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.meta-pair label{min-width:0}.meta-pair input{width:100%;min-width:0;font-size:11px!important}.delete-btn{margin-left:5px;background:#fff!important;color:#9c2939!important;border:1px solid #e4c7cc!important}.editor-message{display:none;margin:0;padding:8px 10px;border-top:1px solid #e9edf0;font-size:11px}.editor-message:not(:empty){display:block}.editor-message.is-success{background:#edf8f0;color:#176a39}.editor-message.is-pending{background:#f6f8fa;color:#536477}.editor-message.is-error{background:#fff1f0;color:#a62435}.homepage-preview-profile{display:flex;align-items:center;gap:6px;padding:5px 0 0}.homepage-preview-profile img{width:27px;height:27px;object-fit:cover;border-radius:50%;border:1px solid #ead8a4}.homepage-preview-profile span{display:grid;gap:1px}.homepage-preview-profile strong{font-size:9px;color:#263c52}.homepage-preview-profile small{font-size:8px;color:#768393}.homepage-card-preview.is-voice .homepage-card-image{width:78px;height:78px;min-height:0;margin:10px auto 0;border-radius:50%;border:3px solid #f1e4c3}.homepage-card-preview.is-voice #homepagePreviewProfileImage{display:none}.homepage-card-preview.is-voice .homepage-card-copy{text-align:center}.homepage-card-preview.is-voice .homepage-card-copy>p{display:none}.homepage-card-preview.is-voice .homepage-preview-profile{justify-content:center}.homepage-card-preview.is-voice .homepage-card-meta{text-align:left}
 </style>
 </head>
 <body class="auth-view">
@@ -109,23 +111,23 @@ body.auth-view header{display:none}body.auth-view{background:#edf0f4}
   <section class="dashboard-top"><div><div class="overline">NEWSROOM <span>/</span> OVERVIEW</div><h1>Editorial desk</h1><p class="muted">Publishing activity and latest stories in one place.</p></div><div class="dashboard-actions"><button class="cms-btn new-story" id="newArticle"><span>＋</span> New story</button><button class="icon-action" id="refreshTop" aria-label="Refresh newsroom" title="Refresh newsroom">↻</button></div></section>
 
   <section class="panel" id="editorPanel" hidden>
-    <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Drafts stay private. Published stories appear on the site after the newsroom build.</p></div><button type="button" class="cms-btn gray small-btn" id="backToDesk">← Back to desk</button></div>
+    <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Drafts stay private. Published stories appear on the site after the newsroom build.</p></div><div class="editor-top-actions"><button type="button" class="cms-btn small-btn delete-btn" id="deleteCurrentArticle" hidden>Delete story</button><button type="button" class="cms-btn gray small-btn" id="backToDesk">← Back to desk</button></div></div>
     <form id="editor" class="composer-grid">
       <input type="hidden" id="articlePath"><input type="hidden" id="articleSha"><input type="checkbox" id="articlePublished" hidden>
       <section class="composer-meta">
         <label>Headline<input id="articleTitle" maxlength="180" required placeholder="Write a clear, specific headline"><span class="field-foot"><span>Search-friendly headline</span><span id="titleCount">0 / 180</span></span></label>
-        <div class="field-group"><label for="articleCategory">Section</label><div class="quick-categories" aria-label="Quick section choices"><button type="button" data-category="World">World</button><button type="button" data-category="Asia">Asia</button><button type="button" data-category="Europe">Europe</button><button type="button" data-category="Editorial">Editorial</button><button type="button" data-category="Explainer">Explainer</button><button type="button" data-category="Perspectives">Perspectives</button></div><select id="articleCategory" required aria-label="All sections"></select></div>
+        <div class="field-group"><label for="articleCategory">Section</label><div class="quick-categories" aria-label="Quick section choices"><button type="button" data-category="World">World</button><button type="button" data-category="Asia">Asia</button><button type="button" data-category="Europe">Europe</button><button type="button" data-category="Editorial">Editorials</button><button type="button" data-category="Explainer">Explainer</button><button type="button" data-category="Featured Voices">Featured Voices</button><button type="button" data-category="Perspectives">Perspectives</button></div><select id="articleCategory" required aria-label="All sections"></select></div>
         <label id="formatWrap" hidden>Explainer format<select id="articleFormat"><option value="">Standard explainer</option><option value="why-it-matters">Why It Matters</option><option value="1-minute">1-minute explainer</option></select></label>
         <div class="meta-pair"><label>Publish date<input id="articleDate" type="date" required></label><label>Byline<input id="articleAuthor" value="The Global Desk" maxlength="100"></label></div>
         <label>Summary <span class="help">Shown on the homepage and in search results.</span><textarea id="articleDescription" rows="3" maxlength="360" required placeholder="Summarise the key development in 1–2 sentences."></textarea><span class="field-foot"><span>Keep it concise</span><span id="summaryCount">0 / 360</span></span></label>
-        <div class="field-group"><label>Cover image</label><input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp"><input id="articleImage" type="text" placeholder="Optional image URL" aria-label="Image path or URL"><p class="help">Choose from desktop or phone. Preview appears as soon as you select it.</p><label class="alt-label">Image description<input id="articleImageAlt" maxlength="180" placeholder="Describe the image"></label></div>
+        <div class="field-group"><label>Cover image</label><input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp"><input id="articleImage" type="text" placeholder="Optional image URL" aria-label="Image path or URL"><p class="help">Choose from desktop or phone. Preview appears as soon as you select it.</p><label class="alt-label">Image alt text<input id="articleImageAlt" maxlength="180" placeholder="Describe the image for screen readers"></label><label class="alt-label">Photo caption <span class="help">Shown under the image in the story.</span><input id="articleImageCaption" maxlength="240" placeholder="Photo caption or credit"></label></div>
+        <section class="profile-fields" id="profileFields" hidden><div class="profile-fields-heading"><strong id="profileFieldsTitle">Contributor profile</strong><span class="help">Shown with this section’s story.</span></div><label id="profileNameLabel">Name<input id="profileName" maxlength="100" placeholder="Editor or contributor name"></label><label>Position / role<input id="profileTitle" maxlength="120" placeholder="Editor, columnist, correspondent…"></label><label>Profile photo<input id="profileImageFile" type="file" accept="image/jpeg,image/png,image/webp"><input id="profileImage" type="text" placeholder="Choose a photo or add image URL" aria-label="Profile image path or URL"><span class="help">Use a clear headshot; Featured Voices shows it as a circle.</span></label></section>
         <label class="toggle-row"><input type="checkbox" id="articleJustIn"><span><strong>Just In</strong><small>Show this story in the homepage headline ticker.</small></span></label>
       </section>
-      <section class="composer-body" id="editorBody"><div class="body-heading"><strong>Article body</strong><span class="help">Headings · bold · italic · lists · quotes · links</span></div><div id="richEditor"></div><textarea id="articleBody" hidden></textarea><div class="editor-actions"><button type="submit" id="saveDraft" data-publish="false">Save draft</button><button type="submit" id="publishArticle" data-publish="true">Publish now</button><button type="button" class="cms-btn gray" id="cancelEdit">Cancel</button></div></section>
-      <aside class="composer-preview"><div class="preview-rail-title"><span>HOMEPAGE PREVIEW</span><span class="live-dot">● LIVE</span></div><article class="homepage-card-preview"><div class="homepage-card-image" id="homepagePreviewImage"><span>Cover image preview</span></div><div class="homepage-card-copy"><div class="homepage-card-kicker"><span id="homepagePreviewCategory">WORLD</span><span id="homepagePreviewJustIn" hidden>JUST IN</span></div><h3 id="homepagePreviewTitle">Your headline will appear here</h3><p id="homepagePreviewSummary">Your short summary will appear here in the homepage news card.</p><div class="homepage-card-meta" id="homepagePreviewMeta">THE GLOBAL DESK · TODAY</div></div></article><button type="button" class="open-preview-link" id="previewArticle">Open article preview ↗</button><p class="help">Compact preview updates as you write.</p></aside>
+      <section class="composer-body" id="editorBody"><div class="body-heading"><strong>Article body</strong><span class="help">Headings · bold · italic · lists · quotes · links</span></div><div id="richEditor"></div><textarea id="articleBody" hidden></textarea><div class="editor-actions"><button type="submit" id="saveDraft" data-publish="false">Save draft</button><button type="submit" id="publishArticle" data-publish="true">Publish now</button><button type="button" class="cms-btn gray" id="cancelEdit">Cancel</button></div><p id="editorMessage" class="editor-message" role="status" aria-live="polite"></p></section>
+      <aside class="composer-preview"><div class="preview-rail-title"><span>HOMEPAGE PREVIEW</span><span class="live-dot">● LIVE</span></div><article class="homepage-card-preview"><div class="homepage-card-image" id="homepagePreviewImage"><span>Cover image preview</span></div><div class="homepage-card-copy"><div class="homepage-card-kicker"><span id="homepagePreviewCategory">WORLD</span><span id="homepagePreviewJustIn" hidden>JUST IN</span></div><div class="homepage-preview-profile" id="homepagePreviewProfile" hidden><img id="homepagePreviewProfileImage" alt=""><span><strong id="homepagePreviewProfileName"></strong><small id="homepagePreviewProfileTitle"></small></span></div><h3 id="homepagePreviewTitle">Your headline will appear here</h3><p id="homepagePreviewSummary">Your short summary will appear here in the homepage news card.</p><div class="homepage-card-meta" id="homepagePreviewMeta">THE GLOBAL DESK · TODAY</div></div></article><button type="button" class="open-preview-link" id="previewArticle">Open article preview ↗</button></aside>
     </form>
     <dialog id="articlePreviewDialog"><div class="dialog-head"><strong>Article page preview</strong><button type="button" id="closePreview">Close</button></div><iframe class="preview-frame" id="previewFrame" title="Article preview" sandbox=""></iframe></dialog>
-    <p id="editorMessage" class="muted" role="status"></p>
   </section>
 
   <div class="stats">
@@ -200,11 +202,17 @@ body.auth-view header{display:none}body.auth-view{background:#edf0f4}
 const $ = id => document.getElementById(id);
 let articles = [];
 let localCoverPreviewUrl = "";
-const categoryNames = ["World","Asia","Europe","Middle East","Africa","Americas","Asia-Pacific","United Nations","Global Conflicts","Environment","Global Health","Diplomacy","Economy","Politics","Tech and AI","Research","Featured Voices","Explainer","Editorial","Perspectives","Human Rights","Science"];
-for (const name of categoryNames) {
-  const option = document.createElement("option"); option.value = name; option.textContent = name; $("articleCategory").append(option);
-  const filterOption = document.createElement("option"); filterOption.value = name; filterOption.textContent = name; $("categoryFilter").append(filterOption);
+const categoryEntries = [
+  ["World","World"],["Asia","Asia"],["Europe","Europe"],["Middle East","Middle East"],["Africa","Africa"],["Americas","Americas"],["Asia-Pacific","Asia-Pacific"],
+  ["United Nations","United Nations"],["Global Conflicts","Global Conflicts"],["Climate & Environment","Environment"],["Global Health","Global Health"],["Diplomacy","Diplomacy"],
+  ["Explainer","Explainer"],["Editorials","Editorial"],["Perspectives","Perspectives"],["Economy","Economy"],["Politics","Politics"],["Innovation","Tech and AI"],
+  ["Earth","Earth"],["Research","Research"],["Featured Voices","Featured Voices"]
+];
+for (const [label, value] of categoryEntries) {
+  const option = document.createElement("option"); option.value = value; option.textContent = label; $("articleCategory").append(option);
+  const filterOption = document.createElement("option"); filterOption.value = value; filterOption.textContent = label; $("categoryFilter").append(filterOption);
 }
+let localProfilePreviewUrl = "";
 let richEditor = null;
 
 async function uploadImage(file) {
@@ -280,6 +288,12 @@ async function api(url, options = {}) {
   return data;
 }
 
+function setEditorMessage(text, state = "") {
+  const message = $("editorMessage");
+  message.textContent = text;
+  message.className = "editor-message" + (state ? " is-" + state : "");
+}
+
 function showApp() {
   document.body.classList.remove("auth-view");
   $("login").hidden = true;
@@ -306,9 +320,12 @@ function openEditor(article) {
   panel.hidden = false;
   if ($("articlePreviewDialog").open) $("articlePreviewDialog").close();
   $("editorHeading").textContent = article ? "Edit article" : "New article";
-  $("editorMessage").textContent = article ? "Loading article…" : "";
+  $("deleteCurrentArticle").hidden = !article;
+  setEditorMessage(article ? "Loading article…" : "");
   if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl);
+  if (localProfilePreviewUrl) URL.revokeObjectURL(localProfilePreviewUrl);
   localCoverPreviewUrl = "";
+  localProfilePreviewUrl = "";
   $("editor").reset();
   $("articlePath").value = article?.path || "";
   $("articleSha").value = article?.sha || "";
@@ -317,7 +334,8 @@ function openEditor(article) {
   $("articlePublished").checked = !!article?.published;
   $("articleJustIn").checked = !!article?.justIn;
   $("articleFormat").value = ""; $("formatWrap").hidden = true;
-  $("articleImage").value = ""; $("articleImageAlt").value = "";
+  $("articleImage").value = ""; $("articleImageAlt").value = ""; $("articleImageCaption").value = "";
+  $("profileName").value = ""; $("profileTitle").value = ""; $("profileImage").value = "";
   if (richEditor) richEditor.setMarkdown("");
   else $("articleBody").hidden = false;
   if (article) {
@@ -340,16 +358,30 @@ function openEditor(article) {
       $("articleImage").value = field("image");
       $("articleImageAlt").value = field("imageAlt");
       $("articleAuthor").value = field("author") || "The Global Desk";
-      $("articlePublished").checked = field("published").toLowerCase() === "true";
-      $("articleJustIn").checked = field("justIn").toLowerCase() === "true";
+      $("articlePublished").checked = String(field("published")).toLowerCase() === "true";
+      $("articleJustIn").checked = String(field("justIn")).toLowerCase() === "true";
+      $("articleImageCaption").value = field("imageCaption");
+      $("profileName").value = field("profileName");
+      $("profileTitle").value = field("profileTitle");
+      $("profileImage").value = field("profileImage");
       if (richEditor) richEditor.setMarkdown(match[2].trim()); else $("articleBody").value = match[2].trim();
       updateHomepagePreview();
       $("articleSha").value = data.sha;
-      $("editorMessage").textContent = "";
-    }).catch(error => $("editorMessage").textContent = error.message);
+      setEditorMessage("");
+    }).catch(error => setEditorMessage(error.message, "error"));
   }
+  updateProfileFields();
   updateHomepagePreview();
   panel.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function updateProfileFields() {
+  const category = $("articleCategory").value;
+  const editorial = category === "Editorial";
+  const featured = category === "Featured Voices";
+  $("profileFields").hidden = !(editorial || featured);
+  $("profileFieldsTitle").textContent = editorial ? "Editor profile" : "Featured voice profile";
+  $("profileNameLabel").firstChild.textContent = editorial ? "Editor name" : "Contributor name";
 }
 
 function closeEditor() {
@@ -417,7 +449,12 @@ function render() {
     edit.className = "cms-btn small-btn";
     edit.textContent = "Edit";
     edit.onclick = event => { event.preventDefault(); openEditor(a); };
-    manage.append(edit);
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "cms-btn small-btn delete-btn";
+    remove.textContent = "Delete";
+    remove.onclick = () => deleteArticle(a);
+    manage.append(edit, remove);
 
     tr.append(title, date, statusCell, manage);
     $("rows").append(tr);
@@ -428,6 +465,18 @@ function render() {
       `Showing ${filtered.length} of ${articles.length} articles.`;
   }
   renderOverview();
+}
+
+async function deleteArticle(article) {
+  if (!window.confirm(`Delete “${article.title || "Untitled"}”? This removes it from the site and newsroom.`)) return;
+  try {
+    await api("/api/dashboard", {method:"DELETE", body:JSON.stringify({path:article.path, sha:article.sha, title:article.title || "Untitled"})});
+    $("message").textContent = "Article deleted.";
+    await loadArticles();
+    if (!$("editorPanel").hidden) closeEditor();
+  } catch (error) {
+    $("message").textContent = "Could not delete article: " + error.message;
+  }
 }
 
 function renderOverview() {
@@ -533,6 +582,10 @@ $("refresh").onclick = loadArticles;
 $("refreshTop").onclick = loadArticles;
 $("openDrafts").onclick = () => { $("statusFilter").value = "Draft"; render(); document.querySelector(".tablewrap").scrollIntoView({behavior:"smooth",block:"start"}); };
 $("newArticle").onclick = () => openEditor();
+$("deleteCurrentArticle").onclick = () => {
+  const article = articles.find(item => item.path === $("articlePath").value);
+  if (article) deleteArticle(article);
+};
 $("cancelEdit").onclick = closeEditor;
 $("backToDesk").onclick = closeEditor;
 $("editor").onsubmit = async event => {
@@ -540,9 +593,8 @@ $("editor").onsubmit = async event => {
   const buttons = [$("saveDraft"), $("publishArticle")];
   const published = event.submitter?.dataset.publish === "true";
   $("articlePublished").checked = published;
-  const message = $("editorMessage");
   buttons.forEach(button => button.disabled = true);
-  message.textContent = published ? "Publishing story…" : "Saving draft…";
+  setEditorMessage(published ? "Publishing story…" : "Saving draft…", "pending");
   const payload = {
     path: $("articlePath").value,
     sha: $("articleSha").value,
@@ -553,19 +605,23 @@ $("editor").onsubmit = async event => {
     description: $("articleDescription").value,
     image: $("articleImage").value,
     imageAlt: $("articleImageAlt").value,
+    imageCaption: $("articleImageCaption").value,
     body: richEditor ? richEditor.getMarkdown() : $("articleBody").value,
     format: $("articleFormat").value,
+    profileName: $("profileName").value,
+    profileTitle: $("profileTitle").value,
+    profileImage: $("profileImage").value,
     published,
     justIn: $("articleJustIn").checked
   };
   try {
     const result = await api("/api/dashboard", {method:"POST", body:JSON.stringify(payload)});
-    message.textContent = result.message;
+    setEditorMessage(published ? "✓ Published and sent to the site build." : "✓ Draft saved privately.", "success");
     if (result.path) $("articlePath").value = result.path;
     if (result.sha) $("articleSha").value = result.sha;
     await loadArticles();
   } catch (error) {
-    message.textContent = error.message;
+    setEditorMessage(error.message, "error");
   } finally {
     buttons.forEach(button => button.disabled = false);
   }
@@ -583,25 +639,38 @@ $("togglePassword").onclick = () => {
   $("togglePassword").setAttribute("aria-label", visible ? "Hide password" : "Show password");
   $("togglePassword").title = visible ? "Hide password" : "Show password";
 };
-$("articleCategory").onchange = () => { $("formatWrap").hidden = $("articleCategory").value !== "Explainer"; if ($("formatWrap").hidden) $("articleFormat").value = ""; document.querySelectorAll("[data-category]").forEach(button => button.classList.toggle("active", button.dataset.category === $("articleCategory").value)); updateHomepagePreview(); };
+$("articleCategory").onchange = () => { $("formatWrap").hidden = $("articleCategory").value !== "Explainer"; if ($("formatWrap").hidden) $("articleFormat").value = ""; document.querySelectorAll("[data-category]").forEach(button => button.classList.toggle("active", button.dataset.category === $("articleCategory").value)); updateProfileFields(); updateHomepagePreview(); };
 document.querySelectorAll("[data-category]").forEach(button => button.onclick = () => { $("articleCategory").value = button.dataset.category; $("articleCategory").dispatchEvent(new Event("change")); });
 function updateHomepagePreview() {
   const title = $("articleTitle").value.trim(), category = $("articleCategory").value || "World";
   document.querySelectorAll("[data-category]").forEach(button => button.classList.toggle("active", button.dataset.category === category));
   const summary = $("articleDescription").value.trim(), image = localCoverPreviewUrl || $("articleImage").value.trim();
+  const isFeatured = category === "Featured Voices";
+  const profileImage = localProfilePreviewUrl || $("profileImage").value.trim();
+  const previewImage = isFeatured ? (profileImage || image) : image;
+  const profileName = $("profileName").value.trim();
+  const profileTitle = $("profileTitle").value.trim();
   $("homepagePreviewTitle").textContent = title || "Your headline will appear here";
   $("homepagePreviewCategory").textContent = category.toUpperCase();
   $("homepagePreviewSummary").textContent = summary || "Your short summary will appear here in the homepage news card.";
   $("homepagePreviewMeta").textContent = ($("articleAuthor").value.trim() || "THE GLOBAL DESK") + " · " + ($("articleDate").value || "TODAY");
   $("homepagePreviewJustIn").hidden = !$("articleJustIn").checked;
+  $("homepagePreviewProfile").hidden = !(profileName || profileImage || profileTitle) || !(category === "Editorial" || isFeatured);
+  $("homepagePreviewProfileName").textContent = profileName;
+  $("homepagePreviewProfileTitle").textContent = profileTitle;
+  $("homepagePreviewProfileImage").src = profileImage || "/favicon.png";
+  $("homepagePreviewProfileImage").alt = profileName ? `Photo of ${profileName}` : "";
   const imageBox = $("homepagePreviewImage");
-  imageBox.style.backgroundImage = image ? 'url("' + image.replace(/["\\]/g, "\\$&") + '")' : "";
-  imageBox.firstElementChild.hidden = !!image;
+  document.querySelector(".homepage-card-preview").classList.toggle("is-voice", isFeatured);
+  imageBox.style.backgroundImage = previewImage ? 'url("' + previewImage.replace(/["\\]/g, "\\$&") + '")' : "";
+  imageBox.firstElementChild.hidden = !!previewImage;
   $("titleCount").textContent = $("articleTitle").value.length + " / 180";
   $("summaryCount").textContent = $("articleDescription").value.length + " / 360";
 }
 $("articleImage").oninput = () => { if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl); localCoverPreviewUrl = ""; updateHomepagePreview(); };
-for (const id of ["articleTitle", "articleDescription", "articleAuthor", "articleDate"]) $(id).addEventListener("input", updateHomepagePreview);
+$("articleImageCaption").addEventListener("input", updateHomepagePreview);
+$("profileImage").oninput = () => { if (localProfilePreviewUrl) URL.revokeObjectURL(localProfilePreviewUrl); localProfilePreviewUrl = ""; updateHomepagePreview(); };
+for (const id of ["articleTitle", "articleDescription", "articleAuthor", "articleDate", "profileName", "profileTitle"]) $(id).addEventListener("input", updateHomepagePreview);
 $("articleJustIn").onchange = updateHomepagePreview;
 function escapePreview(value) { return String(value || "").replace(/[&<>\"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[ch])); }
 $("previewArticle").onclick = () => {
@@ -611,8 +680,9 @@ $("previewArticle").onclick = () => {
   const summary = $("articleDescription").value.trim();
   const image = localCoverPreviewUrl || $("articleImage").value.trim();
   const body = richEditor ? richEditor.getHTML() : `<p>${escapePreview($("articleBody").value).replace(/\n/g,"<br>")}</p>`;
-  const content = `<main><div class="meta">${escapePreview(category)}${date ? ` · ${escapePreview(date)}` : ""}</div><h1>${escapePreview(title)}</h1>${summary ? `<p class="summary">${escapePreview(summary)}</p>` : ""}${image ? `<figure><img src="${escapePreview(image)}" alt="${escapePreview($("articleImageAlt").value || title)}"></figure>` : ""}<article>${body}</article></main>`;
-  $("previewFrame").srcdoc = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{margin:0;color:#172434;background:#fff;font:17px/1.7 Georgia,serif}main{max-width:780px;margin:0 auto;padding:28px 22px}.meta{font:700 11px/1.4 Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#8d263b}h1{font:700 clamp(28px,5vw,42px)/1.12 Georgia,serif;letter-spacing:-.5px;margin:11px 0}.summary{font-size:20px;line-height:1.45;color:#566272;margin:12px 0 20px}figure{margin:20px 0}figure img{width:100%;max-height:440px;object-fit:cover}article p{margin:0 0 1.25em}article h2{font:700 25px/1.3 Georgia,serif;margin:1.5em 0 .4em}article img{max-width:100%;height:auto}blockquote{border-left:3px solid #8d263b;margin:1.3em 0;padding:.3em 1em;color:#596575}</style></head><body>${content}</body></html>`;
+  const caption = $("articleImageCaption").value.trim();
+  const content = `<main><div class="meta">${escapePreview(category)}${date ? ` · ${escapePreview(date)}` : ""}</div><h1>${escapePreview(title)}</h1>${summary ? `<p class="summary">${escapePreview(summary)}</p>` : ""}${image ? `<figure><img src="${escapePreview(image)}" alt="${escapePreview($("articleImageAlt").value || title)}">${caption ? `<figcaption>${escapePreview(caption)}</figcaption>` : ""}</figure>` : ""}<article>${body}</article></main>`;
+  $("previewFrame").srcdoc = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{margin:0;color:#172434;background:#fff;font:17px/1.7 Georgia,serif}main{max-width:780px;margin:0 auto;padding:28px 22px}.meta{font:700 11px/1.4 Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#8d263b}h1{font:700 clamp(28px,5vw,42px)/1.12 Georgia,serif;letter-spacing:-.5px;margin:11px 0}.summary{font-size:20px;line-height:1.45;color:#566272;margin:12px 0 20px}figure{margin:20px 0}figure img{width:100%;max-height:440px;object-fit:cover}figcaption{margin-top:6px;color:#677482;font:12px/1.45 Arial,sans-serif}article p{margin:0 0 1.25em}article h2{font:700 25px/1.3 Georgia,serif;margin:1.5em 0 .4em}article img{max-width:100%;height:auto}blockquote{border-left:3px solid #8d263b;margin:1.3em 0;padding:.3em 1em;color:#596575}</style></head><body>${content}</body></html>`;
   $("articlePreviewDialog").showModal();
 };
 $("closePreview").onclick = () => { $("articlePreviewDialog").close(); $("previewFrame").srcdoc = ""; };
@@ -621,9 +691,18 @@ $("imageFile").onchange = async () => {
   if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl);
   localCoverPreviewUrl = URL.createObjectURL(file);
   updateHomepagePreview();
-  $("editorMessage").textContent = "Uploading image…";
-  try { const data = await uploadImage(file); $("articleImage").value = data.path; updateHomepagePreview(); $("editorMessage").textContent = "Image uploaded and ready."; }
-  catch (e) { $("editorMessage").textContent = e.message; }
+  setEditorMessage("Uploading image…", "pending");
+  try { const data = await uploadImage(file); $("articleImage").value = data.path; updateHomepagePreview(); setEditorMessage("Image uploaded and ready.", "success"); }
+  catch (e) { setEditorMessage(e.message, "error"); }
+};
+$("profileImageFile").onchange = async () => {
+  const file = $("profileImageFile").files?.[0]; if (!file) return;
+  if (localProfilePreviewUrl) URL.revokeObjectURL(localProfilePreviewUrl);
+  localProfilePreviewUrl = URL.createObjectURL(file);
+  updateHomepagePreview();
+  setEditorMessage("Uploading profile photo…", "pending");
+  try { const data = await uploadImage(file); $("profileImage").value = data.path; updateHomepagePreview(); setEditorMessage("Profile photo uploaded.", "success"); }
+  catch (e) { setEditorMessage(e.message, "error"); }
 };
 
 // Check whether an existing admin session is valid.

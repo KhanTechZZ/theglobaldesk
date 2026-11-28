@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Franklin:wght@500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800;8..60,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="homepage.css?v=20261128-explainer-force-v15">
+  <link rel="stylesheet" href="homepage.css?v=20261128-profile-author-card-v1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -278,7 +278,7 @@
       {% set editorial = collections.editorialNews[0] %}
       <article class="gd-opinion-feature">
         <a class="gd-opinion-feature__image" href="{{ editorial.url }}" aria-label="Read the editorial: {{ editorial.data.title }}">{% if editorial.data.image %}<img src="{{ editorial.data.image }}" alt="{{ editorial.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</a>
-        <div class="gd-opinion-feature__body"><span class="gd-opinion-feature__label">Editorial</span><div class="gd-editor-profile"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=120&amp;h=120&amp;q=85" alt="Editorial board representative" loading="lazy"><div class="gd-editor-profile__info"><strong>Global Desk Editorial Board</strong><small>Editorial team</small></div></div><span class="gd-story-meta">{{ editorial.data.category }} | <time datetime="{{ editorial.date | isoDate }}" data-relative-time>{{ editorial.date | relativeDate }}</time></span><h3><a href="{{ editorial.url }}">{{ editorial.data.title }}</a></h3></div>
+        <div class="gd-opinion-feature__body"><span class="gd-opinion-feature__label">Editorial</span><div class="gd-editor-profile"><img src="{{ editorial.data.profileImage or '/favicon.png' }}" alt="{{ editorial.data.profileName or 'Global Desk Editorial Board' }}" loading="lazy"><div class="gd-editor-profile__info"><strong>{{ editorial.data.profileName or 'Global Desk Editorial Board' }}</strong><small>{{ editorial.data.profileTitle or 'Editorial team' }}</small></div></div><span class="gd-story-meta">{{ editorial.data.category }} | <time datetime="{{ editorial.date | isoDate }}" data-relative-time>{{ editorial.date | relativeDate }}</time></span><h3><a href="{{ editorial.url }}">{{ editorial.data.title }}</a></h3></div>
         <p class="gd-opinion-feature__caption">{{ editorial.data.description }}</p>
       </article>
       {% endif %}
@@ -305,9 +305,9 @@
   <div class="gd-voices-grid gd-generation-grid">
     {% for post in collections.featuredVoices | take(3) %}
       {% if loop.index0 == 0 %}
-      <article class="gd-voice-feature"><a href="{{ post.url }}">{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a><time class="gd-story-meta" datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time>
+      <article class="gd-voice-feature"><a href="{{ post.url }}">{% if post.data.profileImage or post.data.image %}<img src="{{ post.data.profileImage or post.data.image }}" alt="{{ post.data.profileName or post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a>{% if post.data.profileName or post.data.profileTitle %}<p class="gd-voice-byline"><strong>{{ post.data.profileName }}</strong>{% if post.data.profileTitle %}<small>{{ post.data.profileTitle }}</small>{% endif %}</p>{% endif %}<time class="gd-story-meta" datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></article>
       {% else %}
-      <article class="gd-voice-story"><a href="{{ post.url }}">{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a><time class="gd-story-meta" datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></article>
+      <article class="gd-voice-story"><a href="{{ post.url }}">{% if post.data.profileImage or post.data.image %}<img src="{{ post.data.profileImage or post.data.image }}" alt="{{ post.data.profileName or post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<h3>{{ post.data.title }}</h3></a>{% if post.data.profileName or post.data.profileTitle %}<p class="gd-voice-byline"><strong>{{ post.data.profileName }}</strong>{% if post.data.profileTitle %}<small>{{ post.data.profileTitle }}</small>{% endif %}</p>{% endif %}<time class="gd-story-meta" datetime="{{ post.date | isoDate }}" data-relative-time>{{ post.date | relativeDate }}</time></article>
       {% endif %}
     {% endfor %}
   </div>

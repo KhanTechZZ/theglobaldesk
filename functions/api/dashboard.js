@@ -129,7 +129,7 @@ async function ensureDraftStore(env) {
 function draftSummary(row) {
   const frontmatter = (String(row.content).match(/^---\s*\r?\n([\s\S]*?)\r?\n---/) || ["", ""])[1];
   const title = getField(frontmatter, "title") || "Untitled draft";
-  return { path: `draft:${row.id}`, sha: "", slug: `draft-${row.id}`, title, date: getField(frontmatter, "date"), category: getField(frontmatter, "category"), published: false, status: "Draft", views: 0 };
+  return { path: `draft:${row.id}`, sha: "", slug: `draft-${row.id}`, title, date: getField(frontmatter, "date"), category: getField(frontmatter, "category"), justIn: getField(frontmatter, "justIn").toLowerCase() === "true", published: false, status: "Draft", views: 0 };
 }
 
 export async function onRequestGet({ request, env }) {
@@ -243,6 +243,7 @@ export async function onRequestGet({ request, env }) {
           title,
           date,
           category: getField(frontmatter, "category"),
+          justIn: getField(frontmatter, "justIn").toLowerCase() === "true",
           published,
           status: published ? "Published" : "Draft"
         };
@@ -329,11 +330,13 @@ export async function onRequestPost({ request, env }) {
     const date = String(input.date || "").trim();
     const description = String(input.description || "").trim();
     const image = safeImage(input.image);
+    const imageAlt = String(input.imageAlt || "").trim();
     const author = String(input.author || "The Global Desk").trim();
     const body = String(input.body || "").trim();
     const format = String(input.format || "").trim();
+    const justIn = input.justIn === true;
     const published = input.published === true;
-    if (!title || title.length > 180 || !ARTICLE_CATEGORIES.has(category) || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !description || description.length > 360 || image === null || author.length > 100 || body.length < 20 || body.length > 100000 || !ARTICLE_FORMATS.has(format) || (format && category !== "Explainer")) {
+    if (!title || title.length > 180 || !ARTICLE_CATEGORIES.has(category) || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !description || description.length > 360 || image === null || imageAlt.length > 180 || author.length > 100 || body.length < 20 || body.length > 100000 || !ARTICLE_FORMATS.has(format) || (format && category !== "Explainer")) {
       return json({ error: "Please check the title, category, date, summary, image URL, author, and article text." }, 400);
     }
 
@@ -347,8 +350,10 @@ export async function onRequestPost({ request, env }) {
       `category: ${JSON.stringify(category)}`,
       `description: ${JSON.stringify(description)}`,
       `image: ${JSON.stringify(image)}`,
+      `imageAlt: ${JSON.stringify(imageAlt || title)}`,
       `author: ${JSON.stringify(author)}`,
       `published: ${published ? "true" : "false"}`,
+      `justIn: ${justIn ? "true" : "false"}`,
       ...(format ? [`format: ${JSON.stringify(format)}`] : []),
       "layout: article.njk"
     ].join("\n");

@@ -213,6 +213,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("headlineNews", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")
       .filter(item => item.data.published === true &&
+        item.data.justIn === true &&
         item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" &&
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug) &&

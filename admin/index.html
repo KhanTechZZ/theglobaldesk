@@ -15,7 +15,26 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#172434;font:14px/1.45 Inter,Arial,sans-serif}header{height:58px;background:#102238;color:#fff;padding:0 max(20px,calc((100vw - 1240px)/2));display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #26394d}header strong{font-size:17px;letter-spacing:-.2px}header strong span{color:#e6bd67}main{max-width:1240px;margin:25px auto;padding:0 22px}h1{font-size:26px;margin:0 0 3px;letter-spacing:-.5px}h2{font-size:18px;margin:0 0 4px}button,input,select,textarea{font:inherit;border-radius:6px;border:1px solid #d7dde5;padding:8px 10px;color:#172434;background:#fff}button{cursor:pointer;background:#102b48;color:white;border:0;font-weight:650}button:disabled{opacity:.5;cursor:not-allowed}button:hover{filter:brightness(1.1)}.muted{color:#718095;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.card,.panel,#login{background:#fff;border:1px solid #e0e5eb;border-radius:8px;padding:14px;box-shadow:0 1px 3px #172b4408}.stat{font-size:23px;font-weight:750;margin-top:2px}.toolbar,.cms-actions{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.toolbar input,.toolbar select{flex:1;min-width:140px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #e9edf2}th{background:#f7f8fa;color:#5c6979;font-size:11px;text-transform:uppercase;letter-spacing:.05em}.status{padding:4px 8px;border-radius:12px;background:#eef2f7;font-size:11px}.status.published{background:#dcfae6;color:#067647}.status.draft{background:#f2f4f7;color:#344054}#message{margin:10px 0;color:#475467;overflow-wrap:anywhere}#login{max-width:390px;margin:70px auto;padding:26px}#login input{width:100%;margin:8px 0}#login form>button{width:100%;font-size:13px;padding:10px}.password-wrap{display:flex;align-items:stretch;position:relative;margin:10px 0 12px}.password-wrap input{margin:0!important;padding-right:44px!important}.eye-toggle{position:absolute;right:4px;top:4px;width:34px;height:34px;padding:7px;background:transparent;color:#526176;border-radius:5px}.eye-toggle:hover{background:#eef2f6}.eye-toggle svg{width:19px;height:19px;display:block}.cms-btn{display:inline-block;background:#102b48;color:white;padding:8px 12px;border-radius:6px;font-weight:700}.cms-btn:hover{opacity:.9;text-decoration:none}.cms-btn.gray{background:#64748b}.small-btn{padding:6px 10px;font-size:12px}#editorPanel{margin:14px 0}#editor{margin:14px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#editor[hidden]{display:none}#editor label{display:grid;gap:4px;color:#344054;font-weight:650;font-size:13px}#editor .wide{grid-column:1/-1}#editor .editor-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}#articleDescription{resize:vertical}.image-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.image-row input[type=text]{flex:1;min-width:180px}.image-preview{width:156px;height:88px;object-fit:cover;border-radius:5px;background:#eef2f6;border:1px solid #dce2e9}.help{font-size:11px;color:#738096;font-weight:400}.toolbar button{white-space:nowrap}#editorBody{grid-column:1/-1}#editorBody .toastui-editor-defaultUI{border-radius:6px;overflow:hidden}#editorBody .toastui-editor-toolbar{padding:4px 7px}#editorBody .toastui-editor-ww-container{min-height:280px}#editorBody .toastui-editor-md-container{min-height:280px}.editor-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.preview-box{border:1px solid #dfe4eb;border-radius:7px;overflow:hidden;background:#fff;margin:10px 0}.preview-head{padding:10px 13px;border-bottom:1px solid #e5e9ef;background:#f7f8fa;font-weight:700}.preview-content{padding:16px;max-height:680px;overflow:auto}.preview-content h1{font:700 28px/1.18 Georgia,serif;margin:8px 0}.preview-content .preview-meta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#7b2637;font-weight:700}.preview-content .preview-summary{font:17px/1.5 Georgia,serif;color:#4c5967;margin:8px 0 16px}.preview-content img{max-width:100%;height:auto}.preview-content .preview-story{max-width:760px;margin:auto;font:17px/1.7 Georgia,serif}.preview-content .preview-story h2{font:700 22px/1.3 Georgia,serif;margin:22px 0 8px}.preview-frame{width:100%;height:580px;border:0;display:block}.mobile-article{display:none}@media(max-width:720px){header{height:54px;padding:0 13px}main{margin:18px auto;padding:0 12px}h1{font-size:22px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.card{padding:10px}.stat{font-size:21px}#editor{grid-template-columns:1fr;gap:9px}#editor .wide,#editorBody{grid-column:auto}th,td{padding:9px 7px}#editorBody .toastui-editor-ww-container,#editorBody .toastui-editor-md-container{min-height:230px}#editorBody .toastui-editor-defaultUI{font-size:12px}.preview-frame{height:70vh}.tablewrap table{min-width:0}.tablewrap th:nth-child(3),.tablewrap td:nth-child(3){display:none}.cms-actions{margin:10px 0}}
 </style>
-<style>.table-category{display:block;color:#7c8796;font-size:11px;margin-top:2px}</style>
+<style>
+.table-category{display:block;color:#7c8796;font-size:11px;margin-top:2px}
+#formatWrap[hidden]{display:none!important}
+#editor.composer-grid{grid-template-columns:minmax(255px,.84fr) minmax(400px,1.4fr) minmax(220px,.76fr);gap:11px;align-items:start;margin:12px 0}
+.composer-meta,.composer-body,.composer-preview{min-width:0;border:1px solid #dfe4e9;border-radius:7px;background:#fff;padding:12px}
+.composer-meta{display:flex;flex-direction:column;gap:9px}
+#editor .composer-meta label{display:grid;gap:4px;color:#314156;font-size:12px;font-weight:700}
+#editor input,#editor select,#editor textarea{font-size:12px;padding:7px 8px;border-radius:5px}
+#editor textarea{min-height:62px}
+.field-foot{display:flex;justify-content:space-between;color:#8390a0;font-size:10px;font-weight:500}
+.field-group{display:grid;gap:5px}.quick-categories{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:3px}
+.quick-categories button{background:#f0f2f5;color:#425166;border:1px solid #e1e5ea;border-radius:4px;font-size:10px;padding:4px 6px;line-height:1.1}
+.quick-categories button:hover,.quick-categories button.active{background:#183653;color:#fff;border-color:#183653}
+.meta-pair{display:grid;grid-template-columns:1fr 1.3fr;gap:8px}.meta-pair label{min-width:0}
+.alt-label{margin-top:2px}.toggle-row{display:flex!important;align-items:center;gap:8px;padding:8px;background:#f7f8fa;border:1px solid #e7eaee;border-radius:5px}.toggle-row input{width:15px;height:15px;margin:0;accent-color:#aa2939}.toggle-row span{display:grid;gap:1px}.toggle-row small{font-size:10px;color:#788597;font-weight:400}
+.composer-body{padding:0;overflow:hidden}.body-heading{padding:9px 11px;border-bottom:1px solid #e7eaee;display:flex;justify-content:space-between;align-items:baseline;gap:6px;flex-wrap:wrap}.body-heading strong{font-size:12px}.composer-body #richEditor{width:100%}.composer-body .toastui-editor-defaultUI{border:0!important;border-radius:0!important}.composer-body .toastui-editor-toolbar{background:#fafbfc;padding:3px 6px}.composer-body .toastui-editor-ww-container,.composer-body .toastui-editor-md-container{min-height:300px}.composer-body .toastui-editor-ww-container{font-size:14px}.editor-actions{padding:8px;display:flex;gap:5px;border-top:1px solid #e7eaee;background:#fafbfc;flex-wrap:wrap}.editor-actions button{font-size:11px;padding:7px 9px;border-radius:4px}.editor-actions #publishArticle{background:#a52235}.editor-actions #cancelEdit{font-size:11px;padding:6px 9px}
+.preview-rail-title{display:flex;justify-content:space-between;align-items:center;margin:1px 0 8px;color:#788597;font-size:9px;font-weight:800;letter-spacing:.09em}.live-dot{color:#20845a;letter-spacing:.02em}.homepage-card-preview{border:1px solid #e5e8ec;border-radius:5px;overflow:hidden;background:#fff}.homepage-card-image{height:115px;background:#edf0f2;display:grid;place-items:center;color:#8b96a3;font-size:10px;background-position:center;background-size:cover}.homepage-card-copy{padding:9px}.homepage-card-kicker{display:flex;gap:7px;align-items:center;color:#983148;font:800 9px/1.2 Arial,sans-serif;letter-spacing:.09em}.homepage-card-kicker #homepagePreviewJustIn{padding:2px 4px;border-radius:2px;background:#a52235;color:#fff}.homepage-card-copy h3{font:700 17px/1.23 Georgia,serif;color:#172434;margin:7px 0}.homepage-card-copy p{font:12px/1.45 Arial,sans-serif;color:#697687;margin:0 0 9px}.homepage-card-meta{border-top:1px solid #edf0f2;padding-top:7px;color:#98a1ad;font-size:8px;letter-spacing:.06em}.open-preview-link{background:transparent;color:#234a70;font-size:10px;padding:8px 0 2px}.composer-preview .help{margin:4px 0}.composer-preview{position:sticky;top:10px}#articlePreviewDialog{width:min(800px,94vw);max-width:none;height:min(88vh,900px);padding:0;border:1px solid #dce2e9;border-radius:8px;box-shadow:0 20px 80px #0b1a2b50}#articlePreviewDialog::backdrop{background:#101c2c99}.dialog-head{height:45px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;background:#f7f8fa;border-bottom:1px solid #e4e8ee;font-size:13px}.dialog-head button{padding:5px 8px;font-size:11px}.preview-frame{height:calc(100% - 45px);width:100%;border:0;display:block}
+@media(max-width:1020px){ #editor.composer-grid{grid-template-columns:minmax(230px,.8fr) minmax(380px,1.3fr)}.composer-preview{grid-column:1/-1;position:static}.homepage-card-preview{display:grid;grid-template-columns:minmax(140px,240px) 1fr}.homepage-card-image{height:100%;min-height:120px}.homepage-card-copy{align-self:center}}
+@media(max-width:720px){ #editor.composer-grid{grid-template-columns:1fr;gap:8px}.composer-meta,.composer-body,.composer-preview{padding:10px}.composer-preview{grid-column:auto}.homepage-card-preview{display:block}.homepage-card-image{height:150px}.composer-body .toastui-editor-ww-container,.composer-body .toastui-editor-md-container{min-height:235px}.meta-pair{grid-template-columns:1fr 1fr}.quick-categories button{font-size:11px;padding:5px 7px}}
+</style>
 </head>
 <body>
 
@@ -49,21 +68,23 @@
   </div>
 
   <section class="panel" id="editorPanel" hidden>
-    <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Save a private draft or publish when it is ready.</p></div><button type="button" class="cms-btn gray" id="previewArticle">Preview story</button></div>
-    <p class="muted">Drafts stay private. Publishing updates the site after the automatic build completes.</p>
-    <form id="editor">
-      <input type="hidden" id="articlePath"><input type="hidden" id="articleSha">
-      <label>Headline<input id="articleTitle" maxlength="180" required></label>
-      <label>Category<select id="articleCategory" required></select></label>
-      <label id="formatWrap" hidden>Explainer format<select id="articleFormat"><option value="">Standard explainer</option><option value="why-it-matters">Why It Matters</option><option value="1-minute">1-minute explainer</option></select></label>
-      <label>Publication date<input id="articleDate" type="date" required></label>
-      <label>Author<input id="articleAuthor" value="The Global Desk" maxlength="100"></label>
-      <label class="wide">Short summary<textarea id="articleDescription" rows="2" maxlength="360" required></textarea></label>
-      <label class="wide">Cover image <span class="help">Choose a file from this computer or phone, or paste an image URL.</span><span class="image-row"><input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp"><input id="articleImage" type="text" placeholder="/images/news/... or https://..."><img class="image-preview" id="imagePreview" alt="Cover preview" hidden></span></label>
-      <div class="wide" id="editorBody"><label>Article body <span class="help">Use the toolbar for headings, bold, italic, lists, quotes and links.</span></label><div id="richEditor"></div><textarea id="articleBody" hidden></textarea></div>
-      <div class="editor-actions wide"><label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="articlePublished"> Publish this article</label><button type="submit" id="saveArticle">Save article</button><button type="button" class="cms-btn gray" id="cancelEdit">Cancel</button><span class="muted" id="editorMessage" role="status"></span></div>
+    <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Drafts stay private. Published stories appear on the site after the newsroom build.</p></div></div>
+    <form id="editor" class="composer-grid">
+      <input type="hidden" id="articlePath"><input type="hidden" id="articleSha"><input type="checkbox" id="articlePublished" hidden>
+      <section class="composer-meta">
+        <label>Headline<input id="articleTitle" maxlength="180" required placeholder="Write a clear, specific headline"><span class="field-foot"><span>Search-friendly headline</span><span id="titleCount">0 / 180</span></span></label>
+        <div class="field-group"><label for="articleCategory">Section</label><div class="quick-categories" aria-label="Quick section choices"><button type="button" data-category="World">World</button><button type="button" data-category="Asia">Asia</button><button type="button" data-category="Europe">Europe</button><button type="button" data-category="Editorial">Editorial</button><button type="button" data-category="Explainer">Explainer</button><button type="button" data-category="Perspectives">Perspectives</button></div><select id="articleCategory" required aria-label="All sections"></select></div>
+        <label id="formatWrap" hidden>Explainer format<select id="articleFormat"><option value="">Standard explainer</option><option value="why-it-matters">Why It Matters</option><option value="1-minute">1-minute explainer</option></select></label>
+        <div class="meta-pair"><label>Publish date<input id="articleDate" type="date" required></label><label>Byline<input id="articleAuthor" value="The Global Desk" maxlength="100"></label></div>
+        <label>Summary <span class="help">Shown on the homepage and in search results.</span><textarea id="articleDescription" rows="3" maxlength="360" required placeholder="Summarise the key development in 1–2 sentences."></textarea><span class="field-foot"><span>Keep it concise</span><span id="summaryCount">0 / 360</span></span></label>
+        <div class="field-group"><label>Cover image</label><input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp"><input id="articleImage" type="text" placeholder="Optional image URL" aria-label="Image path or URL"><p class="help">Choose from desktop or phone. Preview appears as soon as you select it.</p><label class="alt-label">Image description<input id="articleImageAlt" maxlength="180" placeholder="Describe the image"></label></div>
+        <label class="toggle-row"><input type="checkbox" id="articleJustIn"><span><strong>Just In</strong><small>Show this story in the homepage headline ticker.</small></span></label>
+      </section>
+      <section class="composer-body" id="editorBody"><div class="body-heading"><strong>Article body</strong><span class="help">Headings · bold · italic · lists · quotes · links</span></div><div id="richEditor"></div><textarea id="articleBody" hidden></textarea><div class="editor-actions"><button type="submit" id="saveDraft" data-publish="false">Save draft</button><button type="submit" id="publishArticle" data-publish="true">Publish now</button><button type="button" class="cms-btn gray" id="cancelEdit">Cancel</button></div></section>
+      <aside class="composer-preview"><div class="preview-rail-title"><span>HOMEPAGE PREVIEW</span><span class="live-dot">● LIVE</span></div><article class="homepage-card-preview"><div class="homepage-card-image" id="homepagePreviewImage"><span>Cover image preview</span></div><div class="homepage-card-copy"><div class="homepage-card-kicker"><span id="homepagePreviewCategory">WORLD</span><span id="homepagePreviewJustIn" hidden>JUST IN</span></div><h3 id="homepagePreviewTitle">Your headline will appear here</h3><p id="homepagePreviewSummary">Your short summary will appear here in the homepage news card.</p><div class="homepage-card-meta" id="homepagePreviewMeta">THE GLOBAL DESK · TODAY</div></div></article><button type="button" class="open-preview-link" id="previewArticle">Open article preview ↗</button><p class="help">Compact preview updates as you write.</p></aside>
     </form>
-    <section id="articlePreview" class="preview-box" hidden><div class="preview-head">Article preview <button type="button" class="cms-btn gray small-btn" id="closePreview" style="float:right">Close preview</button></div><iframe class="preview-frame" id="previewFrame" title="Article preview" sandbox=""></iframe></section>
+    <dialog id="articlePreviewDialog"><div class="dialog-head"><strong>Article page preview</strong><button type="button" id="closePreview">Close</button></div><iframe class="preview-frame" id="previewFrame" title="Article preview" sandbox=""></iframe></dialog>
+    <p id="editorMessage" class="muted" role="status"></p>
   </section>
 
   <div class="stats">
@@ -221,18 +242,20 @@ function dateValue(value) {
 function openEditor(article) {
   const panel = $("editorPanel");
   panel.hidden = false;
+  if ($("articlePreviewDialog").open) $("articlePreviewDialog").close();
   $("editorHeading").textContent = article ? "Edit article" : "New article";
   $("editorMessage").textContent = article ? "Loading article…" : "";
+  if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl);
+  localCoverPreviewUrl = "";
   $("editor").reset();
   $("articlePath").value = article?.path || "";
   $("articleSha").value = article?.sha || "";
   $("articleDate").value = dateValue(article?.date) || new Date().toISOString().slice(0, 10);
   $("articleAuthor").value = "The Global Desk";
   $("articlePublished").checked = !!article?.published;
+  $("articleJustIn").checked = !!article?.justIn;
   $("articleFormat").value = ""; $("formatWrap").hidden = true;
-  $("articleImage").value = ""; $("imagePreview").hidden = true;
-  if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl);
-  localCoverPreviewUrl = "";
+  $("articleImage").value = ""; $("articleImageAlt").value = "";
   if (richEditor) richEditor.setMarkdown("");
   else $("articleBody").hidden = false;
   if (article) {
@@ -253,14 +276,17 @@ function openEditor(article) {
       $("articleDate").value = dateValue(field("date") || article.date);
       $("articleDescription").value = field("description");
       $("articleImage").value = field("image");
+      $("articleImageAlt").value = field("imageAlt");
       $("articleAuthor").value = field("author") || "The Global Desk";
       $("articlePublished").checked = field("published").toLowerCase() === "true";
+      $("articleJustIn").checked = field("justIn").toLowerCase() === "true";
       if (richEditor) richEditor.setMarkdown(match[2].trim()); else $("articleBody").value = match[2].trim();
-      updateImagePreview();
+      updateHomepagePreview();
       $("articleSha").value = data.sha;
       $("editorMessage").textContent = "";
     }).catch(error => $("editorMessage").textContent = error.message);
   }
+  updateHomepagePreview();
   panel.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
@@ -302,7 +328,7 @@ function render() {
     titleText.textContent = a.title || "Untitled";
     const categoryText = document.createElement("span");
     categoryText.className = "table-category";
-    categoryText.textContent = a.category || "Uncategorised";
+    categoryText.textContent = (a.category || "Uncategorised") + (a.justIn ? " · JUST IN" : "");
     title.append(titleText, categoryText);
 
     const date = document.createElement("td");
@@ -410,10 +436,12 @@ $("newArticle").onclick = () => openEditor();
 $("cancelEdit").onclick = () => { $("editorPanel").hidden = true; };
 $("editor").onsubmit = async event => {
   event.preventDefault();
-  const button = $("saveArticle");
+  const buttons = [$("saveDraft"), $("publishArticle")];
+  const published = event.submitter?.dataset.publish === "true";
+  $("articlePublished").checked = published;
   const message = $("editorMessage");
-  button.disabled = true;
-  message.textContent = "Saving article…";
+  buttons.forEach(button => button.disabled = true);
+  message.textContent = published ? "Publishing story…" : "Saving draft…";
   const payload = {
     path: $("articlePath").value,
     sha: $("articleSha").value,
@@ -423,9 +451,11 @@ $("editor").onsubmit = async event => {
     author: $("articleAuthor").value,
     description: $("articleDescription").value,
     image: $("articleImage").value,
+    imageAlt: $("articleImageAlt").value,
     body: richEditor ? richEditor.getMarkdown() : $("articleBody").value,
     format: $("articleFormat").value,
-    published: $("articlePublished").checked
+    published,
+    justIn: $("articleJustIn").checked
   };
   try {
     const result = await api("/api/dashboard", {method:"POST", body:JSON.stringify(payload)});
@@ -436,7 +466,7 @@ $("editor").onsubmit = async event => {
   } catch (error) {
     message.textContent = error.message;
   } finally {
-    button.disabled = false;
+    buttons.forEach(button => button.disabled = false);
   }
 };
 $("search").oninput = render;
@@ -451,9 +481,26 @@ $("togglePassword").onclick = () => {
   $("togglePassword").setAttribute("aria-label", visible ? "Hide password" : "Show password");
   $("togglePassword").title = visible ? "Hide password" : "Show password";
 };
-$("articleCategory").onchange = () => { $("formatWrap").hidden = $("articleCategory").value !== "Explainer"; if ($( "formatWrap").hidden) $("articleFormat").value = ""; };
-function updateImagePreview() { const value = localCoverPreviewUrl || $("articleImage").value.trim(); const preview = $("imagePreview"); if (value) { preview.src = value; preview.hidden = false; } else { preview.removeAttribute("src"); preview.hidden = true; } }
-$("articleImage").oninput = () => { if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl); localCoverPreviewUrl = ""; updateImagePreview(); };
+$("articleCategory").onchange = () => { $("formatWrap").hidden = $("articleCategory").value !== "Explainer"; if ($("formatWrap").hidden) $("articleFormat").value = ""; document.querySelectorAll("[data-category]").forEach(button => button.classList.toggle("active", button.dataset.category === $("articleCategory").value)); updateHomepagePreview(); };
+document.querySelectorAll("[data-category]").forEach(button => button.onclick = () => { $("articleCategory").value = button.dataset.category; $("articleCategory").dispatchEvent(new Event("change")); });
+function updateHomepagePreview() {
+  const title = $("articleTitle").value.trim(), category = $("articleCategory").value || "World";
+  document.querySelectorAll("[data-category]").forEach(button => button.classList.toggle("active", button.dataset.category === category));
+  const summary = $("articleDescription").value.trim(), image = localCoverPreviewUrl || $("articleImage").value.trim();
+  $("homepagePreviewTitle").textContent = title || "Your headline will appear here";
+  $("homepagePreviewCategory").textContent = category.toUpperCase();
+  $("homepagePreviewSummary").textContent = summary || "Your short summary will appear here in the homepage news card.";
+  $("homepagePreviewMeta").textContent = ($("articleAuthor").value.trim() || "THE GLOBAL DESK") + " · " + ($("articleDate").value || "TODAY");
+  $("homepagePreviewJustIn").hidden = !$("articleJustIn").checked;
+  const imageBox = $("homepagePreviewImage");
+  imageBox.style.backgroundImage = image ? 'url("' + image.replace(/["\\]/g, "\\$&") + '")' : "";
+  imageBox.firstElementChild.hidden = !!image;
+  $("titleCount").textContent = $("articleTitle").value.length + " / 180";
+  $("summaryCount").textContent = $("articleDescription").value.length + " / 360";
+}
+$("articleImage").oninput = () => { if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl); localCoverPreviewUrl = ""; updateHomepagePreview(); };
+for (const id of ["articleTitle", "articleDescription", "articleAuthor", "articleDate"]) $(id).addEventListener("input", updateHomepagePreview);
+$("articleJustIn").onchange = updateHomepagePreview;
 function escapePreview(value) { return String(value || "").replace(/[&<>\"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[ch])); }
 $("previewArticle").onclick = () => {
   const title = $("articleTitle").value.trim() || "Untitled story";
@@ -462,19 +509,18 @@ $("previewArticle").onclick = () => {
   const summary = $("articleDescription").value.trim();
   const image = localCoverPreviewUrl || $("articleImage").value.trim();
   const body = richEditor ? richEditor.getHTML() : `<p>${escapePreview($("articleBody").value).replace(/\n/g,"<br>")}</p>`;
-  const content = `<main><div class="meta">${escapePreview(category)}${date ? ` · ${escapePreview(date)}` : ""}</div><h1>${escapePreview(title)}</h1>${summary ? `<p class="summary">${escapePreview(summary)}</p>` : ""}${image ? `<figure><img src="${escapePreview(image)}" alt=""></figure>` : ""}<article>${body}</article></main>`;
+  const content = `<main><div class="meta">${escapePreview(category)}${date ? ` · ${escapePreview(date)}` : ""}</div><h1>${escapePreview(title)}</h1>${summary ? `<p class="summary">${escapePreview(summary)}</p>` : ""}${image ? `<figure><img src="${escapePreview(image)}" alt="${escapePreview($("articleImageAlt").value || title)}"></figure>` : ""}<article>${body}</article></main>`;
   $("previewFrame").srcdoc = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{margin:0;color:#172434;background:#fff;font:17px/1.7 Georgia,serif}main{max-width:780px;margin:0 auto;padding:28px 22px}.meta{font:700 11px/1.4 Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#8d263b}h1{font:700 clamp(28px,5vw,42px)/1.12 Georgia,serif;letter-spacing:-.5px;margin:11px 0}.summary{font-size:20px;line-height:1.45;color:#566272;margin:12px 0 20px}figure{margin:20px 0}figure img{width:100%;max-height:440px;object-fit:cover}article p{margin:0 0 1.25em}article h2{font:700 25px/1.3 Georgia,serif;margin:1.5em 0 .4em}article img{max-width:100%;height:auto}blockquote{border-left:3px solid #8d263b;margin:1.3em 0;padding:.3em 1em;color:#596575}</style></head><body>${content}</body></html>`;
-  $("articlePreview").hidden = false;
-  $("articlePreview").scrollIntoView({behavior:"smooth",block:"start"});
+  $("articlePreviewDialog").showModal();
 };
-$("closePreview").onclick = () => { $("articlePreview").hidden = true; $("previewFrame").srcdoc = ""; };
+$("closePreview").onclick = () => { $("articlePreviewDialog").close(); $("previewFrame").srcdoc = ""; };
 $("imageFile").onchange = async () => {
   const file = $("imageFile").files?.[0]; if (!file) return;
   if (localCoverPreviewUrl) URL.revokeObjectURL(localCoverPreviewUrl);
   localCoverPreviewUrl = URL.createObjectURL(file);
-  updateImagePreview();
+  updateHomepagePreview();
   $("editorMessage").textContent = "Uploading image…";
-  try { const data = await uploadImage(file); $("articleImage").value = data.path; updateImagePreview(); $("editorMessage").textContent = "Image uploaded and ready."; }
+  try { const data = await uploadImage(file); $("articleImage").value = data.path; updateHomepagePreview(); $("editorMessage").textContent = "Image uploaded and ready."; }
   catch (e) { $("editorMessage").textContent = e.message; }
 };
 

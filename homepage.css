@@ -8756,3 +8756,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-voices-section .gd-voice-byline strong,.gd-voices-section .gd-voice-byline small { display:block; }
 .gd-voices-section .gd-voice-byline strong { color:var(--gd-navy); font-size:.76rem; }
 .gd-voices-section .gd-voice-byline small { margin-top:.12rem; color:var(--gd-gray-500); font-size:.66rem; }
+.gd-opinion-grid > article.gd-opinion-feature .gd-opinion-feature__body > .gd-editor-profile img { width:68px!important; height:68px!important; flex:0 0 68px; border:2px solid #ead9ad; border-radius:50%; box-shadow:0 2px 8px rgba(25,47,68,.16); object-fit:cover; object-position:center 28%; }
+@media (max-width:760px) {
+  .gd-opinion-grid > article.gd-opinion-feature .gd-opinion-feature__body > .gd-editor-profile img { width:64px!important; height:64px!important; flex-basis:64px; }
+}

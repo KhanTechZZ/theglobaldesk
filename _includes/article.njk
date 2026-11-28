@@ -582,7 +582,7 @@
 
       <div class="gd-article-meta">
         <span class="gd-article-author-byline"><img src="{{ profileImage or '/favicon.png' }}" alt="{{ profileName or author or 'The Global Desk' }}" loading="lazy"><span><strong>{{ profileName or author or 'The Global Desk' }}</strong>{% if profileTitle %}<small>{{ profileTitle }}</small>{% endif %}</span></span>
-        {% if date %}<time datetime="{{ (publishedAt or date) | isoDate }}" data-relative-time data-date-only="{% if not publishedAt %}true{% else %}false{% endif %}">Published {{ (publishedAt or date) | relativeDate }}</time>{% endif %}
+        {% if date %}<time datetime="{{ (publishedAt or date) | isoDate }}" data-relative-time data-date-only="{% if not publishedAt %}true{% else %}false{% endif %}" data-relative-prefix="Published ">Published {{ (publishedAt or date) | relativeDate }}</time>{% endif %}
       </div>
 
       <div class="gd-article-body">
@@ -606,7 +606,7 @@
               <span class="gd-related-story__category">{{ item.data.category or "News" }}</span>
               <h3>{{ item.data.title }}</h3>
               {% if item.data.description %}<p>{{ item.data.description }}</p>{% endif %}
-              <span class="gd-related-story__date">{{ (item.data.publishedAt or item.date) | relativeDate }}</span>
+              <time class="gd-related-story__date" datetime="{{ (item.data.publishedAt or item.date) | isoDate }}" data-relative-time data-date-only="{% if not item.data.publishedAt %}true{% else %}false{% endif %}">{{ (item.data.publishedAt or item.date) | relativeDate }}</time>
             </div>
           </a>
         </article>
@@ -630,7 +630,7 @@
               {% if item.moreFromDeskIllustrative %}<span class="gd-more-desk__image-note">Illustrative image</span>{% endif %}
             </div>
             <div class="gd-more-desk__body">
-              <span class="gd-more-desk__meta">{{ item.data.category or "News" }} · {{ (item.data.publishedAt or item.date) | relativeDate }}</span>
+              <span class="gd-more-desk__meta">{{ item.data.category or "News" }} · <time datetime="{{ (item.data.publishedAt or item.date) | isoDate }}" data-relative-time data-date-only="{% if not item.data.publishedAt %}true{% else %}false{% endif %}">{{ (item.data.publishedAt or item.date) | relativeDate }}</time></span>
               <h3>{{ item.data.title }}</h3>
               {% if item.data.description %}<p>{{ item.data.description }}</p>{% endif %}
             </div>
@@ -942,6 +942,39 @@
         }
       });
 
+    })();
+  </script>
+  <script>
+    (function () {
+      const times = document.querySelectorAll('[data-relative-time][datetime]');
+      const absoluteDate = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+      function refreshTimes() {
+        const now = Date.now();
+        times.forEach(function (element) {
+          const publishedDate = new Date(element.dateTime);
+          const published = publishedDate.getTime();
+          if (!Number.isFinite(published)) return;
+          let label;
+          if (element.dataset.dateOnly === 'true' || published > now) {
+            label = absoluteDate.format(publishedDate);
+          } else {
+            const minutes = Math.floor((now - published) / 60000);
+            if (minutes < 1) label = 'Just now';
+            else if (minutes < 60) label = minutes + (minutes === 1 ? ' minute ago' : ' minutes ago');
+            else {
+              const hours = Math.floor(minutes / 60);
+              if (hours < 24) label = hours + (hours === 1 ? ' hour ago' : ' hours ago');
+              else {
+                const days = Math.floor(hours / 24);
+                label = days < 7 ? days + (days === 1 ? ' day ago' : ' days ago') : absoluteDate.format(publishedDate);
+              }
+            }
+          }
+          element.textContent = (element.dataset.relativePrefix || '') + label;
+        });
+      }
+      refreshTimes();
+      window.setInterval(refreshTimes, 60000);
     })();
   </script>
 </body>

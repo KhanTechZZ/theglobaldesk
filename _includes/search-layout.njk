@@ -55,7 +55,7 @@
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
 
-<script type="application/json" id="storySearchIndex">[{% for post in collections.publishedNews %}{% if not loop.first %},{% endif %}{"title":{{ post.data.title | jsonify | safe }},"description":{{ (post.data.description or post.data.excerpt or "") | jsonify | safe }},"category":{{ (post.data.category or "News") | jsonify | safe }},"url":{{ post.url | jsonify | safe }},"date":{{ post.data.date | readableDate | jsonify | safe }}}{% endfor %}]</script>
+<script type="application/json" id="storySearchIndex">[{% for post in collections.publishedNews %}{% if not loop.first %},{% endif %}{"title":{{ post.data.title | jsonify | safe }},"description":{{ (post.data.description or post.data.excerpt or "") | jsonify | safe }},"category":{{ (post.data.category or "News") | jsonify | safe }},"url":{{ post.url | jsonify | safe }},"date":{{ (post.data.publishedAt or post.date) | isoDate | jsonify | safe }},"dateOnly":{{ (not post.data.publishedAt) | jsonify | safe }}}{% endfor %}]</script>
 <script>
 (function () {
   var form = document.getElementById('storySearchForm');
@@ -70,6 +70,23 @@
   try { stories = JSON.parse(index.textContent); } catch (error) { stories = []; }
   var params = new URLSearchParams(window.location.search);
   input.value = params.get('q') || '';
+  var absoluteDate = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+  function updateResultTimes() {
+    results.querySelectorAll('[data-relative-time][datetime]').forEach(function (time) {
+      var publishedDate = new Date(time.dateTime);
+      var published = publishedDate.getTime();
+      if (!Number.isFinite(published)) return;
+      if (time.dataset.dateOnly === 'true' || published > Date.now()) { time.textContent = absoluteDate.format(publishedDate); return; }
+      var minutes = Math.floor((Date.now() - published) / 60000);
+      if (minutes < 1) { time.textContent = 'Just now'; return; }
+      if (minutes < 60) { time.textContent = minutes + (minutes === 1 ? ' minute ago' : ' minutes ago'); return; }
+      var hours = Math.floor(minutes / 60);
+      if (hours < 24) { time.textContent = hours + (hours === 1 ? ' hour ago' : ' hours ago'); return; }
+      var days = Math.floor(hours / 24);
+      time.textContent = days < 7 ? days + (days === 1 ? ' day ago' : ' days ago') : absoluteDate.format(publishedDate);
+    });
+  }
 
   function addText(parent, tag, className, value) {
     var element = document.createElement(tag);
@@ -102,10 +119,16 @@
       link.className = 'search-result-card__title';
       link.textContent = story.title;
       card.appendChild(link);
-      if (story.date) addText(card, 'time', 'search-result-card__date', story.date);
+      if (story.date) {
+        var time = addText(card, 'time', 'search-result-card__date', '');
+        time.dateTime = story.date;
+        time.dataset.relativeTime = '';
+        time.dataset.dateOnly = String(story.dateOnly === true);
+      }
       if (story.description) addText(card, 'p', 'search-result-card__description', story.description);
       results.appendChild(card);
     });
+    updateResultTimes();
   }
 
   form.addEventListener('submit', function (event) {
@@ -115,6 +138,7 @@
     render();
   });
   input.addEventListener('input', render);
+  window.setInterval(updateResultTimes, 60000);
   clear.addEventListener('click', function () {
     input.value = '';
     window.history.replaceState({}, '', '/search/');

@@ -7465,6 +7465,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .gd-article-author-byline > span { display:grid; gap:.12rem; }
 .gd-article-author-byline strong { color:var(--gd-gray-900); font-size:.82rem; }
 .gd-article-author-byline small { color:var(--gd-gray-500); font-size:.72rem; }
+.gd-home > .gd-lead-grid.gd-lead-grid--desk-only { grid-template-columns:minmax(0,1fr); grid-template-rows:auto; }
+.gd-home > .gd-lead-grid.gd-lead-grid--desk-only > .gd-lead-rail { grid-column:1; grid-row:auto; }
 .article-hero { margin:1.2rem 0; }
 .article-hero figcaption { margin-top:.4rem; color:var(--gd-gray-600); font: .76rem/1.45 Arial,sans-serif; }
 .gd-explainer-card > a > .gd-image-placeholder { aspect-ratio: 16 / 10; margin-bottom: .75rem; }

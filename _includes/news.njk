@@ -75,7 +75,7 @@
         <h2 class="related-title">More from {{ category }}</h2>
         <div class="related-grid">
             {% set count = 0 %}
-            {% for item in collections.news | reverse %}
+            {% for item in collections.news %}
                 {% if item.data.category == category and item.url != page.url and count < 3 %}
                     {% set count = count + 1 %}
                     <article class="related-card">

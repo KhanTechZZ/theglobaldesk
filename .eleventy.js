@@ -191,14 +191,14 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("news", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")
       .filter(item => item.data.published === true && item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" && !String(item.data.title || "").startsWith("[DEMO]"))
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 
   // Published news only
   eleventyConfig.addCollection("publishedNews", (collectionApi) => {
     return collectionApi.getFilteredByGlob("./news/*.md")
       .filter(item => item.data.published === true && item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" && !String(item.data.title || "").startsWith("[DEMO]") && !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug))
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 
   // Homepage lead/latest are reserved for standard news; editorial formats
@@ -211,7 +211,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug) &&
         !reservedCategories.has(String(item.data.category || "").trim().toLowerCase()))
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 
   // The ticker is for usable editorial headlines; keep CMS test entries out of it.
@@ -223,7 +223,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug) &&
         !isPlaceholderHeadline(item))
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 
     // Published World news only
@@ -236,7 +236,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug)
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
   // Published Asia news only
   eleventyConfig.addCollection("asiaNews", (collectionApi) => {
@@ -248,7 +248,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug)
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
   // Published Explainer news only
   eleventyConfig.addCollection("explainerNews", (collectionApi) => {
@@ -260,7 +260,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug)
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
   // Published Opinion articles
   eleventyConfig.addCollection("opinionNews", (collectionApi) => {
@@ -272,7 +272,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug)
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 
   // Published Earth articles
@@ -285,7 +285,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug)
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 
   // Published Featured Voices
@@ -298,7 +298,7 @@ module.exports = function (eleventyConfig) {
         !String(item.data.title || "").startsWith("[DEMO]") &&
         !["2026-10-26-223", "2026-10-26-test-news1"].includes(item.fileSlug)
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
   // Published Editorial articles
   eleventyConfig.addCollection("editorialNews", (collectionApi) => {
@@ -309,7 +309,7 @@ module.exports = function (eleventyConfig) {
         item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" &&
         !String(item.data.title || "").startsWith("[DEMO]")
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 
   // Published Perspectives articles
@@ -321,7 +321,7 @@ module.exports = function (eleventyConfig) {
         item.data.source !== "DEMO CONTENT - NOT FOR PUBLICATION" &&
         !String(item.data.title || "").startsWith("[DEMO]")
       )
-      .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0));
+      .sort((a, b) => new Date(b.data.publishedAt || b.data.date || 0) - new Date(a.data.publishedAt || a.data.date || 0));
   });
 // Live coverage collection
   eleventyConfig.addCollection("liveCoverage", (collectionApi) => {

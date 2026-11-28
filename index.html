@@ -89,7 +89,8 @@
 
 <main id="gd-main-content" class="gd-main gd-container gd-home" tabindex="-1">
 {% if collections.publishedNews.length > 0 %}
-  <section class="gd-lead-grid" aria-label="Top news">
+  <section class="gd-lead-grid{% if collections.homepageNews.length == 0 %} gd-lead-grid--desk-only{% endif %}" aria-label="Top news">
+    {% if collections.homepageNews.length > 0 %}
     <div class="gd-lead-left">
     <article class="gd-lead-story">
       {% if collections.homepageNews.length > 0 %}
@@ -106,7 +107,7 @@
       </a>
       {% endif %}</article>
 
-    <section class="gd-home-block gd-latest" aria-labelledby="gd-latest-title">
+    {% if collections.homepageNews.length > 1 %}<section class="gd-home-block gd-latest" aria-labelledby="gd-latest-title">
     <header class="gd-home-heading gd-home-heading--ruled">
       <h2 id="gd-latest-title">Latest News</h2>
       
@@ -130,15 +131,16 @@
 {% endif %}
 
     </div>
-  </section>
+    </section>{% endif %}
     </div>
+    {% endif %}
     <aside class="gd-lead-rail">
 
 
     <section class="gd-live-coverage" data-view="most-read" aria-labelledby="gd-live-coverage-title">
       <header class="gd-live-coverage__header"><h2 id="gd-live-coverage-title">Most Read</h2></header>
       <ol class="gd-most-read__list" data-most-read-list>
-        {% for post in collections.publishedNews | skip(4) | take(7) %}
+        {% for post in collections.publishedNews | take(7) %}
         <li data-most-read-item data-slug="{{ post.fileSlug }}"><span class="gd-most-read__number">{{ loop.index }}</span><h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3></li>
         {% endfor %}
       </ol>
@@ -164,7 +166,7 @@
 
   
 
-  <section class="gd-home-block gd-world-section" aria-labelledby="gd-world-title">
+  {% if collections.worldNews.length > 0 %}<section class="gd-home-block gd-world-section" aria-labelledby="gd-world-title">
     <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-world-title">World</h2><a href="/category/world/" class="gd-home-heading__link">View more</a></header>
     <div class="gd-latest__grid gd-world-news-grid">
 {% if collections.worldNews.length > 0 %}
@@ -186,9 +188,9 @@
 {% endif %}
 
     </div>
-  </section>
+  </section>{% endif %}
 
-<section class="gd-home-block gd-asia-section" aria-labelledby="gd-asia-title">
+{% if collections.asiaNews.length > 0 %}<section class="gd-home-block gd-asia-section" aria-labelledby="gd-asia-title">
     <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-asia-title">Asia</h2><a href="/category/asia/" class="gd-home-heading__link">View more</a></header>
     <div class="gd-asia-grid">
 {% if collections.asiaNews.length > 0 %}
@@ -225,18 +227,20 @@
 </div>
 {% endif %}
 
-  </section>
+  </section>{% endif %}
 
   
 
-  <section id="gd-explainer-home" class="gd-home-block gd-explainers" aria-labelledby="gd-explainers-title">
+  {% set minuteExplainers = collections.explainerNews | byFormat('1-minute') %}
+  {% set whyExplainers = collections.explainerNews | byFormat('why-it-matters') %}
+  {% if minuteExplainers.length > 0 or whyExplainers.length > 0 %}<section id="gd-explainer-home" class="gd-home-block gd-explainers" aria-labelledby="gd-explainers-title">
     <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-explainers-title">Explainer</h2><a href="/category/explainer/" class="gd-home-heading__link">View more</a></header>
     <div class="gd-explainer-grid">
-      <section class="gd-explainer-unit gd-explainer-unit--minute" aria-labelledby="gd-minute-title">
+      {% if minuteExplainers.length > 0 %}<section class="gd-explainer-unit gd-explainer-unit--minute" aria-labelledby="gd-minute-title">
         <header class="gd-explainer-unit__header">
           <h3 id="gd-minute-title">1-minute explainer</h3>
         </header>
-        {% for post in collections.explainerNews | byFormat('1-minute') | take(1) %}
+        {% for post in minuteExplainers | take(1) %}
         <article class="gd-explainer-feature gd-explainer-feature--minute">
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
             <span class="gd-explainer-feature__media"><img src="/images/explainer/eez-briefing.jpg" alt="Illustrative aerial photograph of a cargo ship at sea" loading="lazy" decoding="async"></span>
@@ -248,13 +252,13 @@
           </a>
         </article>
         {% endfor %}
-      </section>
+      </section>{% endif %}
 
-      <section class="gd-explainer-unit gd-explainer-unit--why" aria-labelledby="gd-why-title">
+      {% if whyExplainers.length > 0 %}<section class="gd-explainer-unit gd-explainer-unit--why" aria-labelledby="gd-why-title">
         <header class="gd-explainer-unit__header">
           <h3 id="gd-why-title">Why It Matters</h3>
         </header>
-        {% for post in collections.explainerNews | byFormat('why-it-matters') | take(1) %}
+        {% for post in whyExplainers | take(1) %}
         <article class="gd-explainer-feature gd-explainer-feature--why">
           <a href="{{ post.url }}" class="gd-explainer-feature__link">
             <span class="gd-explainer-feature__media gd-explainer-feature__media--why"><img src="/images/explainer/ocean-context.jpg" alt="Illustrative photograph of ocean waves along a coast" loading="lazy" decoding="async"></span>
@@ -266,12 +270,12 @@
           </a>
         </article>
         {% endfor %}
-      </section>
+      </section>{% endif %}
 
     </div>
-  </section>
+  </section>{% endif %}
 
-  <section class="gd-home-block gd-opinion-section" aria-labelledby="gd-opinion-title">
+  {% if collections.editorialNews.length > 0 or collections.perspectivesNews.length > 0 %}<section class="gd-home-block gd-opinion-section" aria-labelledby="gd-opinion-title">
     <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-opinion-title">Opinion</h2><a href="/opinion/editorials/" class="gd-home-heading__link">View more</a></header>
     <div class="gd-opinion-grid">
       {% if collections.editorialNews.length > 0 %}
@@ -282,25 +286,23 @@
         <p class="gd-opinion-feature__caption">{{ editorial.data.description }}</p>
       </article>
       {% endif %}
-      <div class="gd-perspectives"><h3>Perspectives</h3>
-        {% if collections.perspectivesNews.length > 0 %}
+      {% if collections.perspectivesNews.length > 0 %}<div class="gd-perspectives"><h3>Perspectives</h3>
         {% for post in collections.perspectivesNews | take(3) %}
         <article>{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}<div><span class="gd-story-meta">{{ post.data.category }} | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span><a href="{{ post.url }}">{{ post.data.title }}</a></div></article>
         {% endfor %}
-        {% endif %}
-      </div>
+      </div>{% endif %}
     </div>
-  </section>
-<section class="gd-home-block gd-earth-section" aria-labelledby="gd-earth-title">
+  </section>{% endif %}
+{% if collections.earthNews.length > 0 %}<section class="gd-home-block gd-earth-section" aria-labelledby="gd-earth-title">
   <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-earth-title">Earth</h2><a href="/category/earth/" class="gd-home-heading__link">View more</a></header>
   <div class="gd-latest__grid gd-world-news-grid gd-earth-news-grid">
     {% for post in collections.earthNews | take(4) %}
     <article class="gd-news-card"><a href="{{ post.url }}" class="gd-news-card__link"><div class="gd-news-card__media">{% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy">{% else %}<span class="gd-image-placeholder" aria-hidden="true"></span>{% endif %}</div><div class="gd-news-card__body"><span class="gd-story-meta">Earth | <time datetime="{{ (post.data.publishedAt or post.date) | isoDate }}" data-relative-time data-date-only="{% if not post.data.publishedAt %}true{% else %}false{% endif %}">{{ (post.data.publishedAt or post.date) | relativeDate }}</time></span><h3>{{ post.data.title }}</h3><p>{{ post.data.description }}</p></div></a></article>
     {% endfor %}
   </div>
-</section>
+</section>{% endif %}
 
-<section class="gd-home-block gd-voices-section" aria-labelledby="gd-voices-title">
+{% if collections.featuredVoices.length > 0 %}<section class="gd-home-block gd-voices-section" aria-labelledby="gd-voices-title">
   <header class="gd-home-heading gd-home-heading--ruled"><h2 id="gd-voices-title">Featured Voices</h2><a href="/category/feature-voices/" class="gd-home-heading__link">View more</a></header>
   <div class="gd-voices-grid gd-generation-grid">
     {% for post in collections.featuredVoices | take(3) %}
@@ -311,7 +313,7 @@
       {% endif %}
     {% endfor %}
   </div>
-</section>
+</section>{% endif %}
 {% else %}
   <section class="gd-category-empty gd-newsroom-empty" aria-labelledby="gd-newsroom-empty-title">
     <h1 id="gd-newsroom-empty-title">The newsroom is getting ready</h1>

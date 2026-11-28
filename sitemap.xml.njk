@@ -18,10 +18,10 @@ eleventyExcludeFromCollections: true
     {% for item in categoryPages %}
     <url><loc>https://thegdesk.com/category/{{ item.slug }}/</loc></url>
     {% endfor %}
-    {% for story in collections.publishedNews | reverse %}
+    {% for story in collections.publishedNews %}
     <url>
         <loc>{{ story.url | absoluteUrl("https://thegdesk.com") }}</loc>
-        {% if story.data.lastModified %}<lastmod>{{ story.data.lastModified | dateToRfc3339 }}</lastmod>{% endif %}
+        <lastmod>{{ (story.data.dateModified or story.data.lastModified or story.data.publishedAt or story.date) | dateToRfc3339 }}</lastmod>
     </url>
     {% endfor %}
 </urlset>

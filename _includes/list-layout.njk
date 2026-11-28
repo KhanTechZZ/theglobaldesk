@@ -33,7 +33,7 @@
 
         <div class="news-list">
             {% set count = 0 %}
-            {% for story in collections.news | reverse %}
+            {% for story in collections.news %}
                 {% if not activeCategory or story.data.category == activeCategory %}
                     {% set count = count + 1 %}
                     <article class="news-card {% if count == 1 %}news-card-featured{% else %}news-card-small{% endif %}">
@@ -48,7 +48,7 @@
                                 <h3>{{ story.data.title }}</h3>
                                 <p>{{ story.data.description }}</p>
                                 <div class="news-meta">
-                                    <span class="time-ago" data-published="{{ story.data.date | isoDate }}">{{ story.data.date | readableDate }}</span>
+                                    <time class="time-ago" datetime="{{ (story.data.publishedAt or story.date) | isoDate }}" data-relative-time data-date-only="{% if not story.data.publishedAt %}true{% else %}false{% endif %}">{{ (story.data.publishedAt or story.date) | relativeDate }}</time>
                                     — {{ story.data.source or "The Global Desk" }}
                                 </div>
                             </div>
@@ -67,6 +67,34 @@
 {% include 'global-footer.njk' %}
 
 <div class="toast" id="toast"><span>✓</span><p id="toastMessage">Done</p></div>
+<script>
+(function () {
+  const times = document.querySelectorAll('[data-relative-time][datetime]');
+  const absoluteDate = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  function refresh() {
+    const now = Date.now();
+    times.forEach(function (time) {
+      const publishedDate = new Date(time.dateTime);
+      const published = publishedDate.getTime();
+      if (!Number.isFinite(published)) return;
+      if (time.dataset.dateOnly === 'true' || published > now) { time.textContent = absoluteDate.format(publishedDate); return; }
+      const minutes = Math.floor((now - published) / 60000);
+      if (minutes < 1) time.textContent = 'Just now';
+      else if (minutes < 60) time.textContent = minutes + (minutes === 1 ? ' minute ago' : ' minutes ago');
+      else {
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) time.textContent = hours + (hours === 1 ? ' hour ago' : ' hours ago');
+        else {
+          const days = Math.floor(hours / 24);
+          time.textContent = days < 7 ? days + (days === 1 ? ' day ago' : ' days ago') : absoluteDate.format(publishedDate);
+        }
+      }
+    });
+  }
+  refresh();
+  window.setInterval(refresh, 60000);
+})();
+</script>
 <script src="/app.js"></script>
 </body>
 </html>

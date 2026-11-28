@@ -1,8 +1,8 @@
 ---
 title: "Concrete Can’t Cool a Warming Neighborhood"
 date: 2026-11-28
-publishedAt: "2026-11-28T09:43:38.000Z"
-dateModified: "2026-11-28T09:43:38.000Z"
+publishedAt: "2026-11-28T10:17:59.187Z"
+dateModified: "2026-11-28T10:17:59.187Z"
 category: "Editorial"
 description: "Unchecked concrete development and shrinking green spaces are turning neighborhoods into dangerous heat traps. Reversing rising temperatures and health risks requires prioritizing trees, cool roofs, and sustainable urban planning over gray infrastructure."
 image: "/images/news/20261128-a8122764.jpg"
@@ -17,7 +17,7 @@ justIn: true
 layout: article.njk
 ---
 
-## **Concrete Can’t Cool a Warming Neighborhood**
+#### **Concrete Can’t Cool a Warming Neighborhood**
 
 Walk down almost any rapidly developing city block on a summer afternoon, and the heat feels noticeably heavier than it does just a few miles outside town. Asphalt radiates warmth from beneath, concrete walls trap the sun’s energy well into the night, and the few remaining patches of shade are shrinking fast. While rising global temperatures set the baseline, local urban planning decisions are turning everyday neighborhoods into localized heat traps.
 This phenomenon, known as the urban heat island effect, is no longer an abstract environmental concept—it is an immediate public health and economic burden. Dark rooftops, paved roads, and dense high-rises absorb and retain far more solar radiation than grass, soil, or tree cover. When nights fail to cool down, human bodies cannot recover from daytime heat stress, leading to spikes in heat exhaustion, cardiovascular strain, and respiratory distress, particularly among children, the elderly, and outdoor workers.

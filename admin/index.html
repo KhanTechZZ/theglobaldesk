@@ -15,6 +15,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#172434;font:14px/1.45 Inter,Arial,sans-serif}header{height:58px;background:#102238;color:#fff;padding:0 max(20px,calc((100vw - 1240px)/2));display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #26394d}header strong{font-size:17px;letter-spacing:-.2px}header strong span{color:#e6bd67}main{max-width:1240px;margin:25px auto;padding:0 22px}h1{font-size:26px;margin:0 0 3px;letter-spacing:-.5px}h2{font-size:18px;margin:0 0 4px}button,input,select,textarea{font:inherit;border-radius:6px;border:1px solid #d7dde5;padding:8px 10px;color:#172434;background:#fff}button{cursor:pointer;background:#102b48;color:white;border:0;font-weight:650}button:disabled{opacity:.5;cursor:not-allowed}button:hover{filter:brightness(1.1)}.muted{color:#718095;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.card,.panel,#login{background:#fff;border:1px solid #e0e5eb;border-radius:8px;padding:14px;box-shadow:0 1px 3px #172b4408}.stat{font-size:23px;font-weight:750;margin-top:2px}.toolbar,.cms-actions{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.toolbar input,.toolbar select{flex:1;min-width:140px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #e9edf2}th{background:#f7f8fa;color:#5c6979;font-size:11px;text-transform:uppercase;letter-spacing:.05em}.status{padding:4px 8px;border-radius:12px;background:#eef2f7;font-size:11px}.status.published{background:#dcfae6;color:#067647}.status.draft{background:#f2f4f7;color:#344054}#message{margin:10px 0;color:#475467;overflow-wrap:anywhere}#login{max-width:390px;margin:70px auto;padding:26px}#login input{width:100%;margin:8px 0}#login form>button{width:100%;font-size:13px;padding:10px}.password-wrap{display:flex;align-items:stretch;position:relative;margin:10px 0 12px}.password-wrap input{margin:0!important;padding-right:44px!important}.eye-toggle{position:absolute;right:4px;top:4px;width:34px;height:34px;padding:7px;background:transparent;color:#526176;border-radius:5px}.eye-toggle:hover{background:#eef2f6}.eye-toggle svg{width:19px;height:19px;display:block}.cms-btn{display:inline-block;background:#102b48;color:white;padding:8px 12px;border-radius:6px;font-weight:700}.cms-btn:hover{opacity:.9;text-decoration:none}.cms-btn.gray{background:#64748b}.small-btn{padding:6px 10px;font-size:12px}#editorPanel{margin:14px 0}#editor{margin:14px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#editor[hidden]{display:none}#editor label{display:grid;gap:4px;color:#344054;font-weight:650;font-size:13px}#editor .wide{grid-column:1/-1}#editor .editor-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}#articleDescription{resize:vertical}.image-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.image-row input[type=text]{flex:1;min-width:180px}.image-preview{width:156px;height:88px;object-fit:cover;border-radius:5px;background:#eef2f6;border:1px solid #dce2e9}.help{font-size:11px;color:#738096;font-weight:400}.toolbar button{white-space:nowrap}#editorBody{grid-column:1/-1}#editorBody .toastui-editor-defaultUI{border-radius:6px;overflow:hidden}#editorBody .toastui-editor-toolbar{padding:4px 7px}#editorBody .toastui-editor-ww-container{min-height:280px}#editorBody .toastui-editor-md-container{min-height:280px}.editor-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.preview-box{border:1px solid #dfe4eb;border-radius:7px;overflow:hidden;background:#fff;margin:10px 0}.preview-head{padding:10px 13px;border-bottom:1px solid #e5e9ef;background:#f7f8fa;font-weight:700}.preview-content{padding:16px;max-height:680px;overflow:auto}.preview-content h1{font:700 28px/1.18 Georgia,serif;margin:8px 0}.preview-content .preview-meta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#7b2637;font-weight:700}.preview-content .preview-summary{font:17px/1.5 Georgia,serif;color:#4c5967;margin:8px 0 16px}.preview-content img{max-width:100%;height:auto}.preview-content .preview-story{max-width:760px;margin:auto;font:17px/1.7 Georgia,serif}.preview-content .preview-story h2{font:700 22px/1.3 Georgia,serif;margin:22px 0 8px}.preview-frame{width:100%;height:580px;border:0;display:block}.mobile-article{display:none}@media(max-width:720px){header{height:54px;padding:0 13px}main{margin:18px auto;padding:0 12px}h1{font-size:22px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.card{padding:10px}.stat{font-size:21px}#editor{grid-template-columns:1fr;gap:9px}#editor .wide,#editorBody{grid-column:auto}th,td{padding:9px 7px}#editorBody .toastui-editor-ww-container,#editorBody .toastui-editor-md-container{min-height:230px}#editorBody .toastui-editor-defaultUI{font-size:12px}.preview-frame{height:70vh}.tablewrap table{min-width:0}.tablewrap th:nth-child(3),.tablewrap td:nth-child(3){display:none}.cms-actions{margin:10px 0}}
 </style>
+
 <style>
 .table-category{display:block;color:#7c8796;font-size:11px;margin-top:2px}
 #formatWrap[hidden]{display:none!important}
@@ -35,8 +36,26 @@
 @media(max-width:1020px){ #editor.composer-grid{grid-template-columns:minmax(230px,.8fr) minmax(380px,1.3fr)}.composer-preview{grid-column:1/-1;position:static}.homepage-card-preview{display:grid;grid-template-columns:minmax(140px,240px) 1fr}.homepage-card-image{height:100%;min-height:120px}.homepage-card-copy{align-self:center}}
 @media(max-width:720px){ #editor.composer-grid{grid-template-columns:1fr;gap:8px}.composer-meta,.composer-body,.composer-preview{padding:10px}.composer-preview{grid-column:auto}.homepage-card-preview{display:block}.homepage-card-image{height:150px}.composer-body .toastui-editor-ww-container,.composer-body .toastui-editor-md-container{min-height:235px}.meta-pair{grid-template-columns:1fr 1fr}.quick-categories button{font-size:11px;padding:5px 7px}}
 </style>
+<style>
+body.auth-view header{display:none}body.auth-view{background:#edf0f4}
+#login{width:min(930px,calc(100% - 36px));max-width:none;min-height:470px;margin:8vh auto;padding:0;display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;border:1px solid #dce1e7;border-radius:11px;box-shadow:0 20px 60px #182c421b}
+#login .login-story{padding:38px 42px;background:linear-gradient(145deg,#10263d 0%,#183a55 58%,#762d3e 150%);color:#fff;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+#login .login-story:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #ffffff18;border-radius:50%;right:-180px;bottom:-160px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff05}
+.login-wordmark{display:flex;align-items:center;gap:10px;margin-bottom:62px;font-size:11px;font-weight:800;letter-spacing:.1em}.login-wordmark small{display:block;margin-top:3px;font-size:8px;letter-spacing:.2em;color:#c5ced6}.login-mark{display:grid;place-items:center;width:33px;height:33px;background:#b22d42;border-radius:4px;font:800 12px Arial,sans-serif;letter-spacing:-.04em}
+.login-eyebrow{font-size:9px;letter-spacing:.16em;font-weight:800;color:#aab5c0}.login-story h2{font:700 clamp(28px,3.5vw,42px)/1.12 Georgia,serif;letter-spacing:-.025em;margin:14px 0}.login-story h2 em{font-style:normal;color:#e3bd76}.login-story p{max-width:340px;color:#d4dbe1;font-size:13px;line-height:1.7}.login-rule{width:42px;height:2px;background:#d8b66c;margin:22px 0 13px}.login-security{font-size:10px;color:#d4dbe1}.login-security span{color:#83c29a;margin-right:5px}
+#login .login-form-panel{padding:54px 48px;display:flex;flex-direction:column;justify-content:center}.login-form-panel h2{font-size:26px;margin:9px 0 2px}.login-form-panel>p.muted{margin:2px 0 27px}.login-form-panel .login-eyebrow{color:#a22a3d}.password-label{font-size:11px;font-weight:700;color:#35465a}.login-form-panel .password-wrap{margin:7px 0 13px}.login-form-panel .password-wrap input{height:42px;border-color:#d5dce4;background:#fafbfc;font-size:13px}.login-form-panel #loginButton{height:42px;background:#a6253b;font-size:12px;letter-spacing:.02em}.login-form-panel #loginButton span{float:right}.login-foot{margin-top:36px;padding-top:13px;border-top:1px solid #e8ebef;font-size:8px;color:#9aa4ae;letter-spacing:.13em}.login-foot span{padding:0 5px;color:#b02b41}#loginMessage{font-size:12px;color:#a6253b;min-height:18px}
+#app{max-width:1440px;margin:0 auto;padding:23px 30px 50px}.dashboard-top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:13px}.dashboard-top h1{font:700 26px/1.15 Georgia,serif;margin:4px 0}.dashboard-top .muted{margin:3px 0}.overline{font-size:9px;font-weight:800;letter-spacing:.15em;color:#8c3442}.overline span{padding:0 5px;color:#a9b0b8}.dashboard-actions{display:flex;align-items:center;gap:7px}.new-story{background:#a6253b;padding:8px 12px;font-size:11px}.new-story span{font-size:16px;vertical-align:-1px;margin-right:3px}.icon-action{width:34px;height:34px;border:1px solid #dce1e7;border-radius:5px;background:#fff;color:#42546a;font-size:19px;padding:0}
+#app.is-editing>.dashboard-top,#app.is-editing>.stats,#app.is-editing>.overview-grid,#app.is-editing>#newsManagement{display:none!important}#editorPanel .editor-top{margin-bottom:8px}#editorPanel .editor-top h2{font:700 23px/1.2 Georgia,serif;margin:0}.editor-top .muted{margin:3px 0 0}
+#editor.composer-grid{grid-template-columns:minmax(235px,280px) minmax(300px,1fr) minmax(220px,260px);gap:10px;width:100%;margin:10px 0;align-items:start}
+#editor.composer-grid>.composer-meta{grid-column:1;grid-row:1}#editor.composer-grid>#editorBody{grid-column:2!important;grid-row:1}#editor.composer-grid>.composer-preview{grid-column:3;grid-row:1;position:sticky;top:10px}
+.composer-meta,.composer-body,.composer-preview{padding:10px}.composer-meta{gap:7px}.composer-body .toastui-editor-ww-container,.composer-body .toastui-editor-md-container{min-height:260px}.composer-body .toastui-editor-defaultUI{font-size:12px}.composer-body .toastui-editor-toolbar-group{margin:0 3px}.composer-preview .homepage-card-image{height:105px}
+.stats{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:13px 0}.stats .card{position:relative;min-height:68px;padding:10px 12px;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#687789}.stats .stat{font-size:22px;color:#1e3044;line-height:1.15}.justin-stat-card small{display:block;font-size:9px;text-transform:none;letter-spacing:0;color:#8190a0}.overview-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(240px,.85fr);gap:9px;margin:0 0 12px}.overview-grid .panel{padding:12px}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}.panel-heading h2{font-size:13px;margin:0}.panel-heading .muted{font-size:10px;margin:1px 0 8px}.period-label,.pulse-indicator{font-size:8px;font-weight:800;letter-spacing:.1em;color:#8b95a2}.pulse-indicator{color:#31845b}.section-bars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px 13px}.section-bar-row{min-width:0}.section-bar-caption{display:flex;justify-content:space-between;gap:6px;font-size:9px;color:#516174;white-space:nowrap}.section-bar-caption span:first-child{overflow:hidden;text-overflow:ellipsis}.section-bar-track{height:4px;background:#edf0f3;border-radius:3px;margin-top:4px;overflow:hidden}.section-bar-fill{height:100%;background:#9e3345;border-radius:3px}.pulse-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #edf0f2;padding:6px 0;font-size:10px;color:#566477}.pulse-row strong{font-size:12px;color:#203249}.text-action{background:transparent;color:#a32a3e;padding:5px 0 0;font-size:10px}
+#app>.panel{padding:12px}.tablewrap th,.tablewrap td{padding:8px 10px}.toolbar{margin:8px 0}.toolbar input,.toolbar select{font-size:11px;padding:7px 9px;min-width:120px}.cms-actions{margin:8px 0}
+@media(max-width:900px){ #editor.composer-grid{grid-template-columns:minmax(235px,.82fr) minmax(360px,1.25fr)}#editor.composer-grid>.composer-meta{grid-column:1}#editor.composer-grid>#editorBody{grid-column:2!important}.composer-preview{grid-column:1/-1!important;grid-row:2!important;position:static!important}.homepage-card-preview{display:grid;grid-template-columns:minmax(140px,220px) 1fr}.homepage-card-image{height:100%;min-height:105px}.stats{grid-template-columns:repeat(5,minmax(0,1fr))}.section-bars{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){ #login{width:calc(100% - 24px);grid-template-columns:1fr;margin:14px auto}.login-story{padding:22px 24px!important}.login-wordmark{margin-bottom:20px}.login-story h2{font-size:27px;margin:9px 0}.login-story p{margin:4px 0}.login-rule{margin:12px 0 8px}.login-form-panel{padding:25px!important}#app{padding:17px 12px 32px}.dashboard-top h1{font-size:22px}.dashboard-top{align-items:flex-start}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-grid{grid-template-columns:1fr}.section-bars{grid-template-columns:repeat(2,minmax(0,1fr))}#editor.composer-grid{grid-template-columns:1fr;gap:8px}#editor.composer-grid>.composer-meta,#editor.composer-grid>#editorBody,#editor.composer-grid>.composer-preview{grid-column:1!important;grid-row:auto!important}.composer-preview{position:static!important}.homepage-card-preview{display:block}.homepage-card-image{height:150px}}
+</style>
 </head>
-<body>
+<body class="auth-view">
 
 <header>
   <strong>The Global Desk <span style="color:#e6b65c">/ Admin</span></strong>
@@ -46,29 +65,27 @@
 </header>
 
 <div id="login">
-  <h2>Admin Login</h2>
-  <p class="muted">Sign in to manage website articles.</p>
+  <section class="login-story"><div class="login-wordmark"><span class="login-mark">GD</span><span>THE GLOBAL DESK<small>NEWSROOM</small></span></div><span class="login-eyebrow">EDITORIAL OPERATIONS</span><h2>Clarity for the<br><em>stories that matter.</em></h2><p>One secure desk to report, edit and publish the news that moves the world.</p><div class="login-rule"></div><span class="login-security"><span>●</span> Protected newsroom workspace</span></section>
+  <section class="login-form-panel">
+  <span class="login-eyebrow">STAFF ACCESS</span>
+  <h2>Welcome back</h2>
+  <p class="muted">Sign in to continue to your newsroom.</p>
   <form id="loginForm">
     <div class="password-wrap"><input id="password" type="password"
       placeholder="Admin password" required
       autocomplete="current-password"><button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password" title="Show password"><svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg id="eyeOffIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.9 10.9 0 0 1 12 5c6.4 0 10 7 10 7a15 15 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1.1 0 2.1-.2 3-.5"/></svg></button></div>
-    <button type="submit" id="loginButton">Sign in</button>
+    <button type="submit" id="loginButton">Enter newsroom <span aria-hidden="true">→</span></button>
   </form>
   <p id="loginMessage" role="status"></p>
+  <div class="login-foot">THE GLOBAL DESK <span>·</span> SECURE SIGN-IN</div>
+  </section>
 </div>
 
 <main id="app" hidden>
-  <h1>Dashboard</h1>
-  <p class="muted">Create drafts, edit stories, and publish approved articles.</p>
-
-  <div class="cms-actions">
-    <button class="cms-btn" id="newArticle">
-      + Add News / Draft
-    </button>
-  </div>
+  <section class="dashboard-top"><div><div class="overline">NEWSROOM <span>/</span> OVERVIEW</div><h1>Editorial desk</h1><p class="muted">Publishing activity and latest stories in one place.</p></div><div class="dashboard-actions"><button class="cms-btn new-story" id="newArticle"><span>＋</span> New story</button><button class="icon-action" id="refreshTop" aria-label="Refresh newsroom" title="Refresh newsroom">↻</button></div></section>
 
   <section class="panel" id="editorPanel" hidden>
-    <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Drafts stay private. Published stories appear on the site after the newsroom build.</p></div></div>
+    <div class="editor-top"><div><h2 id="editorHeading">New article</h2><p class="muted">Drafts stay private. Published stories appear on the site after the newsroom build.</p></div><button type="button" class="cms-btn gray small-btn" id="backToDesk">← Back to desk</button></div>
     <form id="editor" class="composer-grid">
       <input type="hidden" id="articlePath"><input type="hidden" id="articleSha"><input type="checkbox" id="articlePublished" hidden>
       <section class="composer-meta">
@@ -90,11 +107,11 @@
   <div class="stats">
     <div class="card">
       Total articles
-      <div class="stat" id="total">ΓÇö</div>
+      <div class="stat" id="total">—</div>
     </div>
     <div class="card">
       Published
-      <div class="stat" id="published">ΓÇö</div>
+      <div class="stat" id="published">—</div>
     </div>
     <div class="card">
       Views
@@ -102,11 +119,14 @@
     </div>
     <div class="card">
       Drafts
-      <div class="stat" id="drafts">ΓÇö</div>
+      <div class="stat" id="drafts">—</div>
     </div>
+    <div class="card justin-stat-card"><span>Just In</span><div class="stat" id="justInCount">0</div><small>Live ticker stories</small></div>
   </div>
 
-  <section class="panel">
+  <section class="overview-grid"><div class="panel section-panel"><div class="panel-heading"><div><h2>Section activity</h2><p class="muted">Published stories by section</p></div><span class="period-label">ALL TIME</span></div><div id="sectionBars" class="section-bars"></div></div><div class="panel desk-pulse"><div class="panel-heading"><div><h2>Desk pulse</h2><p class="muted">A quick editorial snapshot</p></div><span class="pulse-indicator">● LIVE</span></div><div class="pulse-row"><span>Published today</span><strong id="todayCount">0</strong></div><div class="pulse-row"><span>Drafts to finish</span><strong id="pulseDrafts">0</strong></div><div class="pulse-row"><span>Just In ticker</span><strong id="pulseJustIn">0 active</strong></div><button type="button" class="text-action" id="openDrafts">Review drafts →</button></div></section>
+
+  <section class="panel" id="newsManagement">
     <h2>News Management</h2>
     <p class="muted">
       Search your articles below. Use Edit to update an article or change its publication status.
@@ -125,6 +145,7 @@
         <option value="Published">Published</option>
         <option value="Draft">Draft</option>
       </select>
+      <select id="categoryFilter" aria-label="Filter by section"><option value="all">All sections</option></select>
     </div>
 
     <p id="message" role="status">Please sign in.</p>
@@ -156,7 +177,10 @@ const $ = id => document.getElementById(id);
 let articles = [];
 let localCoverPreviewUrl = "";
 const categoryNames = ["World","Asia","Europe","Middle East","Africa","Americas","Asia-Pacific","United Nations","Global Conflicts","Environment","Global Health","Diplomacy","Economy","Politics","Tech and AI","Research","Featured Voices","Explainer","Editorial","Perspectives","Human Rights","Science"];
-for (const name of categoryNames) { const option = document.createElement("option"); option.value = name; option.textContent = name; $("articleCategory").append(option); }
+for (const name of categoryNames) {
+  const option = document.createElement("option"); option.value = name; option.textContent = name; $("articleCategory").append(option);
+  const filterOption = document.createElement("option"); filterOption.value = name; filterOption.textContent = name; $("categoryFilter").append(filterOption);
+}
 let richEditor = null;
 
 async function uploadImage(file) {
@@ -222,12 +246,14 @@ async function api(url, options = {}) {
 }
 
 function showApp() {
+  document.body.classList.remove("auth-view");
   $("login").hidden = true;
   $("app").hidden = false;
   $("logout").hidden = false;
 }
 
 function showLogin() {
+  document.body.classList.add("auth-view");
   $("app").hidden = true;
   $("login").hidden = false;
   $("logout").hidden = true;
@@ -240,6 +266,7 @@ function dateValue(value) {
 }
 
 function openEditor(article) {
+  $("app").classList.add("is-editing");
   const panel = $("editorPanel");
   panel.hidden = false;
   if ($("articlePreviewDialog").open) $("articlePreviewDialog").close();
@@ -290,11 +317,17 @@ function openEditor(article) {
   panel.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
+function closeEditor() {
+  $("editorPanel").hidden = true;
+  $("app").classList.remove("is-editing");
+}
+
 function render() {
   const q = $("search").value.trim().toLowerCase();
   const from = $("from").value;
   const to = $("to").value;
   const wantedStatus = $("statusFilter").value;
+  const wantedCategory = $("categoryFilter").value;
 
   const filtered = articles.filter(a => {
     const title = String(a.title || "").toLowerCase();
@@ -304,7 +337,8 @@ function render() {
     return title.includes(q) &&
       (!from || (d && d >= from)) &&
       (!to || (d && d <= to)) &&
-      (wantedStatus === "all" || status === wantedStatus);
+      (wantedStatus === "all" || status === wantedStatus) &&
+      (wantedCategory === "all" || a.category === wantedCategory);
   });
 
   $("rows").replaceChildren();
@@ -332,7 +366,7 @@ function render() {
     title.append(titleText, categoryText);
 
     const date = document.createElement("td");
-    date.textContent = a.date || "ΓÇö";
+    date.textContent = a.date || "—";
 
     const statusCell = document.createElement("td");
     const badge = document.createElement("span");
@@ -357,6 +391,34 @@ function render() {
   if (filtered.length) {
     $("message").textContent =
       `Showing ${filtered.length} of ${articles.length} articles.`;
+  }
+  renderOverview();
+}
+
+function renderOverview() {
+  const publishedArticles = articles.filter(article => article.published);
+  const justInArticles = publishedArticles.filter(article => article.justIn);
+  const drafts = articles.filter(article => !article.published);
+  const localDate = new Intl.DateTimeFormat("en-CA", {timeZone:"Asia/Dhaka",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+  $("justInCount").textContent = justInArticles.length;
+  $("pulseJustIn").textContent = justInArticles.length + " active";
+  $("pulseDrafts").textContent = drafts.length;
+  $("todayCount").textContent = publishedArticles.filter(article => dateValue(article.date) === localDate).length;
+  const counts = new Map();
+  for (const article of publishedArticles) if (article.category) counts.set(article.category, (counts.get(article.category) || 0) + 1);
+  const ordered = [...counts.entries()].sort((a,b) => b[1]-a[1]).slice(0,6);
+  const bars = $("sectionBars");
+  bars.replaceChildren();
+  if (!ordered.length) { const note = document.createElement("span"); note.className="help"; note.textContent="No published stories yet. Drafts will appear here after publishing."; bars.append(note); return; }
+  const max = ordered[0][1];
+  for (const [name,count] of ordered) {
+    const row=document.createElement("div"); row.className="section-bar-row";
+    const caption=document.createElement("div"); caption.className="section-bar-caption";
+    const label=document.createElement("span"); label.textContent=name;
+    const total=document.createElement("span"); total.textContent=count;
+    const track=document.createElement("div"); track.className="section-bar-track";
+    const fill=document.createElement("div"); fill.className="section-bar-fill"; fill.style.width=(count/max*100)+"%";
+    caption.append(label,total); track.append(fill); row.append(caption,track); bars.append(row);
   }
 }
 
@@ -432,8 +494,11 @@ $("logout").onclick = async () => {
 };
 
 $("refresh").onclick = loadArticles;
+$("refreshTop").onclick = loadArticles;
+$("openDrafts").onclick = () => { $("statusFilter").value = "Draft"; render(); document.querySelector(".tablewrap").scrollIntoView({behavior:"smooth",block:"start"}); };
 $("newArticle").onclick = () => openEditor();
-$("cancelEdit").onclick = () => { $("editorPanel").hidden = true; };
+$("cancelEdit").onclick = closeEditor;
+$("backToDesk").onclick = closeEditor;
 $("editor").onsubmit = async event => {
   event.preventDefault();
   const buttons = [$("saveDraft"), $("publishArticle")];
@@ -473,6 +538,7 @@ $("search").oninput = render;
 $("from").onchange = render;
 $("to").onchange = render;
 $("statusFilter").onchange = render;
+$("categoryFilter").onchange = render;
 $("togglePassword").onclick = () => {
   const visible = $("password").type === "password";
   $("password").type = visible ? "text" : "password";

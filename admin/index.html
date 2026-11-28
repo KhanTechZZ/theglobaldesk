@@ -54,6 +54,31 @@ body.auth-view header{display:none}body.auth-view{background:#edf0f4}
 @media(max-width:900px){ #editor.composer-grid{grid-template-columns:minmax(235px,.82fr) minmax(360px,1.25fr)}#editor.composer-grid>.composer-meta{grid-column:1}#editor.composer-grid>#editorBody{grid-column:2!important}.composer-preview{grid-column:1/-1!important;grid-row:2!important;position:static!important}.homepage-card-preview{display:grid;grid-template-columns:minmax(140px,220px) 1fr}.homepage-card-image{height:100%;min-height:105px}.stats{grid-template-columns:repeat(5,minmax(0,1fr))}.section-bars{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){ #login{width:calc(100% - 24px);grid-template-columns:1fr;margin:14px auto}.login-story{padding:22px 24px!important}.login-wordmark{margin-bottom:20px}.login-story h2{font-size:27px;margin:9px 0}.login-story p{margin:4px 0}.login-rule{margin:12px 0 8px}.login-form-panel{padding:25px!important}#app{padding:17px 12px 32px}.dashboard-top h1{font-size:22px}.dashboard-top{align-items:flex-start}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-grid{grid-template-columns:1fr}.section-bars{grid-template-columns:repeat(2,minmax(0,1fr))}#editor.composer-grid{grid-template-columns:1fr;gap:8px}#editor.composer-grid>.composer-meta,#editor.composer-grid>#editorBody,#editor.composer-grid>.composer-preview{grid-column:1!important;grid-row:auto!important}.composer-preview{position:static!important}.homepage-card-preview{display:block}.homepage-card-image{height:150px}}
 </style>
+<style>
+/* Keep JS-controlled hidden panels hidden even when the component has a display rule. */
+#login[hidden],#app[hidden],#editorPanel[hidden],#editor[hidden],#eyeIcon[hidden],#eyeOffIcon[hidden]{display:none!important}
+#login{width:min(900px,calc(100% - 40px));min-height:0;margin:9vh auto;padding:0;grid-template-columns:1.04fr .96fr;border:1px solid #e0e5ea;border-radius:10px;box-shadow:0 18px 48px #162a3a16}
+#login .login-story{padding:42px 44px;background:linear-gradient(145deg,#102d49,#164469 80%,#253b55);justify-content:center;gap:0}
+#login .login-story:after{display:none}
+.login-logo-wrap{width:min(100%,320px);padding:11px 14px;background:#fff;border-radius:5px;margin-bottom:32px}
+.login-logo{display:block;width:100%;height:auto;object-fit:contain}
+.login-story .login-eyebrow{color:#b8c9d8;font-size:9px;letter-spacing:.14em}
+.login-story h2{font:700 clamp(25px,3vw,36px)/1.12 Georgia,serif;margin:11px 0 8px;letter-spacing:-.02em}
+.login-story h2 em{color:#e7c86e}
+.login-story p{font-size:12px;line-height:1.6;color:#d3dce4;margin:0;max-width:280px}
+#login .login-form-panel{padding:48px 46px}
+.login-form-panel .login-eyebrow{font-size:9px;letter-spacing:.14em;color:#8a3445}
+.login-form-panel h2{font:700 27px/1.2 Georgia,serif;color:#142b40;margin:9px 0 3px}
+.login-form-panel>p.muted{margin:2px 0 23px;font-size:12px}
+.login-form-panel .password-label{font-size:11px;color:#33475b}
+.login-form-panel .password-wrap{margin:6px 0 14px}
+.login-form-panel .password-wrap input{height:44px;padding-right:45px!important;border-color:#d4dce4;background:#fff}
+.eye-toggle{right:5px;top:5px;width:34px;height:34px;padding:7px;display:grid;place-items:center}
+.eye-toggle svg{width:18px;height:18px}
+.login-form-panel #loginButton{height:43px;border-radius:5px;background:#a6253b;font-size:12px}
+#loginMessage{min-height:18px;margin:9px 0 0;font-size:11px}
+@media(max-width:720px){ #login{width:calc(100% - 24px);margin:12px auto;grid-template-columns:1fr}.login-story{padding:22px 24px!important}.login-logo-wrap{width:min(100%,250px);margin-bottom:18px}.login-story h2{font-size:26px;margin:8px 0 5px}.login-form-panel{padding:25px!important}}
+</style>
 </head>
 <body class="auth-view">
 
@@ -65,19 +90,18 @@ body.auth-view header{display:none}body.auth-view{background:#edf0f4}
 </header>
 
 <div id="login">
-  <section class="login-story"><div class="login-wordmark"><span class="login-mark">GD</span><span>THE GLOBAL DESK<small>NEWSROOM</small></span></div><span class="login-eyebrow">EDITORIAL OPERATIONS</span><h2>Clarity for the<br><em>stories that matter.</em></h2><p>One secure desk to report, edit and publish the news that moves the world.</p><div class="login-rule"></div><span class="login-security"><span>●</span> Protected newsroom workspace</span></section>
+  <section class="login-story"><div class="login-logo-wrap"><img src="/Logo.png" alt="The Global Desk" class="login-logo"></div><span class="login-eyebrow">NEWSROOM CMS</span><h2>Publish with<br><em>clarity and speed.</em></h2><p>Sign in to manage stories and newsroom updates.</p></section>
   <section class="login-form-panel">
-  <span class="login-eyebrow">STAFF ACCESS</span>
-  <h2>Welcome back</h2>
-  <p class="muted">Sign in to continue to your newsroom.</p>
+  <span class="login-eyebrow">STAFF SIGN-IN</span>
+  <h2>Sign in</h2>
+  <p class="muted">Enter your newsroom password.</p>
   <form id="loginForm">
-    <div class="password-wrap"><input id="password" type="password"
-      placeholder="Admin password" required
+    <label class="password-label" for="password">Password</label><div class="password-wrap"><input id="password" type="password"
+      placeholder="Enter password" required
       autocomplete="current-password"><button type="button" class="eye-toggle" id="togglePassword" aria-label="Show password" title="Show password"><svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><svg id="eyeOffIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.9 10.9 0 0 1 12 5c6.4 0 10 7 10 7a15 15 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1.1 0 2.1-.2 3-.5"/></svg></button></div>
     <button type="submit" id="loginButton">Enter newsroom <span aria-hidden="true">→</span></button>
   </form>
   <p id="loginMessage" role="status"></p>
-  <div class="login-foot">THE GLOBAL DESK <span>·</span> SECURE SIGN-IN</div>
   </section>
 </div>
 
@@ -225,14 +249,25 @@ try {
 }
 
 async function api(url, options = {}) {
-  const response = await fetch(url, {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 20000);
+  let response;
+  try {
+    response = await fetch(url, {
     credentials: "same-origin",
     ...options,
+    signal: options.signal || controller.signal,
     headers: {
       ...(options.body ? {"Content-Type":"application/json"} : {}),
       ...(options.headers || {})
     }
-  });
+    });
+  } catch (error) {
+    if (error.name === "AbortError") throw new Error("Request timed out. Please try again.");
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   const data = await response.json().catch(() => ({}));
 
@@ -466,6 +501,7 @@ $("loginForm").onsubmit = async e => {
     });
 
     $("password").value = "";
+    $("loginMessage").textContent = "";
     showApp();
     await loadArticles();
   } catch (err) {
